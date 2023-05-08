@@ -23,7 +23,7 @@ const Diary = () => {
   };
   return (
     <Container>
-      Diary.js<Date>{new window.Date().toString()}</Date>
+      <Date>{new window.Date().toString()}</Date>
       <Suggestion>오늘 가장 재미있었던 일은 뭐야?</Suggestion>
       <Title placeholder="제목" value={title} onChange={onTitleChange} />
       <Text

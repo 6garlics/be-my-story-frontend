@@ -5,7 +5,6 @@ import Book from "../components/Book";
 function Timeline(props) {
   return (
     <Container>
-      Timeline.js
       <Book />
     </Container>
   );

@@ -23,7 +23,6 @@ function Book(props) {
   const [page, setPage] = useState(1);
   return (
     <Container>
-      Book.js
       <Profile>
         <ProfileIcon src="images/Profile.jpg" />
         <ProfileName>Jamie</ProfileName>
@@ -82,9 +81,7 @@ function Book(props) {
   );
 }
 
-const Container = styled.div`
-  border: 1px solid grey;
-`;
+const Container = styled.div``;
 
 const Profile = styled.div`
   display: flex;
@@ -100,7 +97,6 @@ const ProfileIcon = styled.img`
 
 const ProfileName = styled.div`
   margin-left: 10px;
-  border: 1px solid grey;
 `;
 
 const PageContainer = styled.div`
