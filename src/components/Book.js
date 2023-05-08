@@ -10,6 +10,15 @@ const images = [
   "images/image6.png",
 ];
 
+const text = [
+  "피터팬과 아이들은 함께 하늘로 날아 올랐어요.",
+  "피터팬은 후크선장을 악어에게 데리고 갔어요.",
+  "“과자로 만들어진 집이네?”",
+  "남매는 마녀에게 붙잡혀 버렸어요.",
+  "아기 돼지 삼형제는 집을 지으러 떠났어요.",
+  "형제들은 마침내 집을 완성했답니다.",
+];
+
 function Book(props) {
   const [page, setPage] = useState(1);
   return (
@@ -36,6 +45,13 @@ function Book(props) {
             key={page}
           />
           <PageNum>{page}</PageNum>
+          <PageText>
+            {
+              text.filter((t, index) => {
+                return index + 1 === page;
+              })[0]
+            }
+          </PageText>
         </Page>
         <Page>
           <Image
@@ -48,6 +64,13 @@ function Book(props) {
             key={page + 1}
           />
           <PageNum>{page + 1}</PageNum>
+          <PageText>
+            {
+              text.filter((t, index) => {
+                return index + 1 === page + 1;
+              })[0]
+            }
+          </PageText>
         </Page>
         <Button
           onClick={() => {
@@ -85,23 +108,24 @@ const PageContainer = styled.div`
 `;
 
 const Page = styled.div`
-  width: 200px;
-  height: 230px;
-  background: lightblue;
-  border: 1px solid grey;
+  width: 100%;
 `;
 
 const Image = styled.img`
-  width: 200px;
-  height: 200px;
-  background: lightpink;
-  border: 1px solid grey;
+  width: 100%;
+  height: auto;
 `;
 
-const PageNum = styled.div``;
-
-const Button = styled.button`
-  background: pink;
+const PageText = styled.div`
+  text-align: center;
+  font-size: 20px;
+  word-break: keep-all;
 `;
+
+const PageNum = styled.div`
+  text-align: center;
+`;
+
+const Button = styled.button``;
 
 export default Book;
