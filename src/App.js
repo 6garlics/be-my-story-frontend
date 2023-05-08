@@ -1,10 +1,11 @@
 import Timeline from "./pages/Timeline";
+import Diary from "./pages/Diary";
 
 function App() {
   return (
     <div className="App">
       App.js
-      <Timeline />
+      <Diary />
     </div>
   );
 }
