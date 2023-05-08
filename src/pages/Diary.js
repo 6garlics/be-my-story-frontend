@@ -21,6 +21,9 @@ const Diary = () => {
   const onTextChange = (event) => {
     setText(event.target.value);
   };
+  const onSubmit = (event) => {
+    event.preventDefault();
+  };
   return (
     <Container>
       <Date>{new window.Date().toString()}</Date>
@@ -42,6 +45,7 @@ const Diary = () => {
           );
         })}
       </fieldset>
+      <input type="submit" value="다음" onSubmit={onSubmit} />
     </Container>
   );
 };
