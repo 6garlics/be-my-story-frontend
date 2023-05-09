@@ -34,7 +34,7 @@ const Diary = () => {
         value={text}
         onChange={onTextChange}
       />
-      <fieldset>
+      <Genre>
         <legend>장르를 선택하세요.</legend>
         {genres.map((genre, key) => {
           return (
@@ -44,8 +44,8 @@ const Diary = () => {
             </label>
           );
         })}
-      </fieldset>
-      <input type="submit" value="다음" onSubmit={onSubmit} />
+      </Genre>
+      <Submit type="submit" value="다음" onSubmit={onSubmit} />
     </Container>
   );
 };
@@ -58,18 +58,28 @@ const Container = styled.div`
 
 const Date = styled.div`
   font-size: 18px;
+  flex: 1;
 `;
 
 const Suggestion = styled.div`
   font-size: 25px;
+  flex: 1;
 `;
 
-const Title = styled.input``;
+const Title = styled.input`
+  flex: 1;
+`;
 
 const Text = styled.textarea`
-  height: 30rem;
+  flex: 15;
 `;
 
-const Genre = styled.input``;
+const Genre = styled.fieldset`
+  flex: 2;
+`;
+
+const Submit = styled.input`
+  flex: 1;
+`;
 
 export default Diary;

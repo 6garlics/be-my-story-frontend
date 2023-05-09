@@ -26,7 +26,11 @@ const Nav = () => {
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  flex: none;
+  width: 250px;
+  height: 90vh;
+  border-right: 1px solid grey;
 `;
 
 export default Nav;
