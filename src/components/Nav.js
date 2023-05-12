@@ -17,7 +17,7 @@ const Nav = () => {
       <NavLink to="/" style={style}>
         타임라인
       </NavLink>
-      <NavLink to="/diary" style={style}>
+      <NavLink to="/diary-form" style={style}>
         일기쓰기
       </NavLink>
     </Container>
@@ -28,7 +28,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: none;
-  width: 250px;
+  width: 100px;
   height: 90vh;
   border-right: 1px solid grey;
 `;

@@ -1,5 +1,5 @@
 import Timeline from "./pages/Timeline";
-import Diary from "./pages/Diary";
+import DiaryForm from "./pages/DiaryForm";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import { styled } from "styled-components";
@@ -15,7 +15,7 @@ function App() {
         <Main>
           <Routes>
             <Route path="/" element={<Timeline />} />
-            <Route path="/diary" element={<Diary />} />
+            <Route path="/diary-form" element={<DiaryForm />} />
           </Routes>
         </Main>
       </Wrapper>

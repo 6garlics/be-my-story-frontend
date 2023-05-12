@@ -12,7 +12,7 @@ const genres = [
   "드라마",
 ];
 
-const Diary = () => {
+const DiaryForm = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const onTitleChange = (event) => {
@@ -82,4 +82,4 @@ const Submit = styled.input`
   flex: 1;
 `;
 
-export default Diary;
+export default DiaryForm;
