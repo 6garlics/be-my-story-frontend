@@ -8,7 +8,7 @@ const bikes = [
   "images/bike4.png",
 ];
 
-const FairytalePageForm = () => {
+const BookPageForm = () => {
   const [selectedBike, setSelectedBike] = useState(0);
   const [text, setText] = useState(
     "한 날 밤, 작은 아이는 엄마와 함께 자전거를 타기로 결심했어요. 그러나 자전거를 처음 탈 때는 중심을 잡는 것이 어려웠어요. 그래도 작은 아이는 멋지게 자전거를 타고 싶어서 계속 노력했어요."
@@ -65,4 +65,4 @@ const Text = styled.textarea`
   resize: none;
 `;
 
-export default FairytalePageForm;
+export default BookPageForm;

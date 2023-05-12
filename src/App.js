@@ -3,7 +3,7 @@ import Nav from "./components/Nav";
 import { styled } from "styled-components";
 import Timeline from "./pages/Timeline";
 import DiaryForm from "./pages/DiaryForm";
-import FairytaleForm from "./pages/FairytaleForm";
+import BookForm from "./pages/BookForm";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Timeline />} />
             <Route path="/diary-form" element={<DiaryForm />} />
-            <Route path="/fairytale-form" element={<FairytaleForm />} />
+            <Route path="/fairytale-form" element={<BookForm />} />
           </Routes>
         </Main>
       </Wrapper>

@@ -1,79 +1,62 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
 
-const images = [
-  "images/image1.png",
-  "images/image2.png",
-  "images/image3.png",
-  "images/image4.png",
-  "images/image5.png",
-  "images/image6.png",
-];
-
-const text = [
-  "피터팬과 아이들은 함께 하늘로 날아 올랐어요.",
-  "피터팬은 후크선장을 악어에게 데리고 갔어요.",
-  "“과자로 만들어진 집이네?”",
-  "남매는 마녀에게 붙잡혀 버렸어요.",
-  "아기 돼지 삼형제는 집을 지으러 떠났어요.",
-  "형제들은 마침내 집을 완성했답니다.",
-];
-
-function Book(props) {
-  const [page, setPage] = useState(1);
+function Book({ book }) {
+  const [pageNum, setPageNum] = useState(1);
   return (
     <Container>
       <Profile>
-        <ProfileIcon src="images/Profile.jpg" />
-        <ProfileName>Jamie</ProfileName>
+        <ProfileIcon src={book.profileImage} />
+        <ProfileName>{book.userId}</ProfileName>
       </Profile>
       <PageContainer>
         <Button
           onClick={() => {
-            page >= 3 && setPage((page) => page - 2);
+            pageNum >= 3 && setPageNum((pageNum) => pageNum - 2);
           }}
         >{`<`}</Button>
         <Page>
           <Image
             src={
-              images.filter((image, index) => {
-                return index + 1 === page;
-              })[0]
+              book.pages.filter((page, index) => {
+                return index + 1 === pageNum;
+              })[0].image
             }
             alt=""
-            key={page}
+            key={pageNum}
           />
-          <PageNum>{page}</PageNum>
+          <PageNum>{pageNum}</PageNum>
           <PageText>
             {
-              text.filter((t, index) => {
-                return index + 1 === page;
-              })[0]
+              book.pages.filter((page, index) => {
+                return index + 1 === pageNum;
+              })[0].text
             }
           </PageText>
         </Page>
         <Page>
           <Image
             src={
-              images.filter((image, index) => {
-                return index + 1 === page + 1;
-              })[0]
+              book.pages.filter((page, index) => {
+                return index + 1 === pageNum + 1;
+              })[0].image
             }
             alt=""
-            key={page + 1}
+            key={pageNum + 1}
           />
-          <PageNum>{page + 1}</PageNum>
+          <PageNum>{pageNum + 1}</PageNum>
           <PageText>
             {
-              text.filter((t, index) => {
-                return index + 1 === page + 1;
-              })[0]
+              book.pages.filter((page, index) => {
+                return index + 1 === pageNum + 1;
+              })[0].text
             }
           </PageText>
         </Page>
         <Button
           onClick={() => {
-            page < images.length - 1 && setPage((page) => page + 2);
+            pageNum < book.pages.length - 1 &&
+              setPageNum((pageNum) => pageNum + 2);
           }}
         >{`>`}</Button>
       </PageContainer>

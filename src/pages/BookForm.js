@@ -1,16 +1,16 @@
 import React from "react";
-import FairytalePageForm from "../components/FairytalePageForm";
+import BookPageForm from "../components/BookPageForm";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const FairytaleForm = () => {
+const BookForm = () => {
   const navigate = useNavigate();
   const createFairytale = () => {
     navigate("/");
   };
   return (
     <Container>
-      <FairytalePageForm />
+      <BookPageForm />
       <Submit onClick={createFairytale}>동화책 만들기</Submit>
     </Container>
   );
@@ -26,4 +26,4 @@ const Submit = styled.button`
   margin-top: 10px;
 `;
 
-export default FairytaleForm;
+export default BookForm;
