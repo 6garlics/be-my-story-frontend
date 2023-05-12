@@ -10,22 +10,28 @@ function Book({ book }) {
         <ProfileName>{book.userId}</ProfileName>
       </Profile>
       <PageContainer>
-        <Button
-          onClick={() => {
-            pageNum >= 3 && setPageNum((pageNum) => pageNum - 2);
-          }}
-        >{`<`}</Button>
         <Page>
-          <Image
-            src={
-              book.pages.filter((page, index) => {
-                return index + 1 === pageNum;
-              })[0].image
-            }
-            alt=""
-            key={pageNum}
-          />
-          <PageNum>{pageNum}</PageNum>
+          <ImageBox>
+            <Image
+              src={
+                book.pages.filter((page, index) => {
+                  return index + 1 === pageNum;
+                })[0].image
+              }
+              alt=""
+              key={pageNum}
+            />
+            <Button
+              onClick={() => {
+                pageNum >= 3 && setPageNum((pageNum) => pageNum - 2);
+              }}
+              left="0px"
+              right="auto"
+            >{`<`}</Button>
+          </ImageBox>
+          <PageNum left="3px" right="auto">
+            {pageNum}
+          </PageNum>
           <PageText>
             {
               book.pages.filter((page, index) => {
@@ -35,16 +41,28 @@ function Book({ book }) {
           </PageText>
         </Page>
         <Page>
-          <Image
-            src={
-              book.pages.filter((page, index) => {
-                return index + 1 === pageNum + 1;
-              })[0].image
-            }
-            alt=""
-            key={pageNum + 1}
-          />
-          <PageNum>{pageNum + 1}</PageNum>
+          <ImageBox>
+            <Image
+              src={
+                book.pages.filter((page, index) => {
+                  return index + 1 === pageNum + 1;
+                })[0].image
+              }
+              alt=""
+              key={pageNum + 1}
+            />
+            <Button
+              onClick={() => {
+                pageNum < book.pages.length - 1 &&
+                  setPageNum((pageNum) => pageNum + 2);
+              }}
+              left="auto"
+              right="0px"
+            >{`>`}</Button>
+          </ImageBox>
+          <PageNum left="auto" right="3px">
+            {pageNum + 1}
+          </PageNum>
           <PageText>
             {
               book.pages.filter((page, index) => {
@@ -53,22 +71,19 @@ function Book({ book }) {
             }
           </PageText>
         </Page>
-        <Button
-          onClick={() => {
-            pageNum < book.pages.length - 1 &&
-              setPageNum((pageNum) => pageNum + 2);
-          }}
-        >{`>`}</Button>
       </PageContainer>
     </Container>
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin: 10px 20px;
+`;
 
 const Profile = styled.div`
   display: flex;
   align-items: center;
+  padding: 10px;
 `;
 
 const ProfileIcon = styled.img`
@@ -87,24 +102,48 @@ const PageContainer = styled.div`
 `;
 
 const Page = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid grey;
+`;
+
+const ImageBox = styled.div`
+  position: relative;
 `;
 
 const Image = styled.img`
   width: 100%;
-  height: auto;
+  /* 윈도우 가로 크기 늘렸을때 5,6 페이지만 크기 작아지는 현상 발생 */
+`;
+
+const Button = styled.button`
+  position: absolute;
+  top: 0px;
+  left: ${(props) => props.left};
+  right: ${(props) => props.right};
+  width: 50%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  opacity: 0;
+  /* 문제점: 버튼의 세로길이가 이미지의 세로길이보다 살짝 길다.*/
+  /* 마우스 hover시 강조 효과로 inner 그림자 주면 좋을 듯 */
+`;
+
+const PageNum = styled.div`
+  position: absolute;
+  bottom: 2px;
+  left: ${(props) => props.left};
+  right: ${(props) => props.right};
+  text-align: center;
 `;
 
 const PageText = styled.div`
   text-align: center;
   font-size: 20px;
   word-break: keep-all;
+  height: 6rem;
 `;
-
-const PageNum = styled.div`
-  text-align: center;
-`;
-
-const Button = styled.button``;
 
 export default Book;
