@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const genres = [
   "모험",
@@ -12,17 +13,20 @@ const genres = [
   "드라마",
 ];
 
-const DiaryForm = () => {
+const DiaryForm = (props) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const navigate = useNavigate();
   const onTitleChange = (event) => {
     setTitle(event.target.value);
   };
   const onTextChange = (event) => {
     setText(event.target.value);
   };
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const submitDiary = (event) => {
+    // event.preventDefault();
+    navigate("/fairytale-form");
+    console.log("submitted.");
   };
   return (
     <Container>
@@ -45,7 +49,9 @@ const DiaryForm = () => {
           );
         })}
       </Genre>
-      <Submit type="submit" value="다음" onSubmit={onSubmit} />
+      <Submit type="submit" onClick={submitDiary}>
+        다음
+      </Submit>
     </Container>
   );
 };
@@ -54,6 +60,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   background: beige;
+  height: 80vh;
 `;
 
 const Date = styled.div`
@@ -72,13 +79,14 @@ const Title = styled.input`
 
 const Text = styled.textarea`
   flex: 15;
+  resize: none;
 `;
 
 const Genre = styled.fieldset`
   flex: 2;
 `;
 
-const Submit = styled.input`
+const Submit = styled.button`
   flex: 1;
 `;
 

@@ -1,8 +1,9 @@
-import Timeline from "./pages/Timeline";
-import DiaryForm from "./pages/DiaryForm";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import { styled } from "styled-components";
+import Timeline from "./pages/Timeline";
+import DiaryForm from "./pages/DiaryForm";
+import FairytaleForm from "./pages/FairytaleForm";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Timeline />} />
             <Route path="/diary-form" element={<DiaryForm />} />
+            <Route path="/fairytale-form" element={<FairytaleForm />} />
           </Routes>
         </Main>
       </Wrapper>
