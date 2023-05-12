@@ -6,6 +6,7 @@ const Nav = () => {
   const defaultStyle = {
     textDecoration: "none",
     fontSize: "20px",
+    margin: "5px 0px",
   };
   const style = ({ isActive }) => {
     return isActive
@@ -29,8 +30,11 @@ const Container = styled.div`
   flex-direction: column;
   flex: none;
   width: 100px;
-  height: 90vh;
+  height: auto;
   border-right: 1px solid grey;
+  padding-top: 30px;
+  /* 햄버거 버튼으로 접었다 폈다 할 수 있게 하면 좋을 듯 */
+  /* 화면 가로 길이 좁아지면 자동으로 접히게 하면 좋을 듯 */
 `;
 
 export default Nav;

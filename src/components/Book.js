@@ -115,6 +115,7 @@ const ImageBox = styled.div`
 const Image = styled.img`
   width: 100%;
   /* 윈도우 가로 크기 늘렸을때 5,6 페이지만 크기 작아지는 현상 발생 */
+  /* 이미지가 실제크기 이상으로 안늘어나는 듯 */
 `;
 
 const Button = styled.button`
