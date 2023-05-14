@@ -301,7 +301,7 @@ const friends = [
 
 const MyBookshelf = () => {
   const [showing, setShowing] = useState(false);
-  const showFriends = () => {
+  const toggleFriends = () => {
     setShowing((prev) => !prev);
   };
   return (
@@ -310,7 +310,7 @@ const MyBookshelf = () => {
         <Profile>
           <ProfileIcon src={myBooks.profileImage} />
           <ProfileName>{myBooks.userId}</ProfileName>
-          <FriendsButton onClick={showFriends}>친구목록</FriendsButton>
+          <FriendsButton onClick={toggleFriends}>친구목록</FriendsButton>
         </Profile>
         <Bookshelf>
           {myBooks.books.map((book) => (
@@ -322,7 +322,7 @@ const MyBookshelf = () => {
           ))}
         </Bookshelf>
       </Container>
-      <Friends friends={friends} />
+      {showing && <Friends friends={friends} toggleFriends={toggleFriends} />}
     </div>
   );
 };
