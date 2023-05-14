@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import Timeline from "./pages/Timeline";
 import DiaryForm from "./pages/DiaryForm";
 import BookForm from "./pages/BookForm";
+import MyBookshelf from "./pages/MyBookshelf";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Timeline />} />
             <Route path="/diary-form" element={<DiaryForm />} />
             <Route path="/fairytale-form" element={<BookForm />} />
+            <Route path="/my-bookshelf" element={<MyBookshelf />} />
           </Routes>
         </Main>
       </Wrapper>

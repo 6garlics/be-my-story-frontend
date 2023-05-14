@@ -89,7 +89,6 @@ const Profile = styled.div`
 const ProfileIcon = styled.img`
   width: 40px;
   height: 40px;
-  background: grey;
   border-radius: 100%;
 `;
 
