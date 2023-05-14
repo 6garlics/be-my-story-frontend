@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import BookCover from "../components/BookCover";
+import Friends from "../components/Friends";
 
 const myBooks = {
   userId: "Jamie",
@@ -249,28 +250,85 @@ const myBooks = {
   ],
 };
 
+//friendStatus: 서로친구(0), 내가 친구요청(1), 나에게 친구요청(2)
+const friends = [
+  {
+    userId: "Emma1",
+    profileImage: "images/Profile.jpg",
+    friendStatus: 0,
+  },
+  {
+    userId: "Emma2",
+    profileImage: "images/Profile.jpg",
+    friendStatus: 0,
+  },
+  {
+    userId: "Emma3",
+    profileImage: "images/Profile.jpg",
+    friendStatus: 1,
+  },
+  {
+    userId: "Emma4",
+    profileImage: "images/Profile.jpg",
+    friendStatus: 0,
+  },
+  {
+    userId: "Emma5",
+    profileImage: "images/Profile.jpg",
+    friendStatus: 2,
+  },
+  {
+    userId: "Emma6",
+    profileImage: "images/Profile.jpg",
+    friendStatus: 1,
+  },
+  {
+    userId: "Emma7",
+    profileImage: "images/Profile.jpg",
+    friendStatus: 0,
+  },
+  {
+    userId: "Emma8",
+    profileImage: "images/Profile.jpg",
+    friendStatus: 1,
+  },
+  {
+    userId: "Emma9",
+    profileImage: "images/Profile.jpg",
+    friendStatus: 2,
+  },
+];
+
 const MyBookshelf = () => {
+  const [showing, setShowing] = useState(false);
+  const showFriends = () => {
+    setShowing((prev) => !prev);
+  };
   return (
-    <Container>
-      <Profile>
-        <ProfileIcon src={myBooks.profileImage} />
-        <ProfileName>{myBooks.userId}</ProfileName>
-        <FriendsButton>친구목록</FriendsButton>
-      </Profile>
-      <Bookshelf>
-        {myBooks.books.map((book) => (
-          <BookCover
-            key={book.id}
-            coverImage={book.pages[0].image}
-            title={book.title}
-          />
-        ))}
-      </Bookshelf>
-    </Container>
+    <div style={{ display: "flex" }}>
+      <Container>
+        <Profile>
+          <ProfileIcon src={myBooks.profileImage} />
+          <ProfileName>{myBooks.userId}</ProfileName>
+          <FriendsButton onClick={showFriends}>친구목록</FriendsButton>
+        </Profile>
+        <Bookshelf>
+          {myBooks.books.map((book) => (
+            <BookCover
+              key={book.id}
+              coverImage={book.pages[0].image}
+              title={book.title}
+            />
+          ))}
+        </Bookshelf>
+      </Container>
+      <Friends friends={friends} />
+    </div>
   );
 };
 
 const Container = styled.div`
+  flex: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
