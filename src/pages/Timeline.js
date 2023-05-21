@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
+import axios from "axios";
 import Book from "../components/timeline/Book";
 
-function Timeline() {
-  const [books, setBooks] = useState([]);
+const id = 1;
 
-  const getBooks = async () => {
-    const response = await fetch(
-      "https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/books"
+function Timeline() {
+  const [friends, setFriends] = useState([]);
+
+  const getFriends = async () => {
+    const response = await axios(
+      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/user/${id}/friends`
     );
-    console.log(response);
-    const json = await response.json();
-    setBooks(json);
-    console.log(json);
+    setFriends(response.data);
+    console.log(response.data);
   };
   useEffect(() => {
-    getBooks();
+    getFriends();
   }, []);
 
   return (
     <Container>
-      {books.map((book, index) => (
+      {friends.map((book, index) => (
         <Book key={index} book={book} />
       ))}
     </Container>
