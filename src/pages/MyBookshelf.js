@@ -1,319 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import BookCover from "../components/my_book_shelf/BookCover";
 import Friends from "../components/my_book_shelf/Friends";
 
-const myBooks = {
-  userId: "Jamie",
-  profileImage: "images/Profile.jpg",
-  books: [
-    {
-      id: 1,
-      title: "피터팬1",
-      pages: [
-        {
-          image: "images/image1.png",
-          text: "피터팬과 아이들은 함께 하늘로 날아 올랐어요.",
-        },
-        {
-          image: "images/image2.png",
-          text: "피터팬은 후크선장을 악어에게 데리고 갔어요.",
-        },
-        {
-          image: "images/image3.png",
-          text: "“과자로 만들어진 집이네?”",
-        },
-        {
-          image: "images/image4.png",
-          text: "남매는 마녀에게 붙잡혀 버렸어요.",
-        },
-        {
-          image: "images/image5.png",
-          text: "아기 돼지 삼형제는 집을 지으러 떠났어요.",
-        },
-        {
-          image: "images/image6.png",
-          text: "형제들은 마침내 집을 완성했답니다.",
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "피터팬2",
-      pages: [
-        {
-          image: "images/image1.png",
-          text: "피터팬과 아이들은 함께 하늘로 날아 올랐어요.",
-        },
-        {
-          image: "images/image2.png",
-          text: "피터팬은 후크선장을 악어에게 데리고 갔어요.",
-        },
-        {
-          image: "images/image3.png",
-          text: "“과자로 만들어진 집이네?”",
-        },
-        {
-          image: "images/image4.png",
-          text: "남매는 마녀에게 붙잡혀 버렸어요.",
-        },
-        {
-          image: "images/image5.png",
-          text: "아기 돼지 삼형제는 집을 지으러 떠났어요.",
-        },
-        {
-          image: "images/image6.png",
-          text: "형제들은 마침내 집을 완성했답니다.",
-        },
-      ],
-    },
-    {
-      id: 3,
-      title: "피터팬3",
-      pages: [
-        {
-          image: "images/image1.png",
-          text: "피터팬과 아이들은 함께 하늘로 날아 올랐어요.",
-        },
-        {
-          image: "images/image2.png",
-          text: "피터팬은 후크선장을 악어에게 데리고 갔어요.",
-        },
-        {
-          image: "images/image3.png",
-          text: "“과자로 만들어진 집이네?”",
-        },
-        {
-          image: "images/image4.png",
-          text: "남매는 마녀에게 붙잡혀 버렸어요.",
-        },
-        {
-          image: "images/image5.png",
-          text: "아기 돼지 삼형제는 집을 지으러 떠났어요.",
-        },
-        {
-          image: "images/image6.png",
-          text: "형제들은 마침내 집을 완성했답니다.",
-        },
-      ],
-    },
-    {
-      id: 4,
-      title: "피터팬4",
-      pages: [
-        {
-          image: "images/image1.png",
-          text: "피터팬과 아이들은 함께 하늘로 날아 올랐어요.",
-        },
-        {
-          image: "images/image2.png",
-          text: "피터팬은 후크선장을 악어에게 데리고 갔어요.",
-        },
-        {
-          image: "images/image3.png",
-          text: "“과자로 만들어진 집이네?”",
-        },
-        {
-          image: "images/image4.png",
-          text: "남매는 마녀에게 붙잡혀 버렸어요.",
-        },
-        {
-          image: "images/image5.png",
-          text: "아기 돼지 삼형제는 집을 지으러 떠났어요.",
-        },
-        {
-          image: "images/image6.png",
-          text: "형제들은 마침내 집을 완성했답니다.",
-        },
-      ],
-    },
-    {
-      id: 5,
-      title: "피터팬5",
-      pages: [
-        {
-          image: "images/image1.png",
-          text: "피터팬과 아이들은 함께 하늘로 날아 올랐어요.",
-        },
-        {
-          image: "images/image2.png",
-          text: "피터팬은 후크선장을 악어에게 데리고 갔어요.",
-        },
-        {
-          image: "images/image3.png",
-          text: "“과자로 만들어진 집이네?”",
-        },
-        {
-          image: "images/image4.png",
-          text: "남매는 마녀에게 붙잡혀 버렸어요.",
-        },
-        {
-          image: "images/image5.png",
-          text: "아기 돼지 삼형제는 집을 지으러 떠났어요.",
-        },
-        {
-          image: "images/image6.png",
-          text: "형제들은 마침내 집을 완성했답니다.",
-        },
-      ],
-    },
-    {
-      id: 6,
-      title: "피터팬6",
-      pages: [
-        {
-          image: "images/image1.png",
-          text: "피터팬과 아이들은 함께 하늘로 날아 올랐어요.",
-        },
-        {
-          image: "images/image2.png",
-          text: "피터팬은 후크선장을 악어에게 데리고 갔어요.",
-        },
-        {
-          image: "images/image3.png",
-          text: "“과자로 만들어진 집이네?”",
-        },
-        {
-          image: "images/image4.png",
-          text: "남매는 마녀에게 붙잡혀 버렸어요.",
-        },
-        {
-          image: "images/image5.png",
-          text: "아기 돼지 삼형제는 집을 지으러 떠났어요.",
-        },
-        {
-          image: "images/image6.png",
-          text: "형제들은 마침내 집을 완성했답니다.",
-        },
-      ],
-    },
-    {
-      id: 7,
-      title: "피터팬7",
-      pages: [
-        {
-          image: "images/image1.png",
-          text: "피터팬과 아이들은 함께 하늘로 날아 올랐어요.",
-        },
-        {
-          image: "images/image2.png",
-          text: "피터팬은 후크선장을 악어에게 데리고 갔어요.",
-        },
-        {
-          image: "images/image3.png",
-          text: "“과자로 만들어진 집이네?”",
-        },
-        {
-          image: "images/image4.png",
-          text: "남매는 마녀에게 붙잡혀 버렸어요.",
-        },
-        {
-          image: "images/image5.png",
-          text: "아기 돼지 삼형제는 집을 지으러 떠났어요.",
-        },
-        {
-          image: "images/image6.png",
-          text: "형제들은 마침내 집을 완성했답니다.",
-        },
-      ],
-    },
-    {
-      id: 8,
-      title: "피터팬8",
-      pages: [
-        {
-          image: "images/image1.png",
-          text: "피터팬과 아이들은 함께 하늘로 날아 올랐어요.",
-        },
-        {
-          image: "images/image2.png",
-          text: "피터팬은 후크선장을 악어에게 데리고 갔어요.",
-        },
-        {
-          image: "images/image3.png",
-          text: "“과자로 만들어진 집이네?”",
-        },
-        {
-          image: "images/image4.png",
-          text: "남매는 마녀에게 붙잡혀 버렸어요.",
-        },
-        {
-          image: "images/image5.png",
-          text: "아기 돼지 삼형제는 집을 지으러 떠났어요.",
-        },
-        {
-          image: "images/image6.png",
-          text: "형제들은 마침내 집을 완성했답니다.",
-        },
-      ],
-    },
-  ],
-};
-
 //friendStatus: 서로친구(0), 내가 친구요청(1), 나에게 친구요청(2)
-const friends = [
-  {
-    userId: "Emma1",
-    profileImage: "images/Profile.jpg",
-    friendStatus: 0,
-  },
-  {
-    userId: "Emma2",
-    profileImage: "images/Profile.jpg",
-    friendStatus: 0,
-  },
-  {
-    userId: "Emma3",
-    profileImage: "images/Profile.jpg",
-    friendStatus: 1,
-  },
-  {
-    userId: "Emma4",
-    profileImage: "images/Profile.jpg",
-    friendStatus: 0,
-  },
-  {
-    userId: "Emma5",
-    profileImage: "images/Profile.jpg",
-    friendStatus: 2,
-  },
-  {
-    userId: "Emma6",
-    profileImage: "images/Profile.jpg",
-    friendStatus: 1,
-  },
-  {
-    userId: "Emma7",
-    profileImage: "images/Profile.jpg",
-    friendStatus: 0,
-  },
-  {
-    userId: "Emma8",
-    profileImage: "images/Profile.jpg",
-    friendStatus: 1,
-  },
-  {
-    userId: "Emma9",
-    profileImage: "images/Profile.jpg",
-    friendStatus: 2,
-  },
-];
+
+const id = 1;
 
 const MyBookshelf = () => {
   const [showing, setShowing] = useState(false);
+  const [myInfo, setMyInfo] = useState();
+
   const toggleFriends = () => {
     setShowing((prev) => !prev);
   };
-  return (
+
+  const getMyInfo = async () => {
+    const response = await axios(
+      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/user/${id}`
+    );
+    setMyInfo(response.data);
+    console.log(response.data);
+  };
+  useEffect(() => {
+    getMyInfo();
+  }, []);
+  return myInfo ? (
     <div style={{ display: "flex" }}>
       <Container>
         <Profile>
-          <ProfileIcon src={myBooks.profileImage} />
-          <ProfileName>{myBooks.userId}</ProfileName>
+          <ProfileIcon src={myInfo.profileImage} />
+          <ProfileName>{myInfo.userId}</ProfileName>
           <FriendsButton onClick={toggleFriends}>친구목록</FriendsButton>
         </Profile>
         <Bookshelf>
-          {myBooks.books.map((book) => (
+          {myInfo.myBooks.map((book) => (
             <BookCover
               key={book.id}
               coverImage={book.pages[0].image}
@@ -322,8 +44,12 @@ const MyBookshelf = () => {
           ))}
         </Bookshelf>
       </Container>
-      {showing && <Friends friends={friends} toggleFriends={toggleFriends} />}
+      {showing && (
+        <Friends friends={myInfo.myFriends} toggleFriends={toggleFriends} />
+      )}
     </div>
+  ) : (
+    <div>loading</div>
   );
 };
 
