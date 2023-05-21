@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 
-const BookPageForm = ({ page }) => {
+const BookPageForm = ({ page, index, pageNum }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [text, setText] = useState(page.text);
   const changeImage = (id) => {
@@ -12,9 +12,12 @@ const BookPageForm = ({ page }) => {
     // e.preventDefault();
     setText(e.target.value);
   };
+  useEffect(() => {
+    setText(page.text);
+  }, [page]);
   console.log(page);
   return (
-    <Container>
+    <Container index={index} pageNum={pageNum}>
       <fieldset style={{ display: "flex" }}>
         <legend>사진선택</legend>
         {page.images.map((bike, id) => (
@@ -39,6 +42,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  display: ${(props) => props.index !== props.pageNum && "none"};
 `;
 
 const PreviewImage = styled.img`

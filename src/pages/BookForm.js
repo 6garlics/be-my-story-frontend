@@ -60,7 +60,16 @@ const BookForm = () => {
     <RootContainer>
       <Container>
         <Button onClick={onClickLeft}>{`<`}</Button>
-        <BookPageForm page={pages[pageNum]} />
+        {pages.map((page, index) => {
+          return (
+            <BookPageForm
+              key={index}
+              page={page}
+              index={index}
+              pageNum={pageNum}
+            />
+          );
+        })}
         <Button onClick={onClickRight}>{`>`}</Button>
       </Container>
       <Submit onClick={createBook}>동화책 만들기</Submit>
