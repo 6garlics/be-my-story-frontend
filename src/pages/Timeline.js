@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import Book from "../components/Book";
+import Book from "../components/timeline/Book";
 
 function Timeline() {
   const [books, setBooks] = useState([]);

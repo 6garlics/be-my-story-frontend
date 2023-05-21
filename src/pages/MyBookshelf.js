@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import BookCover from "../components/BookCover";
-import Friends from "../components/Friends";
+import BookCover from "../components/my_book_shelf/BookCover";
+import Friends from "../components/my_book_shelf/Friends";
 
 const myBooks = {
   userId: "Jamie",

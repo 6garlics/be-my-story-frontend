@@ -1,5 +1,5 @@
 import React from "react";
-import BookPageForm from "../components/BookPageForm";
+import BookPageForm from "../components/book_form/BookPageForm";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 

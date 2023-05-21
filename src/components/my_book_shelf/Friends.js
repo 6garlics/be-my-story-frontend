@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import DiaryForm from "./../pages/DiaryForm";
+import DiaryForm from "./../../pages/DiaryForm";
 
 const buttonValues = ["친구 끊기", "요청 취소", "친구 수락"];
 
