@@ -25,8 +25,8 @@ const DiaryForm = (props) => {
   };
   const submitDiary = (event) => {
     // event.preventDefault();
-    navigate("/fairytale-form");
-    console.log("submitted.");
+    navigate("/book-form");
+    console.log("diary submitted.");
   };
   return (
     <Container>

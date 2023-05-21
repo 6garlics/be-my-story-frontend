@@ -18,7 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Timeline />} />
             <Route path="/diary-form" element={<DiaryForm />} />
-            <Route path="/fairytale-form" element={<BookForm />} />
+            <Route path="/book-form" element={<BookForm />} />
             <Route path="/my-bookshelf" element={<MyBookshelf />} />
           </Routes>
         </Main>
