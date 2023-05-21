@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 
 function Book({ book }) {
-  const [pageNum, setPageNum] = useState(1);
+  const [pageNum, setPageNum] = useState(0);
   return (
     <Container>
       <Profile>
@@ -12,48 +12,30 @@ function Book({ book }) {
       <PageContainer>
         <Page>
           <ImageBox>
-            <Image
-              src={
-                book.pages.filter((page, index) => {
-                  return index + 1 === pageNum;
-                })[0].image
-              }
-              alt=""
-              key={pageNum}
-            />
+            <Image src={book.pages[pageNum].image} alt="" key={pageNum} />
             <Button
               onClick={() => {
-                pageNum >= 3 && setPageNum((pageNum) => pageNum - 2);
+                pageNum > 1 && setPageNum((pageNum) => pageNum - 2);
               }}
               left="0px"
               right="auto"
             >{`<`}</Button>
           </ImageBox>
           <PageNum left="3px" right="auto">
-            {pageNum}
+            {pageNum + 1}
           </PageNum>
-          <PageText>
-            {
-              book.pages.filter((page, index) => {
-                return index + 1 === pageNum;
-              })[0].text
-            }
-          </PageText>
+          <PageText>{book.pages[pageNum].text}</PageText>
         </Page>
         <Page>
           <ImageBox>
             <Image
-              src={
-                book.pages.filter((page, index) => {
-                  return index + 1 === pageNum + 1;
-                })[0].image
-              }
+              src={book.pages[pageNum + 1].image}
               alt=""
               key={pageNum + 1}
             />
             <Button
               onClick={() => {
-                pageNum < book.pages.length - 1 &&
+                pageNum < book.pages.length - 2 &&
                   setPageNum((pageNum) => pageNum + 2);
               }}
               left="auto"
@@ -61,15 +43,9 @@ function Book({ book }) {
             >{`>`}</Button>
           </ImageBox>
           <PageNum left="auto" right="3px">
-            {pageNum + 1}
+            {pageNum + 2}
           </PageNum>
-          <PageText>
-            {
-              book.pages.filter((page, index) => {
-                return index + 1 === pageNum + 1;
-              })[0].text
-            }
-          </PageText>
+          <PageText>{book.pages[pageNum + 1].text}</PageText>
         </Page>
       </PageContainer>
     </Container>
