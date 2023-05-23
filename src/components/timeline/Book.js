@@ -1,25 +1,26 @@
 import React, { useState } from "react";
-import { styled } from "styled-components";
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 function Book({ book }) {
   const [pageNum, setPageNum] = useState(0);
+  const onClickLeft = () => {
+    pageNum > 1 && setPageNum((pageNum) => pageNum - 2);
+  };
+  const onClickRight = () => {
+    pageNum < book.pages.length - 2 && setPageNum((pageNum) => pageNum + 2);
+  };
   return (
     <Container>
-      <Profile>
+      <Profile to={`/bookshelf/${book.userId}`}>
         <ProfileIcon src={book.profileImage} />
-        <ProfileName>{book.userId}</ProfileName>
+        <ProfileName>{book.nickname}</ProfileName>
       </Profile>
       <PageContainer>
         <Page>
           <ImageBox>
             <Image src={book.pages[pageNum].image} alt="" key={pageNum} />
-            <Button
-              onClick={() => {
-                pageNum > 1 && setPageNum((pageNum) => pageNum - 2);
-              }}
-              left="0px"
-              right="auto"
-            >{`<`}</Button>
+            <Button onClick={onClickLeft} left="0px" right="auto">{`<`}</Button>
           </ImageBox>
           <PageNum left="3px" right="auto">
             {pageNum + 1}
@@ -34,10 +35,7 @@ function Book({ book }) {
               key={pageNum + 1}
             />
             <Button
-              onClick={() => {
-                pageNum < book.pages.length - 2 &&
-                  setPageNum((pageNum) => pageNum + 2);
-              }}
+              onClick={onClickRight}
               left="auto"
               right="0px"
             >{`>`}</Button>
@@ -56,7 +54,7 @@ const Container = styled.div`
   margin: 10px 20px;
 `;
 
-const Profile = styled.div`
+const Profile = styled(NavLink)`
   display: flex;
   align-items: center;
   padding: 10px;

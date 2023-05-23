@@ -21,7 +21,7 @@ const Nav = () => {
       <NavLink to="/diary-form" style={style}>
         일기쓰기
       </NavLink>
-      <NavLink to="/my-bookshelf" style={style}>
+      <NavLink to="/bookshelf" style={style}>
         내 책장
       </NavLink>
     </Container>

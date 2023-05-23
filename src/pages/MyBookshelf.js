@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import BookCover from "../components/my_book_shelf/BookCover";
 import Friends from "../components/my_book_shelf/Friends";
 
 //friendStatus: 서로친구(0), 내가 친구요청(1), 나에게 친구요청(2)
 
-const id = 1;
+const userId = 1;
 
 const MyBookshelf = () => {
+  //const { userId } = useParams();
+  console.log("userId : ", userId);
   const [showing, setShowing] = useState(false);
   const [myInfo, setMyInfo] = useState();
 
@@ -18,7 +21,7 @@ const MyBookshelf = () => {
 
   const getMyInfo = async () => {
     const response = await axios(
-      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/user/${id}`
+      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/user/${userId}`
     );
     setMyInfo(response.data);
     console.log(response.data);
@@ -31,7 +34,7 @@ const MyBookshelf = () => {
       <Container>
         <Profile>
           <ProfileIcon src={myInfo.profileImage} />
-          <ProfileName>{myInfo.userId}</ProfileName>
+          <ProfileName>{myInfo.nickname}</ProfileName>
           <FriendsButton onClick={toggleFriends}>친구목록</FriendsButton>
         </Profile>
         <Bookshelf>
