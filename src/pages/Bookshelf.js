@@ -17,7 +17,7 @@ const Bookshelf = () => {
     setShowingFriends((prev) => !prev);
   };
 
-  const getMyInfo = async () => {
+  const getUser = async () => {
     const response = await axios(
       `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/users/${id}`
     );
@@ -25,7 +25,7 @@ const Bookshelf = () => {
     console.log(response.data);
   };
   useEffect(() => {
-    getMyInfo();
+    getUser();
   }, []);
   return user ? (
     <div style={{ display: "flex" }}>
