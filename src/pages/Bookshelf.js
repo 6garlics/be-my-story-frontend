@@ -19,7 +19,7 @@ const Bookshelf = () => {
 
   const getMyInfo = async () => {
     const response = await axios(
-      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/users?id=${id}`
+      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/users/${id}`
     );
     setUser(response.data);
     console.log(response.data);
