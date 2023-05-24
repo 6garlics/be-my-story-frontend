@@ -9,7 +9,7 @@ import Friends from "../components/my_book_shelf/Friends";
 
 //const userId = 1;
 
-const MyBookshelf = () => {
+const Bookshelf = () => {
   const { userId } = useParams();
   console.log("userId : ", userId);
   const [showing, setShowing] = useState(false);
@@ -37,7 +37,7 @@ const MyBookshelf = () => {
           <ProfileName>{myInfo.nickname}</ProfileName>
           <FriendsButton onClick={toggleFriends}>친구목록</FriendsButton>
         </Profile>
-        <Bookshelf>
+        <Books>
           {myInfo.myBooks.map((book) => (
             <BookCover
               key={book.id}
@@ -45,7 +45,7 @@ const MyBookshelf = () => {
               title={book.title}
             />
           ))}
-        </Bookshelf>
+        </Books>
       </Container>
       {showing && (
         <Friends friends={myInfo.myFriends} toggleFriends={toggleFriends} />
@@ -87,10 +87,10 @@ const FriendsButton = styled.button`
   width: 50px;
 `;
 
-const Bookshelf = styled.div`
+const Books = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 600px;
 `;
 
-export default MyBookshelf;
+export default Bookshelf;

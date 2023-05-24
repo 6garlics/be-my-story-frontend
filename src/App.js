@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import Timeline from "./pages/Timeline";
 import DiaryForm from "./pages/DiaryForm";
 import BookForm from "./pages/BookForm";
-import MyBookshelf from "./pages/MyBookshelf";
+import Bookshelf from "./pages/Bookshelf";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
             <Route
               path="/bookshelf/:userId"
               Component={(props) => (
-                <MyBookshelf {...props} key={window.location.pathname} />
+                <Bookshelf {...props} key={window.location.pathname} />
               )}
             />
           </Routes>
