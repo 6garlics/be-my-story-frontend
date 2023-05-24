@@ -12,33 +12,33 @@ import Friends from "../components/my_book_shelf/Friends";
 const Bookshelf = () => {
   const { id } = useParams();
   console.log("id : ", id);
-  const [showing, setShowing] = useState(false);
-  const [myInfo, setMyInfo] = useState();
+  const [showingFriends, setShowingFriends] = useState(false);
+  const [user, setUser] = useState();
 
   const toggleFriends = () => {
-    setShowing((prev) => !prev);
+    setShowingFriends((prev) => !prev);
   };
 
   const getMyInfo = async () => {
     const response = await axios(
       `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/users?id=${id}`
     );
-    setMyInfo(response.data);
+    setUser(response.data);
     console.log(response.data);
   };
   useEffect(() => {
     getMyInfo();
   }, []);
-  return myInfo ? (
+  return user ? (
     <div style={{ display: "flex" }}>
       <Container>
         <Profile>
-          <ProfileIcon src={myInfo.profileImage} />
-          <ProfileName>{myInfo.nickname}</ProfileName>
+          <ProfileIcon src={user.profileImage} />
+          <ProfileName>{user.nickname}</ProfileName>
           <FriendsButton onClick={toggleFriends}>친구목록</FriendsButton>
         </Profile>
         <BookList>
-          {myInfo.myBooks.map((book) => (
+          {user.myBooks.map((book) => (
             <BookCover
               key={book.id}
               coverImage={book.pages[0].image}
@@ -47,8 +47,8 @@ const Bookshelf = () => {
           ))}
         </BookList>
       </Container>
-      {showing && (
-        <Friends friends={myInfo.myFriends} toggleFriends={toggleFriends} />
+      {showingFriends && (
+        <Friends friends={user.myFriends} toggleFriends={toggleFriends} />
       )}
     </div>
   ) : (
