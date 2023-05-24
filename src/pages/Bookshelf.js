@@ -37,7 +37,7 @@ const Bookshelf = () => {
           <ProfileName>{myInfo.nickname}</ProfileName>
           <FriendsButton onClick={toggleFriends}>친구목록</FriendsButton>
         </Profile>
-        <Books>
+        <BookList>
           {myInfo.myBooks.map((book) => (
             <BookCover
               key={book.id}
@@ -45,7 +45,7 @@ const Bookshelf = () => {
               title={book.title}
             />
           ))}
-        </Books>
+        </BookList>
       </Container>
       {showing && (
         <Friends friends={myInfo.myFriends} toggleFriends={toggleFriends} />
@@ -87,7 +87,7 @@ const FriendsButton = styled.button`
   width: 50px;
 `;
 
-const Books = styled.div`
+const BookList = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 600px;
