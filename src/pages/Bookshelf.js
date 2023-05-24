@@ -10,8 +10,8 @@ import Friends from "../components/my_book_shelf/Friends";
 //const userId = 1;
 
 const Bookshelf = () => {
-  const { userId } = useParams();
-  console.log("userId : ", userId);
+  const { id } = useParams();
+  console.log("id : ", id);
   const [showing, setShowing] = useState(false);
   const [myInfo, setMyInfo] = useState();
 
@@ -21,7 +21,7 @@ const Bookshelf = () => {
 
   const getMyInfo = async () => {
     const response = await axios(
-      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/user?userId=${userId}`
+      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/users?id=${id}`
     );
     setMyInfo(response.data);
     console.log(response.data);

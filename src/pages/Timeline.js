@@ -3,14 +3,14 @@ import { styled } from "styled-components";
 import axios from "axios";
 import Book from "../components/timeline/Book";
 
-const userId = 1;
+const id = 0;
 
 function Timeline() {
   const [friends, setFriends] = useState([]);
 
   const getFriends = async () => {
     const response = await axios(
-      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/user/${userId}/friends`
+      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/users/${id}/friends`
     );
     setFriends(response.data);
     console.log(response.data);

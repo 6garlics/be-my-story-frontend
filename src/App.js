@@ -20,7 +20,7 @@ function App() {
             <Route path="/diary-form" element={<DiaryForm />} />
             <Route path="/book-form" element={<BookForm />} />
             <Route
-              path="/bookshelf/:userId"
+              path="/bookshelf/:id"
               Component={(props) => (
                 <Bookshelf {...props} key={window.location.pathname} />
               )}
