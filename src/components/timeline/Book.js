@@ -3,30 +3,30 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import Page from "./Page";
 
-function Book({ book }) {
+function Book({ friend }) {
   const [pageNum, setPageNum] = useState(0);
   const onClickLeft = () => {
     pageNum > 1 && setPageNum((pageNum) => pageNum - 2);
   };
   const onClickRight = () => {
-    pageNum < book.pages.length - 2 && setPageNum((pageNum) => pageNum + 2);
+    pageNum < friend.pages.length - 2 && setPageNum((pageNum) => pageNum + 2);
   };
   return (
     <Container>
-      <Profile to={`/bookshelf/${book.userId}`}>
-        <ProfileIcon src={book.profileImage} />
-        <ProfileName>{book.nickname}</ProfileName>
+      <Profile to={`/bookshelf/${friend.userId}`}>
+        <ProfileIcon src={friend.profileImage} />
+        <ProfileName>{friend.nickname}</ProfileName>
       </Profile>
       <PageContainer>
         <Page
-          book={book}
+          book={friend}
           pageNum={pageNum}
           onclick={onClickLeft}
           left="0px"
           right="auto"
         />
         <Page
-          book={book}
+          book={friend}
           pageNum={pageNum + 1}
           onclick={onClickRight}
           left="auto"

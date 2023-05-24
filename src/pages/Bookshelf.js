@@ -7,8 +7,6 @@ import Friends from "../components/my_book_shelf/Friends";
 
 //friendStatus: 서로친구(0), 내가 친구요청(1), 나에게 친구요청(2)
 
-//const userId = 1;
-
 const Bookshelf = () => {
   const { id } = useParams();
   console.log("id : ", id);
