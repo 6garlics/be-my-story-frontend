@@ -19,7 +19,7 @@ function App() {
             <Route path="/" element={<Timeline />} />
             <Route path="/diary-form" element={<DiaryForm />} />
             <Route path="/book-form" element={<BookForm />} />
-            <Route path="/bookshelf" element={<MyBookshelf />} />
+            <Route path="/bookshelf/:userId" element={<MyBookshelf />} />
           </Routes>
         </Main>
       </Wrapper>

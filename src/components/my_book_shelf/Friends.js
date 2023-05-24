@@ -11,7 +11,7 @@ const Friends = ({ friends, toggleFriends }) => {
       {friends.map((friend, index) => (
         <Friend key={index}>
           <ProfileIcon src={friend.profileImage} />
-          <ProfileName>{friend.userId}</ProfileName>
+          <ProfileName>{friend.nickname}</ProfileName>
           <Button>{buttonValues[friend.friendStatus]}</Button>
         </Friend>
       ))}
