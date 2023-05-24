@@ -19,7 +19,12 @@ function App() {
             <Route path="/" element={<Timeline />} />
             <Route path="/diary-form" element={<DiaryForm />} />
             <Route path="/book-form" element={<BookForm />} />
-            <Route path="/bookshelf/:userId" element={<MyBookshelf />} />
+            <Route
+              path="/bookshelf/:userId"
+              Component={(props) => (
+                <MyBookshelf {...props} key={window.location.pathname} />
+              )}
+            />
           </Routes>
         </Main>
       </Wrapper>
