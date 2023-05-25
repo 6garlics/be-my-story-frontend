@@ -10,10 +10,10 @@ function Timeline() {
 
   const getFriends = async () => {
     const response = await axios(
-      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/users/${id}/friends`
+      `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/users/${id}/friends`
     );
     setFriends(response.data);
-    console.log(response.data);
+    console.log("Timeline: ", response.data);
   };
   useEffect(() => {
     getFriends();

@@ -19,10 +19,10 @@ const Bookshelf = () => {
 
   const getUser = async () => {
     const response = await axios(
-      `https://8d2f9c4b-049f-4bd4-81c4-e22ed6603982.mock.pstmn.io/users/${id}`
+      `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/users/${id}`
     );
     setUser(response.data);
-    console.log(response.data);
+    console.log("Bookshelf: ", response.data);
   };
   useEffect(() => {
     getUser();
@@ -41,6 +41,7 @@ const Bookshelf = () => {
               key={book.id}
               coverImage={book.pages[0].image}
               title={book.title}
+              book={book}
             />
           ))}
         </BookList>
