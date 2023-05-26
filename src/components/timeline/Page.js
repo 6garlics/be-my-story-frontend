@@ -21,7 +21,7 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   outline: 1px solid grey;
-  width: 400px;
+  width: 300px;
 `;
 
 const ImageBox = styled.div`
