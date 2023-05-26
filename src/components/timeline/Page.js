@@ -20,15 +20,23 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  border: 1px solid grey;
+  outline: 1px solid grey;
+  width: 400px;
 `;
 
 const ImageBox = styled.div`
   position: relative;
+  width: 100%;
+  height: 0px;
+  padding-bottom: 100%;
+  overflow: hidden;
 `;
 
 const Image = styled.img`
+  position: absolute;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   /* 윈도우 가로 크기 늘렸을때 5,6 페이지만 크기 작아지는 현상 발생 */
   /* 이미지가 실제크기 이상으로 안늘어나는 듯 */
 `;
