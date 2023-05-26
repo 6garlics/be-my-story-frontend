@@ -45,6 +45,8 @@ const Profile = styled(NavLink)`
   display: flex;
   align-items: center;
   padding: 10px;
+  text-decoration: none;
+  color: black;
 `;
 
 const ProfileIcon = styled.img`
