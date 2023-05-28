@@ -5,6 +5,7 @@ const Page = ({
   book,
   pageNum,
   onclick,
+  side,
   buttonLeft,
   buttonRight,
   pageNumLeft,
@@ -13,7 +14,12 @@ const Page = ({
   return (
     <Container>
       <ImageBox>
-        <Image src={book.pages[pageNum].image} alt="" key={pageNum} />
+        <Image
+          src={book.pages[pageNum].image}
+          alt=""
+          key={pageNum}
+          side={side}
+        />
         <Button
           onClick={onclick}
           left={buttonLeft}
@@ -23,7 +29,6 @@ const Page = ({
           {pageNum + 1}
         </PageNum>
       </ImageBox>
-
       <PageText>{book.pages[pageNum].text}</PageText>
     </Container>
   );
@@ -49,6 +54,8 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: ${(props) =>
+    props.side === "left" ? "4% 0% 0% 4%" : "0% 4% 4% 0%"};
   /* 윈도우 가로 크기 늘렸을때 5,6 페이지만 크기 작아지는 현상 발생 */
   /* 이미지가 실제크기 이상으로 안늘어나는 듯 */
 `;

@@ -25,6 +25,7 @@ function Book({ friend }) {
           book={friend}
           pageNum={pageNum}
           onclick={onClickLeft}
+          side="left"
           buttonLeft="0px"
           buttonRight="auto"
           pageNumLeft="4px"
@@ -34,6 +35,7 @@ function Book({ friend }) {
           book={friend}
           pageNum={pageNum + 1}
           onclick={onClickRight}
+          side="right"
           buttonLeft="auto"
           buttonRight="0px"
           pageNumLeft="auto"
