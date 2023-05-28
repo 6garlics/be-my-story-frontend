@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import BookCover from "../components/my_book_shelf/BookCover";
 import Friends from "../components/my_book_shelf/Friends";
-import { users } from "../data/Users";
+import { users } from "../data/UsersData";
 
 //friendStatus: 서로친구(0), 내가 친구요청(1), 나에게 친구요청(2)
 

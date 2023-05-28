@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import axios from "axios";
 import Book from "../components/timeline/Book";
-import { friends } from "../data/Friends";
+import { friends } from "../data/FriendsData";
 
 const id = 0;
 

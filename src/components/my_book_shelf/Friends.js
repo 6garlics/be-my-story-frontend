@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import DiaryForm from "./../../pages/DiaryForm";
+import Profile from "../Profile";
 
 const buttonValues = ["친구 끊기", "요청 취소", "친구 수락"];
 
@@ -10,8 +10,11 @@ const Friends = ({ friends, toggleFriends }) => {
       <CloseButton onClick={toggleFriends}>X</CloseButton>
       {friends.map((friend, index) => (
         <Friend key={index}>
-          <ProfileIcon src={friend.profileImage} />
-          <ProfileName>{friend.nickname}</ProfileName>
+          <Profile
+            userId={friend.userId}
+            profileImage={friend.profileImage}
+            nickname={friend.nickname}
+          />
           <Button>{buttonValues[friend.friendStatus]}</Button>
         </Friend>
       ))}
@@ -37,15 +40,6 @@ const Friend = styled.div`
   display: flex;
   align-items: center;
   padding: 10px;
-`;
-const ProfileIcon = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-`;
-
-const ProfileName = styled.div`
-  margin-left: 10px;
 `;
 
 const Button = styled.button`

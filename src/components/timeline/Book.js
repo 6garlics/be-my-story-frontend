@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
 import Page from "./Page";
+import Profile from "../Profile";
 
 function Book({ friend }) {
   const [pageNum, setPageNum] = useState(0);
@@ -13,10 +13,13 @@ function Book({ friend }) {
   };
   return (
     <Container>
-      <Profile to={`/bookshelf/${friend.userId}`}>
-        <ProfileIcon src={friend.profileImage} />
-        <ProfileName>{friend.nickname}</ProfileName>
-      </Profile>
+      <ProfileWrapper>
+        <Profile
+          userId={friend.userId}
+          profileImage={friend.profileImage}
+          nickname={friend.nickname}
+        />
+      </ProfileWrapper>
       <PageContainer>
         <Page
           book={friend}
@@ -41,22 +44,9 @@ const Container = styled.div`
   margin: 10px 20px;
 `;
 
-const Profile = styled(NavLink)`
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  text-decoration: none;
-  color: black;
-`;
-
-const ProfileIcon = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-`;
-
-const ProfileName = styled.div`
-  margin-left: 10px;
+const ProfileWrapper = styled.div`
+  margin: 10px;
+  margin-top: 15px;
 `;
 
 const PageContainer = styled.div`
