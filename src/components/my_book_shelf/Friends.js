@@ -15,7 +15,8 @@ const Friends = ({ friends, toggleFriends }) => {
             profileImage={friend.profileImage}
             nickname={friend.nickname}
           />
-          <Button>{buttonValues[friend.friendStatus]}</Button>
+          {/* <Button>{buttonValues[friend.friendStatus]}</Button> */}
+          <Button>친구 해제</Button>
         </Friend>
       ))}
     </Container>
