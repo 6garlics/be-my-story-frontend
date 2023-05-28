@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import BookCover from "../components/my_book_shelf/BookCover";
 import Friends from "../components/my_book_shelf/Friends";
 import { users } from "../data/UsersData";
+import { FaUserFriends } from "react-icons/fa";
 
 //friendStatus: 서로친구(0), 내가 친구요청(1), 나에게 친구요청(2)
 
@@ -36,7 +37,10 @@ const Bookshelf = () => {
         <Profile>
           <ProfileIcon src={user.profileImage} />
           <ProfileName>{user.nickname}</ProfileName>
-          <FriendsButton onClick={toggleFriends}>친구목록</FriendsButton>
+          <FriendsButton onClick={toggleFriends}>
+            <FaUserFriends size={40} />
+            <FriendsText>친구목록</FriendsText>
+          </FriendsButton>
         </Profile>
         <BookList>
           {user.myBooks.map((book) => (
@@ -86,7 +90,19 @@ const ProfileName = styled.div`
 
 const FriendsButton = styled.button`
   margin-left: auto;
-  width: 50px;
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 20%;
+  background: none;
+  &:hover {
+    background: lightgrey;
+    cursor: pointer;
+  }
+`;
+
+const FriendsText = styled.div`
+  font-size: 13px;
 `;
 
 const BookList = styled.div`
