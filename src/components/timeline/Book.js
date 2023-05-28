@@ -25,15 +25,19 @@ function Book({ friend }) {
           book={friend}
           pageNum={pageNum}
           onclick={onClickLeft}
-          left="0px"
-          right="auto"
+          buttonLeft="0px"
+          buttonRight="auto"
+          pageNumLeft="4px"
+          pageNumRight="auto"
         />
         <Page
           book={friend}
           pageNum={pageNum + 1}
           onclick={onClickRight}
-          left="auto"
-          right="0px"
+          buttonLeft="auto"
+          buttonRight="0px"
+          pageNumLeft="auto"
+          pageNumRight="4px"
         />
       </PageContainer>
     </Container>

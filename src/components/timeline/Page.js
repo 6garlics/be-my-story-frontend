@@ -1,16 +1,29 @@
 import React from "react";
 import styled from "styled-components";
 
-const Page = ({ book, pageNum, onclick, left, right }) => {
+const Page = ({
+  book,
+  pageNum,
+  onclick,
+  buttonLeft,
+  buttonRight,
+  pageNumLeft,
+  pageNumRight,
+}) => {
   return (
     <Container>
       <ImageBox>
         <Image src={book.pages[pageNum].image} alt="" key={pageNum} />
-        <Button onClick={onclick} left={left} right={right}></Button>
+        <Button
+          onClick={onclick}
+          left={buttonLeft}
+          right={buttonRight}
+        ></Button>
+        <PageNum left={pageNumLeft} right={pageNumRight}>
+          {pageNum + 1}
+        </PageNum>
       </ImageBox>
-      <PageNum left={left} right={right}>
-        {pageNum + 1}
-      </PageNum>
+
       <PageText>{book.pages[pageNum].text}</PageText>
     </Container>
   );
@@ -20,7 +33,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  outline: 1px solid grey;
   width: 300px;
 `;
 
@@ -51,8 +63,10 @@ const Button = styled.button`
   padding: 0px;
   margin: 0px;
   opacity: 0;
+  &:hover {
+    cursor: pointer;
+  }
   /* 문제점: 버튼의 세로길이가 이미지의 세로길이보다 살짝 길다.*/
-  /* 마우스 hover시 강조 효과로 inner 그림자 주면 좋을 듯 */
 `;
 
 const PageNum = styled.div`
@@ -68,6 +82,7 @@ const PageText = styled.div`
   font-size: 20px;
   word-break: keep-all;
   height: 6rem;
+  //outline: 1px solid grey;
 `;
 
 export default Page;
