@@ -26,8 +26,11 @@ const Container = styled.div`
 
 const CoverImage = styled.img`
   width: 100%;
+  border-radius: 10%;
 `;
 
-const Title = styled.div``;
+const Title = styled.div`
+  display: inline-block;
+`;
 
 export default BookCover;
