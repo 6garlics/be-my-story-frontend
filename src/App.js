@@ -10,8 +10,10 @@ import BookDetail from "./components/my_book_shelf/BookDetail";
 function App() {
   return (
     <Container>
-      <Header to="/">
-        <BE>BE</BE>MY STORY
+      <Header>
+        <Logo to="/">
+          <BE>BE</BE>MY STORY
+        </Logo>
       </Header>
       <Wrapper className="App">
         <Nav />
@@ -36,7 +38,7 @@ function App() {
 
 const Container = styled.div``;
 
-const Header = styled(NavLink)`
+const Header = styled.div`
   display: flex;
   flex: none;
   height: 50px;
@@ -44,6 +46,10 @@ const Header = styled(NavLink)`
   border-bottom: 1px solid grey;
   font-size: 30px;
   font-weight: bolder;
+`;
+
+const Logo = styled(NavLink)`
+  display: flex;
   color: black;
   text-decoration: none;
 `;
