@@ -1,13 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import Profile from "../Profile";
+import { GoThreeBars } from "react-icons/go";
+import { IoMdClose } from "react-icons/io";
+import { IoCloseCircleOutline, IoCloseCircleSharp } from "react-icons/io5";
 
 const buttonValues = ["친구 끊기", "요청 취소", "친구 수락"];
 
 const Friends = ({ friends, toggleFriends }) => {
   return (
     <Container>
-      <CloseButton onClick={toggleFriends}>X</CloseButton>
+      <CloseButton onClick={toggleFriends}>
+        <GoThreeBars size={30} />
+      </CloseButton>
       {friends.map((friend, index) => (
         <Friend key={index}>
           <Profile
@@ -34,7 +39,14 @@ const Container = styled.div`
 `;
 
 const CloseButton = styled.button`
-  margin-left: auto;
+  margin: 6px auto 15px -2px;
+  background: none;
+  border: none;
+  border-radius: 100px;
+  padding: 5px 10px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Friend = styled.div`
@@ -45,6 +57,12 @@ const Friend = styled.div`
 
 const Button = styled.button`
   margin-left: auto;
+  border: none;
+  border-radius: 100px;
+  padding: 5px 10px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default Friends;

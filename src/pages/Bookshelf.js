@@ -38,7 +38,7 @@ const Bookshelf = () => {
           <ProfileIcon src={user.profileImage} />
           <ProfileName>{user.nickname}</ProfileName>
           <FriendsButton onClick={toggleFriends}>
-            <FaUserFriends size={40} />
+            <FaUserFriends size={30} />
             <FriendsText>친구목록</FriendsText>
           </FriendsButton>
         </Profile>
@@ -96,7 +96,7 @@ const FriendsButton = styled.button`
   border-radius: 20%;
   background: none;
   &:hover {
-    background: lightgrey;
+    //background: lightgrey;
     cursor: pointer;
   }
 `;
