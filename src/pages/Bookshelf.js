@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import BookCover from "../components/my_book_shelf/BookCover";
 import Friends from "../components/my_book_shelf/Friends";
+import { users } from "../data/Users";
 
 //friendStatus: 서로친구(0), 내가 친구요청(1), 나에게 친구요청(2)
 
@@ -11,22 +12,24 @@ const Bookshelf = () => {
   const { id } = useParams();
   console.log("id : ", id);
   const [showingFriends, setShowingFriends] = useState(false);
-  const [user, setUser] = useState();
+  //const [user, setUser] = useState();
+  const user = users[id];
 
   const toggleFriends = () => {
     setShowingFriends((prev) => !prev);
   };
 
-  const getUser = async () => {
-    const response = await axios(
-      `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/users/${id}`
-    );
-    setUser(response.data);
-    console.log("Bookshelf: ", response.data);
-  };
-  useEffect(() => {
-    getUser();
-  }, []);
+  // const getUser = async () => {
+  //   const response = await axios(
+  //     `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/users/${id}`
+  //   );
+  //   setUser(response.data);
+  //   console.log("Bookshelf: ", response.data);
+  // };
+  // useEffect(() => {
+  //   getUser();
+  // }, []);
+
   return user ? (
     <div style={{ display: "flex" }}>
       <Container>
