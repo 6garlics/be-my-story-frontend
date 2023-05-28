@@ -8,7 +8,7 @@ const Profile = ({ userId, profileImage, nickname }) => {
       <NLink to={`/bookshelf/${userId}`}>
         <ProfileIcon src={profileImage} />
       </NLink>
-      <NLink>
+      <NLink to={`/bookshelf/${userId}`}>
         <ProfileName>{nickname}</ProfileName>
       </NLink>
     </Container>
