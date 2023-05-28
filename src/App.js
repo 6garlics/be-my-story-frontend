@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 import Nav from "./components/Nav";
 import { styled } from "styled-components";
 import Timeline from "./pages/Timeline";
@@ -10,7 +10,7 @@ import BookDetail from "./components/my_book_shelf/BookDetail";
 function App() {
   return (
     <Container>
-      <Header>
+      <Header to="/">
         <BE>BE</BE>MY STORY
       </Header>
       <Wrapper className="App">
@@ -36,14 +36,16 @@ function App() {
 
 const Container = styled.div``;
 
-const Header = styled.header`
+const Header = styled(NavLink)`
   display: flex;
-  border-bottom: 1px solid grey;
   flex: none;
   height: 50px;
-  font-size: 30px;
-  font-weight: bold;
   padding: 5px;
+  border-bottom: 1px solid grey;
+  font-size: 30px;
+  font-weight: bolder;
+  color: black;
+  text-decoration: none;
 `;
 
 const BE = styled.div`
