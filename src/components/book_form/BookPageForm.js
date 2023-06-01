@@ -68,6 +68,9 @@ const PreviewImage = styled.img`
   border-radius: 5px;
   border: ${(props) =>
     props.id === props.selectedImage && "5px solid #74eabcff"};
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Image = styled.img`

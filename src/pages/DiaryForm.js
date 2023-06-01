@@ -125,6 +125,9 @@ const Submit = styled.button`
   border-radius: 10px;
   background-color: #74eabcff;
   font-size: 18px;
+  &:hover {
+    cursor: pointer;
+  }
   /* width: 100px; */
   /* margin-left: auto; */
   /* color: white; */
