@@ -6,31 +6,31 @@ export const books = [
       profileImage:
         "https://t4.ftcdn.net/jpg/05/65/24/45/240_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg",
       id: 1,
-      title: "피터팬",
+      title: "자전거",
       pages: [
         {
-          image: "/images/image1.png",
-          text: "피터팬과 아이들은 함께 하늘로 날아 올랐어요.",
+          image: "/images/finetuning1.png",
+          text: `한 번도 타보지 않았던 자전거에 처음으로 올랐다. 처음에는 중심을 잡는 것조차 어려웠다. 그러나 그 과정에서의 어색함과 불안감도 놀라운 재미로 변해갔다. 자전거의 미묘한 균형을 유지하며 나아가는 느낌은 환상적이었다.`,
         },
         {
-          image: "/images/image2.png",
-          text: "피터팬은 후크선장을 악어에게 데리고 갔어요.",
+          image: "/images/finetuning2.png",
+          text: `자전거 타는 것이 이렇게 즐거울 줄은 몰랐다. 매일 아빠와 엄마가 산책을 가는 것을 보면서 나도 함께 가고 싶다고 생각했다. 자신감이 생기자 엄마와 아빠에게 부탁을 해보기로 했다.`,
         },
         {
-          image: "/images/image3.png",
-          text: "“과자로 만들어진 집이네?”",
+          image: "/images/finetuning3.png",
+          text: `"엄마, 아빠! 저도 자전거 타고 산책 가고 싶어요!" 내가 부탁하는 모습을 보며 둘은 크게 놀랐다. 하지만 그들은 내 열정을 이해해주었고, 더 이상 나를 막지 않기로 했다.`,
         },
         {
-          image: "/images/image4.png",
-          text: "남매는 마녀에게 붙잡혀 버렸어요.",
+          image: "/images/finetuning4.png",
+          text: `이제부터 나도 자전거를 타고 산책을 할 수 있게 되었다. 힘차게 페달을 밟으면 바람을 맞으며 자유롭게 희망의 길을 달릴 수 있다. 자전거를 타면서 새로운 모험을 만나고 즐거움을 만끽할 수 있다는 사실에 두근거리는 마음이 넘쳐난다.`,
         },
         {
-          image: "/images/image5.png",
-          text: "아기 돼지 삼형제는 집을 지으러 떠났어요.",
+          image: "/images/finetuning5.png",
+          text: `자전거는 나에게 새로운 세계의 문을 열어준다.지금껏 경험하지 못한 것들을 발견하며 자신의 능력을 믿고 도전할 수 있는 기회를 준다.`,
         },
         {
-          image: "/images/image6.png",
-          text: "형제들은 마침내 집을 완성했답니다.",
+          image: "/images/finetuning6.png",
+          text: `앞으로도 자전거를 타고 산책을 하면서 무한한 가능성을 엿볼 수 있을 것이다. 자전거는 나의 친구이자, 동반자가 되어준다. 그리고 이 자전거와 함께한 여정은 나의 추억 속에서 빛나는 보물이 될 것이다.`,
         },
       ],
     },
