@@ -6,7 +6,9 @@ const BookDetail = () => {
   console.log(useLocation());
   return (
     <div>
-      <Book friend={useLocation().state.book} />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Book friend={useLocation().state.book} />
+      </div>
     </div>
   );
 };
