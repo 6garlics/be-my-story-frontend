@@ -21,11 +21,13 @@ function Timeline() {
   // }, []);
 
   return (
-    <Container>
-      {friends.map((friend, index) => (
-        <Book key={index} friend={friend} />
-      ))}
-    </Container>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <Container>
+        {friends.map((friend, index) => (
+          <Book key={index} friend={friend} />
+        ))}
+      </Container>
+    </div>
   );
 }
 

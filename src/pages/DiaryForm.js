@@ -40,30 +40,32 @@ const DiaryForm = (props) => {
     return `${year}년 ${month + 1}월 ${date}일 ${day}요일`;
   };
   return (
-    <Container>
-      <Date>{getToday()}</Date>
-      <Suggestion>오늘 가장 재미있었던 일은 뭐야?</Suggestion>
-      <Title placeholder="제목" value={title} onChange={onTitleChange} />
-      <Text
-        placeholder="일기를 써주세요."
-        value={text}
-        onChange={onTextChange}
-      />
-      <Genre>
-        <legend>장르를 선택하세요.</legend>
-        {genres.map((genre, key) => {
-          return (
-            <label key={key}>
-              <input type="radio" id={genre} name="genre" value={genre} />
-              {genre}
-            </label>
-          );
-        })}
-      </Genre>
-      <Submit type="submit" onClick={submitDiary}>
-        다음
-      </Submit>
-    </Container>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <Container>
+        <Date>{getToday()}</Date>
+        <Suggestion>오늘 가장 재미있었던 일은 뭐야?</Suggestion>
+        <Title placeholder="제목" value={title} onChange={onTitleChange} />
+        <Text
+          placeholder="일기를 써주세요."
+          value={text}
+          onChange={onTextChange}
+        />
+        <Genre>
+          <legend>장르를 선택하세요.</legend>
+          {genres.map((genre, key) => {
+            return (
+              <label key={key}>
+                <input type="radio" id={genre} name="genre" value={genre} />
+                {genre}
+              </label>
+            );
+          })}
+        </Genre>
+        <Submit type="submit" onClick={submitDiary}>
+          다음
+        </Submit>
+      </Container>
+    </div>
   );
 };
 
