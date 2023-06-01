@@ -76,13 +76,13 @@ const Container = styled.div`
 `;
 
 const Date = styled.div`
-  font-size: 18px;
+  font-size: 20px;
   flex: 1;
   padding: 10px 0px;
 `;
 
 const Suggestion = styled.div`
-  font-size: 18px;
+  font-size: 20px;
   flex: 1;
   padding-top: 12px;
   padding-bottom: 15px;
@@ -92,7 +92,7 @@ const Suggestion = styled.div`
 const Title = styled.input`
   flex: 1.5;
   border: none;
-  font-size: 20px;
+  font-size: 22px;
   padding-top: 25px;
   padding-bottom: 10px;
   &:focus {
@@ -102,7 +102,7 @@ const Title = styled.input`
 
 const Text = styled.textarea`
   flex: 15;
-  font-size: 15px;
+  font-size: 17px;
   resize: none;
   border: none;
   &:focus {
@@ -113,7 +113,7 @@ const Text = styled.textarea`
 const Genre = styled.fieldset`
   display: flex;
   flex: 2;
-  font-size: 14px;
+  font-size: 16px;
   margin: 15px 0px;
   padding: 15px 10px;
   justify-content: center;
@@ -121,9 +121,13 @@ const Genre = styled.fieldset`
 
 const Submit = styled.button`
   flex: 1.5;
-  border: 1px solid grey;
+  border: none;
   border-radius: 10px;
-  //background-color: aqua;
+  background-color: #74eabcff;
+  font-size: 18px;
+  /* width: 100px; */
+  /* margin-left: auto; */
+  /* color: white; */
 `;
 
 export default DiaryForm;

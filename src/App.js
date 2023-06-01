@@ -55,7 +55,7 @@ const Logo = styled(NavLink)`
 `;
 
 const BE = styled.div`
-  color: aqua;
+  color: #74eabcff;
   margin-right: 13px;
 `;
 

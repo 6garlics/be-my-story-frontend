@@ -30,7 +30,10 @@ const CoverImage = styled.img`
 `;
 
 const Title = styled.div`
-  display: inline-block;
+  /* display: inline-block; */
+  font-size: 18px;
+  text-align: center;
+  margin-top: 5px;
 `;
 
 export default BookCover;

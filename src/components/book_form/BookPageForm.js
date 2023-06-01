@@ -18,20 +18,23 @@ const BookPageForm = ({ page, index, pageNum }) => {
   console.log(page);
   return (
     <Container index={index} pageNum={pageNum}>
-      <fieldset style={{ display: "flex" }}>
-        <legend>사진선택</legend>
+      <Fieldset>
+        {/* <legend>사진선택</legend> */}
         {page.images.map((bike, id) => (
-          <label key={id}>
-            <input
+          <div key={id}>
+            <RadioButton
+              id={id}
               type="radio"
               name="bikes"
               value={id}
               onChange={() => changeImage(id)}
             />
-            <PreviewImage src={bike} />
-          </label>
+            <Label htmlFor={id}>
+              <PreviewImage src={bike} id={id} selectedImage={selectedImage} />
+            </Label>
+          </div>
         ))}
-      </fieldset>
+      </Fieldset>
       <Image src={page.images[selectedImage]} />
       <Text value={text} onChange={changeText}></Text>
     </Container>
@@ -45,20 +48,42 @@ const Container = styled.div`
   display: ${(props) => props.index !== props.pageNum && "none"};
 `;
 
+const RadioButton = styled.input`
+  display: none;
+`;
+
+const Label = styled.label``;
+
+const Fieldset = styled.fieldset`
+  display: flex;
+  border: none;
+  padding: 0;
+`;
+
 const PreviewImage = styled.img`
   width: 50px;
-  margin: 7px;
+  height: 50px;
+  margin: 10px 10px;
+  margin-top: 40px;
+  border-radius: 5px;
+  border: ${(props) =>
+    props.id === props.selectedImage && "5px solid #74eabcff"};
 `;
 
 const Image = styled.img`
   width: 300px;
   margin: 20px;
+  border-radius: 10px;
 `;
 
 const Text = styled.textarea`
-  width: 350px;
-  height: 100px;
+  width: 400px;
+  height: 130px;
+  padding: 10px;
   resize: none;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid lightgrey;
 `;
 
 export default BookPageForm;
