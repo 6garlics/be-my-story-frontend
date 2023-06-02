@@ -18,7 +18,6 @@ const Profile = ({ userId, profileImage, nickname }) => {
 const Container = styled.div`
   display: flex;
   align-items: center;
-  //padding: 10px;
 `;
 
 const NLink = styled(NavLink)`
@@ -29,13 +28,15 @@ const NLink = styled(NavLink)`
 `;
 
 const ProfileIcon = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 100%;
 `;
 
 const ProfileName = styled.div`
   margin-left: 10px;
+  margin-bottom: 6px;
+  font-size: 18px;
 `;
 
 export default Profile;

@@ -62,7 +62,7 @@ const NLink = styled(NavLink)`
   border-radius: 20px 20px 20px 20px;
   color: black;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 20px;
   &:hover {
     //background: lightgrey;
   }

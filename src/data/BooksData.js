@@ -39,7 +39,7 @@ export const books = [
       nickname: "Jamie",
       profileImage: "/images/profile.jpg",
       id: 2,
-      title: "바닷가와 파라솔",
+      title: "에메랄드빛 바다",
       pages: [
         {
           image:
@@ -237,7 +237,7 @@ export const books = [
       profileImage:
         "https://t4.ftcdn.net/jpg/05/86/51/75/240_F_586517584_wP9bk2PFqpcADyEVMWxtDEvTrrtLc8sD.jpg",
       id: 11,
-      title: "피터팬11",
+      title: "백사장과 파라솔",
       pages: [
         {
           image:
@@ -280,7 +280,7 @@ export const books = [
       profileImage:
         "https://t3.ftcdn.net/jpg/03/51/27/12/240_F_351271275_wyPlSeAf1vtgzK2rWucYof3RNxXUpcqb.jpg",
       id: 22,
-      title: "피터팬22",
+      title: "한여름과 아이스크림",
       pages: [
         {
           image:
@@ -322,7 +322,7 @@ export const books = [
       profileImage:
         "https://t4.ftcdn.net/jpg/05/39/41/45/240_F_539414501_6hVkw2eyA3mTAFgwvVPWNBaAvIKTzl02.jpg",
       id: 33,
-      title: "피터팬33",
+      title: "꽃가루를 날려",
       pages: [
         {
           image:
