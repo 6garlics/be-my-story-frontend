@@ -13,24 +13,21 @@ import {
 const iconSize = 28;
 
 const Nav = () => {
-  const style = ({ isActive }) => {
-    return isActive ? { fontWeight: "bold" } : { color: "grey" };
-  };
   return (
     <Container>
-      <NLink to="/" style={style}>
+      <NLink to="/">
         <Icon>
           <RiHome3Fill size={iconSize} />
         </Icon>
         타임라인
       </NLink>
-      <NLink to="/diary-form" style={style}>
+      <NLink to="/diary-form">
         <Icon>
           <RiAddCircleFill size={iconSize} />
         </Icon>
         일기쓰기
       </NLink>
-      <NLink to="/bookshelf/0" style={style}>
+      <NLink to="/bookshelf/0">
         <Icon>
           <RiBook2Fill size={iconSize} />
         </Icon>
@@ -60,11 +57,15 @@ const NLink = styled(NavLink)`
   height: 35px;
   margin: 10px 0px;
   border-radius: 20px 20px 20px 20px;
-  color: black;
+  color: grey;
   text-decoration: none;
   font-size: 20px;
   &:hover {
     //background: lightgrey;
+  }
+  &.active {
+    font-weight: bold;
+    color: black;
   }
 `;
 

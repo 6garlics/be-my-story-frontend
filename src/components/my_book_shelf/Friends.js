@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Profile from "../Profile";
 import { GoThreeBars } from "react-icons/go";
-import { IoMdClose } from "react-icons/io";
-import { IoCloseCircleOutline, IoCloseCircleSharp } from "react-icons/io5";
+// import { IoMdClose } from "react-icons/io";
+// import { IoCloseCircleOutline, IoCloseCircleSharp } from "react-icons/io5";
 
 const buttonValues = ["친구 끊기", "요청 취소", "친구 수락"];
 

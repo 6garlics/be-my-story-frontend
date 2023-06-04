@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Page from "./Page";
 import Profile from "../Profile";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 function Book({ friend }) {
   const [pageNum, setPageNum] = useState(0);
