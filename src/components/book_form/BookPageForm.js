@@ -4,39 +4,30 @@ import { styled } from "styled-components";
 const BookPageForm = ({ page, index, pageNum }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [text, setText] = useState(page.text);
-  const changeImage = (id) => {
-    setSelectedImage(id);
-    console.log(id);
-  };
-  const changeText = (e) => {
-    // e.preventDefault();
-    setText(e.target.value);
-  };
+
   useEffect(() => {
     setText(page.text);
   }, [page]);
   console.log(page);
+
   return (
     <Container index={index} pageNum={pageNum}>
       <Fieldset>
         {/* <legend>사진선택</legend> */}
-        {page.images.map((bike, id) => (
-          <div key={id}>
+        {page.images.map((image, id) => (
+          <Label key={id}>
             <RadioButton
-              id={id}
               type="radio"
-              name="bikes"
+              name="images"
               value={id}
-              onChange={() => changeImage(id)}
+              onChange={(e) => setSelectedImage(id)}
             />
-            <Label htmlFor={id}>
-              <PreviewImage src={bike} id={id} selectedImage={selectedImage} />
-            </Label>
-          </div>
+            <PreviewImage src={image} id={id} selectedImage={selectedImage} />
+          </Label>
         ))}
       </Fieldset>
       <Image src={page.images[selectedImage]} />
-      <Text value={text} onChange={changeText}></Text>
+      <Text value={text} onChange={(e) => setText(e.target.value)}></Text>
     </Container>
   );
 };
