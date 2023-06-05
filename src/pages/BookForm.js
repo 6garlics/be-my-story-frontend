@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BookPageForm from "../components/book_form/BookPageForm";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 const temp = [
   {
@@ -98,7 +99,9 @@ const BookForm = () => {
   return (
     <RootContainer>
       <Container>
-        <Button onClick={onClickLeft}>{`<`}</Button>
+        <Button onClick={onClickLeft}>
+          <IoIosArrowBack />
+        </Button>
         {pages.map((page, index) => {
           return (
             <BookPageForm
@@ -109,7 +112,9 @@ const BookForm = () => {
             />
           );
         })}
-        <Button onClick={onClickRight}>{`>`}</Button>
+        <Button onClick={onClickRight}>
+          <IoIosArrowForward />
+        </Button>
       </Container>
       <Submit type="submit" onClick={createBook}>
         동화책 만들기
@@ -124,7 +129,6 @@ const RootContainer = styled.div`
   align-items: center;
 `;
 const Container = styled.div`
-  /* flex: 10; */
   display: flex;
   align-items: center;
 `;
@@ -136,7 +140,6 @@ const Button = styled.button`
   width: 50px;
   height: 50px;
   border-radius: 100px;
-  /* background: none; */
   &:hover {
     color: white;
     background: #74eabcff;
@@ -145,7 +148,6 @@ const Button = styled.button`
 `;
 
 const Submit = styled.button`
-  /* flex: 2; */
   padding: 10px;
   margin-top: 10px;
   font-size: 30px;
