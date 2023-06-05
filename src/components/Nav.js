@@ -1,14 +1,22 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { styled } from "styled-components";
+import { HiHome, HiOutlineHome } from "react-icons/hi";
+
+import { HiBookOpen, HiOutlineBookOpen } from "react-icons/hi2";
+
+import { IoBookOutline, IoBookSharp } from "react-icons/io";
 import {
   RiHome3Fill,
   RiHome3Line,
   RiAddCircleFill,
   RiAddCircleLine,
-  RiBook2Fill,
-  RiBook2Line,
+  RiBookFill,
+  RiBoo2Line,
 } from "react-icons/ri";
+
+import { TbSquareRoundedPlusFilled, TbSquareRoundedPlus } from "react-icons/tb";
+//import { BiSolidBook, BiBook } from "react-icons/bi";
 
 const iconSize = 28;
 
@@ -17,21 +25,21 @@ const Nav = () => {
     <Container>
       <NLink to="/">
         <Icon>
-          <RiHome3Fill size={iconSize} />
+          <HiHome size={iconSize} />
         </Icon>
-        타임라인
+        <Text>타임라인</Text>
       </NLink>
       <NLink to="/diary-form">
         <Icon>
-          <RiAddCircleFill size={iconSize} />
+          <TbSquareRoundedPlusFilled size={iconSize} />
         </Icon>
-        일기쓰기
+        <Text>일기쓰기</Text>
       </NLink>
       <NLink to="/bookshelf/0">
         <Icon>
-          <RiBook2Fill size={iconSize} />
+          <HiBookOpen size={iconSize} />
         </Icon>
-        내 책장
+        <Text>내 책장</Text>
       </NLink>
     </Container>
   );
@@ -53,15 +61,13 @@ const Container = styled.div`
 const NLink = styled(NavLink)`
   display: flex;
   align-items: center;
-  width: 140px;
+  width: 150px;
   height: 35px;
-  margin: 10px 0px;
-  border-radius: 20px 20px 20px 20px;
+  margin: 10px 13px;
   color: grey;
   text-decoration: none;
   font-size: 20px;
   &:hover {
-    //background: lightgrey;
   }
   &.active {
     font-weight: bold;
@@ -70,7 +76,14 @@ const NLink = styled(NavLink)`
 `;
 
 const Icon = styled.div`
-  margin: 0px 12px -6px 13px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+`;
+
+const Text = styled.div`
+  margin-left: 10px;
+  flex: 3;
 `;
 
 export default Nav;
