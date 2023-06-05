@@ -22,11 +22,14 @@ const BookPageForm = ({ page, index, pageNum }) => {
               value={id}
               onChange={(e) => setSelectedImage(id)}
             />
-            <PreviewImage src={image} id={id} selectedImage={selectedImage} />
+            <SmallImage src={image} id={id} selectedImage={selectedImage} />
           </Label>
         ))}
       </Fieldset>
-      <Image src={page.images[selectedImage]} />
+      <Wrapper>
+        <BigImage src={page.images[selectedImage]} />
+        <PageIndex>{index}</PageIndex>
+      </Wrapper>
       <Text value={text} onChange={(e) => setText(e.target.value)}></Text>
     </Container>
   );
@@ -51,7 +54,7 @@ const Fieldset = styled.fieldset`
   padding: 0;
 `;
 
-const PreviewImage = styled.img`
+const SmallImage = styled.img`
   width: 50px;
   height: 50px;
   margin: 10px 10px;
@@ -64,10 +67,22 @@ const PreviewImage = styled.img`
   }
 `;
 
-const Image = styled.img`
+const Wrapper = styled.div`
   width: 300px;
-  margin: 20px;
+  margin: 20px 0px 10px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const BigImage = styled.img`
+  width: 300px;
   border-radius: 10px;
+`;
+
+const PageIndex = styled.div`
+  color: black;
+  text-align: center;
 `;
 
 const Text = styled.textarea`
