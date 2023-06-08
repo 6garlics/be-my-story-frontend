@@ -92,13 +92,13 @@ const Root = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid grey;
+  //border: 1px solid grey;
   background: white;
   height: ${(props) => props.fullScreen && "95vh"};
 `;
 
 const Container = styled.div`
-  border: 1px solid red;
+  //border: 1px solid red;
   margin: 20px;
 `;
 
