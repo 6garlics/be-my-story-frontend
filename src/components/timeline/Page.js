@@ -79,7 +79,7 @@ const Button = styled.button`
 const PageNum = styled.div`
   margin: 3px;
   position: absolute;
-  bottom: 2px;
+  bottom: 12px;
   left: ${(props) => props.left};
   right: ${(props) => props.right};
   text-align: center;

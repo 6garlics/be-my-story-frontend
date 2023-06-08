@@ -31,7 +31,7 @@ function Book({ friend }) {
             side="left"
             buttonLeft="0px"
             buttonRight="auto"
-            pageNumLeft="4px"
+            pageNumLeft="20px"
             pageNumRight="auto"
           />
           <Page
@@ -42,7 +42,7 @@ function Book({ friend }) {
             buttonLeft="auto"
             buttonRight="0px"
             pageNumLeft="auto"
-            pageNumRight="4px"
+            pageNumRight="20px"
           />
         </PageContainer>
       </Container>
