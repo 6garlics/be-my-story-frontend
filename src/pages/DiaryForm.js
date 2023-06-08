@@ -8,7 +8,7 @@ const genres = [
   "판타지",
   "코미디",
   "우화",
-  "공상과학",
+  "SF",
   "추리",
   "드라마",
 ];
@@ -18,6 +18,7 @@ const days = ["일", "월", "화", "수", "목", "금", "토"];
 const DiaryForm = (props) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState(0);
   const navigate = useNavigate();
 
   const onTitleChange = (event) => {
@@ -50,17 +51,23 @@ const DiaryForm = (props) => {
           value={text}
           onChange={onTextChange}
         />
-        <Genre>
-          <legend>장르를 선택하세요.</legend>
-          {genres.map((genre, key) => {
+        <Genres>
+          {genres.map((genre, index) => {
             return (
-              <label key={key}>
-                <input type="radio" id={genre} name="genre" value={genre} />
-                {genre}
-              </label>
+              <Label key={index}>
+                <RadioButton
+                  type="radio"
+                  name="genres"
+                  value={index}
+                  onChange={(e) => setSelectedGenre(index)}
+                />
+                <Genre index={index} selectedGenre={selectedGenre}>
+                  {genre}
+                </Genre>
+              </Label>
             );
           })}
-        </Genre>
+        </Genres>
         <Submit type="submit" onClick={submitDiary}>
           다음
         </Submit>
@@ -72,7 +79,7 @@ const DiaryForm = (props) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 600px;
+  width: 700px;
   height: 80vh;
   margin: 30px;
 `;
@@ -112,13 +119,36 @@ const Text = styled.textarea`
   }
 `;
 
-const Genre = styled.fieldset`
-  display: flex;
+const Genres = styled.div`
   flex: 2;
-  font-size: 16px;
-  margin: 15px 0px;
-  padding: 15px 10px;
-  justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0px;
+  //outline: 1px solid lightgrey;
+`;
+
+const Label = styled.label``;
+
+const RadioButton = styled.input`
+  display: none;
+`;
+
+const Genre = styled.div`
+  width: 50px;
+  text-align: center;
+  margin: 8px;
+  padding: 5px 10px;
+  border-radius: 50px;
+  outline: 1px solid lightgrey;
+  &:hover {
+    cursor: pointer;
+    font-weight: bold;
+  }
+  ${(props) =>
+    props.index === props.selectedGenre
+      ? { background: "#74eabcff", fontWeight: "bold", outline: "none" }
+      : { background: "white" }}
 `;
 
 const Submit = styled.button`
