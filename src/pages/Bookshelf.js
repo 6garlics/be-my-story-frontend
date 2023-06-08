@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
+//import axios from "axios";
 import { useParams } from "react-router-dom";
 import BookCover from "../components/book_shelf/BookCover";
 import Friends from "../components/book_shelf/Friends";
 import { users } from "../data/UsersData";
 import { FaUserFriends } from "react-icons/fa";
-
-//friendStatus: 서로친구(0), 내가 친구요청(1), 나에게 친구요청(2)
 
 const Bookshelf = () => {
   const { id } = useParams();
@@ -20,6 +18,7 @@ const Bookshelf = () => {
     setShowingFriends((prev) => !prev);
   };
 
+  // Postman Mock Server 사용시 aixos 호출
   // const getUser = async () => {
   //   const response = await axios(
   //     `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/users/${id}`
@@ -96,7 +95,6 @@ const FriendsButton = styled.button`
   border-radius: 20%;
   background: none;
   &:hover {
-    //background: lightgrey;
     cursor: pointer;
   }
 `;

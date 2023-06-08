@@ -15,23 +15,17 @@ const genres = [
 
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 
-const DiaryForm = (props) => {
+const DiaryForm = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(0);
   const navigate = useNavigate();
 
-  const onTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-  const onTextChange = (event) => {
-    setText(event.target.value);
-  };
   const submitDiary = (event) => {
-    // event.preventDefault();
     navigate("/book-form");
     console.log("diary submitted.");
   };
+
   const getToday = () => {
     const today = new window.Date();
     const year = today.getFullYear();
@@ -40,16 +34,21 @@ const DiaryForm = (props) => {
     const day = days[today.getDay()];
     return `${year}년 ${month + 1}월 ${date}일 ${day}요일`;
   };
+
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Container>
         <Date>{getToday()}</Date>
         <Suggestion>오늘 가장 재미있었던 일은 뭐야?</Suggestion>
-        <Title placeholder="제목" value={title} onChange={onTitleChange} />
+        <Title
+          placeholder="제목"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <Text
           placeholder="일기를 써주세요."
           value={text}
-          onChange={onTextChange}
+          onChange={(e) => setText(e.target.value)}
         />
         <Genres>
           {genres.map((genre, index) => {
@@ -68,9 +67,7 @@ const DiaryForm = (props) => {
             );
           })}
         </Genres>
-        <Submit type="submit" onClick={submitDiary}>
-          다음
-        </Submit>
+        <SubmitButton onClick={submitDiary}>다음</SubmitButton>
       </Container>
     </div>
   );
@@ -125,7 +122,6 @@ const Genres = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 10px 0px;
-  //outline: 1px solid lightgrey;
 `;
 
 const Label = styled.label``;
@@ -151,7 +147,7 @@ const Genre = styled.div`
       : { background: "white" }}
 `;
 
-const Submit = styled.button`
+const SubmitButton = styled.button`
   flex: 1.5;
   border: none;
   border-radius: 10px;
@@ -160,9 +156,6 @@ const Submit = styled.button`
   &:hover {
     cursor: pointer;
   }
-  /* width: 100px; */
-  /* margin-left: auto; */
-  /* color: white; */
 `;
 
 export default DiaryForm;
