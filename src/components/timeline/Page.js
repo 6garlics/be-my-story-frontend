@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { FullScreen } from "react-full-screen";
 
 const Page = ({
   book,
@@ -11,10 +10,9 @@ const Page = ({
   buttonRight,
   pageNumLeft,
   pageNumRight,
-  fullScreen,
 }) => {
   return (
-    <Container fullScreen={fullScreen}>
+    <Container>
       <ImageBox>
         <Image
           src={book.pages[pageNum].image}
@@ -40,7 +38,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: ${(props) => (props.fullScreen ? "700px" : "500px")};
+  width: 500px;
 `;
 
 const ImageBox = styled.div`
