@@ -37,7 +37,8 @@ export const books = [
     {
       userId: 0,
       nickname: "Jamie",
-      profileImage: "/images/profile.jpg",
+      profileImage:
+        "https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg",
       id: 2,
       title: "에메랄드빛 바다",
       pages: [
@@ -76,7 +77,8 @@ export const books = [
     {
       userId: 0,
       nickname: "Jamie",
-      profileImage: "/images/profile.jpg",
+      profileImage:
+        "https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg",
       id: 3,
       title: "할로윈데이",
       pages: [
@@ -115,7 +117,8 @@ export const books = [
     {
       userId: 0,
       nickname: "Jamie",
-      profileImage: "/images/profile.jpg",
+      profileImage:
+        "https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg",
       id: 4,
       title: "보라빛 물감",
       pages: [
@@ -154,7 +157,8 @@ export const books = [
     {
       userId: 0,
       nickname: "Jamie",
-      profileImage: "/images/profile.jpg",
+      profileImage:
+        "https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg",
       id: 5,
       title: "숲속에서",
       pages: [
@@ -193,7 +197,8 @@ export const books = [
     {
       userId: 0,
       nickname: "Jamie",
-      profileImage: "/images/profile.jpg",
+      profileImage:
+        "https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg",
       id: 6,
       title: "구름과 하늘",
       pages: [
