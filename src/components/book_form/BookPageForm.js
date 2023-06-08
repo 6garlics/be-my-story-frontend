@@ -28,7 +28,7 @@ const BookPageForm = ({ page, index, pageNum }) => {
       </Fieldset>
       <Wrapper>
         <BigImage src={page.images[selectedImage]} />
-        <PageIndex>{index}</PageIndex>
+        <PageIndex>{index + 1}</PageIndex>
       </Wrapper>
       <Text value={text} onChange={(e) => setText(e.target.value)}></Text>
     </Container>
