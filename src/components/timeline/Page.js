@@ -56,8 +56,6 @@ const Image = styled.img`
   object-fit: cover;
   border-radius: ${(props) =>
     props.side === "left" ? "3% 0% 0% 3%" : "0% 3% 3% 0%"};
-  /* 윈도우 가로 크기 늘렸을때 5,6 페이지만 크기 작아지는 현상 발생 */
-  /* 이미지가 실제크기 이상으로 안늘어나는 듯 */
 `;
 
 const Button = styled.button`
@@ -73,7 +71,6 @@ const Button = styled.button`
   &:hover {
     cursor: pointer;
   }
-  /* 문제점: 버튼의 세로길이가 이미지의 세로길이보다 살짝 길다.*/
 `;
 
 const PageNum = styled.div`
@@ -90,7 +87,6 @@ const PageText = styled.div`
   font-size: 20px;
   word-break: keep-all;
   height: 6rem;
-  //outline: 1px solid grey;
 `;
 
 export default Page;

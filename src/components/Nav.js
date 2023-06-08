@@ -2,21 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { styled } from "styled-components";
 import { HiHome, HiOutlineHome } from "react-icons/hi";
-
-import { HiBookOpen, HiOutlineBookOpen } from "react-icons/hi2";
-
-import { IoBookOutline, IoBookSharp } from "react-icons/io";
-import {
-  RiHome3Fill,
-  RiHome3Line,
-  RiAddCircleFill,
-  RiAddCircleLine,
-  RiBookFill,
-  RiBoo2Line,
-} from "react-icons/ri";
-
 import { TbSquareRoundedPlusFilled, TbSquareRoundedPlus } from "react-icons/tb";
-//import { BiSolidBook, BiBook } from "react-icons/bi";
+import { HiBookOpen, HiOutlineBookOpen } from "react-icons/hi2";
 
 const iconSize = 28;
 
@@ -54,8 +41,6 @@ const Container = styled.div`
   height: auto;
   border-right: 1px solid grey;
   padding-top: 30px;
-  /* 햄버거 버튼으로 접었다 폈다 할 수 있게 하면 좋을 듯 */
-  /* 화면 가로 길이 좁아지면 자동으로 접히게 하면 좋을 듯 */
 `;
 
 const NLink = styled(NavLink)`

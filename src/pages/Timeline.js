@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "styled-components";
+//import React, { useEffect, useState } from "react";
 //import axios from "axios";
+import { styled } from "styled-components";
 import Book from "../components/timeline/Book";
 import { friends } from "../data/FriendsData";
 
-const id = 0;
+//const id = 0;
 
 function Timeline() {
   // const [friends, setFriends] = useState([]);

@@ -2,10 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Profile from "../Profile";
 import { GoThreeBars } from "react-icons/go";
-// import { IoMdClose } from "react-icons/io";
-// import { IoCloseCircleOutline, IoCloseCircleSharp } from "react-icons/io5";
 
-const buttonValues = ["친구 끊기", "요청 취소", "친구 수락"];
+//const buttonValues = ["친구 끊기", "요청 취소", "친구 수락"];
 
 const Friends = ({ friends, toggleFriends }) => {
   return (
@@ -20,16 +18,12 @@ const Friends = ({ friends, toggleFriends }) => {
             profileImage={friend.profileImage}
             nickname={friend.nickname}
           />
-          {/* <Button>{buttonValues[friend.friendStatus]}</Button> */}
           <Button>친구 해제</Button>
         </Friend>
       ))}
     </Container>
   );
 };
-
-// friendStatus에 따른 정렬 필요.
-//목록이 길어질 시 독립적으로 스크롤 가능해야 함.
 
 const Container = styled.div`
   display: flex;

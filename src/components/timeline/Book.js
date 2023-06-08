@@ -55,12 +55,10 @@ const Root = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  //border: 1px solid grey;
   background: white;
 `;
 
 const Container = styled.div`
-  //border: 1px solid red;
   margin: 20px;
 `;
 

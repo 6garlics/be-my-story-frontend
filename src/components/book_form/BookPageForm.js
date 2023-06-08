@@ -13,7 +13,6 @@ const BookPageForm = ({ page, index, pageNum }) => {
   return (
     <Container index={index} pageNum={pageNum}>
       <Fieldset>
-        {/* <legend>사진선택</legend> */}
         {page.images.map((image, id) => (
           <Label key={id}>
             <RadioButton

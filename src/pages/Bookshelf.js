@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
 //import axios from "axios";
+import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import BookCover from "../components/book_shelf/BookCover";
 import Friends from "../components/book_shelf/Friends";
