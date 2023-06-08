@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import Book from "./../timeline/Book";
+import Book from "../timeline/Book";
 
 const BookDetail = () => {
   console.log(useLocation());

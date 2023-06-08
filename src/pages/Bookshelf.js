@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import BookCover from "../components/my_book_shelf/BookCover";
-import Friends from "../components/my_book_shelf/Friends";
+import BookCover from "../components/book_shelf/BookCover";
+import Friends from "../components/book_shelf/Friends";
 import { users } from "../data/UsersData";
 import { FaUserFriends } from "react-icons/fa";
 

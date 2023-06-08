@@ -5,7 +5,7 @@ import Timeline from "./pages/Timeline";
 import DiaryForm from "./pages/DiaryForm";
 import BookForm from "./pages/BookForm";
 import Bookshelf from "./pages/Bookshelf";
-import BookDetail from "./components/my_book_shelf/BookDetail";
+import BookDetail from "./components/book_shelf/BookDetail";
 
 function App() {
   return (
