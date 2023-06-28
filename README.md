@@ -17,7 +17,7 @@ Be My Story는 아동이 일기를 작성하면 생성형 AI가 e-동화책으�
 <br/><br/>
 
 ## 📌 배포 주소
-[be-my-story.vercel.app](be-my-story.vercel.app)
+[프론트엔드 배포 링크](https://be-my-story.vercel.app/)
 <br/><br/>
 
 ## 시작 가이드
