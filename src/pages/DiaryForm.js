@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const genres = [
   "모험",
@@ -13,36 +14,49 @@ const genres = [
   "드라마",
 ];
 
-const days = ["일", "월", "화", "수", "목", "금", "토"];
+//const days = ["일", "월", "화", "수", "목", "금", "토"];
 
 const DiaryForm = () => {
-  const [date, setDate] = useState("");
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
-  const [selectedGenre, setSelectedGenre] = useState(0);
-  const navigate = useNavigate();
-
-  const submitDiary = (event) => {
-    console.log(event);
-    navigate("/book-form");
-    console.log("diary submitted.");
-  };
-
   const getToday = () => {
     const today = new window.Date();
-    const year = today.getFullYear();
-    const month = today.getMonth();
-    const date = today.getDate();
-    const day = days[today.getDay()];
-    return `${year}년 ${month + 1}월 ${date}일 ${day}요일`;
+    const yyyy = today.getFullYear();
+    const mm = (today.getMonth() + 1).toString().padStart(2, "0");
+    const dd = today.getDate().toString().padStart(2, "0");
+    //const day = days[today.getDay()]; //요일
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+  const [date, setDate] = useState(getToday());
+  const [selectedGenre, setSelectedGenre] = useState(0);
+  const [subject, setSubject] = useState("자전거");
+  const [contents, setContents] = useState(
+    "오늘 밤에 자전거를 탔다. 자전거는 처음 탈 때는 좀 중심잡기가 힘들었다. 그러나 재미있었다. 자전거를 잘 타서 엄마, 아빠 산책 갈 때 나도 가야겠다."
+  );
+
+  const navigate = useNavigate();
+
+  const submitDiary = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    formData.append("storyType", genres[selectedGenre]);
+    console.log(Object.fromEntries(formData));
+
+    const response = await axios.post(
+      "http://43.201.184.127:8080/books",
+      formData
+    );
+
+    console.log(response.data);
+    console.log("diary submitted.");
+    //navigate("/book-form");
   };
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Form action="http://43.201.184.127:8080/diary-form" method="post">
+      <Form onSubmit={submitDiary}>
         <Date
           name="date"
-          placeholder="날짜를 입력하세요."
+          placeholder="날짜를 입력하세요. (YYYY-MM-DD)"
           required
           value={date}
           onChange={(e) => setDate(e.target.value)}
@@ -52,15 +66,15 @@ const DiaryForm = () => {
           name="title"
           placeholder="제목"
           required
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
         />
         <Text
           name="contents"
           placeholder="일기를 써주세요."
           required
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          value={contents}
+          onChange={(e) => setContents(e.target.value)}
         />
         <Genres>
           {genres.map((genre, index) => {
@@ -68,7 +82,7 @@ const DiaryForm = () => {
               <Label key={index}>
                 <RadioButton
                   type="radio"
-                  name="story_type"
+                  name="storyType"
                   value={genre}
                   onChange={(e) => setSelectedGenre(index)}
                 />
@@ -79,9 +93,7 @@ const DiaryForm = () => {
             );
           })}
         </Genres>
-        <SubmitButton type="submit" onSubmit={submitDiary}>
-          다음
-        </SubmitButton>
+        <SubmitButton type="submit">다음</SubmitButton>
       </Form>
     </div>
   );
