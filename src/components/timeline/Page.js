@@ -37,8 +37,8 @@ const Page = ({
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  //position: relative;
-  width: 100%;
+  position: relative;
+  width: 500px;
 `;
 
 const ImageBox = styled.div`
