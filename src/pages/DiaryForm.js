@@ -16,14 +16,12 @@ const genres = [
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 
 const DiaryForm = () => {
-  const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(0);
   const navigate = useNavigate();
 
   const submitDiary = (event) => {
-    console.log(event);
     navigate("/book-form");
     console.log("diary submitted.");
   };
@@ -39,26 +37,16 @@ const DiaryForm = () => {
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Form action="http://43.201.184.127:8080/diary-form" method="post">
-        <Date
-          name="date"
-          placeholder="날짜를 입력하세요."
-          required
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        ></Date>
+      <Container>
+        <Date>{getToday()}</Date>
         <Suggestion>오늘 가장 재미있었던 일은 뭐야?</Suggestion>
         <Title
-          name="title"
           placeholder="제목"
-          required
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <Text
-          name="contents"
           placeholder="일기를 써주세요."
-          required
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
@@ -68,8 +56,8 @@ const DiaryForm = () => {
               <Label key={index}>
                 <RadioButton
                   type="radio"
-                  name="story_type"
-                  value={genre}
+                  name="genres"
+                  value={index}
                   onChange={(e) => setSelectedGenre(index)}
                 />
                 <Genre index={index} selectedGenre={selectedGenre}>
@@ -79,15 +67,13 @@ const DiaryForm = () => {
             );
           })}
         </Genres>
-        <SubmitButton type="submit" onSubmit={submitDiary}>
-          다음
-        </SubmitButton>
-      </Form>
+        <SubmitButton onClick={submitDiary}>다음</SubmitButton>
+      </Container>
     </div>
   );
 };
 
-const Form = styled.form`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 700px;
@@ -95,14 +81,10 @@ const Form = styled.form`
   margin: 30px;
 `;
 
-const Date = styled.input`
+const Date = styled.div`
   font-size: 20px;
   flex: 1;
   padding: 10px 0px;
-  border: none;
-  &:focus {
-    outline: none;
-  }
 `;
 
 const Suggestion = styled.div`
