@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const genres = [
   "모험",
@@ -16,14 +17,25 @@ const genres = [
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 
 const DiaryForm = () => {
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
+  const [title, setTitle] = useState("자전거");
+  const [text, setText] = useState(
+    "오늘 밤에 자전거를 탔다. 자전거는 처음 탈 때는 좀 중심잡기가 힘들었다. 그러나 재미있었다. 자전거를 잘 타서 엄마, 아빠 산책 갈 때 나도 가야겠다."
+  );
   const [selectedGenre, setSelectedGenre] = useState(0);
   const navigate = useNavigate();
 
-  const submitDiary = (event) => {
-    navigate("/book-form");
-    console.log("diary submitted.");
+  const submitDiary = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    formData.append("storyType", genres[selectedGenre]);
+    console.log(Object.fromEntries(formData));
+
+    const response = await axios.post("http://3.38.76.97:80/books", formData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      //withCredentials: true,
+    });
   };
 
   const getToday = () => {
@@ -37,7 +49,7 @@ const DiaryForm = () => {
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Container>
+      <Form onSubmit={submitDiary}>
         <Date>{getToday()}</Date>
         <Suggestion>오늘 가장 재미있었던 일은 뭐야?</Suggestion>
         <Title
@@ -67,13 +79,13 @@ const DiaryForm = () => {
             );
           })}
         </Genres>
-        <SubmitButton onClick={submitDiary}>다음</SubmitButton>
-      </Container>
+        <SubmitButton type="submit">다음</SubmitButton>
+      </Form>
     </div>
   );
 };
 
-const Container = styled.div`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 700px;
