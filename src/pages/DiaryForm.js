@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const genres = [
   "모험",
@@ -17,6 +20,7 @@ const genres = [
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 
 const DiaryForm = () => {
+  const [date, setDate] = useState(new window.Date());
   const [title, setTitle] = useState("자전거");
   const [text, setText] = useState(
     "오늘 밤에 자전거를 탔다. 자전거는 처음 탈 때는 좀 중심잡기가 힘들었다. 그러나 재미있었다. 자전거를 잘 타서 엄마, 아빠 산책 갈 때 나도 가야겠다."
@@ -51,6 +55,7 @@ const DiaryForm = () => {
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Form onSubmit={submitDiary}>
         <Date>{getToday()}</Date>
+        {/* <DatePicker selected={date} onChange={(date) => setDate(date)} /> */}
         <Suggestion>오늘 가장 재미있었던 일은 뭐야?</Suggestion>
         <Title
           placeholder="제목"
