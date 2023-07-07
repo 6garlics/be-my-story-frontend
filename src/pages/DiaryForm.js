@@ -42,8 +42,14 @@ const DiaryForm = () => {
     console.log(Object.fromEntries(formData));
 
     const response = await axios.post(
-      "http://43.201.184.127:8080/books",
-      formData
+      "http://15.165.144.180:80/books",
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        //withCredentials: true,
+      }
     );
 
     console.log(response.data);
