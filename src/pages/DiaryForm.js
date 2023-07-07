@@ -44,26 +44,28 @@ const DiaryForm = () => {
 
   const getToday = () => {
     const today = new window.Date();
-    const year = today.getFullYear();
-    const month = today.getMonth();
-    const date = today.getDate();
-    const day = days[today.getDay()];
-    return `${year}년 ${month + 1}월 ${date}일 ${day}요일`;
+    const yyyy = today.getFullYear();
+    const mm = (today.getMonth() + 1).toString().padStart(2, "0");
+    const dd = today.getDate().toString().padStart(2, "0");
+    //const day = days[today.getDay()]; //요일
+    return `${yyyy}-${mm}-${dd}`;
   };
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Form onSubmit={submitDiary}>
-        <Date>{getToday()}</Date>
+        <Date type="text" name="date" value={getToday()} />
         {/* <DatePicker selected={date} onChange={(date) => setDate(date)} /> */}
         <Suggestion>오늘 가장 재미있었던 일은 뭐야?</Suggestion>
         <Title
           placeholder="제목"
+          name="subject"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <Text
           placeholder="일기를 써주세요."
+          name="contents"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
@@ -73,7 +75,7 @@ const DiaryForm = () => {
               <Label key={index}>
                 <RadioButton
                   type="radio"
-                  name="genres"
+                  name="genre"
                   value={index}
                   onChange={(e) => setSelectedGenre(index)}
                 />
@@ -98,7 +100,7 @@ const Form = styled.form`
   margin: 30px;
 `;
 
-const Date = styled.div`
+const Date = styled.input`
   font-size: 20px;
   flex: 1;
   padding: 10px 0px;
