@@ -17,6 +17,12 @@ const genres = [
   "드라마",
 ];
 
+const suggestions = [
+  "오늘 친구랑 가장 재밌었던 일은 뭐야?",
+  "친구랑 가장 해보고 싶은 것은 뭐야?",
+  "너랑 가장 친한 친구에 대해서 얘기해줘",
+];
+
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 
 const DiaryForm = () => {
@@ -72,7 +78,7 @@ const DiaryForm = () => {
           selected={date}
           onChange={(date) => setDate(date)}
         />
-        <Suggestion>오늘 가장 재미있었던 일은 뭐야?</Suggestion>
+        <Suggestion>{suggestions[Math.floor(Math.random() * 3)]}</Suggestion>
         <Title
           placeholder="제목"
           name="subject"
