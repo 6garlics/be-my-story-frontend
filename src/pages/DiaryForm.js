@@ -36,7 +36,7 @@ const DiaryForm = () => {
 
   //GET 요청
   // useEffect(() => {
-  //   const response = axios.get("http://3.38.76.97:80/test1");
+  //   const response = axios.get("http://43.202.81.68:8081/test");
   //   console.log(response.data);
   // }, []);
 
@@ -49,7 +49,7 @@ const DiaryForm = () => {
     console.log(Object.fromEntries(formData));
 
     const response = await axios.post(
-      "http://15.165.180.230:80/test",
+      "http://43.202.81.68:8081/test",
       formData,
       {
         headers: {
