@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
+import { ko } from "date-fns/esm/locale";
 
 const genres = [
   "모험",
@@ -28,17 +28,25 @@ const DiaryForm = () => {
   const [selectedGenre, setSelectedGenre] = useState(0);
   const navigate = useNavigate();
 
+  //GET 요청
+  // useEffect(() => {
+  //   const response = axios.get("http://3.38.76.97:80/test1");
+  //   console.log(response.data);
+  // }, []);
+
+  //POST 요청
   const submitDiary = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    formData.append("storyType", genres[selectedGenre]);
+    formData.append("story_type", genres[selectedGenre]);
+    formData.append("date", "2023-07-07");
     console.log(Object.fromEntries(formData));
 
-    const response = await axios.post("http://3.38.76.97:80/books", formData, {
+    const response = await axios.post("http://3.38.76.97:80/test", formData, {
       headers: {
         "Content-Type": "application/json",
       },
-      //withCredentials: true,
+      withCredentials: true,
     });
   };
 
@@ -51,11 +59,19 @@ const DiaryForm = () => {
     return `${yyyy}-${mm}-${dd}`;
   };
 
+  console.log(date);
+
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Form onSubmit={submitDiary}>
-        <Date type="text" name="date" value={getToday()} />
-        {/* <DatePicker selected={date} onChange={(date) => setDate(date)} /> */}
+        {/* <Date type="text" name="date" value={getToday()} /> */}
+        <SDatePicker
+          dateFormat="yyyy년 MM월 dd일"
+          maxDate={new window.Date()}
+          locale={ko}
+          selected={date}
+          onChange={(date) => setDate(date)}
+        />
         <Suggestion>오늘 가장 재미있었던 일은 뭐야?</Suggestion>
         <Title
           placeholder="제목"
@@ -104,6 +120,21 @@ const Date = styled.input`
   font-size: 20px;
   flex: 1;
   padding: 10px 0px;
+`;
+
+const SDatePicker = styled(DatePicker)`
+  height: 40px;
+  font-size: 20px;
+  border-radius: 10px 10px;
+  text-align: center;
+  border: none;
+  background: #74eabcff;
+  &:hover {
+    cursor: pointer;
+  }
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Suggestion = styled.div`
