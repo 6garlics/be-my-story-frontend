@@ -39,33 +39,33 @@ const DiaryForm = () => {
     event.preventDefault();
     const formData = new FormData(event.target);
     formData.append("story_type", genres[selectedGenre]);
-    formData.append("date", "2023-07-07");
+    formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));
 
-    const response = await axios.post("http://3.38.76.97:80/test", formData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    });
+    // const response = await axios.post("http://3.38.76.97:80/test", formData, {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   withCredentials: true,
+    // });
   };
 
-  const getToday = () => {
-    const today = new window.Date();
-    const yyyy = today.getFullYear();
-    const mm = (today.getMonth() + 1).toString().padStart(2, "0");
-    const dd = today.getDate().toString().padStart(2, "0");
-    //const day = days[today.getDay()]; //요일
+  const dateToString = (date) => {
+    const yyyy = date.getFullYear();
+    const mm = (date.getMonth() + 1).toString().padStart(2, "0");
+    const dd = date.getDate().toString().padStart(2, "0");
     return `${yyyy}-${mm}-${dd}`;
   };
 
-  console.log(date);
+  console.log(dateToString(date));
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Form onSubmit={submitDiary}>
         {/* <Date type="text" name="date" value={getToday()} /> */}
         <SDatePicker
+          value={date}
+          name="date"
           dateFormat="yyyy년 MM월 dd일"
           maxDate={new window.Date()}
           locale={ko}
