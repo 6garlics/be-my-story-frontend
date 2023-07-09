@@ -48,16 +48,12 @@ const DiaryForm = () => {
     formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));
 
-    const response = await axios.post(
-      "http://43.202.81.68:8081/test",
-      formData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        //withCredentials: true,
-      }
-    );
+    const response = await axios.post("http://43.202.81.68:80/test", formData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      //withCredentials: true,
+    });
   };
 
   const dateToString = (date) => {
