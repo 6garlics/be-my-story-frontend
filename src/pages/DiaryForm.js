@@ -43,6 +43,7 @@ const DiaryForm = () => {
         //withCredentials: true,
       });
       console.log("GET 응답 데이터: ", response.data);
+      return response;
     } catch (error) {
       console.log(error);
     }
@@ -50,7 +51,8 @@ const DiaryForm = () => {
 
   //GET 요청
   useEffect(() => {
-    getRequest();
+    const response = getRequest();
+    console.log(response.data);
   }, []);
 
   //POST 요청
