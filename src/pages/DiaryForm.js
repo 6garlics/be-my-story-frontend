@@ -34,10 +34,9 @@ const DiaryForm = () => {
   const [selectedGenre, setSelectedGenre] = useState(0);
   const navigate = useNavigate();
 
-  //GET 요청
-  useEffect(() => {
+  const getRequest = async () => {
     try {
-      const response = axios.get("http://43.202.81.68:80/test1", {
+      const response = await axios.get("http://43.202.81.68:80/test1", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -47,6 +46,11 @@ const DiaryForm = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  //GET 요청
+  useEffect(() => {
+    getRequest();
   }, []);
 
   //POST 요청
