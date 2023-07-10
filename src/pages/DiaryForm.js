@@ -40,7 +40,7 @@ const DiaryForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      withCredentials: true,
+      //withCredentials: true,
     });
     console.log("GET 응답 데이터: ", response.data);
   }, []);
@@ -57,7 +57,7 @@ const DiaryForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      withCredentials: true,
+      //withCredentials: true,
     });
     console.log("POST 응답 데이터: ", response.data);
   };
