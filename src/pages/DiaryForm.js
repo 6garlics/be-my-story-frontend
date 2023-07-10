@@ -52,7 +52,7 @@ const DiaryForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      //withCredentials: true,
+      withCredentials: true,
     });
   };
 
