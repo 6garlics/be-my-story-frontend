@@ -57,13 +57,21 @@ const DiaryForm = () => {
     formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));
 
-    const response = await axios.post("http://43.202.81.68:80/test", formData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      //withCredentials: true,
-    });
-    console.log("POST 응답 데이터: ", response.data);
+    try {
+      const response = await axios.post(
+        "http://43.202.81.68:80/test",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          //withCredentials: true,
+        }
+      );
+      console.log("POST 응답 데이터: ", response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const dateToString = (date) => {
