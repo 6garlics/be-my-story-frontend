@@ -54,6 +54,7 @@ const DiaryForm = () => {
       },
       withCredentials: true,
     });
+    console.log("응답 데이터: ", response.data);
   };
 
   const dateToString = (date) => {
