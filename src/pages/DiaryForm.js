@@ -35,10 +35,10 @@ const DiaryForm = () => {
   const navigate = useNavigate();
 
   //GET 요청
-  // useEffect(() => {
-  //   const response = axios.get("http://43.202.81.68:8081/test");
-  //   console.log(response.data);
-  // }, []);
+  useEffect(() => {
+    const response = axios.get("http://43.202.81.68:80/test1");
+    console.log("응답 데이터: ", response.data);
+  }, []);
 
   //POST 요청
   const submitDiary = async (event) => {
