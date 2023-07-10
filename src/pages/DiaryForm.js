@@ -36,8 +36,13 @@ const DiaryForm = () => {
 
   //GET 요청
   useEffect(() => {
-    const response = axios.get("http://43.202.81.68:80/test1");
-    console.log("응답 데이터: ", response.data);
+    const response = axios.get("http://43.202.81.68:80/test1", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    });
+    console.log("GET 응답 데이터: ", response.data);
   }, []);
 
   //POST 요청
@@ -54,7 +59,7 @@ const DiaryForm = () => {
       },
       withCredentials: true,
     });
-    console.log("응답 데이터: ", response.data);
+    console.log("POST 응답 데이터: ", response.data);
   };
 
   const dateToString = (date) => {
