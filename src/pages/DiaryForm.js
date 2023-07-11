@@ -76,6 +76,7 @@ const DiaryForm = () => {
         }
       );
       console.log("POST 응답 데이터: ", response.data);
+      navigate("/book-form");
     } catch (error) {
       console.log(error);
     }
@@ -87,8 +88,6 @@ const DiaryForm = () => {
     const dd = date.getDate().toString().padStart(2, "0");
     return `${yyyy}-${mm}-${dd}`;
   };
-
-  console.log(dateToString(date));
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
