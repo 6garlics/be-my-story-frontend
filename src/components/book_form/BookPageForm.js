@@ -59,8 +59,7 @@ const SmallImage = styled.img`
   margin: 10px 10px;
   margin-top: 40px;
   border-radius: 5px;
-  border: ${(props) =>
-    props.id === props.selectedImage && "5px solid #74eabcff"};
+  border: ${(props) => props.id === props.selectedImage && "5px solid #78B9FF"};
   &:hover {
     cursor: pointer;
   }

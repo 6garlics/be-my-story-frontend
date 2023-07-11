@@ -106,7 +106,7 @@ const Button = styled.button`
   border-radius: 100px;
   &:hover {
     color: white;
-    background: #74eabcff;
+    background: #beddff;
     cursor: pointer;
   }
 `;
@@ -117,7 +117,7 @@ const Submit = styled.button`
   font-size: 30px;
   border: none;
   border-radius: 10px;
-  background-color: #74eabcff;
+  background-color: #beddff;
   font-size: 18px;
   &:hover {
     cursor: pointer;

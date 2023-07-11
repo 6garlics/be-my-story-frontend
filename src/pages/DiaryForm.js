@@ -50,10 +50,10 @@ const DiaryForm = () => {
   };
 
   //GET 요청
-  useEffect(() => {
-    const response = getRequest();
-    console.log(response.data);
-  }, []);
+  // useEffect(() => {
+  //   const response = getRequest();
+  //   console.log(response.data);
+  // }, []);
 
   //POST 요청
   const submitDiary = async (event) => {
@@ -66,7 +66,7 @@ const DiaryForm = () => {
 
     try {
       const response = await axios.post(
-        "http://43.202.81.68:80/test",
+        "http://43.202.81.68:80/books",
         formData,
         {
           headers: {
@@ -103,7 +103,8 @@ const DiaryForm = () => {
           selected={date}
           onChange={(date) => setDate(date)}
         />
-        <Suggestion>{suggestions[Math.floor(Math.random() * 3)]}</Suggestion>
+        {/* <Suggestion>{suggestions[Math.floor(Math.random() * 3)]}</Suggestion> */}
+        <Suggestion>오늘 가장 재밌었던 일이 뭐야?</Suggestion>
         <Title
           placeholder="제목"
           name="subject"
@@ -159,7 +160,7 @@ const SDatePicker = styled(DatePicker)`
   border-radius: 10px 10px;
   text-align: center;
   border: none;
-  background: #74eabcff;
+  background: #beddff;
   &:hover {
     cursor: pointer;
   }
@@ -169,7 +170,7 @@ const SDatePicker = styled(DatePicker)`
 `;
 
 const Suggestion = styled.div`
-  font-size: 20px;
+  font-size: 25px;
   flex: 1;
   padding-top: 12px;
   padding-bottom: 15px;
@@ -179,7 +180,7 @@ const Suggestion = styled.div`
 const Title = styled.input`
   flex: 1.5;
   border: none;
-  font-size: 22px;
+  font-size: 25px;
   padding-top: 25px;
   padding-bottom: 10px;
   &:focus {
@@ -189,7 +190,7 @@ const Title = styled.input`
 
 const Text = styled.textarea`
   flex: 15;
-  font-size: 17px;
+  font-size: 20px;
   resize: none;
   border: none;
   &:focus {
@@ -224,7 +225,7 @@ const Genre = styled.div`
   }
   ${(props) =>
     props.index === props.selectedGenre
-      ? { background: "#74eabcff", fontWeight: "bold", outline: "none" }
+      ? { background: "#BEDDFF", fontWeight: "bold", outline: "none" }
       : { background: "white" }}
 `;
 
@@ -232,7 +233,7 @@ const SubmitButton = styled.button`
   flex: 1.5;
   border: none;
   border-radius: 10px;
-  background-color: #74eabcff;
+  background-color: #beddff;
   font-size: 18px;
   &:hover {
     cursor: pointer;

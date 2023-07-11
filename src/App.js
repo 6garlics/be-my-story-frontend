@@ -55,7 +55,7 @@ const Logo = styled(NavLink)`
 `;
 
 const BE = styled.div`
-  color: #74eabcff;
+  color: #78b9ff;
   margin-right: 13px;
 `;
 
