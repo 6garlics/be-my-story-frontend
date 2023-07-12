@@ -8,11 +8,10 @@ const BookPageForm = ({ page, index, pageNum }) => {
   useEffect(() => {
     setText(page.text);
   }, [page]);
-  console.log(page);
 
   return (
     <Container index={index} pageNum={pageNum}>
-      <Fieldset>
+      {/* <Fieldset>
         {page.images.map((image, id) => (
           <Label key={id}>
             <RadioButton
@@ -24,9 +23,9 @@ const BookPageForm = ({ page, index, pageNum }) => {
             <SmallImage src={image} id={id} selectedImage={selectedImage} />
           </Label>
         ))}
-      </Fieldset>
+      </Fieldset> */}
       <Wrapper>
-        <BigImage src={page.images[selectedImage]} />
+        <BigImage src={page.img_url} />
         <PageIndex>{index + 1}</PageIndex>
       </Wrapper>
       <Text value={text} onChange={(e) => setText(e.target.value)}></Text>

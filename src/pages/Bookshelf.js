@@ -45,7 +45,7 @@ const Bookshelf = () => {
           {user.myBooks.map((book) => (
             <BookCover
               key={book.id}
-              coverImage={book.pages[0].image}
+              coverImage={book.pages[0].img_url}
               title={book.title}
               book={book}
             />

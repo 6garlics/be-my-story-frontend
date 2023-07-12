@@ -24,8 +24,8 @@ function Timeline() {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Container>
-        {friends.map((friend, index) => (
-          <Book key={index} friend={friend} />
+        {friends.map((book, index) => (
+          <Book key={index} book={book} />
         ))}
       </Container>
     </div>

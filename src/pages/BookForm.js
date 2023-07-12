@@ -1,51 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BookPageForm from "../components/book_form/BookPageForm";
 import { styled } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
-const pages = [
-  {
-    images: [
-      "images/finetuning1.png",
-      "images/finetuning2.png",
-      "images/finetuning3.png",
-      "images/finetuning4.png",
-    ],
-    text: `한 번도 타보지 않았던 자전거에 처음으로 올랐다. 처음에는 중심을 잡는 것조차 어려웠다. 그러나 그 과정에서의 어색함과 불안감도 놀라운 재미로 변해갔다. 자전거의 미묘한 균형을 유지하며 나아가는 느낌은 환상적이었다.`,
-  },
-  {
-    images: [
-      "images/finetuning2.png",
-      "images/finetuning3.png",
-      "images/finetuning4.png",
-      "images/finetuning1.png",
-    ],
-    text: `자전거 타는 것이 이렇게 즐거울 줄은 몰랐다. 매일 아빠와 엄마가 산책을 가는 것을 보면서 나도 함께 가고 싶다고 생각했다. 자신감이 생기자 엄마와 아빠에게 부탁을 해보기로 했다.`,
-  },
-  {
-    images: [
-      "images/finetuning3.png",
-      "images/finetuning4.png",
-      "images/finetuning1.png",
-      "images/finetuning2.png",
-    ],
-    text: `"엄마, 아빠! 저도 자전거 타고 산책 가고 싶어요!" 내가 부탁하는 모습을 보며 둘은 크게 놀랐다. 하지만 그들은 내 열정을 이해해주었고, 더 이상 나를 막지 않기로 했다.`,
-  },
-  {
-    images: [
-      "images/finetuning4.png",
-      "images/finetuning1.png",
-      "images/finetuning2.png",
-      "images/finetuning3.png",
-    ],
-    text: `이제부터 나도 자전거를 타고 산책을 할 수 있게 되었다. 힘차게 페달을 밟으면 바람을 맞으며 자유롭게 희망의 길을 달릴 수 있다. 자전거를 타면서 새로운 모험을 만나고 즐거움을 만끽할 수 있다는 사실에 두근거리는 마음이 넘쳐난다.`,
-  },
-];
+// const book = {
+//   storyBook: {
+//     bookId: 1,
+//     subject: "자전거를 타며 성장하는 나의 이야기",
+//     story_type: "성장",
+//     date: "2023-06-29",
+//   },
+//   pages: [
+//     {
+//       pageId: 1,
+//       idx: 0,
+//       img_url: "images/finetuning1.png",
+//       text: "첫번째 페이지",
+//     },
+//     {
+//       pageId: 2,
+//       idx: 1,
+//       img_url: "images/finetuning2.png",
+//       text: "두번째 페이지~~~",
+//     },
+//     {
+//       pageId: 3,
+//       idx: 2,
+//       img_url: "images/finetuning3.png",
+//       text: "세번째 페이지~~~~~~",
+//     },
+//     {
+//       pageId: 4,
+//       idx: 3,
+//       img_url: "images/finetuning4.png",
+//       text: "네번째 페이지~~~~~~~~~",
+//     },
+//   ],
+// };
 
 const BookForm = () => {
   const [pageNum, setPageNum] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const book = location.state.book;
+  useEffect(() => {
+    console.log("받아온 데이터: ", book);
+  }, []);
 
   const createBook = () => {
     navigate("/bookshelf/0");
@@ -55,18 +57,19 @@ const BookForm = () => {
     if (pageNum > 0) setPageNum((prev) => prev - 1);
   };
   const onClickRight = () => {
-    if (pageNum < pages.length - 1) setPageNum((prev) => prev + 1);
+    if (pageNum < book.pages.length - 1) setPageNum((prev) => prev + 1);
   };
 
-  console.log(pageNum);
+  // console.log(pageNum);
 
   return (
     <RootContainer>
+      <Title>{book.storyBook.subject}</Title>
       <Container>
         <Button onClick={onClickLeft}>
           <IoIosArrowBack />
         </Button>
-        {pages.map((page, index) => {
+        {book.pages.map((page, index) => {
           return (
             <BookPageForm
               key={index}
@@ -92,6 +95,12 @@ const RootContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+const Title = styled.div`
+  font-size: 25px;
+  margin: 20px 10px;
+`;
+
 const Container = styled.div`
   display: flex;
   align-items: center;

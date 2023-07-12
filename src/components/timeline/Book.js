@@ -3,14 +3,14 @@ import styled from "styled-components";
 import Page from "./Page";
 import Profile from "../Profile";
 
-function Book({ friend }) {
+function Book({ book }) {
   const [pageNum, setPageNum] = useState(0);
 
   const onClickLeft = () => {
     pageNum > 1 && setPageNum((pageNum) => pageNum - 2);
   };
   const onClickRight = () => {
-    pageNum < friend.pages.length - 2 && setPageNum((pageNum) => pageNum + 2);
+    pageNum < book.pages.length - 2 && setPageNum((pageNum) => pageNum + 2);
   };
 
   return (
@@ -18,14 +18,14 @@ function Book({ friend }) {
       <Container>
         <ProfileWrapper>
           <Profile
-            userId={friend.userId}
-            profileImage={friend.profileImage}
-            nickname={friend.nickname}
+            userId={0}
+            profileImage="https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg"
+            nickname="Jamie"
           />
         </ProfileWrapper>
         <PageContainer>
           <Page
-            book={friend}
+            book={book}
             pageNum={pageNum}
             onclick={onClickLeft}
             side="left"
@@ -35,7 +35,7 @@ function Book({ friend }) {
             pageNumRight="auto"
           />
           <Page
-            book={friend}
+            book={book}
             pageNum={pageNum + 1}
             onclick={onClickRight}
             side="right"

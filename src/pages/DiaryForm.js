@@ -6,6 +6,41 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 
+const book = {
+  storyBook: {
+    bookId: 1,
+    subject: "자전거를 타며 성장하는 나의 이야기",
+    story_type: "성장",
+    date: "2023-06-29",
+  },
+  pages: [
+    {
+      pageId: 1,
+      idx: 0,
+      img_url: "/images/finetuning1.png",
+      text: "첫번째 페이지",
+    },
+    {
+      pageId: 2,
+      idx: 1,
+      img_url: "/images/finetuning2.png",
+      text: "두번째 페이지~~~",
+    },
+    {
+      pageId: 3,
+      idx: 2,
+      img_url: "/images/finetuning3.png",
+      text: "세번째 페이지~~~~~~",
+    },
+    {
+      pageId: 4,
+      idx: 3,
+      img_url: "/images/finetuning4.png",
+      text: "네번째 페이지~~~~~~~~~",
+    },
+  ],
+};
+
 const genres = [
   "모험",
   "성장",
@@ -34,6 +69,7 @@ const DiaryForm = () => {
   const [selectedGenre, setSelectedGenre] = useState(0);
   const navigate = useNavigate();
 
+  //GET 요청 함수
   const getRequest = async () => {
     try {
       const response = await axios.get("http://43.202.81.68:80/test1", {
@@ -76,7 +112,8 @@ const DiaryForm = () => {
         }
       );
       console.log("POST 응답 데이터: ", response.data);
-      navigate("/book-form");
+      navigate("/book-form", { state: { book: response.data } });
+      navigate("/book/0/detail", { state: { book: response.data } });
     } catch (error) {
       console.log(error);
     }

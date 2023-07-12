@@ -15,7 +15,7 @@ const Page = ({
     <Container>
       <ImageBox>
         <Image
-          src={book.pages[pageNum].image}
+          src={book.pages[pageNum].img_url}
           alt=""
           key={pageNum}
           side={side}
