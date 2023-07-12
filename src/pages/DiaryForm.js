@@ -96,6 +96,7 @@ const DiaryForm = () => {
     event.preventDefault();
     const formData = new FormData(event.target);
     formData.append("story_type", genres[selectedGenre]);
+    formData.delete("genre");
     formData.delete("date");
     formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));

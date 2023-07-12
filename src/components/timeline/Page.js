@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Page = ({
   book,
   pageNum,
+  maxPage,
   onclick,
   side,
   buttonLeft,
@@ -12,25 +13,27 @@ const Page = ({
   pageNumRight,
 }) => {
   return (
-    <Container>
-      <ImageBox>
-        <Image
-          src={book.pages[pageNum].img_url}
-          alt=""
-          key={pageNum}
-          side={side}
-        />
-        <Button
-          onClick={onclick}
-          left={buttonLeft}
-          right={buttonRight}
-        ></Button>
-        <PageNum left={pageNumLeft} right={pageNumRight}>
-          {pageNum + 1}
-        </PageNum>
-      </ImageBox>
-      <PageText>{book.pages[pageNum].text}</PageText>
-    </Container>
+    pageNum < maxPage && (
+      <Container>
+        <ImageBox>
+          <Image
+            src={book.pages[pageNum].img_url}
+            alt=""
+            key={pageNum}
+            side={side}
+          />
+          <Button
+            onClick={onclick}
+            left={buttonLeft}
+            right={buttonRight}
+          ></Button>
+          <PageNum left={pageNumLeft} right={pageNumRight}>
+            {pageNum + 1}
+          </PageNum>
+        </ImageBox>
+        <PageText>{book.pages[pageNum].text}</PageText>
+      </Container>
+    )
   );
 };
 

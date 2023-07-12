@@ -27,6 +27,7 @@ function Book({ book }) {
           <Page
             book={book}
             pageNum={pageNum}
+            maxPage={book.pages.length}
             onclick={onClickLeft}
             side="left"
             buttonLeft="0px"
@@ -37,6 +38,7 @@ function Book({ book }) {
           <Page
             book={book}
             pageNum={pageNum + 1}
+            maxPage={book.pages.length}
             onclick={onClickRight}
             side="right"
             buttonLeft="auto"
