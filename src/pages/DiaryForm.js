@@ -5,41 +5,42 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
+import { DotLoader } from "react-spinners";
 
-const book = {
-  storyBook: {
-    bookId: 1,
-    subject: "자전거를 타며 성장하는 나의 이야기",
-    story_type: "성장",
-    date: "2023-06-29",
-  },
-  pages: [
-    {
-      pageId: 1,
-      idx: 0,
-      img_url: "/images/finetuning1.png",
-      text: "첫번째 페이지",
-    },
-    {
-      pageId: 2,
-      idx: 1,
-      img_url: "/images/finetuning2.png",
-      text: "두번째 페이지~~~",
-    },
-    {
-      pageId: 3,
-      idx: 2,
-      img_url: "/images/finetuning3.png",
-      text: "세번째 페이지~~~~~~",
-    },
-    {
-      pageId: 4,
-      idx: 3,
-      img_url: "/images/finetuning4.png",
-      text: "네번째 페이지~~~~~~~~~",
-    },
-  ],
-};
+// const book = {
+//   storyBook: {
+//     bookId: 1,
+//     subject: "자전거를 타며 성장하는 나의 이야기",
+//     story_type: "성장",
+//     date: "2023-06-29",
+//   },
+//   pages: [
+//     {
+//       pageId: 1,
+//       idx: 0,
+//       img_url: "/images/finetuning1.png",
+//       text: "첫번째 페이지",
+//     },
+//     {
+//       pageId: 2,
+//       idx: 1,
+//       img_url: "/images/finetuning2.png",
+//       text: "두번째 페이지~~~",
+//     },
+//     {
+//       pageId: 3,
+//       idx: 2,
+//       img_url: "/images/finetuning3.png",
+//       text: "세번째 페이지~~~~~~",
+//     },
+//     {
+//       pageId: 4,
+//       idx: 3,
+//       img_url: "/images/finetuning4.png",
+//       text: "네번째 페이지~~~~~~~~~",
+//     },
+//   ],
+// };
 
 const genres = [
   "모험",
@@ -67,6 +68,8 @@ const DiaryForm = () => {
     "오늘 밤에 자전거를 탔다. 자전거는 처음 탈 때는 좀 중심잡기가 힘들었다. 그러나 재미있었다. 자전거를 잘 타서 엄마, 아빠 산책 갈 때 나도 가야겠다."
   );
   const [selectedGenre, setSelectedGenre] = useState(0);
+  //const [book, setBook] = useState();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   //GET 요청 함수
@@ -94,6 +97,9 @@ const DiaryForm = () => {
   //POST 요청
   const submitDiary = async (event) => {
     event.preventDefault();
+
+    setLoading(true);
+
     const formData = new FormData(event.target);
     formData.append("story_type", genres[selectedGenre]);
     formData.delete("genre");
@@ -113,7 +119,8 @@ const DiaryForm = () => {
         }
       );
       console.log("POST 응답 데이터: ", response.data);
-      navigate("/book-form", { state: { book: response.data } });
+      //setBook(response.data);
+      // navigate("/book-form", { state: { book: response.data } });
       navigate("/book/0/detail", { state: { book: response.data } });
     } catch (error) {
       console.log(error);
@@ -127,7 +134,12 @@ const DiaryForm = () => {
     return `${yyyy}-${mm}-${dd}`;
   };
 
-  return (
+  return loading ? (
+    <Loader>
+      <DotLoader color="#78B9FF" size={100} />
+      <LoaderText>동화책을 만들고 있어요!</LoaderText>
+    </Loader>
+  ) : (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Form onSubmit={submitDiary}>
         {/* <Date type="text" name="date" value={getToday()} /> */}
@@ -176,6 +188,23 @@ const DiaryForm = () => {
     </div>
   );
 };
+
+const Loader = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  //background: beige;
+  height: 90vh;
+  color: grey;
+  font-size: 20px;
+  //font-weight: bold;
+`;
+
+const LoaderText = styled.div`
+  margin-top: 40px;
+`;
 
 const Form = styled.form`
   display: flex;
