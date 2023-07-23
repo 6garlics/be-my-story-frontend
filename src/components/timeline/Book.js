@@ -4,6 +4,8 @@ import Page from "./Page";
 import Profile from "../Profile";
 import Cover from "./Cover";
 import Modal from "./Modal";
+import { IoIosMore } from "react-icons/io";
+import { TbNotebook, TbNotes } from "react-icons/tb";
 
 function Book({ book }) {
   const [open, setOpen] = useState(false);
@@ -28,7 +30,9 @@ function Book({ book }) {
             profileImage="https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg"
             nickname="Jamie"
           />
-          <Button onClick={() => setOpen((prev) => !prev)}>...</Button>
+          <Button onClick={() => setOpen((prev) => !prev)}>
+            <IoIosMore size={25} color="#78b9ff" />
+          </Button>
         </Header>
         {pageNum === 0 ? (
           <Cover
@@ -97,16 +101,17 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  margin: 10px;
+  margin: 10px 0px;
   margin-top: 15px;
   display: flex;
+  align-items: center;
 `;
 
 const Button = styled.button`
   margin-left: auto;
+  margin-top: 12px;
   background: none;
   border: none;
-  font-size: 30px;
   &:hover {
     cursor: pointer;
   }
