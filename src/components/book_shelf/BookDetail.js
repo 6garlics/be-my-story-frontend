@@ -7,7 +7,10 @@ const BookDetail = () => {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Book book={useLocation().state.book} />
+        <Book
+          bookId={useLocation().state.bookId}
+          texts={useLocation().state.texts}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 //회원가입
 export const register = async () => {};

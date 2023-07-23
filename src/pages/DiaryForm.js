@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { DotLoader } from "react-spinners";
+import { createTexts } from "../api/books";
 
 // const book = {
 //   storyBook: {
@@ -42,6 +43,15 @@ import { DotLoader } from "react-spinners";
 //   ],
 // };
 
+const texts = [
+  "첫번째 문단",
+  "두번째 문단",
+  "세번째 문단",
+  "네번째 문단",
+  "다섯번째 문단",
+  "여섯번째 문단",
+];
+
 const genres = [
   "모험",
   "성장",
@@ -64,7 +74,7 @@ const days = ["일", "월", "화", "수", "목", "금", "토"];
 const DiaryForm = () => {
   const [date, setDate] = useState(new window.Date());
   const [title, setTitle] = useState("자전거");
-  const [text, setText] = useState(
+  const [contents, setText] = useState(
     "오늘 밤에 자전거를 탔다. 자전거는 처음 탈 때는 좀 중심잡기가 힘들었다. 그러나 재미있었다. 자전거를 잘 타서 엄마, 아빠 산책 갈 때 나도 가야겠다."
   );
   const [selectedGenre, setSelectedGenre] = useState(0);
@@ -94,37 +104,41 @@ const DiaryForm = () => {
   //   console.log(response.data);
   // }, []);
 
-  //POST 요청
+  //🍋 동화책 생성
   const submitDiary = async (event) => {
     event.preventDefault();
 
     setLoading(true);
 
     const formData = new FormData(event.target);
-    formData.append("story_type", genres[selectedGenre]);
     formData.delete("genre");
+    formData.append("genre", genres[selectedGenre]);
     formData.delete("date");
     formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));
 
-    try {
-      const response = await axios.post(
-        "http://43.202.81.68:80/books",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          //withCredentials: true,
-        }
-      );
-      console.log("POST 응답 데이터: ", response.data);
-      //setBook(response.data);
-      // navigate("/book-form", { state: { book: response.data } });
-      navigate("/book/0/detail", { state: { book: response.data } });
-    } catch (error) {
-      console.log(error);
-    }
+    //const data = createTexts(formData);
+
+    navigate("/book/0/detail", { state: { bookId: 1, texts: texts } });
+
+    // try {
+    //   const response = await axios.post(
+    //     "http://43.202.81.68:80/books",
+    //     formData,
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       //withCredentials: true,
+    //     }
+    //   );
+    //   console.log("POST 응답 데이터: ", response.data);
+    //   //setBook(response.data);
+    //   // navigate("/book-form", { state: { book: response.data } });
+    //   navigate("/book/0/detail", { state: { book: response.data } });
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const dateToString = (date) => {
@@ -156,14 +170,14 @@ const DiaryForm = () => {
         <Suggestion>오늘 가장 재밌었던 일이 뭐야?</Suggestion>
         <Title
           placeholder="제목"
-          name="subject"
+          name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <Text
+        <Contents
           placeholder="일기를 써주세요."
           name="contents"
-          value={text}
+          value={contents}
           onChange={(e) => setText(e.target.value)}
         />
         <Genres>
@@ -254,7 +268,7 @@ const Title = styled.input`
   }
 `;
 
-const Text = styled.textarea`
+const Contents = styled.textarea`
   flex: 15;
   font-size: 20px;
   resize: none;

@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { DotLoader } from "react-spinners";
 
 const Cover = ({
   img_url,
+  coverUrl,
   title,
   onclick,
   side,
@@ -14,7 +16,13 @@ const Cover = ({
   return (
     <Container>
       <ImageBox>
-        <Image src={img_url} alt="" side={side} />
+        {coverUrl ? (
+          <Image src={coverUrl} alt="" side={side} />
+        ) : (
+          <Loader>
+            <DotLoader color="#78B9FF" size={100} />
+          </Loader>
+        )}
         <Title>{title}</Title>
         <Button
           onClick={onclick}
@@ -39,6 +47,26 @@ const ImageBox = styled.div`
   height: 0px;
   padding-bottom: 100%;
   overflow: hidden;
+  border-radius: 3% 3% 3% 3%;
+  border: 1px solid grey;
+`;
+
+const Loader = styled.div`
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 500px;
+  /* flex: 1; */
+  /* height: 100%; */
+  //background: beige;
+  /* height: 90vh; */
+  color: grey;
+  font-size: 20px;
+  //font-weight: bold;
+  /* border: 1px solid blue; */
 `;
 
 const Image = styled.img`

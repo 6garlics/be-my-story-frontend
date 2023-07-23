@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import { DotLoader } from "react-spinners";
+import { createImage } from "../../api/books";
 
 const Page = ({
-  img_url,
+  bookId,
   text,
   pageNum,
   onclick,
@@ -12,10 +15,25 @@ const Page = ({
   pageNumLeft,
   pageNumRight,
 }) => {
+  const [loading, setLoading] = useState(true);
+  const [imgUrl, setImgUrl] = useState(null);
+
+  useEffect(() => {
+    //일러스트 생성
+    const data = createImage(bookId, pageNum - 1);
+    setImgUrl(data.imgUrl);
+  }, []);
+
   return (
     <Container>
-      <ImageBox>
-        <Image src={img_url} alt="" key={pageNum} side={side} />
+      <ImageBox side={side}>
+        {imgUrl ? (
+          <Image src={imgUrl} alt="" key={pageNum} side={side} />
+        ) : (
+          <Loader>
+            <DotLoader color="#78B9FF" size={100} />
+          </Loader>
+        )}
         <Button
           onClick={onclick}
           left={buttonLeft}
@@ -42,7 +60,30 @@ const ImageBox = styled.div`
   width: 100%;
   height: 0px;
   padding-bottom: 100%;
+  /* box-sizing: border-box; */
   overflow: hidden;
+  outline: 1px solid grey;
+  border-radius: ${(props) =>
+    props.side === "left" ? "3% 0% 0% 3%" : "0% 3% 3% 0%"};
+  /* display: flex; */
+`;
+
+const Loader = styled.div`
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 500px;
+  /* flex: 1; */
+  /* height: 100%; */
+  //background: beige;
+  /* height: 90vh; */
+  color: grey;
+  font-size: 20px;
+  //font-weight: bold;
+  /* border: 1px solid blue; */
 `;
 
 const Image = styled.img`

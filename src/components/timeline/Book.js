@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Page from "./Page";
 import Profile from "../Profile";
@@ -6,10 +6,14 @@ import Cover from "./Cover";
 import Modal from "./Modal";
 import { IoIosMore } from "react-icons/io";
 import { TbNotebook, TbNotes } from "react-icons/tb";
+import { createImage } from "../../api/books";
+import { createCover } from "./../../api/books";
 
-function Book({ book }) {
+function Book({ bookId, texts }) {
   const [open, setOpen] = useState(false);
   const [pageNum, setPageNum] = useState(0);
+  const [coverUrl, setCoverUrl] = useState(null);
+  const [images, setImages] = useState(null);
 
   const onClickLeft = () => {
     if (pageNum > 1) setPageNum((prev) => prev - 2); //앞장으로 넘어가기
@@ -17,8 +21,21 @@ function Book({ book }) {
   };
   const onClickRight = () => {
     if (pageNum === 0) setPageNum((prev) => prev + 1);
-    else if (pageNum <= book.pages.length - 2) setPageNum((prev) => prev + 2);
+    else if (pageNum <= texts.length - 2) setPageNum((prev) => prev + 2);
   };
+
+  useEffect(() => {
+    //표지 생성
+    const cover = createCover(bookId).coverUrl;
+    setCoverUrl(cover);
+
+    //일러스트 생성
+    // const images = texts.map((text, pageNum) => {
+    //   const imgUrl = createImage(bookId, pageNum).imgUrl;
+    //   return imgUrl;
+    // });
+    // setImages(images);
+  }, []);
 
   return (
     <Root>
@@ -36,7 +53,7 @@ function Book({ book }) {
         </Header>
         {pageNum === 0 ? (
           <Cover
-            img_url="/images/dummy3.png"
+            coverUrl={coverUrl}
             title="자전거를 타고 떠나요"
             onclick={onClickRight}
             side="right"
@@ -46,8 +63,10 @@ function Book({ book }) {
         ) : (
           <PageContainer>
             <Page
-              img_url={book.pages[pageNum - 1].img_url}
-              text={book.pages[pageNum - 1].text}
+              //img_url={book.pages[pageNum - 1].img_url}
+              //text={book.pages[pageNum - 1].text}
+              bookId={bookId}
+              text={texts[pageNum - 1]}
               pageNum={pageNum}
               onclick={onClickLeft}
               side="left"
@@ -56,10 +75,12 @@ function Book({ book }) {
               pageNumLeft="20px"
               pageNumRight="auto"
             />
-            {pageNum < book.pages.length ? (
+            {pageNum < texts.length ? (
               <Page
-                img_url={book.pages[pageNum].img_url}
-                text={book.pages[pageNum].text}
+                //img_url={book.pages[pageNum].img_url}
+                //text={book.pages[pageNum].text}
+                bookId={bookId}
+                text={texts[pageNum]}
                 pageNum={pageNum + 1}
                 onclick={onClickRight}
                 side="right"
@@ -69,8 +90,10 @@ function Book({ book }) {
                 pageNumRight="20px"
               />
             ) : (
+              // 엔딩페이지
               <Page
-                img_url="https://as2.ftcdn.net/v2/jpg/05/27/32/19/1000_F_527321970_wMLCe02I03RKjG7Ft64fmDmCITmAYeGM.jpg"
+                imgUrl="https://as2.ftcdn.net/v2/jpg/05/27/32/19/1000_F_527321970_wMLCe02I03RKjG7Ft64fmDmCITmAYeGM.jpg"
+                bookId={bookId}
                 text=""
                 pageNum=""
                 onclick={onClickRight}

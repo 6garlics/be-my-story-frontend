@@ -5,6 +5,7 @@ import Book from "../components/timeline/Book";
 import { friends } from "../data/FriendsData";
 
 //const id = 0;
+const texts = ["1", "2", "3", "4", "5"];
 
 function Timeline() {
   // const [friends, setFriends] = useState([]);
@@ -25,7 +26,7 @@ function Timeline() {
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Container>
         {friends.map((book, index) => (
-          <Book key={index} book={book} />
+          <Book key={index} book={book} texts={texts} />
         ))}
       </Container>
     </div>
