@@ -3,9 +3,10 @@ import styled from "styled-components";
 import Page from "./Page";
 import Profile from "../Profile";
 import Cover from "./Cover";
+import Modal from "./Modal";
 
 function Book({ book }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [pageNum, setPageNum] = useState(0);
 
   const onClickLeft = () => {
@@ -19,14 +20,16 @@ function Book({ book }) {
 
   return (
     <Root>
+      {open && <Modal open={open} setOpen={setOpen} />}
       <Container>
-        <ProfileWrapper>
+        <Header>
           <Profile
             userId={0}
             profileImage="https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg"
             nickname="Jamie"
           />
-        </ProfileWrapper>
+          <Button onClick={() => setOpen((prev) => !prev)}>...</Button>
+        </Header>
         {pageNum === 0 ? (
           <Cover
             img_url="/images/dummy3.png"
@@ -93,10 +96,20 @@ const Container = styled.div`
   margin: 20px;
 `;
 
-const ProfileWrapper = styled.div`
+const Header = styled.div`
   margin: 10px;
   margin-top: 15px;
   display: flex;
+`;
+
+const Button = styled.button`
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 30px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const PageContainer = styled.div`
