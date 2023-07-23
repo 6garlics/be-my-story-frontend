@@ -49,11 +49,23 @@ function Book({ book }) {
               pageNumLeft="20px"
               pageNumRight="auto"
             />
-            {pageNum < book.pages.length && (
+            {pageNum < book.pages.length ? (
               <Page
                 img_url={book.pages[pageNum].img_url}
                 text={book.pages[pageNum].text}
                 pageNum={pageNum + 1}
+                onclick={onClickRight}
+                side="right"
+                buttonLeft="auto"
+                buttonRight="0px"
+                pageNumLeft="auto"
+                pageNumRight="20px"
+              />
+            ) : (
+              <Page
+                img_url="https://as2.ftcdn.net/v2/jpg/05/27/32/19/1000_F_527321970_wMLCe02I03RKjG7Ft64fmDmCITmAYeGM.jpg"
+                text=""
+                pageNum=""
                 onclick={onClickRight}
                 side="right"
                 buttonLeft="auto"
