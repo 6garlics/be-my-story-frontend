@@ -5,7 +5,6 @@ const Page = ({
   img_url,
   text,
   pageNum,
-  maxPage,
   onclick,
   side,
   buttonLeft,
@@ -14,22 +13,20 @@ const Page = ({
   pageNumRight,
 }) => {
   return (
-    pageNum < maxPage && (
-      <Container>
-        <ImageBox>
-          <Image src={img_url} alt="" key={pageNum} side={side} />
-          <Button
-            onClick={onclick}
-            left={buttonLeft}
-            right={buttonRight}
-          ></Button>
-          <PageNum left={pageNumLeft} right={pageNumRight}>
-            {pageNum + 1}
-          </PageNum>
-        </ImageBox>
-        <PageText>{text}</PageText>
-      </Container>
-    )
+    <Container>
+      <ImageBox>
+        <Image src={img_url} alt="" key={pageNum} side={side} />
+        <Button
+          onClick={onclick}
+          left={buttonLeft}
+          right={buttonRight}
+        ></Button>
+        <PageNum left={pageNumLeft} right={pageNumRight}>
+          {pageNum}
+        </PageNum>
+      </ImageBox>
+      <PageText>{text}</PageText>
+    </Container>
   );
 };
 

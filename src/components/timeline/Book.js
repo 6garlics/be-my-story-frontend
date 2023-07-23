@@ -9,10 +9,12 @@ function Book({ book }) {
   const [pageNum, setPageNum] = useState(0);
 
   const onClickLeft = () => {
-    pageNum > 1 && setPageNum((pageNum) => pageNum - 2);
+    if (pageNum > 1) setPageNum((prev) => prev - 2); //앞장으로 넘어가기
+    else setPageNum((prev) => prev - 1); //표지로 넘어가기
   };
   const onClickRight = () => {
-    pageNum < book.pages.length - 2 && setPageNum((pageNum) => pageNum + 2);
+    if (pageNum === 0) setPageNum((prev) => prev + 1);
+    else if (pageNum <= book.pages.length - 2) setPageNum((prev) => prev + 2);
   };
 
   return (
@@ -25,11 +27,11 @@ function Book({ book }) {
             nickname="Jamie"
           />
         </ProfileWrapper>
-        {open ? (
+        {pageNum === 0 ? (
           <Cover
             img_url="/images/dummy3.png"
             title="자전거를 타고 떠나요"
-            onclick={() => setOpen((prev) => !prev)}
+            onclick={onClickRight}
             side="right"
             buttonLeft="auto"
             buttonRight="0px"
@@ -37,10 +39,9 @@ function Book({ book }) {
         ) : (
           <PageContainer>
             <Page
-              img_url={book.pages[pageNum].img_url}
-              text={book.pages[pageNum].text}
+              img_url={book.pages[pageNum - 1].img_url}
+              text={book.pages[pageNum - 1].text}
               pageNum={pageNum}
-              maxPage={book.pages.length}
               onclick={onClickLeft}
               side="left"
               buttonLeft="0px"
@@ -48,18 +49,19 @@ function Book({ book }) {
               pageNumLeft="20px"
               pageNumRight="auto"
             />
-            <Page
-              img_url={book.pages[pageNum + 1].img_url}
-              text={book.pages[pageNum + 1].text}
-              pageNum={pageNum + 1}
-              maxPage={book.pages.length}
-              onclick={onClickRight}
-              side="right"
-              buttonLeft="auto"
-              buttonRight="0px"
-              pageNumLeft="auto"
-              pageNumRight="20px"
-            />
+            {pageNum < book.pages.length && (
+              <Page
+                img_url={book.pages[pageNum].img_url}
+                text={book.pages[pageNum].text}
+                pageNum={pageNum + 1}
+                onclick={onClickRight}
+                side="right"
+                buttonLeft="auto"
+                buttonRight="0px"
+                pageNumLeft="auto"
+                pageNumRight="20px"
+              />
+            )}
           </PageContainer>
         )}
       </Container>

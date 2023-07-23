@@ -270,11 +270,11 @@ export const books = [
             "https://t3.ftcdn.net/jpg/02/77/07/80/1000_F_277078013_Gd3miIHP0hyzwJC7xEVgzUNFEt6KpiWw.jpg",
           text: "정말 예쁜 식물이에요. 물을 먹고 무럭무럭 자라나요.",
         },
-        {
-          img_url:
-            "https://t4.ftcdn.net/jpg/05/69/15/31/1000_F_569153166_XUCqp7SQ4xk88L04PLRFrX4NM4AIAnzj.jpg",
-          text: "더운 여름에는 시원한 딸기주스를 마셔보아요.",
-        },
+        // {
+        //   img_url:
+        //     "https://t4.ftcdn.net/jpg/05/69/15/31/1000_F_569153166_XUCqp7SQ4xk88L04PLRFrX4NM4AIAnzj.jpg",
+        //   text: "더운 여름에는 시원한 딸기주스를 마셔보아요.",
+        // },
       ],
     },
   ],
