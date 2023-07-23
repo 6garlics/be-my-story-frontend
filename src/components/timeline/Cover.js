@@ -1,11 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const Page = ({
+const Cover = ({
   img_url,
-  text,
-  pageNum,
-  maxPage,
+  title,
   onclick,
   side,
   buttonLeft,
@@ -14,22 +12,17 @@ const Page = ({
   pageNumRight,
 }) => {
   return (
-    pageNum < maxPage && (
-      <Container>
-        <ImageBox>
-          <Image src={img_url} alt="" key={pageNum} side={side} />
-          <Button
-            onClick={onclick}
-            left={buttonLeft}
-            right={buttonRight}
-          ></Button>
-          <PageNum left={pageNumLeft} right={pageNumRight}>
-            {pageNum + 1}
-          </PageNum>
-        </ImageBox>
-        <PageText>{text}</PageText>
-      </Container>
-    )
+    <Container>
+      <ImageBox>
+        <Image src={img_url} alt="" side={side} />
+        <Title>{title}</Title>
+        <Button
+          onClick={onclick}
+          left={buttonLeft}
+          right={buttonRight}
+        ></Button>
+      </ImageBox>
+    </Container>
   );
 };
 
@@ -53,8 +46,21 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: ${(props) =>
-    props.side === "left" ? "3% 0% 0% 3%" : "0% 3% 3% 0%"};
+  border-radius: 3% 3% 3% 3%;
+`;
+
+const Title = styled.div`
+  position: absolute;
+  width: 60%;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  font-weight: bold;
+  word-break: keep-all;
+  text-align: center;
+  font-family: "Gaegu", cursive;
+  font-size: 45px;
 `;
 
 const Button = styled.button`
@@ -88,4 +94,4 @@ const PageText = styled.div`
   height: 6rem;
 `;
 
-export default Page;
+export default Cover;

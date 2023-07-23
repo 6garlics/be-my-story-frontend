@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Page from "./Page";
 import Profile from "../Profile";
+import Cover from "./Cover";
 
 function Book({ book }) {
+  const [open, setOpen] = useState(true);
   const [pageNum, setPageNum] = useState(0);
 
   const onClickLeft = () => {
@@ -23,30 +25,43 @@ function Book({ book }) {
             nickname="Jamie"
           />
         </ProfileWrapper>
-        <PageContainer>
-          <Page
-            book={book}
-            pageNum={pageNum}
-            maxPage={book.pages.length}
-            onclick={onClickLeft}
-            side="left"
-            buttonLeft="0px"
-            buttonRight="auto"
-            pageNumLeft="20px"
-            pageNumRight="auto"
-          />
-          <Page
-            book={book}
-            pageNum={pageNum + 1}
-            maxPage={book.pages.length}
-            onclick={onClickRight}
+        {open ? (
+          <Cover
+            img_url="/images/dummy3.png"
+            title="자전거를 타고 떠나요"
+            onclick={() => setOpen((prev) => !prev)}
             side="right"
             buttonLeft="auto"
             buttonRight="0px"
-            pageNumLeft="auto"
-            pageNumRight="20px"
           />
-        </PageContainer>
+        ) : (
+          <PageContainer>
+            <Page
+              img_url={book.pages[pageNum].img_url}
+              text={book.pages[pageNum].text}
+              pageNum={pageNum}
+              maxPage={book.pages.length}
+              onclick={onClickLeft}
+              side="left"
+              buttonLeft="0px"
+              buttonRight="auto"
+              pageNumLeft="20px"
+              pageNumRight="auto"
+            />
+            <Page
+              img_url={book.pages[pageNum + 1].img_url}
+              text={book.pages[pageNum + 1].text}
+              pageNum={pageNum + 1}
+              maxPage={book.pages.length}
+              onclick={onClickRight}
+              side="right"
+              buttonLeft="auto"
+              buttonRight="0px"
+              pageNumLeft="auto"
+              pageNumRight="20px"
+            />
+          </PageContainer>
+        )}
       </Container>
     </Root>
   );
