@@ -26,16 +26,17 @@ function Book({ bookId, title, texts }) {
 
   useEffect(async () => {
     //표지 생성
-    const data = await createCover(bookId);
-    setCoverUrl(data.coverUrl);
+    const coverData = await createCover(bookId);
+    setCoverUrl(coverData.coverUrl);
 
     //일러스트 생성
-    const images = texts.map(async (text, pageNum) => {
-      const d = await createImage(bookId, pageNum);
-      console.log(d.index, d.imgUrl);
-      return { index: d.index, imgUrl: d.imgUrl };
+    const imagesData = texts.map(async (text, index) => {
+      const data = await createImage(bookId, index);
+
+      console.log(data.index, data.imgUrl);
+      return { index: data.index, imgUrl: data.imgUrl };
     });
-    setImages(images);
+    setImages(imagesData);
   }, []);
 
   return (
@@ -66,7 +67,8 @@ function Book({ bookId, title, texts }) {
             <Page
               //img_url={book.pages[pageNum - 1].img_url}
               //text={book.pages[pageNum - 1].text}
-              imgUrl={images[pageNum - 1].imgUrl}
+              //imgUrl={images[pageNum - 1].imgUrl}
+              images={images}
               bookId={bookId}
               text={texts[pageNum - 1]}
               pageNum={pageNum}
@@ -77,36 +79,40 @@ function Book({ bookId, title, texts }) {
               pageNumLeft="20px"
               pageNumRight="auto"
             />
-            {pageNum < texts.length ? (
-              <Page
-                //img_url={book.pages[pageNum].img_url}
-                //text={book.pages[pageNum].text}
-                imgUrl={images[pageNum].imgUrl}
-                bookId={bookId}
-                text={texts[pageNum]}
-                pageNum={pageNum + 1}
-                onclick={onClickRight}
-                side="right"
-                buttonLeft="auto"
-                buttonRight="0px"
-                pageNumLeft="auto"
-                pageNumRight="20px"
-              />
-            ) : (
-              // 엔딩페이지
-              <Page
-                imgUrl="https://as2.ftcdn.net/v2/jpg/05/27/32/19/1000_F_527321970_wMLCe02I03RKjG7Ft64fmDmCITmAYeGM.jpg"
-                bookId={bookId}
-                text=""
-                pageNum=""
-                onclick={onClickRight}
-                side="right"
-                buttonLeft="auto"
-                buttonRight="0px"
-                pageNumLeft="auto"
-                pageNumRight="20px"
-              />
-            )}
+            {
+              pageNum < texts.length && (
+                <Page
+                  //img_url={book.pages[pageNum].img_url}
+                  //text={book.pages[pageNum].text}
+                  //imgUrl={images[pageNum].imgUrl}
+                  images={images}
+                  bookId={bookId}
+                  text={texts[pageNum]}
+                  pageNum={pageNum + 1}
+                  onclick={onClickRight}
+                  side="right"
+                  buttonLeft="auto"
+                  buttonRight="0px"
+                  pageNumLeft="auto"
+                  pageNumRight="20px"
+                />
+              )
+              //: (
+              //   // 엔딩페이지
+              //   <Page
+              //     imgUrl="https://as2.ftcdn.net/v2/jpg/05/27/32/19/1000_F_527321970_wMLCe02I03RKjG7Ft64fmDmCITmAYeGM.jpg"
+              //     bookId={bookId}
+              //     text=""
+              //     pageNum=""
+              //     onclick={onClickRight}
+              //     side="right"
+              //     buttonLeft="auto"
+              //     buttonRight="0px"
+              //     pageNumLeft="auto"
+              //     pageNumRight="20px"
+              //   />
+              // )
+            }
           </PageContainer>
         )}
       </Container>

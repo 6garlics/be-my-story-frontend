@@ -7,6 +7,7 @@ import { createImage } from "../../api/books";
 const Page = ({
   bookId,
   imgUrl,
+  images,
   text,
   pageNum,
   onclick,
@@ -17,7 +18,7 @@ const Page = ({
   pageNumRight,
 }) => {
   //const [loading, setLoading] = useState(true);
-  //const [imgUrl, setImgUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
 
   // useEffect(() => {
   //   //일러스트 생성
@@ -25,11 +26,17 @@ const Page = ({
   //   setImgUrl(data.imgUrl);
   // }, []);
 
+  useEffect(() => {
+    images.forEach(
+      (image) => image.index === pageNum - 1 && setImageUrl(image.imgUrl)
+    );
+  });
+
   return (
     <Container>
       <ImageBox side={side}>
         {imgUrl ? (
-          <Image src={imgUrl} alt="" key={pageNum} side={side} />
+          <Image src={imageUrl} alt="" key={pageNum} side={side} />
         ) : (
           <Loader>
             <DotLoader color="#78B9FF" size={100} />
