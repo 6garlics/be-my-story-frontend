@@ -32,7 +32,8 @@ function Book({ bookId, title, texts }) {
     //일러스트 생성
     const images = texts.map(async (text, pageNum) => {
       const d = await createImage(bookId, pageNum);
-      return { index: d.index, imgUrl: d.imgUrl };
+      console.log(pageNum, ": ", d.imgUrl);
+      return { index: pageNum, imgUrl: d.imgUrl };
     });
     setImages(images);
   }, []);
