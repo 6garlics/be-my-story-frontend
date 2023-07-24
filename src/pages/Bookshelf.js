@@ -7,6 +7,7 @@ import Friends from "../components/book_shelf/Friends";
 import { users } from "../data/UsersData";
 import { FaUserFriends } from "react-icons/fa";
 import { getBookshelf } from "./../api/users";
+import { useEffect } from "react";
 
 const Bookshelf = () => {
   const { id } = useParams();
