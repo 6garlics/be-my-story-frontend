@@ -35,7 +35,7 @@ const Page = ({
   return (
     <Container>
       <ImageBox side={side}>
-        {imgUrl ? (
+        {imageUrl ? (
           <Image src={imageUrl} alt="" key={pageNum} side={side} />
         ) : (
           <Loader>
