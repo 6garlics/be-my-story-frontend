@@ -26,8 +26,9 @@ function Book({ bookId, texts }) {
 
   useEffect(() => {
     //표지 생성
-    // const data = createCover(bookId);
-    // setCoverUrl(data.coverUrl);
+    const data = createCover(bookId);
+    setCoverUrl(data.coverUrl);
+
     //일러스트 생성
     // const images = texts.map((text, pageNum) => {
     //   const imgUrl = createImage(bookId, pageNum).imgUrl;

@@ -117,11 +117,11 @@ const DiaryForm = () => {
     formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));
 
-    const data = createTexts(formData);
+    const data = await createTexts(formData);
 
-    // navigate(`/book/${data.bookId}/detail`, {
-    //   state: { bookId: data.bookId, texts: data.texts },
-    // });
+    navigate(`/book/${data.bookId}/detail`, {
+      state: { bookId: data.bookId, texts: data.texts },
+    });
 
     // try {
     //   const response = await axios.post(
