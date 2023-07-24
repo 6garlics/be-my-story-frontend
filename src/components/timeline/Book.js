@@ -13,7 +13,7 @@ function Book({ bookId, title, texts }) {
   const [open, setOpen] = useState(false);
   const [pageNum, setPageNum] = useState(0);
   const [coverUrl, setCoverUrl] = useState(null);
-  //const [images, setImages] = useState(null);
+  const [images, setImages] = useState(null);
 
   const onClickLeft = () => {
     if (pageNum > 1) setPageNum((prev) => prev - 2); //앞장으로 넘어가기
@@ -30,11 +30,11 @@ function Book({ bookId, title, texts }) {
     setCoverUrl(data.coverUrl);
 
     //일러스트 생성
-    // const images = texts.map((text, pageNum) => {
-    //   const imgUrl = createImage(bookId, pageNum).imgUrl;
-    //   return imgUrl;
-    // });
-    // setImages(images);
+    const images = texts.map(async (text, pageNum) => {
+      const imgUrl = await createImage(bookId, pageNum).imgUrl;
+      return imgUrl;
+    });
+    setImages(images);
   }, []);
 
   return (
@@ -65,6 +65,7 @@ function Book({ bookId, title, texts }) {
             <Page
               //img_url={book.pages[pageNum - 1].img_url}
               //text={book.pages[pageNum - 1].text}
+              imgUrl={images[pageNum - 1]}
               bookId={bookId}
               text={texts[pageNum - 1]}
               pageNum={pageNum}
@@ -79,6 +80,7 @@ function Book({ bookId, title, texts }) {
               <Page
                 //img_url={book.pages[pageNum].img_url}
                 //text={book.pages[pageNum].text}
+                imgUrl={images[pageNum]}
                 bookId={bookId}
                 text={texts[pageNum]}
                 pageNum={pageNum + 1}

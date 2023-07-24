@@ -6,6 +6,7 @@ import { createImage } from "../../api/books";
 
 const Page = ({
   bookId,
+  imgUrl,
   text,
   pageNum,
   onclick,
@@ -16,13 +17,13 @@ const Page = ({
   pageNumRight,
 }) => {
   //const [loading, setLoading] = useState(true);
-  const [imgUrl, setImgUrl] = useState(null);
+  //const [imgUrl, setImgUrl] = useState(null);
 
-  useEffect(() => {
-    //일러스트 생성
-    const data = createImage(bookId, pageNum - 1);
-    setImgUrl(data.imgUrl);
-  }, []);
+  // useEffect(() => {
+  //   //일러스트 생성
+  //   const data = createImage(bookId, pageNum - 1);
+  //   setImgUrl(data.imgUrl);
+  // }, []);
 
   return (
     <Container>
