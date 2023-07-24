@@ -15,6 +15,7 @@ export const createTexts = async (body) => {
   try {
     const res = await axios.post(`http://43.202.81.68:8081/books`, body, {
       headers: { "Content-Type": "application/json" },
+      withCredentials: true,
     });
 
     console.log(res.data);
