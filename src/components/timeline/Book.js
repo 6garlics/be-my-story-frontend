@@ -31,8 +31,8 @@ function Book({ bookId, title, texts }) {
 
     //일러스트 생성
     const images = texts.map(async (text, pageNum) => {
-      const imgUrl = await createImage(bookId, pageNum).imgUrl;
-      return imgUrl;
+      const d = await createImage(bookId, pageNum);
+      return { index: d.index, imgUrl: d.imgUrl };
     });
     setImages(images);
   }, []);
@@ -65,7 +65,7 @@ function Book({ bookId, title, texts }) {
             <Page
               //img_url={book.pages[pageNum - 1].img_url}
               //text={book.pages[pageNum - 1].text}
-              imgUrl={images[pageNum - 1]}
+              imgUrl={images.imgUrl[pageNum - 1]}
               bookId={bookId}
               text={texts[pageNum - 1]}
               pageNum={pageNum}
@@ -80,7 +80,7 @@ function Book({ bookId, title, texts }) {
               <Page
                 //img_url={book.pages[pageNum].img_url}
                 //text={book.pages[pageNum].text}
-                imgUrl={images[pageNum]}
+                imgUrl={images.imgUrl[pageNum]}
                 bookId={bookId}
                 text={texts[pageNum]}
                 pageNum={pageNum + 1}
