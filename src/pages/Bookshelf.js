@@ -6,6 +6,7 @@ import BookCover from "../components/book_shelf/BookCover";
 import Friends from "../components/book_shelf/Friends";
 import { users } from "../data/UsersData";
 import { FaUserFriends } from "react-icons/fa";
+import { getBookshelf } from "./../api/users";
 
 const Bookshelf = () => {
   const { id } = useParams();
@@ -29,6 +30,10 @@ const Bookshelf = () => {
   // useEffect(() => {
   //   getUser();
   // }, []);
+  useEffect(async () => {
+    const data = await getBookshelf(1);
+    console.log(data);
+  }, []);
 
   return user ? (
     <div style={{ display: "flex" }}>
