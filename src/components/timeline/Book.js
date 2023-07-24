@@ -9,7 +9,7 @@ import { TbNotebook, TbNotes } from "react-icons/tb";
 import { createImage } from "../../api/books";
 import { createCover } from "./../../api/books";
 
-function Book({ bookId, texts }) {
+function Book({ bookId, title, texts }) {
   const [open, setOpen] = useState(false);
   const [pageNum, setPageNum] = useState(0);
   const [coverUrl, setCoverUrl] = useState(null);
@@ -54,7 +54,7 @@ function Book({ bookId, texts }) {
         {pageNum === 0 ? (
           <Cover
             coverUrl={coverUrl}
-            title="자전거를 타고 떠나요"
+            title={title}
             onclick={onClickRight}
             side="right"
             buttonLeft="auto"

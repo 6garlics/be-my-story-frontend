@@ -120,7 +120,7 @@ const DiaryForm = () => {
     const data = await createTexts(formData);
 
     navigate(`/book/${data.bookId}/detail`, {
-      state: { bookId: data.bookId, texts: data.texts },
+      state: { bookId: data.bookId, title: data.title, texts: data.texts },
     });
 
     // try {

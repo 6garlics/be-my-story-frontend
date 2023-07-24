@@ -9,6 +9,7 @@ const BookDetail = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Book
           bookId={useLocation().state.bookId}
+          title={useLocation().state.title}
           texts={useLocation().state.texts}
         />
       </div>
