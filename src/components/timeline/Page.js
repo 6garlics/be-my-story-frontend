@@ -15,7 +15,7 @@ const Page = ({
   pageNumLeft,
   pageNumRight,
 }) => {
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
   const [imgUrl, setImgUrl] = useState(null);
 
   useEffect(() => {

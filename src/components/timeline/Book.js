@@ -13,7 +13,7 @@ function Book({ bookId, texts }) {
   const [open, setOpen] = useState(false);
   const [pageNum, setPageNum] = useState(0);
   const [coverUrl, setCoverUrl] = useState(null);
-  const [images, setImages] = useState(null);
+  //const [images, setImages] = useState(null);
 
   const onClickLeft = () => {
     if (pageNum > 1) setPageNum((prev) => prev - 2); //앞장으로 넘어가기
@@ -26,9 +26,8 @@ function Book({ bookId, texts }) {
 
   useEffect(() => {
     //표지 생성
-    const cover = createCover(bookId).coverUrl;
-    setCoverUrl(cover);
-
+    // const data = createCover(bookId);
+    // setCoverUrl(data.coverUrl);
     //일러스트 생성
     // const images = texts.map((text, pageNum) => {
     //   const imgUrl = createImage(bookId, pageNum).imgUrl;
