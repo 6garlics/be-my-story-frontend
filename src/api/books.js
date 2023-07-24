@@ -13,7 +13,7 @@ export const editBook = async () => {};
 //🍋 동화 텍스트 생성
 export const createTexts = async (body) => {
   try {
-    const res = await axios.post(`http://43.202.81.68:80/books`, body, {
+    const res = await axios.post(`http://43.202.81.68:8080/books`, body, {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
@@ -30,7 +30,7 @@ export const createTexts = async (body) => {
 export const createCover = async (bookId) => {
   try {
     const res = await axios.get(
-      `http://43.202.81.68:80/books/${bookId}/cover`,
+      `http://43.202.81.68:8080/books/${bookId}/cover`,
       {
         headers: { "Content-Type": "application/json" },
       }
@@ -48,7 +48,7 @@ export const createCover = async (bookId) => {
 export const createImage = async (bookId, pageNum) => {
   try {
     const res = await axios.get(
-      `http://43.202.81.68:80/books/${bookId}/pages/${pageNum}`,
+      `http://43.202.81.68:8080/books/${bookId}/pages/${pageNum}`,
       {
         headers: { "Content-Type": "application/json" },
       }

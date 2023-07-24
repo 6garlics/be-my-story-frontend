@@ -11,7 +11,7 @@ export const login = async () => {};
 export const getBookshelf = async (userId) => {
   try {
     const res = await axios.get(
-      `http://43.202.81.68:80/users/${userId}/books`,
+      `http://43.202.81.68:8080/users/${userId}/books`,
       {
         headers: { "Content-Type": "application/json" },
       }
