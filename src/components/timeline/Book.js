@@ -24,9 +24,9 @@ function Book({ bookId, texts }) {
     else if (pageNum <= texts.length - 2) setPageNum((prev) => prev + 2);
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     //표지 생성
-    const data = createCover(bookId);
+    const data = await createCover(bookId);
     setCoverUrl(data.coverUrl);
 
     //일러스트 생성
