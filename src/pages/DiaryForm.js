@@ -80,6 +80,7 @@ const DiaryForm = () => {
   const [selectedGenre, setSelectedGenre] = useState(0);
   //const [book, setBook] = useState();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   //GET 요청 함수
@@ -98,18 +99,12 @@ const DiaryForm = () => {
     }
   };
 
-  //GET 요청
-  // useEffect(() => {
-  //   const response = getRequest();
-  //   console.log(response.data);
-  // }, []);
-
   //🍋 동화책 생성
   const submitDiary = async (event) => {
     event.preventDefault();
-
     setLoading(true);
 
+    //폼데이터 가공
     const formData = new FormData(event.target);
     formData.delete("genre");
     formData.append("genre", genres[selectedGenre]);
@@ -117,30 +112,22 @@ const DiaryForm = () => {
     formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));
 
+    //동화 텍스트 생성
     const data = await createTexts(formData);
 
-    navigate(`/book/${data.bookId}/detail`, {
-      state: { bookId: data.bookId, title: data.title, texts: data.texts },
-    });
-
-    // try {
-    //   const response = await axios.post(
-    //     "http://43.202.81.68:80/books",
-    //     formData,
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       //withCredentials: true,
-    //     }
-    //   );
-    //   console.log("POST 응답 데이터: ", response.data);
-    //   //setBook(response.data);
-    //   // navigate("/book-form", { state: { book: response.data } });
-    //   navigate("/book/0/detail", { state: { book: response.data } });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    //502 에러 발생시
+    if (data.response.status === 502) {
+      setLoading(false);
+      setError(true);
+    } else {
+      navigate(`/book/${data.bookId}/detail`, {
+        state: {
+          bookId: data.bookId,
+          title: data.title,
+          texts: data.texts,
+        },
+      });
+    }
   };
 
   const dateToString = (date) => {
@@ -155,6 +142,8 @@ const DiaryForm = () => {
       <DotLoader color="#78B9FF" size={100} />
       <LoaderText>동화책을 만들고 있어요!</LoaderText>
     </Loader>
+  ) : error ? (
+    <div>에러가 발생했어요.</div>
   ) : (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Form onSubmit={submitDiary}>

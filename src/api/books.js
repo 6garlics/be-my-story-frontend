@@ -23,6 +23,7 @@ export const createTexts = async (body) => {
   } catch (err) {
     console.log("에러 발생");
     console.log(err);
+    return err;
   }
 };
 
