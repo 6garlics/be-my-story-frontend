@@ -8,16 +8,13 @@ import Bookshelf from "./pages/Bookshelf";
 import BookDetail from "./components/book_shelf/BookDetail";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Header from "./Header";
 
 function App() {
   return (
-    <Container>
-      <Header>
-        <Logo to="/">
-          <BE>BE</BE>MY STORY
-        </Logo>
-      </Header>
-      <Wrapper className="App">
+    <Container className="App">
+      <Header />
+      <Wrapper>
         <Nav />
         <Main>
           <Routes>
@@ -40,27 +37,10 @@ function App() {
   );
 }
 
-const Container = styled.div``;
-
-const Header = styled.div`
+const Container = styled.div`
+  height: 100vh;
   display: flex;
-  flex: none;
-  height: 50px;
-  padding: 5px;
-  border-bottom: 1px solid grey;
-  font-size: 30px;
-  font-weight: bolder;
-`;
-
-const Logo = styled(NavLink)`
-  display: flex;
-  color: black;
-  text-decoration: none;
-`;
-
-const BE = styled.div`
-  color: #78b9ff;
-  margin-right: 13px;
+  flex-direction: column;
 `;
 
 const Wrapper = styled.main`
