@@ -5,11 +5,13 @@ const Register = () => {
   return (
     <Container>
       <Wrapper>
+        <Text>{`Be My Story 회원가입`}</Text>
         <Form>
           <Label htmlFor="id">ID</Label>
-          <Id id="id" />
+          <Input id="id" />
           <Label htmlFor="password">PASSWORD</Label>
-          <Password id="password" />
+          <Input id="password" />
+          <SignUpBtn>회원가입</SignUpBtn>
         </Form>
       </Wrapper>
     </Container>
@@ -20,36 +22,52 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: beige;
+  height: 100%;
 `;
 
 const Wrapper = styled.div`
-  margin-top: 100px;
   padding: 30px;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: 15px;
   border: 1px solid grey;
   width: 400px;
-  height: 500px;
+  height: 400px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 `;
 
+const Text = styled.div`
+  font-size: 27px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 250px;
+  word-break: keep-all;
+`;
+
 const Form = styled.form`
+  width: 250px;
   display: flex;
   flex-direction: column;
-  border: 1px solid skyblue;
 `;
 
 const Label = styled.label``;
 
-const Id = styled.input`
-  width: 200px;
+const Input = styled.input`
+  height: 25px;
+  border-radius: 7px;
+  margin-bottom: 15px;
 `;
 
-const Password = styled.input`
-  width: 200px;
+const SignUpBtn = styled.div`
+  padding: 4px 7px;
+  border-radius: 7px;
+  background: #78b9ff;
+  color: white;
+  text-align: center;
+  margin-left: auto;
+  margin-top: 10px;
 `;
 
 export default Register;
