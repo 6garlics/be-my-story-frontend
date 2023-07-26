@@ -24,19 +24,22 @@ function Book({ bookId, title, texts }) {
     else if (pageNum <= texts.length - 2) setPageNum((prev) => prev + 2);
   };
 
-  useEffect(async () => {
-    //표지 생성
-    const coverData = await createCover(bookId);
-    setCoverUrl(coverData.coverUrl);
+  useEffect(() => {
+    async function fetchData() {
+      //표지 생성
+      const coverData = await createCover(bookId);
+      setCoverUrl(coverData.coverUrl);
 
-    //일러스트 생성
-    const imagesData = texts.map(async (text, index) => {
-      const data = await createImage(bookId, index);
+      //일러스트 생성
+      const imagesData = texts.map(async (text, index) => {
+        const data = await createImage(bookId, index);
 
-      console.log(data.index, data.imgUrl);
-      return { index: data.index, imgUrl: data.imgUrl };
-    });
-    setImages(imagesData);
+        console.log(data.index, data.imgUrl);
+        return { index: data.index, imgUrl: data.imgUrl };
+      });
+      setImages(imagesData);
+    }
+    fetchData();
   }, []);
 
   return (
