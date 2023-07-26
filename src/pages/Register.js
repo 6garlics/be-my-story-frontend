@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 
 const Register = () => {
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <Container>
       <Wrapper>
         <Text>{`Be My Story 회원가입`}</Text>
         <Form>
           <Label htmlFor="id">ID</Label>
-          <Input id="id" />
+          <Input
+            id="id"
+            value={id}
+            onChange={(e) => {
+              setId(e.target.value);
+            }}
+          />
           <Label htmlFor="password">PASSWORD</Label>
-          <Input id="password" />
-          <SignUpBtn>회원가입</SignUpBtn>
+          <Input
+            id="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <SignUpBtn>가입하기</SignUpBtn>
         </Form>
       </Wrapper>
     </Container>
@@ -58,6 +73,7 @@ const Input = styled.input`
   height: 25px;
   border-radius: 7px;
   margin-bottom: 15px;
+  border: 1px solid grey;
 `;
 
 const SignUpBtn = styled.div`
