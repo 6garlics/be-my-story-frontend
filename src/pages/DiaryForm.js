@@ -116,10 +116,7 @@ const DiaryForm = () => {
     const data = await createTexts(formData);
 
     //502 에러 발생시
-    if (data.response.status === 502) {
-      setLoading(false);
-      setError(true);
-    } else {
+    if (data.response.status === 201) {
       navigate(`/book/${data.bookId}/detail`, {
         state: {
           bookId: data.bookId,
@@ -127,6 +124,9 @@ const DiaryForm = () => {
           texts: data.texts,
         },
       });
+    } else {
+      setLoading(false);
+      setError(true);
     }
   };
 
@@ -143,7 +143,7 @@ const DiaryForm = () => {
       <LoaderText>동화책을 만들고 있어요!</LoaderText>
     </Loader>
   ) : error ? (
-    <div>에러가 발생했어요.</div>
+    <Error>에러가 발생했어요.</Error>
   ) : (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Form onSubmit={submitDiary}>
@@ -200,15 +200,21 @@ const Loader = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  //background: beige;
   height: 90vh;
   color: grey;
   font-size: 20px;
-  //font-weight: bold;
 `;
 
 const LoaderText = styled.div`
   margin-top: 40px;
+`;
+
+const Error = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  font-weight: bold;
 `;
 
 const Form = styled.form`
