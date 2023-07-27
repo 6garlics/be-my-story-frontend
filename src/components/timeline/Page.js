@@ -5,9 +5,8 @@ import { DotLoader } from "react-spinners";
 import { createImage } from "../../api/books";
 
 const Page = ({
+  refresh,
   bookId,
-  imgUrl,
-  images,
   text,
   pageNum,
   onclick,
@@ -18,25 +17,28 @@ const Page = ({
   pageNumRight,
 }) => {
   //const [loading, setLoading] = useState(true);
+  const [imgUrl, setImgUrl] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
 
-  // useEffect(() => {
-  //   //일러스트 생성
-  //   const data = createImage(bookId, pageNum - 1);
-  //   setImgUrl(data.imgUrl);
-  // }, []);
-
+  //api 호출
   useEffect(() => {
-    images.forEach(
-      (image) => image.index === pageNum - 1 && setImageUrl(image.imgUrl)
-    );
-  });
+    setImageUrl(null); //일러스트 초기화
+
+    async function fetchData() {
+      //일러스트 생성
+      const data = await createImage(bookId, pageNum - 1);
+      setImgUrl(data.imgUrl);
+    }
+    fetchData();
+  }, [refresh]);
+
+  console.log("Page - imgUrl", imgUrl);
 
   return (
     <Container>
       <ImageBox side={side}>
-        {imageUrl ? (
-          <Image src={imageUrl} alt="" key={pageNum} side={side} />
+        {imgUrl ? (
+          <Image src={imgUrl} alt="" key={pageNum} side={side} />
         ) : (
           <Loader>
             <DotLoader color="#78B9FF" size={100} />
@@ -68,30 +70,21 @@ const ImageBox = styled.div`
   width: 100%;
   height: 0px;
   padding-bottom: 100%;
-  /* box-sizing: border-box; */
   overflow: hidden;
   outline: 1px solid grey;
   border-radius: ${(props) =>
     props.side === "left" ? "3% 0% 0% 3%" : "0% 3% 3% 0%"};
-  /* display: flex; */
 `;
 
 const Loader = styled.div`
-  /* position: relative; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 500px;
-  /* flex: 1; */
-  /* height: 100%; */
-  //background: beige;
-  /* height: 90vh; */
   color: grey;
   font-size: 20px;
-  //font-weight: bold;
-  /* border: 1px solid blue; */
 `;
 
 const Image = styled.img`

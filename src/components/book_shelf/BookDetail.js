@@ -3,14 +3,16 @@ import { useLocation } from "react-router-dom";
 import Book from "../timeline/Book";
 
 const BookDetail = () => {
-  console.log(useLocation());
+  const location = useLocation();
+  console.log(location);
+
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Book
-          bookId={useLocation().state.bookId}
-          title={useLocation().state.title}
-          texts={useLocation().state.texts}
+          bookId={location.state.bookId}
+          title={location.state.title}
+          texts={location.state.texts}
         />
       </div>
     </div>

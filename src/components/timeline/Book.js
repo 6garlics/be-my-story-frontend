@@ -13,34 +13,37 @@ function Book({ bookId, title, texts }) {
   const [open, setOpen] = useState(false);
   const [pageNum, setPageNum] = useState(0);
   const [coverUrl, setCoverUrl] = useState(null);
-  const [images, setImages] = useState(null);
+  const [refresh, setRefresh] = useState(0);
 
   const onClickLeft = () => {
-    if (pageNum > 1) setPageNum((prev) => prev - 2); //앞장으로 넘어가기
-    else setPageNum((prev) => prev - 1); //표지로 넘어가기
+    if (pageNum > 1) {
+      setPageNum((prev) => prev - 2); //앞장으로 넘어가기
+      setRefresh((prev) => prev + 1); //재렌더링
+    } else {
+      setPageNum((prev) => prev - 1); //내용에서 표지로 넘어가기
+    }
   };
   const onClickRight = () => {
-    if (pageNum === 0) setPageNum((prev) => prev + 1);
-    else if (pageNum <= texts.length - 2) setPageNum((prev) => prev + 2);
+    if (pageNum === 0) {
+      setPageNum((prev) => prev + 1); // 표지에서 내용으로 넘어가기
+      setRefresh((prev) => prev + 1); //재렌더링
+    } else if (pageNum <= texts.length - 2) {
+      setPageNum((prev) => prev + 2); //뒷장으로 넘어가기
+      setRefresh((prev) => prev + 1); //재렌더링
+    }
   };
 
+  //api 호출
   useEffect(() => {
     async function fetchData() {
       //표지 생성
       const coverData = await createCover(bookId);
-      setCoverUrl(coverData.coverUrl);
-
-      //일러스트 생성
-      const imagesData = texts.map(async (text, index) => {
-        const data = await createImage(bookId, index);
-
-        console.log(data.index, data.imgUrl);
-        return { index: data.index, imgUrl: data.imgUrl };
-      });
-      setImages(imagesData);
+      coverData && setCoverUrl(coverData.coverUrl);
     }
     fetchData();
   }, []);
+
+  console.log("Book - coverUrl", coverUrl);
 
   return (
     <Root>
@@ -68,10 +71,7 @@ function Book({ bookId, title, texts }) {
         ) : (
           <PageContainer>
             <Page
-              //img_url={book.pages[pageNum - 1].img_url}
-              //text={book.pages[pageNum - 1].text}
-              //imgUrl={images[pageNum - 1].imgUrl}
-              images={images}
+              refresh={refresh}
               bookId={bookId}
               text={texts[pageNum - 1]}
               pageNum={pageNum}
@@ -85,10 +85,7 @@ function Book({ bookId, title, texts }) {
             {
               pageNum < texts.length && (
                 <Page
-                  //img_url={book.pages[pageNum].img_url}
-                  //text={book.pages[pageNum].text}
-                  //imgUrl={images[pageNum].imgUrl}
-                  images={images}
+                  refresh={refresh}
                   bookId={bookId}
                   text={texts[pageNum]}
                   pageNum={pageNum + 1}
