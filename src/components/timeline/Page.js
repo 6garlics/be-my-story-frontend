@@ -5,6 +5,7 @@ import { DotLoader } from "react-spinners";
 import { createImage } from "../../api/books";
 
 const Page = ({
+  imgUrl,
   refresh,
   bookId,
   text,
@@ -17,22 +18,22 @@ const Page = ({
   pageNumRight,
 }) => {
   //const [loading, setLoading] = useState(true);
-  const [imgUrl, setImgUrl] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
+  // const [imgUrl, setImgUrl] = useState(null);
+  // const [imageUrl, setImageUrl] = useState(null);
 
   //api 호출
-  useEffect(() => {
-    setImageUrl(null); //일러스트 초기화
+  // useEffect(() => {
+  //   setImageUrl(null); //일러스트 초기화
 
-    async function fetchData() {
-      //일러스트 생성
-      const data = await createImage(bookId, pageNum - 1);
-      setImgUrl(data.imgUrl);
-    }
-    fetchData();
-  }, [refresh]);
+  //   async function fetchData() {
+  //     //일러스트 생성
+  //     const data = await createImage(bookId, pageNum - 1);
+  //     setImgUrl(data.imgUrl);
+  //   }
+  //   fetchData();
+  // }, [refresh]);
 
-  console.log("Page - imgUrl", imgUrl);
+  // console.log("Page - imgUrl", imgUrl);
 
   return (
     <Container>

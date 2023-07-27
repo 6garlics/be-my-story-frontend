@@ -31,17 +31,17 @@ export const createTexts = async (body) => {
 export const createCover = async (bookId) => {
   try {
     const res = await axios.get(
-      //`http://43.202.81.68:80/books/${bookId}/cover`,
-      `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/books/1/cover`,
+      `http://43.202.81.68:80/books/${bookId}/cover`,
+      // `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/books/1/cover`,
       {
         headers: { "Content-Type": "application/json" },
       }
     );
 
-    console.log(res.data);
+    console.log("cover", res.data);
     return res.data;
   } catch (err) {
-    console.log("에러 발생");
+    console.log("커버 에러 발생");
     console.log(err);
   }
 };
@@ -50,8 +50,8 @@ export const createCover = async (bookId) => {
 export const createImage = async (bookId, pageNum) => {
   try {
     const res = await axios.get(
-      //`http://43.202.81.68:80/books/${bookId}/pages/${pageNum}`,
-      `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/books/${bookId}/pages/${pageNum}`,
+      `http://43.202.81.68:80/books/${bookId}/pages/${pageNum}`,
+      // `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/books/${bookId}/pages/${pageNum}`,
       {
         headers: { "Content-Type": "application/json" },
       }

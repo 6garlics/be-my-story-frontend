@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { DotLoader } from "react-spinners";
 
 const Cover = ({ coverUrl, title, onclick, buttonLeft, buttonRight }) => {
-  console.log("coverUrl", coverUrl);
+  // console.log("coverUrl", coverUrl);
 
   return (
     <Container>

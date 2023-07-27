@@ -6,19 +6,19 @@ import Cover from "./Cover";
 import Modal from "./Modal";
 import { IoIosMore } from "react-icons/io";
 import { TbNotebook, TbNotes } from "react-icons/tb";
-import { createImage } from "../../api/books";
-import { createCover } from "./../../api/books";
+import { createCover, createImage } from "../../api/books";
 
 function Book({ bookId, title, texts }) {
   const [open, setOpen] = useState(false);
   const [pageNum, setPageNum] = useState(0);
-  const [coverUrl, setCoverUrl] = useState(null);
+  const [cover, setCover] = useState("");
+  const [images, setImages] = useState([]);
   const [refresh, setRefresh] = useState(0);
 
   const onClickLeft = () => {
     if (pageNum > 1) {
       setPageNum((prev) => prev - 2); //앞장으로 넘어가기
-      setRefresh((prev) => prev + 1); //재렌더링
+      // setRefresh((prev) => prev + 1); //재렌더링
     } else {
       setPageNum((prev) => prev - 1); //내용에서 표지로 넘어가기
     }
@@ -26,24 +26,38 @@ function Book({ bookId, title, texts }) {
   const onClickRight = () => {
     if (pageNum === 0) {
       setPageNum((prev) => prev + 1); // 표지에서 내용으로 넘어가기
-      setRefresh((prev) => prev + 1); //재렌더링
+      // setRefresh((prev) => prev + 1); //재렌더링
     } else if (pageNum <= texts.length - 2) {
       setPageNum((prev) => prev + 2); //뒷장으로 넘어가기
-      setRefresh((prev) => prev + 1); //재렌더링
+      // setRefresh((prev) => prev + 1); //재렌더링
     }
   };
 
   //api 호출
   useEffect(() => {
-    async function fetchData() {
-      //표지 생성
+    //표지 생성
+    async function fetchCover() {
       const coverData = await createCover(bookId);
-      coverData && setCoverUrl(coverData.coverUrl);
+      setCover(coverData);
+      setRefresh((prev) => prev + 1); //재렌더링
     }
-    fetchData();
+    fetchCover();
   }, []);
 
-  console.log("Book - coverUrl", coverUrl);
+  useEffect(() => {
+    //일러스트 여러개 생성
+    async function fetchImages() {
+      texts.forEach(async (_, pageNum) => {
+        let newImages = images;
+        newImages[pageNum] = await createImage(bookId, pageNum);
+        setImages(newImages);
+        setRefresh((prev) => prev + 1); //재렌더링
+      });
+    }
+    fetchImages();
+  }, []);
+
+  console.log("Book - coverUrl", cover.coverUrl);
 
   return (
     <Root>
@@ -61,7 +75,7 @@ function Book({ bookId, title, texts }) {
         </Header>
         {pageNum === 0 ? (
           <Cover
-            coverUrl={coverUrl}
+            coverUrl={cover && cover}
             title={title}
             onclick={onClickRight}
             side="right"
@@ -71,6 +85,7 @@ function Book({ bookId, title, texts }) {
         ) : (
           <PageContainer>
             <Page
+              imgUrl={images[pageNum - 1] && images[pageNum - 1].imgUrl}
               refresh={refresh}
               bookId={bookId}
               text={texts[pageNum - 1]}
@@ -85,6 +100,7 @@ function Book({ bookId, title, texts }) {
             {
               pageNum < texts.length && (
                 <Page
+                  imgUrl={images[pageNum] && images[pageNum].imgUrl}
                   refresh={refresh}
                   bookId={bookId}
                   text={texts[pageNum]}

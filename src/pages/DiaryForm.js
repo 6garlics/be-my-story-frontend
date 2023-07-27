@@ -43,7 +43,7 @@ import { createTexts } from "../api/books";
 //   ],
 // };
 
-const texts = ["첫번째 문단", "두번째 문단", "세번째 문단", "네번째 문단"];
+const texts = ["첫번째 문단", "두번째 문단", "세번째 문단"];
 
 const genres = [
   "모험",
@@ -90,23 +90,18 @@ const DiaryForm = () => {
     console.log(Object.fromEntries(formData));
 
     //동화 텍스트 생성
-    // const data = await createTexts(formData);
+    const data = await createTexts(formData);
 
     //성공시
-    // if (data.response.status === 201) {
-    // navigate(`/book/${data.bookId}/detail`, {
-    //   state: {
-    //     bookId: data.bookId,
-    //     title: data.title,
-    //     texts: data.texts,
-    //   },
-    // });
-    if (true) {
-      navigate(`/book/1/detail`, {
+    // bookId: 1,
+    // title: "자전거 여행",
+    // texts: texts,
+    if (data) {
+      navigate(`/book/${data.bookId}/detail`, {
         state: {
-          bookId: 1,
-          title: "자전거 여행을 떠나요.",
-          texts: texts,
+          bookId: data.bookId,
+          title: data.title,
+          texts: data.texts,
         },
       });
     } else {
