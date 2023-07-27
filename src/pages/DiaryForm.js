@@ -147,7 +147,6 @@ const DiaryForm = () => {
   ) : (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Form onSubmit={submitDiary}>
-        {/* <Date type="text" name="date" value={getToday()} /> */}
         <SDatePicker
           value={date}
           name="date"
