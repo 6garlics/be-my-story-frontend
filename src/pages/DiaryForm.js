@@ -115,7 +115,7 @@ const DiaryForm = () => {
     //동화 텍스트 생성
     const data = await createTexts(formData);
 
-    //502 에러 발생시
+    //성공시
     if (data.response.status === 201) {
       navigate(`/book/${data.bookId}/detail`, {
         state: {
