@@ -35,16 +35,12 @@ const Page = ({
   // }, [refresh]);
 
   // console.log("Page - imgUrl", imgUrl);
-
-  window.addEventListener("load", function () {
-    Grade(
-      document.querySelectorAll(".gradient-wrap"),
-      null,
-      function (gradientData) {
-        console.log("그래디언트", gradientData);
-      }
-    );
-  });
+  useEffect(() => {
+    document.addEventListener("load", function () {
+      console.log("로드");
+      Grade(document.querySelectorAll(".gradient-wrap"));
+    });
+  }, []);
 
   return (
     <Container>
