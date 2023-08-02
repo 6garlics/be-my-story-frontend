@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { DotLoader } from "react-spinners";
 import { createImage } from "../../api/books";
+import Grade from "grade-js";
 
 const Page = ({
   imgUrl,
@@ -35,6 +36,16 @@ const Page = ({
 
   // console.log("Page - imgUrl", imgUrl);
 
+  window.addEventListener("load", function () {
+    Grade(
+      document.querySelectorAll(".gradient-wrap"),
+      null,
+      function (gradientData) {
+        console.log("그래디언트", gradientData);
+      }
+    );
+  });
+
   return (
     <Container>
       <ImageBox side={side}>
@@ -54,7 +65,10 @@ const Page = ({
           {pageNum}
         </PageNum>
       </ImageBox>
-      <PageText>{text}</PageText>
+      <PageText className="gradient-wrap">
+        <GradientSrc src={imgUrl} />
+        <div>{text}</div>
+      </PageText>
     </Container>
   );
 };
@@ -126,6 +140,10 @@ const PageText = styled.div`
   font-size: 20px;
   word-break: keep-all;
   height: 6rem;
+`;
+
+const GradientSrc = styled.img`
+  display: none;
 `;
 
 export default Page;
