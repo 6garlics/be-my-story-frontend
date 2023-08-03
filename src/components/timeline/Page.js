@@ -3,7 +3,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import { DotLoader } from "react-spinners";
 import { createImage } from "../../api/books";
-import Grade from "grade-js";
 
 const Page = ({
   imgUrl,
@@ -18,30 +17,6 @@ const Page = ({
   pageNumLeft,
   pageNumRight,
 }) => {
-  //const [loading, setLoading] = useState(true);
-  // const [imgUrl, setImgUrl] = useState(null);
-  // const [imageUrl, setImageUrl] = useState(null);
-
-  //api 호출
-  // useEffect(() => {
-  //   setImageUrl(null); //일러스트 초기화
-
-  //   async function fetchData() {
-  //     //일러스트 생성
-  //     const data = await createImage(bookId, pageNum - 1);
-  //     setImgUrl(data.imgUrl);
-  //   }
-  //   fetchData();
-  // }, [refresh]);
-
-  // console.log("Page - imgUrl", imgUrl);
-  useEffect(() => {
-    document.addEventListener("load", function () {
-      console.log("로드");
-      Grade(document.querySelectorAll(".gradient-wrap"));
-    });
-  }, []);
-
   return (
     <Container>
       <ImageBox side={side}>

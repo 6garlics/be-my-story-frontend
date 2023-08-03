@@ -7,6 +7,7 @@ import Modal from "./Modal";
 import { IoIosMore } from "react-icons/io";
 import { TbNotebook, TbNotes } from "react-icons/tb";
 import { createCover, createImage } from "../../api/books";
+import { main } from "../../ColorPalette.js";
 
 function Book({ bookId, title, texts }) {
   const [open, setOpen] = useState(false);
@@ -14,6 +15,11 @@ function Book({ bookId, title, texts }) {
   const [cover, setCover] = useState("");
   const [images, setImages] = useState([]);
   const [refresh, setRefresh] = useState(0);
+
+  //팔레트
+  // useEffect(() => {
+  //   main();
+  // }, []);
 
   const onClickLeft = () => {
     if (pageNum > 1) {
@@ -61,6 +67,11 @@ function Book({ bookId, title, texts }) {
 
   return (
     <Root>
+      {/* <img id="img" src="/images/dummy1.png" />
+      <canvas id="canvas"></canvas>
+      <div id="palette"></div>
+      <hr />
+      <div id="complementary"></div> */}
       {open && <Modal open={open} setOpen={setOpen} />}
       <Container>
         <Header>
