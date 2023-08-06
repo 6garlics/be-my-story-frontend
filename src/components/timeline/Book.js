@@ -24,7 +24,6 @@ function Book({ bookId, title, texts }) {
   const onClickLeft = () => {
     if (pageNum > 1) {
       setPageNum((prev) => prev - 2); //앞장으로 넘어가기
-      // setRefresh((prev) => prev + 1); //재렌더링
     } else {
       setPageNum((prev) => prev - 1); //내용에서 표지로 넘어가기
     }
@@ -32,16 +31,13 @@ function Book({ bookId, title, texts }) {
   const onClickRight = () => {
     if (pageNum === 0) {
       setPageNum((prev) => prev + 1); // 표지에서 내용으로 넘어가기
-      // setRefresh((prev) => prev + 1); //재렌더링
     } else if (pageNum <= texts.length - 2) {
       setPageNum((prev) => prev + 2); //뒷장으로 넘어가기
-      // setRefresh((prev) => prev + 1); //재렌더링
     }
   };
 
-  //api 호출
+  //표지 생성
   useEffect(() => {
-    //표지 생성
     async function fetchCover() {
       const coverData = await createCover(bookId);
       setCover(coverData);
@@ -50,8 +46,8 @@ function Book({ bookId, title, texts }) {
     fetchCover();
   }, []);
 
+  //일러스트 여러개 생성
   useEffect(() => {
-    //일러스트 여러개 생성
     async function fetchImages() {
       texts.forEach(async (_, pageNum) => {
         let newImages = images;
