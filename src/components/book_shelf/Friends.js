@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Profile from "../Profile";
+import Profile from "../common/Profile";
 import { GoThreeBars } from "react-icons/go";
 
 //const buttonValues = ["친구 끊기", "요청 취소", "친구 수락"];

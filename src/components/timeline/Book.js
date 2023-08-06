@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Page from "./Page";
-import Profile from "../Profile";
+import Profile from "../common/Profile";
 import Cover from "./Cover";
 import Modal from "./Modal";
 import { IoIosMore } from "react-icons/io";

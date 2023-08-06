@@ -1,5 +1,4 @@
 import { Routes, Route, NavLink } from "react-router-dom";
-import Nav from "./components/Nav";
 import { styled } from "styled-components";
 import Timeline from "./pages/Timeline";
 import DiaryForm from "./pages/DiaryForm";
@@ -7,7 +6,7 @@ import BookForm from "./pages/BookForm";
 import Bookshelf from "./pages/Bookshelf";
 import BookDetail from "./components/book_shelf/BookDetail";
 import Login from "./pages/Login";
-import Header from "./Header";
+import Header from "./components/common/Header";
 import JoinPage from "./pages/JoinPage";
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
     <Container className="App">
       <Header />
       <Wrapper>
-        <Nav />
         <Main>
           <Routes>
             <Route path="/join" element={<JoinPage />} />

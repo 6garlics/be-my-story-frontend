@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
+import Nav from "./Nav";
 
 const Header = () => {
   return (
@@ -8,23 +9,24 @@ const Header = () => {
       <Logo to="/">
         <BE>BE</BE>MY STORY
       </Logo>
+      <Nav />
     </Container>
   );
 };
 
 const Container = styled.div`
   display: flex;
-  flex: none;
-  height: 50px;
-  padding: 5px;
-  border-bottom: 1px solid grey;
-  font-size: 30px;
-  font-weight: bolder;
+  align-items: center;
+  height: 60px;
+  padding: 0 15px;
+  border-bottom: 1px solid lightgrey;
 `;
 
 const Logo = styled(NavLink)`
   display: flex;
   color: black;
+  font-size: 30px;
+  font-weight: bold;
   text-decoration: none;
 `;
 
