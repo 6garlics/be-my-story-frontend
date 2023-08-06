@@ -81,7 +81,7 @@ function Book({ bookId, title, texts }) {
             nickname="Jamie"
           />
           <Button onClick={() => setOpen((prev) => !prev)}>
-            <IoIosMore size={25} color="#78b9ff" />
+            <IoIosMore size={25} color="white" />
           </Button>
         </Header>
         {pageNum === 0 ? (
@@ -152,11 +152,12 @@ const Root = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: white;
 `;
 
 const Container = styled.div`
-  margin: 20px;
+  width: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
 `;
 
 const Header = styled.div`

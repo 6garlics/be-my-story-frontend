@@ -2,8 +2,11 @@ import React from "react";
 import { useEffect } from "react";
 import { styled } from "styled-components";
 import { IoClose } from "react-icons/io5";
+import { useContext } from "react";
+import ColorContext from "./../../contexts/Color";
 
 const Modal = ({ open, setOpen }) => {
+  const colors = useContext(ColorContext);
   useEffect(() => {
     // disableScroll();
     // return () => enableScroll();
@@ -29,7 +32,7 @@ const Modal = ({ open, setOpen }) => {
           setOpen((prev) => !prev);
         }}
       ></Layer>
-      <Container>
+      <Container $background={colors.theme4}>
         <Inner>
           <CloseBtn onClick={() => setOpen((prev) => !prev)}>
             <IoClose size={22} color="#78b9ff" />
@@ -69,8 +72,8 @@ const Container = styled.div`
   z-index: 2;
   width: 450px;
   height: 650px;
-  /* background: black; */
-  background: #78b9ff;
+  background: ${(props) => props.$background};
+  color: black;
   box-sizing: border-box;
   border-radius: 20px;
   box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.15);

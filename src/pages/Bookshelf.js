@@ -8,6 +8,8 @@ import { users } from "../data/UsersData";
 import { FaUserFriends } from "react-icons/fa";
 import { getBookshelf } from "./../api/users";
 import { useEffect } from "react";
+import { useContext } from "react";
+import ColorContext from "../contexts/Color";
 
 const Bookshelf = () => {
   const { id } = useParams();
@@ -15,6 +17,8 @@ const Bookshelf = () => {
   const [showingFriends, setShowingFriends] = useState(false);
   //const [user, setUser] = useState();
   const user = users[id];
+
+  const colors = useContext(ColorContext);
 
   const toggleFriends = () => {
     setShowingFriends((prev) => !prev);
@@ -31,6 +35,7 @@ const Bookshelf = () => {
   // useEffect(() => {
   //   getUser();
   // }, []);
+
   useEffect(async () => {
     const data = await getBookshelf(1);
     console.log(data);
@@ -43,8 +48,8 @@ const Bookshelf = () => {
           <ProfileIcon src={user.profileImage} />
           <ProfileName>{user.nickname}</ProfileName>
           <FriendsButton onClick={toggleFriends}>
-            <FaUserFriends size={30} />
-            <FriendsText>친구목록</FriendsText>
+            <FaUserFriends size={30} color="white" />
+            <FriendsText $color={colors.theme3}>친구목록</FriendsText>
           </FriendsButton>
         </Profile>
         <BookList>
@@ -107,6 +112,8 @@ const FriendsButton = styled.button`
 
 const FriendsText = styled.div`
   font-size: 13px;
+  /* color: ${(props) => props.$color}; */
+  color: white;
 `;
 
 const BookList = styled.div`

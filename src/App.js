@@ -8,10 +8,13 @@ import BookDetail from "./components/book_shelf/BookDetail";
 import Login from "./pages/Login";
 import Header from "./components/common/Header";
 import JoinPage from "./pages/JoinPage";
+import { useContext } from "react";
+import ColorContext from "./contexts/Color";
 
 function App() {
+  const colors = useContext(ColorContext);
   return (
-    <Container className="App">
+    <Container className="App" $background={colors.background}>
       <Header />
       <Wrapper>
         <Main>
@@ -36,9 +39,12 @@ function App() {
 }
 
 const Container = styled.div`
+  width: 100vh;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  color: white;
+  background: ${(props) => props.$background};
 `;
 
 const Wrapper = styled.main`

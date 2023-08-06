@@ -8,43 +8,6 @@ import { ko } from "date-fns/esm/locale";
 import { DotLoader } from "react-spinners";
 import { createTexts } from "../api/books";
 
-// const book = {
-//   storyBook: {
-//     bookId: 1,
-//     subject: "자전거를 타며 성장하는 나의 이야기",
-//     story_type: "성장",
-//     date: "2023-06-29",
-//   },
-//   pages: [
-//     {
-//       pageId: 1,
-//       idx: 0,
-//       img_url: "/images/finetuning1.png",
-//       text: "첫번째 페이지",
-//     },
-//     {
-//       pageId: 2,
-//       idx: 1,
-//       img_url: "/images/finetuning2.png",
-//       text: "두번째 페이지~~~",
-//     },
-//     {
-//       pageId: 3,
-//       idx: 2,
-//       img_url: "/images/finetuning3.png",
-//       text: "세번째 페이지~~~~~~",
-//     },
-//     {
-//       pageId: 4,
-//       idx: 3,
-//       img_url: "/images/finetuning4.png",
-//       text: "네번째 페이지~~~~~~~~~",
-//     },
-//   ],
-// };
-
-const texts = ["첫번째 문단", "두번째 문단", "세번째 문단"];
-
 const genres = [
   "모험",
   "성장",
@@ -200,14 +163,13 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 700px;
-  height: 80vh;
+  height: 85vh;
   margin: 30px;
-`;
-
-const Date = styled.input`
-  font-size: 20px;
-  flex: 1;
-  padding: 10px 0px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  padding: 25px;
+  color: black;
+  background: white;
 `;
 
 const SDatePicker = styled(DatePicker)`
@@ -269,9 +231,9 @@ const RadioButton = styled.input`
 `;
 
 const Genre = styled.div`
-  width: 50px;
+  width: 48px;
   text-align: center;
-  margin: 8px;
+  margin: 6px;
   padding: 5px 10px;
   border-radius: 50px;
   outline: 1px solid lightgrey;

@@ -24,7 +24,7 @@ const NLink = styled(NavLink)`
   padding: 0px;
   margin: 0px;
   text-decoration: none;
-  color: black;
+  color: white;
 `;
 
 const ProfileIcon = styled.img`
