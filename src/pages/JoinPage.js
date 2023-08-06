@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-import { register } from "../api/users";
+import { join } from "../api/users";
 
-const Register = () => {
+const JoinPage = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +13,7 @@ const Register = () => {
     const formData = new FormData(event.target);
     console.log(Object.fromEntries(formData));
 
-    const data = await register(formData);
+    const data = await join(formData);
   };
 
   return (
@@ -113,4 +113,4 @@ const SignUpBtn = styled.button`
   }
 `;
 
-export default Register;
+export default JoinPage;

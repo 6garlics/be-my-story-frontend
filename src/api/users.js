@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 
 //회원가입
-export const register = async (body) => {
+export const join = async (body) => {
   try {
     const res = await axios.post(`http://43.202.81.68:80/users/join`, body, {
       headers: { "Content-Type": "application/json" },

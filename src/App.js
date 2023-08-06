@@ -6,9 +6,9 @@ import DiaryForm from "./pages/DiaryForm";
 import BookForm from "./pages/BookForm";
 import Bookshelf from "./pages/Bookshelf";
 import BookDetail from "./components/book_shelf/BookDetail";
-import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Header from "./Header";
+import JoinPage from "./pages/JoinPage";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Nav />
         <Main>
           <Routes>
-            <Route path="/register" element={<Register />} />
+            <Route path="/join" element={<JoinPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Timeline />} />
             <Route path="/diary-form" element={<DiaryForm />} />
