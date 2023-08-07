@@ -21,18 +21,14 @@ function Book({ bookId, title, texts }) {
   //   main();
   // }, []);
 
-  const onClickLeft = () => {
-    if (pageNum > 1) {
-      setPageNum((prev) => prev - 2); //앞장으로 넘어가기
-    } else {
-      setPageNum((prev) => prev - 1); //내용에서 표지로 넘어가기
+  const onLeftClick = () => {
+    if (pageNum > 0) {
+      setPageNum((prev) => prev - 1);
     }
   };
-  const onClickRight = () => {
-    if (pageNum === 0) {
-      setPageNum((prev) => prev + 1); // 표지에서 내용으로 넘어가기
-    } else if (pageNum <= texts.length - 2) {
-      setPageNum((prev) => prev + 2); //뒷장으로 넘어가기
+  const onRightClick = () => {
+    if (pageNum <= texts.length - 2) {
+      setPageNum((prev) => prev + 1);
     }
   };
 
