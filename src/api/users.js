@@ -5,7 +5,7 @@ import client from "./client";
 //회원가입
 export const join = async (body) => {
   try {
-    const res = await client.post(`/users/join`, body, {
+    const res = await axios.post(`http://43.202.81.68:80/users/join`, body, {
       headers: { "Content-Type": "application/json" },
     });
 
@@ -20,7 +20,7 @@ export const join = async (body) => {
 //로그인
 export const login = async (body) => {
   try {
-    const res = await client.post(`/users/login`, body, {
+    const res = await axios.post(`http://43.202.81.68:80/users/login`, body, {
       headers: { "Content-Type": "application/json" },
     });
 
