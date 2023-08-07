@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import client from "./client";
 
 //전체 동화책 조회
 export const getBooks = async () => {};
@@ -13,14 +14,10 @@ export const editBook = async () => {};
 //🍋 동화 텍스트 생성
 export const createTexts = async (body) => {
   try {
-    const res = await axios.post(
-      `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/books`,
-      body,
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: false,
-      }
-    );
+    const res = await client.post(`/books`, body, {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: false,
+    });
 
     console.log(res.data);
     return res.data;
@@ -34,9 +31,9 @@ export const createTexts = async (body) => {
 //🍋 표지 생성
 export const createCover = async (bookId) => {
   try {
-    const res = await axios.get(
-      // `http://43.202.81.68:80/books/${bookId}/cover`,
-      `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/books/${bookId}/cover`,
+    const res = await client.get(
+      `/books/${bookId}/cover`,
+      // `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/books/${bookId}/cover`,
       {
         headers: { "Content-Type": "application/json" },
       }
@@ -53,9 +50,9 @@ export const createCover = async (bookId) => {
 //🍋 일러스트 1개 생성
 export const createImage = async (bookId, pageNum) => {
   try {
-    const res = await axios.get(
-      // `http://43.202.81.68:80/books/${bookId}/pages/${pageNum}`,
-      `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/books/${bookId}/pages/${pageNum}`,
+    const res = await client.get(
+      `/books/${bookId}/pages/${pageNum}`,
+      // `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/books/${bookId}/pages/${pageNum}`,
       {
         headers: { "Content-Type": "application/json" },
       }

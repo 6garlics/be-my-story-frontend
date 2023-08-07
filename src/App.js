@@ -39,7 +39,7 @@ function App() {
 }
 
 const Container = styled.div`
-  width: 100vh;
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
