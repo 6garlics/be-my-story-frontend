@@ -11,6 +11,7 @@ import JoinPage from "./pages/JoinPage";
 import { useContext } from "react";
 import ColorContext from "./contexts/Color";
 import Page from "./components/common/Page";
+import Book from "./components/timeline/Book";
 
 function App() {
   const colors = useContext(ColorContext);
@@ -20,7 +21,7 @@ function App() {
       <Wrapper>
         <Main>
           <Routes>
-            <Route path="/test" element={<Page />} />
+            <Route path="/test" element={<Book />} />
             <Route path="/join" element={<JoinPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Timeline />} />

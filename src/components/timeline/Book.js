@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Page from "./Page";
+import Page from "../common/Page";
 import Profile from "../common/Profile";
 import Cover from "./Cover";
 import Modal from "./Modal";
@@ -9,7 +9,11 @@ import { TbNotebook, TbNotes } from "react-icons/tb";
 import { createCover, createImage } from "../../api/books";
 import { main } from "../../ColorPalette.js";
 
-function Book({ bookId, title, texts }) {
+function Book({
+  bookId,
+  title = "자전거 모험",
+  texts = ["첫번째", "두번째", "세번째"],
+}) {
   const [open, setOpen] = useState(false);
   const [pageNum, setPageNum] = useState(0);
   const [cover, setCover] = useState("");
@@ -27,7 +31,7 @@ function Book({ bookId, title, texts }) {
     }
   };
   const onRightClick = () => {
-    if (pageNum <= texts.length - 2) {
+    if (pageNum < texts.length) {
       setPageNum((prev) => prev + 1);
     }
   };
@@ -35,9 +39,13 @@ function Book({ bookId, title, texts }) {
   //표지 생성
   useEffect(() => {
     async function fetchCover() {
-      const coverData = await createCover(bookId);
-      setCover(coverData);
-      setRefresh((prev) => prev + 1); //재렌더링
+      try {
+        const coverData = await createCover(bookId);
+        setCover(coverData);
+        setRefresh((prev) => prev + 1); //재렌더링
+      } catch (err) {
+        setCover("/images/dummy3.png");
+      }
     }
     fetchCover();
   }, []);
@@ -47,9 +55,15 @@ function Book({ bookId, title, texts }) {
     async function fetchImages() {
       texts.forEach(async (_, pageNum) => {
         let newImages = images;
-        newImages[pageNum] = await createImage(bookId, pageNum);
-        setImages(newImages);
-        setRefresh((prev) => prev + 1); //재렌더링
+        try {
+          newImages[pageNum] = await createImage(bookId, pageNum);
+          setImages(newImages);
+          setRefresh((prev) => prev + 1); //재렌더링
+        } catch (err) {
+          newImages[pageNum] = "/images/bike1.png";
+          setImages(newImages);
+          setRefresh((prev) => prev + 1); //재렌더링
+        }
       });
     }
     fetchImages();
@@ -80,7 +94,7 @@ function Book({ bookId, title, texts }) {
           <Cover
             coverUrl={cover && cover}
             title={title}
-            onclick={onClickRight}
+            onclick={onRightClick}
             side="right"
             buttonLeft="auto"
             buttonRight="0px"
@@ -88,50 +102,12 @@ function Book({ bookId, title, texts }) {
         ) : (
           <PageContainer>
             <Page
-              imgUrl={images[pageNum - 1] && images[pageNum - 1].imgUrl}
-              refresh={refresh}
-              bookId={bookId}
+              imgUrl={images[pageNum - 1]}
               text={texts[pageNum - 1]}
               pageNum={pageNum}
-              onclick={onClickLeft}
-              side="left"
-              buttonLeft="0px"
-              buttonRight="auto"
-              pageNumLeft="20px"
-              pageNumRight="auto"
+              onLeftClick={onLeftClick}
+              onRightClick={onRightClick}
             />
-            {
-              pageNum < texts.length && (
-                <Page
-                  imgUrl={images[pageNum] && images[pageNum].imgUrl}
-                  refresh={refresh}
-                  bookId={bookId}
-                  text={texts[pageNum]}
-                  pageNum={pageNum + 1}
-                  onclick={onClickRight}
-                  side="right"
-                  buttonLeft="auto"
-                  buttonRight="0px"
-                  pageNumLeft="auto"
-                  pageNumRight="20px"
-                />
-              )
-              //: (
-              //   // 엔딩페이지
-              //   <Page
-              //     imgUrl="https://as2.ftcdn.net/v2/jpg/05/27/32/19/1000_F_527321970_wMLCe02I03RKjG7Ft64fmDmCITmAYeGM.jpg"
-              //     bookId={bookId}
-              //     text=""
-              //     pageNum=""
-              //     onclick={onClickRight}
-              //     side="right"
-              //     buttonLeft="auto"
-              //     buttonRight="0px"
-              //     pageNumLeft="auto"
-              //     pageNumRight="20px"
-              //   />
-              // )
-            }
           </PageContainer>
         )}
       </Container>

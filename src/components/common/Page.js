@@ -8,6 +8,7 @@ const Page = ({
   onLeftClick,
   onRightClick,
 }) => {
+  console.log("페이지", imgUrl);
   return (
     <Container>
       <ImageWrapper>
@@ -31,7 +32,6 @@ export default Page;
 
 const Container = styled.div`
   display: flex;
-  border: 1px solid red;
   width: 90%;
   min-width: 500px;
   border-radius: 10px;
@@ -42,7 +42,6 @@ const ImageWrapper = styled.div`
   width: 50%;
   padding-bottom: 50%;
   height: 0;
-  border: 3px solid blue;
   position: relative;
 `;
 
@@ -57,7 +56,6 @@ const TextWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid yellow;
   box-sizing: border-box;
   background: skyblue;
   color: black;
@@ -65,7 +63,6 @@ const TextWrapper = styled.div`
 `;
 
 const Text = styled.div`
-  border: 1px solid white;
   white-space: normal;
   font-size: 18px;
   line-height: 30px;
@@ -73,7 +70,6 @@ const Text = styled.div`
   padding: 30px;
   box-sizing: border-box;
   max-height: 100%;
-  border: 3px solid red;
 `;
 
 const PageNum = styled.div`

@@ -24,7 +24,7 @@ export const createTexts = async (body) => {
   } catch (err) {
     console.log("에러 발생");
     console.log(err);
-    return err;
+    throw err;
   }
 };
 
@@ -44,6 +44,7 @@ export const createCover = async (bookId) => {
   } catch (err) {
     console.log("커버 에러 발생");
     console.log(err);
+    throw err;
   }
 };
 
@@ -63,5 +64,6 @@ export const createImage = async (bookId, pageNum) => {
   } catch (err) {
     console.log("에러 발생");
     console.log(err);
+    throw err;
   }
 };
