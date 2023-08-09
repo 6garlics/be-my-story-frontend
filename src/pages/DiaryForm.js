@@ -88,7 +88,8 @@ const DiaryForm = () => {
   ) : error ? (
     <Error>에러가 발생했어요.</Error>
   ) : (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <Wrapper>
+      <Suggestion>오늘 가장 재밌었던 일이 뭐야?</Suggestion>
       <Form onSubmit={submitDiary}>
         <SDatePicker
           value={date}
@@ -100,7 +101,6 @@ const DiaryForm = () => {
           onChange={(date) => setDate(date)}
         />
         {/* <Suggestion>{suggestions[Math.floor(Math.random() * 3)]}</Suggestion> */}
-        <Suggestion>오늘 가장 재밌었던 일이 뭐야?</Suggestion>
         <Title
           placeholder="제목"
           name="title"
@@ -132,7 +132,7 @@ const DiaryForm = () => {
         </Genres>
         <SubmitButton type="submit">다음</SubmitButton>
       </Form>
-    </div>
+    </Wrapper>
   );
 };
 
@@ -159,12 +159,28 @@ const Error = styled.div`
   font-weight: bold;
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100vh - 60px);
+  padding-top: 50px;
+  padding-bottom: 70px;
+  box-sizing: border-box;
+`;
+
+const Suggestion = styled.div`
+  flex: none;
+  font-size: 50px;
+  font-family: "Gaegu", cursive;
+  padding: 20px 0;
+`;
+
 const Form = styled.form`
+  flex: 1;
   display: flex;
   flex-direction: column;
   width: 700px;
-  height: 85vh;
-  margin: 30px;
   border-radius: 12px;
   box-sizing: border-box;
   padding: 25px;
@@ -187,14 +203,6 @@ const SDatePicker = styled(DatePicker)`
   }
 `;
 
-const Suggestion = styled.div`
-  font-size: 25px;
-  flex: 1;
-  padding-top: 12px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid grey;
-`;
-
 const Title = styled.input`
   flex: 1.5;
   border: none;
@@ -208,7 +216,8 @@ const Title = styled.input`
 
 const Contents = styled.textarea`
   flex: 15;
-  font-size: 20px;
+  font-size: 17px;
+  line-height: 25px;
   resize: none;
   border: none;
   &:focus {
