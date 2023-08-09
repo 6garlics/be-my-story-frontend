@@ -8,12 +8,6 @@ import ColorContext from "../../contexts/Color";
 const DiaryModal = ({ open, setOpen }) => {
   const colors = useContext(ColorContext);
   useEffect(() => {
-    // disableScroll();
-    // return () => enableScroll();
-
-    // document.body.style = `overflow: hidden`;
-    // return () => (document.body.style = `overflow: auto`);
-
     document.body.style.cssText = `
     position: fixed;
     top: -${window.scrollY}px;
@@ -26,13 +20,13 @@ const DiaryModal = ({ open, setOpen }) => {
     };
   }, []);
   return (
-    <>
+    <Wrapper>
       <Layer
         onClick={() => {
           setOpen((prev) => !prev);
         }}
       ></Layer>
-      <Container $background={colors.theme4}>
+      <DiaryWrapper $background={colors.theme4}>
         <Inner>
           <CloseBtn onClick={() => setOpen((prev) => !prev)}>
             <IoClose size={22} color="#78b9ff" />
@@ -42,7 +36,7 @@ const DiaryModal = ({ open, setOpen }) => {
             <Genre>모험</Genre>
           </Header>
 
-          <Title>제목: 자전거</Title>
+          <Title>자전거</Title>
 
           <Contents>
             오늘 밤에 자전거를 탔다. 자전거는 처음 탈 때는 좀 중심잡기가
@@ -50,12 +44,14 @@ const DiaryModal = ({ open, setOpen }) => {
             나도 가야겠다.
           </Contents>
         </Inner>
-      </Container>
-    </>
+      </DiaryWrapper>
+    </Wrapper>
   );
 };
 
 export default DiaryModal;
+
+const Wrapper = styled.div``;
 
 const Layer = styled.div`
   z-index: 1;
@@ -68,10 +64,10 @@ const Layer = styled.div`
   bottom: 0;
 `;
 
-const Container = styled.div`
+const DiaryWrapper = styled.div`
   z-index: 2;
   width: 450px;
-  height: 650px;
+  height: min(650px, 70vh);
   background: ${(props) => props.$background};
   color: black;
   box-sizing: border-box;
@@ -87,13 +83,14 @@ const Container = styled.div`
 const Inner = styled.div`
   /* z-index: 2; */
   width: 400px;
-  height: 600px;
+  height: min(600px, calc(70vh - 50px));
   padding: 45px 20px;
+  padding-bottom: 20px;
   box-sizing: border-box;
-  /* border-radius: 9px; */
+  border-radius: 9px;
   /* outline: 17px solid #78b9ff; */
   background: #fff;
-  box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.15); */
   display: flex;
   flex-direction: column;
 
@@ -101,6 +98,14 @@ const Inner = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  overflow: scroll;
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar {
+    /* 크롬, 사파리, 오페라, 엣지  */
+    display: none;
+  }
 `;
 
 const CloseBtn = styled.button`
@@ -125,7 +130,7 @@ const CloseBtn = styled.button`
 const Header = styled.div`
   display: flex;
   padding: 10px 5px;
-  border-top: 2px solid #78b9ff;
+  border-top: 1px solid #78b9ff;
 `;
 
 const Date = styled.div``;
@@ -144,11 +149,12 @@ const Genre = styled.div`
 
 const Title = styled.div`
   padding: 20px 5px;
-  border-top: 2px solid #78b9ff;
+  border-top: 1px solid #78b9ff;
+  font-size: 18px;
 `;
 
 const Contents = styled.div`
   padding: 0px 5px;
   flex: auto;
-  border-bottom: 2px solid #78b9ff;
+  border-bottom: 1px solid #78b9ff;
 `;
