@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import { styled } from "styled-components";
 import { IoClose } from "react-icons/io5";
 import { useContext } from "react";
-import ColorContext from "./../../contexts/Color";
+import ColorContext from "../../contexts/Color";
 
-const Modal = ({ open, setOpen }) => {
+const DiaryModal = ({ open, setOpen }) => {
   const colors = useContext(ColorContext);
   useEffect(() => {
     // disableScroll();
@@ -55,7 +55,7 @@ const Modal = ({ open, setOpen }) => {
   );
 };
 
-export default Modal;
+export default DiaryModal;
 
 const Layer = styled.div`
   z-index: 1;

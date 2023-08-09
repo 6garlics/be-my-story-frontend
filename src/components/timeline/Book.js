@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Page from "../common/Page";
 import Profile from "../common/Profile";
 import Cover from "./Cover";
-import Modal from "./Modal";
+import DiaryModal from "./DiaryModal";
 import { IoIosMore } from "react-icons/io";
 import { TbNotebook, TbNotes } from "react-icons/tb";
 import { createCover, createImage } from "../../api/books";
@@ -78,7 +78,7 @@ function Book({
       <div id="palette"></div>
       <hr />
       <div id="complementary"></div> */}
-      {open && <Modal open={open} setOpen={setOpen} />}
+      {open && <DiaryModal open={open} setOpen={setOpen} />}
       <Container>
         <Header>
           <Profile
