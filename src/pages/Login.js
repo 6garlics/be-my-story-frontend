@@ -52,7 +52,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: calc(80vh - 60px);
 `;
 
 const Wrapper = styled.div`

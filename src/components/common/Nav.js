@@ -12,6 +12,12 @@ const Nav = () => {
   const colors = useContext(ColorContext);
   return (
     <Container>
+      <NLink to="/join" $activeColor={colors.theme3}>
+        Join
+      </NLink>
+      <NLink to="/login" $activeColor={colors.theme3}>
+        Login
+      </NLink>
       <NLink to="/" $activeColor={colors.theme3}>
         <HiHome size={iconSize} />
       </NLink>

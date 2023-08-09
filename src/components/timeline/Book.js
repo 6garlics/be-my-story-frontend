@@ -90,7 +90,7 @@ function Book({
             <IoIosMore size={25} color="white" />
           </Button>
         </Header>
-        <PageContainer>
+        <Wrapper>
           {pageNum === 0 ? (
             <Cover
               coverUrl={cover && cover}
@@ -109,7 +109,7 @@ function Book({
               onRightClick={onRightClick}
             />
           )}
-        </PageContainer>
+        </Wrapper>
       </Container>
     </Root>
   );
@@ -126,6 +126,7 @@ const Container = styled.div`
   width: ${(props) => (props.$pageNum === 0 ? "50%" : "100%")};
   padding: 50px 0;
   box-sizing: border-box;
+  transition: all 0.5s ease-in-out;
 `;
 
 const Header = styled.div`
@@ -145,7 +146,7 @@ const Button = styled.button`
   }
 `;
 
-const PageContainer = styled.div`
+const Wrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
