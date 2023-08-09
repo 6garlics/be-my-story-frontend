@@ -79,7 +79,7 @@ function Book({
       <hr />
       <div id="complementary"></div> */}
       {open && <DiaryModal open={open} setOpen={setOpen} />}
-      <Container>
+      <Container $pageNum={pageNum}>
         <Header>
           <Profile
             userId={0}
@@ -123,7 +123,7 @@ const Root = styled.div`
 `;
 
 const Container = styled.div`
-  width: 100%;
+  width: ${(props) => (props.$pageNum === 0 ? "50%" : "100%")};
   padding: 50px 0;
   box-sizing: border-box;
 `;

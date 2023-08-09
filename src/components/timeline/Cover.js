@@ -31,7 +31,7 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   /* width: 500px; */
-  width: 50%;
+  width: 100%;
 `;
 
 const ImageBox = styled.div`
