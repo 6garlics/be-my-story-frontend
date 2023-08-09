@@ -72,7 +72,7 @@ const Title = styled.div`
   font-weight: bold;
   word-break: keep-all;
   text-align: center;
-  font-family: "Gaegu", cursive;
+  font-family: "Gaegu";
   font-size: 45px;
 `;
 

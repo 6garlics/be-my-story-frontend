@@ -172,7 +172,7 @@ const Wrapper = styled.div`
 const Suggestion = styled.div`
   flex: none;
   font-size: 50px;
-  font-family: "Gaegu", cursive;
+  font-family: "Gaegu";
   padding: 20px 0;
 `;
 
