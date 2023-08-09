@@ -90,17 +90,17 @@ function Book({
             <IoIosMore size={25} color="white" />
           </Button>
         </Header>
-        {pageNum === 0 ? (
-          <Cover
-            coverUrl={cover && cover}
-            title={title}
-            onclick={onRightClick}
-            side="right"
-            buttonLeft="auto"
-            buttonRight="0px"
-          />
-        ) : (
-          <PageContainer>
+        <PageContainer>
+          {pageNum === 0 ? (
+            <Cover
+              coverUrl={cover && cover}
+              title={title}
+              onclick={onRightClick}
+              side="right"
+              buttonLeft="auto"
+              buttonRight="0px"
+            />
+          ) : (
             <Page
               imgUrl={images[pageNum - 1]}
               text={texts[pageNum - 1]}
@@ -108,8 +108,8 @@ function Book({
               onLeftClick={onLeftClick}
               onRightClick={onRightClick}
             />
-          </PageContainer>
-        )}
+          )}
+        </PageContainer>
       </Container>
     </Root>
   );
@@ -147,6 +147,7 @@ const Button = styled.button`
 
 const PageContainer = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 export default Book;

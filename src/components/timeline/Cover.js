@@ -30,7 +30,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 500px;
+  /* width: 500px; */
+  width: 50%;
 `;
 
 const ImageBox = styled.div`
@@ -81,7 +82,7 @@ const Button = styled.button`
   top: 0px;
   left: ${(props) => props.left};
   right: ${(props) => props.right};
-  width: 50%;
+  width: 100%;
   height: 100%;
   padding: 0px;
   margin: 0px;
