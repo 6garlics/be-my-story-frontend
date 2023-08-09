@@ -123,8 +123,8 @@ const Root = styled.div`
 `;
 
 const Container = styled.div`
-  width: 100vh;
-  padding: 20px;
+  width: 100%;
+  padding: 50px 0;
   box-sizing: border-box;
 `;
 

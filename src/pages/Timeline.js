@@ -33,6 +33,8 @@ function Timeline() {
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 85%;
+`;
 
 export default Timeline;

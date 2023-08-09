@@ -32,7 +32,7 @@ export default Page;
 
 const Container = styled.div`
   display: flex;
-  width: 90%;
+  width: 100%;
   min-width: 500px;
   border-radius: 10px;
   overflow: hidden;

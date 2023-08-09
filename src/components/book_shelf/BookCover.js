@@ -9,7 +9,7 @@ const BookCover = ({ coverImage, title, book }) => {
       <NavLink
         to={`/book/${book.id}/detail`}
         state={{ book: book }}
-        style={{ textDecoration: "none", color: "black" }}
+        style={{ textDecoration: "none", color: "white" }}
       >
         <CoverImage src={coverImage} />
         <Title>{title}</Title>

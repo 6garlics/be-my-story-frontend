@@ -18,45 +18,44 @@ function App() {
   return (
     <Container className="App" $background={colors.background}>
       <Header />
-      <Wrapper>
-        <Main>
-          <Routes>
-            <Route path="/test" element={<Book />} />
-            <Route path="/join" element={<JoinPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Timeline />} />
-            <Route path="/diary-form" element={<DiaryForm />} />
-            <Route path="/book-form" element={<BookForm />} />
-            <Route
-              path="/bookshelf/:id"
-              Component={(props) => (
-                <Bookshelf {...props} key={window.location.pathname} />
-              )}
-            />
-            <Route path="/book/:id/detail" element={<BookDetail />} />
-          </Routes>
-        </Main>
-      </Wrapper>
+
+      <Main>
+        <Routes>
+          <Route path="/test" element={<Book />} />
+          <Route path="/join" element={<JoinPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Timeline />} />
+          <Route path="/diary-form" element={<DiaryForm />} />
+          <Route path="/book-form" element={<BookForm />} />
+          <Route
+            path="/bookshelf/:id"
+            Component={(props) => (
+              <Bookshelf {...props} key={window.location.pathname} />
+            )}
+          />
+          <Route path="/book/:id/detail" element={<BookDetail />} />
+        </Routes>
+      </Main>
     </Container>
   );
 }
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   color: white;
   background: ${(props) => props.$background};
 `;
 
-const Wrapper = styled.main`
-  display: flex;
-  flex: 1;
-`;
-
 const Main = styled.main`
   flex: 1;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(/images/sea.jpg) no-repeat center fixed;
+  background-size: cover;
+  margin-top: 60px;
 `;
 
 export default App;

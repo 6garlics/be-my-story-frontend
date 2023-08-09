@@ -7,7 +7,7 @@ import ColorContext from "./../../contexts/Color";
 const Header = () => {
   const colors = useContext(ColorContext);
   return (
-    <Container>
+    <Container $background={colors.background}>
       <Logo to="/">
         <BE $color={colors.theme3}>BE</BE>
         <Text>MY STORY</Text>
@@ -22,7 +22,12 @@ const Container = styled.div`
   align-items: center;
   height: 60px;
   padding: 0 15px;
-  border-bottom: 1px solid grey;
+  box-sizing: border-box;
+  /* border-bottom: 1px solid grey; */
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  background: ${(props) => props.$background};
 `;
 
 const Logo = styled(NavLink)`
