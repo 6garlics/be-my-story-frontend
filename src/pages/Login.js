@@ -1,18 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { styled } from "styled-components";
 import { login } from "../api/users";
+import ColorContext from "../contexts/Color";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
+  const focusColor = useContext(ColorContext).theme3;
+  const navigate = useNavigate();
+
+  //로그인 버튼 클릭 시
   const onLogin = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData(event.target);
-    console.log(Object.fromEntries(formData));
-
-    const data = await login(formData);
+    if (userName && password) {
+      const formData = new FormData(event.target);
+      console.log(Object.fromEntries(formData));
+      try {
+        const data = await login(formData);
+        navigate("/");
+      } catch (err) {
+        setMessage("로그인에 실패했어요.");
+      }
+    }
   };
 
   return (
@@ -25,8 +38,10 @@ const Login = () => {
             id="userName"
             name="userName"
             value={userName}
+            $outline={focusColor}
             onChange={(e) => {
               setUserName(e.target.value);
+              setMessage("");
             }}
           />
           <Label htmlFor="password">비밀번호</Label>
@@ -35,11 +50,16 @@ const Login = () => {
             id="password"
             name="password"
             value={password}
+            $outline={focusColor}
             onChange={(e) => {
               setPassword(e.target.value);
+              setMessage("");
             }}
           />
-          <SignUpBtn type="submit">로그인</SignUpBtn>
+          <Footer>
+            <Message>{message}</Message>
+            <SignUpBtn type="submit">로그인</SignUpBtn>
+          </Footer>
         </Form>
       </Wrapper>
     </Container>
@@ -52,14 +72,14 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(80vh - 60px);
+  height: calc(90vh - 60px);
 `;
 
 const Wrapper = styled.div`
   padding: 30px;
   box-sizing: border-box;
   border-radius: 15px;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   width: 400px;
   height: 400px;
   display: flex;
@@ -77,7 +97,7 @@ const Text = styled.div`
 `;
 
 const Form = styled.form`
-  width: 250px;
+  width: 320px;
   display: flex;
   flex-direction: column;
 `;
@@ -89,6 +109,19 @@ const Input = styled.input`
   border-radius: 7px;
   margin-bottom: 15px;
   border: 1px solid grey;
+  &:focus {
+    outline: ${(props) => `2px ${props.$outline} solid`};
+  }
+`;
+
+const Footer = styled.div`
+  display: flex;
+  align-items: end;
+`;
+
+const Message = styled.div`
+  font-size: 12px;
+  color: red;
 `;
 
 const SignUpBtn = styled.button`

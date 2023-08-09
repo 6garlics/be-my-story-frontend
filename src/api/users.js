@@ -14,6 +14,7 @@ export const join = async (body) => {
   } catch (err) {
     console.log("에러 발생");
     console.log(err);
+    throw err;
   }
 };
 
@@ -31,6 +32,7 @@ export const login = async (body) => {
   } catch (err) {
     console.log("에러 발생");
     console.log(err);
+    throw err;
   }
 };
 
@@ -46,5 +48,6 @@ export const getBookshelf = async (userId) => {
   } catch (err) {
     console.log("에러 발생");
     console.log(err);
+    throw err;
   }
 };
