@@ -212,8 +212,9 @@ const Form = styled.form`
 const Label = styled.label``;
 
 const Input = styled.input`
-  height: 25px;
-  border-radius: 7px;
+  height: 30px;
+  border-radius: 9px;
+  padding: 0 5px;
   border: 1px solid grey;
   &:focus {
     outline: ${(props) => `2px ${props.$outline} solid`};
@@ -229,8 +230,8 @@ const Message = styled.div`
 
 const SignUpBtn = styled.button`
   border: none;
-  padding: 4px 7px;
-  border-radius: 7px;
+  padding: 10px 15px;
+  border-radius: 20px;
   background: #78b9ff;
   color: white;
   text-align: center;
