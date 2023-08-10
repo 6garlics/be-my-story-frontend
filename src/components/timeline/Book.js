@@ -102,7 +102,7 @@ function Book({
             />
           ) : (
             <Page
-              imgUrl={images[pageNum - 1]}
+              imgUrl={images[pageNum - 1].imgUrl}
               text={texts[pageNum - 1]}
               pageNum={pageNum}
               onLeftClick={onLeftClick}

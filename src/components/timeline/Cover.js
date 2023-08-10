@@ -30,8 +30,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  /* width: 500px; */
   width: 100%;
+  width: 1000px;
 `;
 
 const ImageBox = styled.div`
