@@ -1,32 +1,39 @@
-//import React, { useEffect, useState } from "react";
-//import axios from "axios";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { styled } from "styled-components";
 import Book from "../components/timeline/Book";
 import { friends } from "../data/FriendsData";
+import { getBooks } from "../api/books";
 
 //const id = 0;
 const texts = ["1", "2", "3", "4", "5"];
 
 function Timeline() {
-  // const [friends, setFriends] = useState([]);
+  const [books, setBooks] = useState([]);
 
-  //Postman Mock Server 사용시 aixos 호출
-  // const getFriends = async () => {
-  //   const response = await axios(
-  //     `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/users/${id}/friends`
-  //   );
-  //   setFriends(response.data);
-  //   console.log("Timeline: ", response.data);
-  // };
-  // useEffect(() => {
-  //   getFriends();
-  // }, []);
+  //전체 동화책 조회
+  useEffect(() => {
+    async function fetchBooks() {
+      const data = await getBooks();
+      setBooks(data);
+    }
+    fetchBooks();
+  }, []);
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Container>
-        {friends.map((book, index) => (
-          <Book key={index} book={book} texts={texts} />
+        {books.map((book, index) => (
+          <Book
+            key={index}
+            bookId={book.bookId}
+            userName={book.userName}
+            title={book.title}
+            texts={book.texts}
+            coverUrl={book.coverUrl}
+            imgUrls={book.images}
+            isCreated={false}
+          />
         ))}
       </Container>
     </div>

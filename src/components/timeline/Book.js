@@ -8,17 +8,23 @@ import { IoIosMore } from "react-icons/io";
 import { TbNotebook, TbNotes } from "react-icons/tb";
 import { createCover, createImage } from "../../api/books";
 import { main } from "../../ColorPalette.js";
+import { getUserInfo } from "../../api/users";
 
 function Book({
   bookId,
+  userName,
   title = "자전거 모험",
   texts = ["첫번째", "두번째", "세번째"],
+  coverUrl,
+  imgUrls,
+  isCreated = false,
 }) {
   const [open, setOpen] = useState(false);
   const [pageNum, setPageNum] = useState(0);
   const [cover, setCover] = useState("");
   const [images, setImages] = useState([]);
   const [refresh, setRefresh] = useState(0);
+  const [profileImage, setProfileImage] = useState();
 
   //팔레트
   // useEffect(() => {
@@ -36,6 +42,14 @@ function Book({
     }
   };
 
+  //유저 정보 조회
+  useEffect(() => {
+    async function fetchUserInfo() {
+      const userData = await getUserInfo(userName);
+      setProfileImage(userData.profileImg);
+    }
+  }, []);
+
   //표지 생성
   useEffect(() => {
     async function fetchCover() {
@@ -47,7 +61,7 @@ function Book({
         setCover("/images/dummy3.png");
       }
     }
-    fetchCover();
+    isCreated && fetchCover();
   }, []);
 
   //일러스트 여러개 생성
@@ -66,10 +80,8 @@ function Book({
         }
       });
     }
-    fetchImages();
+    isCreated && fetchImages();
   }, []);
-
-  console.log("Book - coverUrl", cover.coverUrl);
 
   return (
     <Root>
@@ -84,7 +96,7 @@ function Book({
           <Profile
             userId={0}
             profileImage="https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg"
-            nickname="Jamie"
+            nickname={isCreated ? "Jamie" : userName}
           />
           <Button onClick={() => setOpen((prev) => !prev)}>
             <IoIosMore size={25} color="white" />
@@ -93,7 +105,7 @@ function Book({
         <Wrapper>
           {pageNum === 0 ? (
             <Cover
-              coverUrl={cover && cover}
+              coverUrl={isCreated ? cover && cover : coverUrl}
               title={title}
               onclick={onRightClick}
               side="right"
@@ -102,7 +114,9 @@ function Book({
             />
           ) : (
             <Page
-              imgUrl={images[pageNum - 1].imgUrl}
+              imgUrl={
+                isCreated ? images[pageNum - 1].imgUrl : imgUrls[pageNum - 1]
+              }
               text={texts[pageNum - 1]}
               pageNum={pageNum}
               onLeftClick={onLeftClick}

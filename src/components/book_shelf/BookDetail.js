@@ -13,6 +13,7 @@ const BookDetail = () => {
           bookId={location.state.bookId}
           title={location.state.title}
           texts={location.state.texts}
+          isCreated={true}
         />
       </div>
     </div>

@@ -36,6 +36,38 @@ export const login = async (body) => {
   }
 };
 
+//🍋 내 정보 조회
+export const getMyInfo = async () => {
+  try {
+    const res = await client.get(`/users/me`, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
+//🍋 다른 유저 정보 조회
+export const getUserInfo = async (userName) => {
+  try {
+    const res = await client.get(`/users/${userName}`, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
 //🍋 내책장 조회
 export const getBookshelf = async (userId) => {
   try {
