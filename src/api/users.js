@@ -28,6 +28,7 @@ export const login = async (body) => {
     console.log(res.data);
     const token = res.data.token;
     localStorage.setItem("beMyStoryToken", token);
+    localStorage.setItem("userName", body.userName);
     return res.data;
   } catch (err) {
     console.log("에러 발생");

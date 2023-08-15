@@ -48,6 +48,7 @@ function Book({
       const userData = await getUserInfo(userName);
       setProfileImage(userData.profileImg);
     }
+    // userName && fetchUserInfo();
   }, []);
 
   //표지 생성
@@ -95,7 +96,11 @@ function Book({
         <Header>
           <Profile
             userId={0}
-            profileImage="https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg"
+            profileImage={
+              profileImage
+                ? profileImage
+                : "https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg"
+            }
             nickname={isCreated ? "Jamie" : userName}
           />
           <Button onClick={() => setOpen((prev) => !prev)}>
