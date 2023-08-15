@@ -3,6 +3,7 @@ import axios from "axios";
 const client = axios.create();
 client.defaults.baseURL = "http://43.202.81.68:80";
 client.defaults.withCredentials = true;
+client.defaults.headers.common["Content-Type"] = "application/json";
 
 const token = localStorage.getItem("beMyStoryToken");
 console.log("현재 토큰", token);
