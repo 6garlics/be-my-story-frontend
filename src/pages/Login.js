@@ -23,7 +23,10 @@ const Login = () => {
         const data = await login(formData);
         navigate("/");
       } catch (err) {
-        setMessage("로그인에 실패했어요.");
+        if (err.response.status === 401) setMessage("비밀번호가 틀렸어요.");
+        else if (err.response.status === 404)
+          setMessage("존재하지 않는 사용자명이에요.");
+        else setMessage("로그인에 실패했어요.");
       }
     }
   };
