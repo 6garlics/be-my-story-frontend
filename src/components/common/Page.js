@@ -8,7 +8,6 @@ const Page = ({
   onLeftClick,
   onRightClick,
 }) => {
-  console.log("페이지", imgUrl);
   return (
     <Container>
       <ImageWrapper>
