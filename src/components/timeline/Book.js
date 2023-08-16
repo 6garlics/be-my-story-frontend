@@ -9,6 +9,7 @@ import { TbNotebook, TbNotes } from "react-icons/tb";
 import { createCover, createImage } from "../../api/books";
 import { main } from "../../ColorPalette.js";
 import { getUserInfo } from "../../api/users";
+import { getMyInfo } from "./../../api/users";
 
 function Book({
   bookId,
@@ -17,7 +18,7 @@ function Book({
   texts = ["첫번째", "두번째", "세번째"],
   coverUrl,
   imgUrls,
-  isCreated = false,
+  newBook = false,
 }) {
   const [open, setOpen] = useState(false);
   const [pageNum, setPageNum] = useState(0);
@@ -44,11 +45,15 @@ function Book({
 
   //유저 정보 조회
   useEffect(() => {
+    async function fetchMyInfo() {
+      const userData = await getMyInfo();
+      setProfileImage(userData.profileImg);
+    }
     async function fetchUserInfo() {
       const userData = await getUserInfo(userName);
       setProfileImage(userData.profileImg);
     }
-    // userName && fetchUserInfo();
+    newBook ? fetchMyInfo() : fetchUserInfo();
   }, []);
 
   //표지 생성
@@ -62,26 +67,26 @@ function Book({
         setCover("/images/dummy3.png");
       }
     }
-    isCreated && fetchCover();
+    newBook && fetchCover();
   }, []);
 
   //일러스트 여러개 생성
   useEffect(() => {
     async function fetchImages() {
       texts.forEach(async (_, pageNum) => {
-        let newImages = images;
+        let newBookImages = images;
         try {
-          newImages[pageNum] = await createImage(bookId, pageNum);
-          setImages(newImages);
+          newBookImages[pageNum] = await createImage(bookId, pageNum);
+          setImages(newBookImages);
           setRefresh((prev) => prev + 1); //재렌더링
         } catch (err) {
-          newImages[pageNum] = "/images/bike1.png";
-          setImages(newImages);
+          newBookImages[pageNum] = "/images/bike1.png";
+          setImages(newBookImages);
           setRefresh((prev) => prev + 1); //재렌더링
         }
       });
     }
-    isCreated && fetchImages();
+    newBook && fetchImages();
   }, []);
 
   return (
@@ -101,7 +106,7 @@ function Book({
                 ? profileImage
                 : "https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg"
             }
-            nickname={isCreated ? "Jamie" : userName}
+            nickname={newBook ? "Jamie" : userName}
           />
           <Button onClick={() => setOpen((prev) => !prev)}>
             <IoIosMore size={25} color="white" />
@@ -110,7 +115,7 @@ function Book({
         <Wrapper>
           {pageNum === 0 ? (
             <Cover
-              coverUrl={isCreated ? cover && cover : coverUrl}
+              coverUrl={newBook ? cover : coverUrl}
               title={title}
               onclick={onRightClick}
               side="right"
@@ -120,7 +125,7 @@ function Book({
           ) : (
             <Page
               imgUrl={
-                isCreated ? images[pageNum - 1].imgUrl : imgUrls[pageNum - 1]
+                newBook ? images[pageNum - 1].imgUrl : imgUrls[pageNum - 1]
               }
               text={texts[pageNum - 1]}
               pageNum={pageNum}

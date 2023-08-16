@@ -4,10 +4,10 @@ import Timeline from "./pages/Timeline";
 import DiaryForm from "./pages/DiaryForm";
 import BookForm from "./pages/BookForm";
 import Bookshelf from "./pages/Bookshelf";
-import BookDetail from "./components/book_shelf/BookDetail";
+import NewBookDetail from "./pages/NewBookDetail";
 import Login from "./pages/Login";
 import Header from "./components/common/Header";
-import JoinPage from "./pages/JoinPage";
+import Join from "./pages/Join";
 import { useContext } from "react";
 import ColorContext from "./contexts/Color";
 import Page from "./components/common/Page";
@@ -22,18 +22,18 @@ function App() {
       <Main>
         <Routes>
           <Route path="/test" element={<Book />} />
-          <Route path="/join" element={<JoinPage />} />
+          <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Timeline />} />
           <Route path="/diary-form" element={<DiaryForm />} />
           <Route path="/book-form" element={<BookForm />} />
           <Route
-            path="/bookshelf/:id"
+            path="/bookshelf/:userName"
             Component={(props) => (
               <Bookshelf {...props} key={window.location.pathname} />
             )}
           />
-          <Route path="/book/:id/detail" element={<BookDetail />} />
+          <Route path="/new-book/:id/detail" element={<NewBookDetail />} />
         </Routes>
       </Main>
     </Container>

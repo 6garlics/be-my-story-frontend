@@ -2,9 +2,9 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { join } from "../api/users";
-import ColorContext from "./../contexts/Color";
+import ColorContext from "../contexts/Color";
 
-const JoinPage = () => {
+const Join = () => {
   //입력값
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -246,4 +246,4 @@ const SignUpBtn = styled.button`
   }
 `;
 
-export default JoinPage;
+export default Join;

@@ -28,7 +28,7 @@ export const login = async (body) => {
     console.log(res.data);
     const token = res.data.token;
     localStorage.setItem("beMyStoryToken", token);
-    localStorage.setItem("userName", body.userName);
+    localStorage.setItem("userName", body.get("userName"));
     return res.data;
   } catch (err) {
     console.log("에러 발생");
@@ -70,9 +70,9 @@ export const getUserInfo = async (userName) => {
 };
 
 //🍋 내책장 조회
-export const getBookshelf = async (userId) => {
+export const getBookshelf = async (userName) => {
   try {
-    const res = await client.get(`/users/${userId}/books`, {
+    const res = await client.get(`/books/${userName}`, {
       headers: { "Content-Type": "application/json" },
     });
 

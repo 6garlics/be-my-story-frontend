@@ -1,8 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import Book from "../timeline/Book";
+import Book from "../components/timeline/Book";
 
-const BookDetail = () => {
+const NewBookDetail = () => {
   const location = useLocation();
   console.log(location);
 
@@ -13,11 +13,11 @@ const BookDetail = () => {
           bookId={location.state.bookId}
           title={location.state.title}
           texts={location.state.texts}
-          isCreated={true}
+          newBook={true}
         />
       </div>
     </div>
   );
 };
 
-export default BookDetail;
+export default NewBookDetail;

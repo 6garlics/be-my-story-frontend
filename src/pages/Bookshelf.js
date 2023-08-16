@@ -6,17 +6,16 @@ import BookCover from "../components/book_shelf/BookCover";
 import Friends from "../components/book_shelf/Friends";
 import { users } from "../data/UsersData";
 import { FaUserFriends } from "react-icons/fa";
-import { getBookshelf } from "./../api/users";
+import { getBookshelf, getUserInfo } from "./../api/users";
 import { useEffect } from "react";
 import { useContext } from "react";
 import ColorContext from "../contexts/Color";
 
 const Bookshelf = () => {
-  const { id } = useParams();
-  console.log("id : ", id);
+  const { userName } = useParams();
+  const [userInfo, setUserInfo] = useState();
   const [showingFriends, setShowingFriends] = useState(false);
-  //const [user, setUser] = useState();
-  const user = users[id];
+  const [books, setBooks] = useState();
 
   const colors = useContext(ColorContext);
 
@@ -24,36 +23,43 @@ const Bookshelf = () => {
     setShowingFriends((prev) => !prev);
   };
 
-  // Postman Mock Server 사용시 aixos 호출
-  // const getUser = async () => {
-  //   const response = await axios(
-  //     `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/users/${id}`
-  //   );
-  //   setUser(response.data);
-  //   console.log("Bookshelf: ", response.data);
-  // };
-  // useEffect(() => {
-  //   getUser();
-  // }, []);
-
-  useEffect(async () => {
-    const data = await getBookshelf(1);
-    console.log(data);
+  //유저 정보 조회
+  useEffect(() => {
+    async function fetchUserInfo() {
+      try {
+        const data = await getUserInfo(userName);
+        console.log(data);
+        setUserInfo(data);
+      } catch (err) {}
+    }
+    fetchUserInfo();
   }, []);
 
-  return user ? (
+  //책장의 동화책 전체 조회
+  useEffect(() => {
+    async function fetchBooks() {
+      try {
+        const data = await getBookshelf(userName);
+        console.log(data);
+        setBooks(data);
+      } catch (err) {}
+    }
+    fetchBooks();
+  }, []);
+
+  return books ? (
     <div style={{ display: "flex" }}>
       <Container>
         <Profile>
-          <ProfileIcon src={user.profileImage} />
-          <ProfileName>{user.nickname}</ProfileName>
+          <ProfileIcon src={userInfo.profileImage} />
+          <ProfileName>{userInfo.userName}</ProfileName>
           <FriendsButton onClick={toggleFriends}>
             <FaUserFriends size={30} color="white" />
             <FriendsText $color={colors.theme3}>친구목록</FriendsText>
           </FriendsButton>
         </Profile>
         <BookList>
-          {user.myBooks.map((book) => (
+          {books.map((book) => (
             <BookCover
               key={book.id}
               coverImage={book.pages[0].img_url}
@@ -64,7 +70,10 @@ const Bookshelf = () => {
         </BookList>
       </Container>
       {showingFriends && (
-        <Friends friends={user.myFriends} toggleFriends={toggleFriends} />
+        <Friends
+          friends={userInfo.myFriends && userInfo.myFriends}
+          toggleFriends={toggleFriends}
+        />
       )}
     </div>
   ) : (

@@ -32,7 +32,7 @@ function Timeline() {
             texts={book.texts}
             coverUrl={book.coverUrl}
             imgUrls={book.images}
-            isCreated={false}
+            newBook={false}
           />
         ))}
       </Container>
