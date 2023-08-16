@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import { join } from "../api/users";
+import { join, checkDuplicate } from "../api/users";
 import ColorContext from "../contexts/Color";
 
 const Join = () => {
@@ -16,26 +16,41 @@ const Join = () => {
   const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+  const [message, setMessage] = useState();
 
   //유효성
   const [isName, setIsName] = useState(false);
+  const [isUniqueName, setIsUniqueName] = useState();
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
-  const focusColor = useContext(ColorContext).theme3;
+  const theme3 = useContext(ColorContext).theme3;
   const navigate = useNavigate();
 
   //회원가입 버튼 클릭 시
   const onJoin = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData(event.target);
-    console.log(Object.fromEntries(formData));
+    if (
+      isName &&
+      isEmail &&
+      isPassword &&
+      isPasswordConfirm &&
+      setIsUniqueName
+    ) {
+      const formData = new FormData(event.target);
+      console.log(Object.fromEntries(formData));
 
-    const data = await join(formData);
-
-    navigate("/login");
+      try {
+        const data = await join(formData);
+        navigate("/login");
+      } catch (err) {
+        if (err.response.status === 409) {
+          setMessage("이미 있는 사용자명입니다.");
+        }
+      }
+    }
   };
 
   //이름 변경시
@@ -110,19 +125,39 @@ const Join = () => {
     }
   };
 
+  //사용자명 중복확인
+  const onCheckDuplicate = () => {
+    if (isName) {
+      try {
+        const data = checkDuplicate(userName);
+        setIsUniqueName(true);
+      } catch (err) {
+        if (err.response.status === 409) {
+          setNameMessage("이미 존재하는 사용자명이에요.");
+          setIsUniqueName(false);
+        }
+      }
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
         <Text>{`Be My Story 회원가입`}</Text>
         <Form onSubmit={onJoin}>
           <Label htmlFor="userName">사용자 이름</Label>
-          <Input
-            id="userName"
-            name="userName"
-            value={userName}
-            onChange={onChangeName}
-            $outline={focusColor}
-          />
+          <InputWrapper>
+            <Input
+              id="userName"
+              name="userName"
+              value={userName}
+              onChange={onChangeName}
+              $outline={theme3}
+            />
+            <CheckDuplicate onClick={onCheckDuplicate} $background={theme3}>
+              중복확인
+            </CheckDuplicate>
+          </InputWrapper>
           <Message $color={isName ? "lightgreen" : "red"}>
             {userName.length > 0 && nameMessage}
           </Message>
@@ -133,7 +168,7 @@ const Join = () => {
             name="email"
             value={email}
             onChange={onChangeEmail}
-            $outline={focusColor}
+            $outline={theme3}
           />
           <Message $color={isEmail ? "lightgreen" : "red"}>
             {email.length > 0 && emailMessage}
@@ -146,7 +181,7 @@ const Join = () => {
             name="password"
             value={password}
             onChange={onChangePassword}
-            $outline={focusColor}
+            $outline={theme3}
           />
           <Message $color={isPassword ? "lightgreen" : "red"}>
             {password.length > 0 && passwordMessage}
@@ -158,7 +193,7 @@ const Join = () => {
             id="passwordConfirm"
             value={passwordConfirm}
             onChange={onChangePasswordConfirm}
-            $outline={focusColor}
+            $outline={theme3}
           />
           <Message $color={isPasswordConfirm ? "lightgreen" : "red"}>
             {passwordConfirm.length > 0 && passwordConfirmMessage}
@@ -211,13 +246,35 @@ const Form = styled.form`
 
 const Label = styled.label``;
 
+const InputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+
 const Input = styled.input`
+  position: relative;
+  width: 100%;
   height: 30px;
   border-radius: 9px;
   padding: 0 5px;
   border: 1px solid grey;
   &:focus {
     outline: ${(props) => `2px ${props.$outline} solid`};
+  }
+`;
+
+const CheckDuplicate = styled.button`
+  position: absolute;
+  right: 5px;
+  height: 22px;
+  border: none;
+  border-radius: 6px;
+  background: ${(props) => props.$background};
+  color: white;
+  font-size: 12px;
+  &:hover {
+    cursor: pointer;
   }
 `;
 

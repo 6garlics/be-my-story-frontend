@@ -13,6 +13,7 @@ import ColorContext from "./contexts/Color";
 import Page from "./components/common/Page";
 import Book from "./components/timeline/Book";
 import BookDetail from "./pages/BookDetail";
+import PrivateRoutes from "./accessControl/PrivateRoutes";
 
 function App() {
   const colors = useContext(ColorContext);
@@ -22,20 +23,24 @@ function App() {
 
       <Main>
         <Routes>
-          <Route path="/test" element={<Book />} />
           <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Timeline />} />
-          <Route path="/diary-form" element={<DiaryForm />} />
-          <Route path="/book-form" element={<BookForm />} />
-          <Route
-            path="/bookshelf/:userName"
-            Component={(props) => (
-              <Bookshelf {...props} key={window.location.pathname} />
-            )}
-          />
-          <Route path="/book/:bookId/detail" element={<BookDetail />} />
-          <Route path="/new-book/:bookId/detail" element={<NewBookDetail />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Timeline />} />
+            <Route path="/diary-form" element={<DiaryForm />} />
+            <Route path="/book-form" element={<BookForm />} />
+            <Route
+              path="/bookshelf/:userName"
+              Component={(props) => (
+                <Bookshelf {...props} key={window.location.pathname} />
+              )}
+            />
+            <Route path="/book/:bookId/detail" element={<BookDetail />} />
+            <Route
+              path="/new-book/:bookId/detail"
+              element={<NewBookDetail />}
+            />
+          </Route>
         </Routes>
       </Main>
     </Container>

@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import { styled } from "styled-components";
 import { login } from "../api/users";
 import ColorContext from "../contexts/Color";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -10,7 +11,9 @@ const Login = () => {
   const [message, setMessage] = useState("");
 
   const focusColor = useContext(ColorContext).theme3;
+  const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   //로그인 버튼 클릭 시
   const onLogin = async (event) => {
@@ -21,6 +24,7 @@ const Login = () => {
       console.log(Object.fromEntries(formData));
       try {
         const data = await login(formData);
+        dispatch({ type: "UPDATE_USERNAME", data: { userName: userName } });
         navigate("/");
       } catch (err) {
         if (err.response.status === 401) setMessage("비밀번호가 틀렸어요.");
