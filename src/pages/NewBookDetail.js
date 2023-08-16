@@ -9,56 +9,13 @@ const NewBookDetail = () => {
   const location = useLocation();
   console.log(location);
 
+  const [newImages, setNewImages] = useState();
+
+  //Redux의 상태 꺼내오기
   const coverUrl = useSelector((state) => state.coverUrl);
   const images = useSelector((state) => state.images);
   console.log(coverUrl);
   console.log(images);
-
-  const [profileImg, setProfileImg] = useState();
-  // const [coverUrl, setCoverUrl] = useState("");
-  // const [images, setImages] = useState([]);
-
-  // //유저 프로필이미지 조회
-  // useEffect(() => {
-  //   async function fetchMyInfo() {
-  //     const userData = await getMyInfo();
-  //     setProfileImg(userData.profileImg);
-  //   }
-  //   // fetchMyInfo();
-  // }, []);
-
-  // //표지 생성
-  // useEffect(() => {
-  //   async function fetchCover() {
-  //     try {
-  //       const coverData = await createCover(location.state.bookId);
-  //       setCoverUrl(coverData);
-  //     } catch (err) {
-  //       setCoverUrl("/images/dummy3.png");
-  //     }
-  //   }
-  //   // fetchCover();
-  // }, []);
-
-  // //일러스트 여러개 생성
-  // useEffect(() => {
-  //   async function fetchImages() {
-  //     location.state.texts.forEach(async (_, pageNum) => {
-  //       let newBookImages = images;
-  //       try {
-  //         newBookImages[pageNum] = await createImage(
-  //           location.state.bookId,
-  //           pageNum
-  //         );
-  //         setImages(newBookImages);
-  //       } catch (err) {
-  //         newBookImages[pageNum] = "/images/bike1.png";
-  //         setImages(newBookImages);
-  //       }
-  //     });
-  //   }
-  //   // fetchImages();
-  // }, []);
 
   return (
     <div>
@@ -68,7 +25,9 @@ const NewBookDetail = () => {
           title={location.state.title}
           texts={location.state.texts}
           coverUrl={coverUrl}
-          images={images}
+          images={images.map((image, index) => {
+            return image.imgUrl;
+          })}
         />
       </div>
     </div>

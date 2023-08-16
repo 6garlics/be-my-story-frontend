@@ -22,6 +22,8 @@ function Book({
   const [profileImg, setProfileImg] = useState();
   // const [refresh, setRefresh] = useState(0);
 
+  console.log(images);
+
   //팔레트
   // useEffect(() => {
   //   main();
@@ -76,7 +78,7 @@ function Book({
             />
           ) : (
             <Page
-              imgUrl={images.length !== 0 && images[pageNum - 1].imgUrl}
+              imgUrl={images.length !== 0 && images[pageNum - 1]}
               text={texts[pageNum - 1]}
               pageNum={pageNum}
               onLeftClick={onLeftClick}

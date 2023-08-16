@@ -2,16 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-const BookCover = ({ coverImage, title, book }) => {
+const BookCover = ({ bookId, coverUrl, title }) => {
   //console.log("BookCover: ", book);
   return (
     <Container>
       <NavLink
-        to={`/book/${book.id}/detail`}
-        state={{ book: book }}
+        to={`/book/${bookId}/detail`}
         style={{ textDecoration: "none", color: "white" }}
       >
-        <CoverImage src={coverImage} />
+        <CoverImage src={coverUrl} />
         <Title>{title}</Title>
       </NavLink>
     </Container>

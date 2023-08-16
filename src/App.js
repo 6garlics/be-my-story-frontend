@@ -12,6 +12,7 @@ import { useContext } from "react";
 import ColorContext from "./contexts/Color";
 import Page from "./components/common/Page";
 import Book from "./components/timeline/Book";
+import BookDetail from "./pages/BookDetail";
 
 function App() {
   const colors = useContext(ColorContext);
@@ -33,7 +34,8 @@ function App() {
               <Bookshelf {...props} key={window.location.pathname} />
             )}
           />
-          <Route path="/new-book/:id/detail" element={<NewBookDetail />} />
+          <Route path="/book/:bookId/detail" element={<BookDetail />} />
+          <Route path="/new-book/:bookId/detail" element={<NewBookDetail />} />
         </Routes>
       </Main>
     </Container>

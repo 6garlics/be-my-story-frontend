@@ -6,7 +6,8 @@ import BookCover from "../components/book_shelf/BookCover";
 import Friends from "../components/book_shelf/Friends";
 import { users } from "../data/UsersData";
 import { FaUserFriends } from "react-icons/fa";
-import { getBookshelf, getUserInfo } from "./../api/users";
+import { getBookshelf } from "./../api/books";
+import { getUserInfo } from "./../api/users";
 import { useEffect } from "react";
 import { useContext } from "react";
 import ColorContext from "../contexts/Color";
@@ -35,7 +36,7 @@ const Bookshelf = () => {
     fetchUserInfo();
   }, []);
 
-  //책장의 동화책 전체 조회
+  //책장 조회
   useEffect(() => {
     async function fetchBooks() {
       try {
@@ -61,10 +62,10 @@ const Bookshelf = () => {
         <BookList>
           {books.map((book) => (
             <BookCover
-              key={book.id}
-              coverImage={book.pages[0].img_url}
+              key={book.bookId}
+              bookId={book.bookId}
+              coverUrl={book.coverUrl}
               title={book.title}
-              book={book}
             />
           ))}
         </BookList>

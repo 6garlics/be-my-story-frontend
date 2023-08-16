@@ -17,8 +17,16 @@ function reducer(currentState = initialState, action) {
       console.log(action.data.imgUrl);
       newState.images = [
         ...currentState.images,
-        { imgUrl: action.data.imgUrl },
+        { index: action.data.index, imgUrl: action.data.imgUrl },
       ];
+      break;
+    case "SORT_IMAGES":
+      const newImages = [...currentState.images];
+      newImages.sort(function (a, b) {
+        return a.index - b.index;
+      });
+      console.log("newImages", newImages);
+      newState.images = newImages;
       break;
   }
 

@@ -64,19 +64,3 @@ export const getUserInfo = async (userName) => {
     throw err;
   }
 };
-
-//🍋 내책장 조회
-export const getBookshelf = async (userName) => {
-  try {
-    const res = await client.get(`/books/${userName}`, {
-      headers: { "Content-Type": "application/json" },
-    });
-
-    console.log(res.data);
-    return res.data;
-  } catch (err) {
-    console.log("에러 발생");
-    console.log(err);
-    throw err;
-  }
-};

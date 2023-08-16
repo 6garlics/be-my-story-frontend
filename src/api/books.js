@@ -21,8 +21,33 @@ export const getBooks = async () => {
   }
 };
 
+//🍋 책장 조회
+export const getBookshelf = async (userName) => {
+  try {
+    const res = await client.get(`/books?userName=${userName}`);
+
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
 //동화책 1개 조회
-export const getBook = async () => {};
+export const getBook = async (bookId) => {
+  try {
+    const res = await client.get(`/books/${bookId}`);
+
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
 
 //동화책 1개 수정
 export const editBook = async () => {};
@@ -55,6 +80,7 @@ export const createCover = async (bookId, dispatch) => {
     );
 
     console.log("cover", res.data);
+    //리덕스에 저장
     dispatch({ type: "UPDATE_COVER", data: { coverUrl: res.data.coverUrl } });
 
     return res.data;
@@ -77,7 +103,12 @@ export const createImage = async (bookId, pageNum, dispatch) => {
     );
 
     console.log(res.data);
-    dispatch({ type: "UPDATE_IMAGES", data: { imgUrl: res.data.imgUrl } });
+    //리덕스에 저장
+    dispatch({
+      type: "UPDATE_IMAGES",
+      data: { index: res.data.index, imgUrl: res.data.imgUrl },
+    });
+    dispatch({ type: "SORT_IMAGES" });
 
     return res.data;
   } catch (err) {

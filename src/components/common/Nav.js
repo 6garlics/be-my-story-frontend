@@ -24,7 +24,10 @@ const Nav = () => {
       <NLink to="/diary-form" $activeColor={colors.theme3}>
         <TbSquareRoundedPlusFilled size={iconSize} />
       </NLink>
-      <NLink to="/bookshelf/0" $activeColor={colors.theme3}>
+      <NLink
+        to={`/bookshelf/${localStorage.getItem("userName")}`}
+        $activeColor={colors.theme3}
+      >
         <HiBookOpen size={iconSize} />
       </NLink>
     </Container>
