@@ -5,7 +5,7 @@ import { IoClose } from "react-icons/io5";
 import { useContext } from "react";
 import ColorContext from "../../contexts/Color";
 
-const DiaryModal = ({ open, setOpen }) => {
+const DiaryModal = ({ open, setIsModal }) => {
   const colors = useContext(ColorContext);
   useEffect(() => {
     document.body.style.cssText = `
@@ -23,12 +23,12 @@ const DiaryModal = ({ open, setOpen }) => {
     <Wrapper>
       <Layer
         onClick={() => {
-          setOpen((prev) => !prev);
+          setIsModal((prev) => !prev);
         }}
       ></Layer>
       <DiaryWrapper $background={colors.theme4}>
         <Inner>
-          <CloseBtn onClick={() => setOpen((prev) => !prev)}>
+          <CloseBtn onClick={() => setIsModal((prev) => !prev)}>
             <IoClose size={22} color="#78b9ff" />
           </CloseBtn>
           <Header>

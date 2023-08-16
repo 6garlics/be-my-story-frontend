@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import Grade from "grade-js";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 window.addEventListener("load", function () {
   Grade(document.querySelectorAll(".gradient-wrap"));
@@ -10,7 +12,9 @@ window.addEventListener("load", function () {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );

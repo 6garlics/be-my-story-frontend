@@ -1,5 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
+import { DotLoader } from "react-spinners";
 
 const Page = ({
   imgUrl = "/images/dummy3.png",
@@ -11,7 +12,13 @@ const Page = ({
   return (
     <Container>
       <ImageWrapper>
-        <Image src={imgUrl} />
+        {imgUrl ? (
+          <Image src={imgUrl} />
+        ) : (
+          <Loader>
+            <DotLoader color="#78B9FF" size={100} />
+          </Loader>
+        )}
         <Button onClick={onLeftClick} $left="0px" $right="auto">
           왼쪽
         </Button>
@@ -34,11 +41,12 @@ const Container = styled.div`
   width: 100%;
   min-width: 500px;
   border-radius: 10px;
+  border: 1px solid grey;
   overflow: hidden;
 `;
 
 const ImageWrapper = styled.div`
-  width: 50%;
+  flex: 1;
   padding-bottom: 50%;
   height: 0;
   position: relative;
@@ -50,7 +58,7 @@ const Image = styled.img`
 `;
 
 const TextWrapper = styled.div`
-  width: 50%;
+  flex: 1;
   height: auto;
   display: flex;
   justify-content: center;
@@ -59,6 +67,13 @@ const TextWrapper = styled.div`
   background: skyblue;
   color: black;
   position: relative;
+  /* 스크롤 */
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Text = styled.div`
@@ -87,4 +102,13 @@ const Button = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const Loader = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `;

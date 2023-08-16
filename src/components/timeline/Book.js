@@ -6,26 +6,19 @@ import Cover from "./Cover";
 import DiaryModal from "./DiaryModal";
 import { IoIosMore } from "react-icons/io";
 import { TbNotebook, TbNotes } from "react-icons/tb";
-import { createCover, createImage } from "../../api/books";
-import { main } from "../../ColorPalette.js";
-import { getUserInfo } from "../../api/users";
-import { getMyInfo } from "./../../api/users";
+import { useDispatch } from "react-redux";
 
 function Book({
-  bookId,
-  userName,
+  userName = "Jamie",
+  profileImg = "https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg",
   title = "자전거 모험",
   texts = ["첫번째", "두번째", "세번째"],
   coverUrl,
-  imgUrls,
-  newBook = false,
+  images,
 }) {
-  const [open, setOpen] = useState(false);
+  const [isModal, setIsModal] = useState(false);
   const [pageNum, setPageNum] = useState(0);
-  const [cover, setCover] = useState("");
-  const [images, setImages] = useState([]);
-  const [refresh, setRefresh] = useState(0);
-  const [profileImage, setProfileImage] = useState();
+  // const [refresh, setRefresh] = useState(0);
 
   //팔레트
   // useEffect(() => {
@@ -43,52 +36,6 @@ function Book({
     }
   };
 
-  //유저 정보 조회
-  useEffect(() => {
-    async function fetchMyInfo() {
-      const userData = await getMyInfo();
-      setProfileImage(userData.profileImg);
-    }
-    async function fetchUserInfo() {
-      const userData = await getUserInfo(userName);
-      setProfileImage(userData.profileImg);
-    }
-    newBook ? fetchMyInfo() : fetchUserInfo();
-  }, []);
-
-  //표지 생성
-  useEffect(() => {
-    async function fetchCover() {
-      try {
-        const coverData = await createCover(bookId);
-        setCover(coverData);
-        setRefresh((prev) => prev + 1); //재렌더링
-      } catch (err) {
-        setCover("/images/dummy3.png");
-      }
-    }
-    newBook && fetchCover();
-  }, []);
-
-  //일러스트 여러개 생성
-  useEffect(() => {
-    async function fetchImages() {
-      texts.forEach(async (_, pageNum) => {
-        let newBookImages = images;
-        try {
-          newBookImages[pageNum] = await createImage(bookId, pageNum);
-          setImages(newBookImages);
-          setRefresh((prev) => prev + 1); //재렌더링
-        } catch (err) {
-          newBookImages[pageNum] = "/images/bike1.png";
-          setImages(newBookImages);
-          setRefresh((prev) => prev + 1); //재렌더링
-        }
-      });
-    }
-    newBook && fetchImages();
-  }, []);
-
   return (
     <Root>
       {/* <img id="img" src="/images/dummy1.png" />
@@ -96,26 +43,18 @@ function Book({
       <div id="palette"></div>
       <hr />
       <div id="complementary"></div> */}
-      {open && <DiaryModal open={open} setOpen={setOpen} />}
+      {isModal && <DiaryModal isModal={isModal} setIsModal={setIsModal} />}
       <Container $pageNum={pageNum}>
         <Header>
-          <Profile
-            userId={0}
-            profileImage={
-              profileImage
-                ? profileImage
-                : "https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg"
-            }
-            nickname={newBook ? "Jamie" : userName}
-          />
-          <Button onClick={() => setOpen((prev) => !prev)}>
+          <Profile userName={userName} profileImg={profileImg} />
+          <Button onClick={() => setIsModal((prev) => !prev)}>
             <IoIosMore size={25} color="white" />
           </Button>
         </Header>
         <Wrapper>
           {pageNum === 0 ? (
             <Cover
-              coverUrl={newBook ? cover : coverUrl}
+              coverUrl={coverUrl && coverUrl}
               title={title}
               onclick={onRightClick}
               side="right"
@@ -124,9 +63,7 @@ function Book({
             />
           ) : (
             <Page
-              imgUrl={
-                newBook ? images[pageNum - 1].imgUrl : imgUrls[pageNum - 1]
-              }
+              imgUrl={images.length !== 0 && images[pageNum - 1].imgUrl}
               text={texts[pageNum - 1]}
               pageNum={pageNum}
               onLeftClick={onLeftClick}

@@ -44,7 +44,7 @@ export const createTexts = async (body) => {
 };
 
 //🍋 표지 생성
-export const createCover = async (bookId) => {
+export const createCover = async (bookId, dispatch) => {
   try {
     const res = await client.get(
       `/books/${bookId}/cover`,
@@ -55,6 +55,8 @@ export const createCover = async (bookId) => {
     );
 
     console.log("cover", res.data);
+    dispatch({ type: "UPDATE_COVER", data: { coverUrl: res.data.coverUrl } });
+
     return res.data;
   } catch (err) {
     console.log("커버 에러 발생");
@@ -64,7 +66,7 @@ export const createCover = async (bookId) => {
 };
 
 //🍋 일러스트 1개 생성
-export const createImage = async (bookId, pageNum) => {
+export const createImage = async (bookId, pageNum, dispatch) => {
   try {
     const res = await client.get(
       `/books/${bookId}/pages/${pageNum}`,
@@ -75,6 +77,8 @@ export const createImage = async (bookId, pageNum) => {
     );
 
     console.log(res.data);
+    dispatch({ type: "UPDATE_IMAGES", data: { imgUrl: res.data.imgUrl } });
+
     return res.data;
   } catch (err) {
     console.log("에러 발생");

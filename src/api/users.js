@@ -40,14 +40,12 @@ export const login = async (body) => {
 //🍋 내 정보 조회
 export const getMyInfo = async () => {
   try {
-    const res = await client.get(`/users/me`, {
-      headers: { "Content-Type": "application/json" },
-    });
+    const res = await client.get(`/users/me`);
 
     console.log(res.data);
     return res.data;
   } catch (err) {
-    console.log("에러 발생");
+    console.log("내 정보 조회 에러 발생");
     console.log(err);
     throw err;
   }

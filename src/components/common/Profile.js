@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-const Profile = ({ userId, profileImage, nickname }) => {
+const Profile = ({ userName, profileImg }) => {
   return (
     <Container>
-      <NLink to={`/bookshelf/${userId}`}>
-        <ProfileIcon src={profileImage} />
+      <NLink to={`/bookshelf/${userName}`}>
+        <ProfileIcon src={profileImg} />
       </NLink>
-      <NLink to={`/bookshelf/${userId}`}>
-        <ProfileName>{nickname}</ProfileName>
+      <NLink to={`/bookshelf/${userName}`}>
+        <ProfileName>{userName}</ProfileName>
       </NLink>
     </Container>
   );

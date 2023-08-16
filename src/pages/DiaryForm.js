@@ -6,7 +6,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { DotLoader } from "react-spinners";
-import { createTexts } from "../api/books";
+import { createCover, createImage, createTexts } from "../api/books";
+import { getMyInfo } from "../api/users";
+import { useDispatch } from "react-redux";
 
 const genres = [
   "모험",
@@ -34,12 +36,17 @@ const DiaryForm = () => {
     "오늘 밤에 자전거를 탔다. 자전거는 처음 탈 때는 좀 중심잡기가 힘들었다. 그러나 재미있었다. 자전거를 잘 타서 엄마, 아빠 산책 갈 때 나도 가야겠다."
   );
   const [selectedGenre, setSelectedGenre] = useState(0);
-  //const [book, setBook] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const navigate = useNavigate();
 
-  //🍋 동화책 생성
+  const [profileImg, setProfileImg] = useState();
+  const [coverUrl, setCoverUrl] = useState("");
+  const [images, setImages] = useState([]);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  //일기 제출
   const submitDiary = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -52,19 +59,41 @@ const DiaryForm = () => {
     formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));
 
-    //동화 텍스트 생성
-    const data = await createTexts(formData);
+    //내정보 조회
+    // const userData = await getMyInfo();
 
-    //성공시
-    // bookId: 1,
-    // title: "자전거 여행",
-    // texts: texts,
-    if (data) {
-      navigate(`/book/${data.bookId}/detail`, {
+    //동화 텍스트 생성
+    const textsData = await createTexts(formData);
+
+    //표지 생성
+    const coverData = createCover(textsData.bookId, dispatch);
+    setCoverUrl(coverData.coverUrl);
+
+    //일러스트 여러장 생성
+    textsData.texts.forEach(async (_, pageNum) => {
+      let newBookImages = images;
+      try {
+        newBookImages[pageNum] = await createImage(
+          textsData.bookId,
+          pageNum,
+          dispatch
+        );
+        setImages(newBookImages);
+      } catch (err) {
+        console.log("일러스트 생성 에러", pageNum);
+      }
+    });
+
+    //동화 텍스트 생성되면 리다이렉션
+    if (textsData) {
+      navigate(`/new-book/${textsData.bookId}/detail`, {
         state: {
-          bookId: data.bookId,
-          title: data.title,
-          texts: data.texts,
+          // userName: userData.userName,
+          // profileImg: userData.profileImg,
+          title: textsData.title,
+          texts: textsData.texts,
+          coverUrl: coverUrl,
+          images: images,
         },
       });
     } else {

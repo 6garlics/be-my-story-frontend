@@ -44,7 +44,7 @@ const ImageBox = styled.div`
   border: 1px solid grey;
 `;
 
-const Loader = styled.div`
+const Loader2 = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,6 +53,15 @@ const Loader = styled.div`
   height: 500px;
   color: grey;
   font-size: 20px;
+`;
+
+const Loader = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `;
 
 const Image = styled.img`
