@@ -65,7 +65,6 @@ const NewBookDetail = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Book
           userName={location.state.userName}
-          profileImg={location.state.profileImg}
           title={location.state.title}
           texts={location.state.texts}
           coverUrl={coverUrl}

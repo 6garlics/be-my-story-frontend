@@ -2,13 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { DotLoader } from "react-spinners";
 
-const Page = ({
-  imgUrl = "/images/dummy3.png",
-  text = "시작시작이것은 동화 이것은 동화 이것은 동화 이것은 동화이것은 동화이것은 동화 이것은 동화 이것은 동화 이것은 동화 이것은 동화이것은 동화이것은 동화 이것은 동화 이것은 동화 이것은 동화 이것은 동화이것은 동화이것은 동화 이것은 동화 이것은 동화 이것은 동화 이것은 동화 끝끝끝",
-  pageNum = 1,
-  onLeftClick,
-  onRightClick,
-}) => {
+const Page = ({ imgUrl, text, pageNum = 1, onLeftClick, onRightClick }) => {
   return (
     <Container>
       <ImageWrapper>

@@ -7,10 +7,11 @@ import DiaryModal from "./DiaryModal";
 import { IoIosMore } from "react-icons/io";
 import { TbNotebook, TbNotes } from "react-icons/tb";
 import { useDispatch } from "react-redux";
+import { getUserInfo } from "../../api/users";
+import { getMyInfo } from "./../../api/users";
 
 function Book({
-  userName = "Jamie",
-  profileImg = "https://t4.ftcdn.net/jpg/05/65/24/45/1000_F_565244595_9DSsL5nS0nefC3wvjRLybz6UZt1JHvxM.jpg",
+  userName = "임시 사용자명",
   title = "자전거 모험",
   texts = ["첫번째", "두번째", "세번째"],
   coverUrl,
@@ -18,12 +19,24 @@ function Book({
 }) {
   const [isModal, setIsModal] = useState(false);
   const [pageNum, setPageNum] = useState(0);
+  const [profileImg, setProfileImg] = useState();
   // const [refresh, setRefresh] = useState(0);
 
   //팔레트
   // useEffect(() => {
   //   main();
   // }, []);
+
+  //유저 정보 조회
+  useEffect(() => {
+    async function fetchUserInfo() {
+      try {
+        const userData = await getUserInfo(userName);
+        setProfileImg(userData.profileImg);
+      } catch (err) {}
+    }
+    fetchUserInfo();
+  }, []);
 
   const onLeftClick = () => {
     if (pageNum > 0) {

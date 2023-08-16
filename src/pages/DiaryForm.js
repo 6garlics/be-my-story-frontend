@@ -39,6 +39,7 @@ const DiaryForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  const [userName, setUserName] = useState();
   const [profileImg, setProfileImg] = useState();
   const [coverUrl, setCoverUrl] = useState("");
   const [images, setImages] = useState([]);
@@ -88,8 +89,7 @@ const DiaryForm = () => {
     if (textsData) {
       navigate(`/new-book/${textsData.bookId}/detail`, {
         state: {
-          // userName: userData.userName,
-          // profileImg: userData.profileImg,
+          userName: localStorage.getItem("userName"),
           title: textsData.title,
           texts: textsData.texts,
           coverUrl: coverUrl,

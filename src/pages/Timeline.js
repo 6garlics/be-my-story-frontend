@@ -26,13 +26,11 @@ function Timeline() {
         {books.map((book, index) => (
           <Book
             key={index}
-            bookId={book.bookId}
             userName={book.userName}
             title={book.title}
             texts={book.texts}
             coverUrl={book.coverUrl}
-            imgUrls={book.images}
-            newBook={false}
+            images={book.images}
           />
         ))}
       </Container>

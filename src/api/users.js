@@ -54,9 +54,7 @@ export const getMyInfo = async () => {
 //🍋 다른 유저 정보 조회
 export const getUserInfo = async (userName) => {
   try {
-    const res = await client.get(`/users/${userName}`, {
-      headers: { "Content-Type": "application/json" },
-    });
+    const res = await client.get(`/users?userName=${userName}`);
 
     console.log(res.data);
     return res.data;
