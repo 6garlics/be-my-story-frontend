@@ -4,11 +4,7 @@ import { Navigate, Outlet, Route } from "react-router-dom";
 import { isLogin } from "./isLogin";
 
 const PrivateRoutes = (component, ...rest) => {
-  return isLogin() ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/login" {...alert("로그인 후 이용 가능해요.")} />
-  );
+  return isLogin() ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoutes;

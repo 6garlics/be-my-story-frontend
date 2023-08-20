@@ -25,6 +25,8 @@ function App() {
         <Routes>
           <Route path="/join" element={<Join />} />
           <Route path="/login" element={<Login />} />
+
+          {/* 접근제한 페이지 */}
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Timeline />} />
             <Route path="/diary-form" element={<DiaryForm />} />
