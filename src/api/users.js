@@ -21,10 +21,12 @@ export const join = async (body) => {
 //아이디 중복확인
 export const checkDuplicate = async (userName) => {
   try {
-    const res = await axios.get(`http://43.202.81.68:80/checkId/${userName}`);
+    const res = await axios.get(
+      `http://43.202.81.68:80/checkUserName?userName=${userName}`
+    );
 
     console.log(res.data);
-    return res.data;
+    return res;
   } catch (err) {
     console.log("에러 발생");
     console.log(err);

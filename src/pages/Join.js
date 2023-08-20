@@ -62,7 +62,7 @@ const Join = () => {
       setNameMessage("3글자 이상 15글자 미만으로 입력하세요.");
       setIsName(false);
     } else {
-      setNameMessage("올바른 이름이에요.");
+      setNameMessage("중복확인을 해주세요.");
       setIsName(true);
     }
   };
@@ -130,6 +130,7 @@ const Join = () => {
     if (isName) {
       try {
         const data = checkDuplicate(userName);
+        setNameMessage("올바른 이름이에요.");
         setIsUniqueName(true);
       } catch (err) {
         if (err.response.status === 409) {
