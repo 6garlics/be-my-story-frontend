@@ -105,6 +105,9 @@ const Container = styled.div`
       color: #e9e9e9;
     }
   }
+  .slick-cloned {
+    display: none !important;
+  }
 `;
 
 const Profile = styled.div`
