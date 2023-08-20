@@ -41,6 +41,7 @@ export const login = async (body) => {
 
     console.log(res.data);
     const token = res.data.token;
+    client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     localStorage.setItem("beMyStoryToken", token);
     localStorage.setItem("userName", body.get("userName"));
     return res.data;
