@@ -18,14 +18,21 @@ const BookCover = ({ bookId, coverUrl, title }) => {
 };
 
 const Container = styled.div`
-  width: 33.333%;
-  padding: 20px;
+  width: 200px;
+  height: 330px;
+  padding: 60px 20px;
   box-sizing: border-box;
 `;
 
 const CoverImage = styled.img`
   width: 100%;
   border-radius: 10%;
+  &:hover {
+    width: 120%;
+    transform: translate(-10%, -10%);
+    box-shadow: 0px 0px 50px -5px gold;
+  }
+  transition: all 0.2s ease-in-out;
 `;
 
 const Title = styled.div`

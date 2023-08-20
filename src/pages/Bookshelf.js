@@ -11,6 +11,10 @@ import { getUserInfo } from "./../api/users";
 import { useEffect } from "react";
 import { useContext } from "react";
 import ColorContext from "../contexts/Color";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { settings } from "../components/book_shelf/carousel";
 
 const Bookshelf = () => {
   const { userName } = useParams();
@@ -60,14 +64,16 @@ const Bookshelf = () => {
           </FriendsButton>
         </Profile>
         <BookList>
-          {books.map((book) => (
-            <BookCover
-              key={book.bookId}
-              bookId={book.bookId}
-              coverUrl={book.coverUrl}
-              title={book.title}
-            />
-          ))}
+          <Slider {...settings}>
+            {books.map((book) => (
+              <BookCover
+                key={book.bookId}
+                bookId={book.bookId}
+                coverUrl={book.coverUrl}
+                title={book.title}
+              />
+            ))}
+          </Slider>
         </BookList>
       </Container>
       {showingFriends && (
@@ -87,6 +93,18 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 364px;
+  height: 278px;
+  .slick-dots {
+    .slick-active {
+      button::before {
+        color: white;
+      }
+    }
+    button::before {
+      color: #e9e9e9;
+    }
+  }
 `;
 
 const Profile = styled.div`
@@ -127,9 +145,10 @@ const FriendsText = styled.div`
 `;
 
 const BookList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 600px;
+  width: 90vw;
+  height: 400px;
+  padding: 20px;
+  box-sizing: border-box;
 `;
 
 export default Bookshelf;
