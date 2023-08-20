@@ -21,7 +21,7 @@ function Timeline() {
   }, []);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <Root>
       <Container>
         {books.map((book, index) => (
           <Book
@@ -34,12 +34,21 @@ function Timeline() {
           />
         ))}
       </Container>
-    </div>
+    </Root>
   );
 }
 
+const Root = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Container = styled.div`
-  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
 `;
 
 export default Timeline;

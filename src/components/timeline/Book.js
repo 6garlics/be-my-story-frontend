@@ -52,62 +52,52 @@ function Book({
   };
 
   return (
-    <Root>
+    <Container $pageNum={pageNum}>
       {/* <img id="img" src="/images/dummy1.png" />
       <canvas id="canvas"></canvas>
       <div id="palette"></div>
       <hr />
       <div id="complementary"></div> */}
       {isModal && <DiaryModal isModal={isModal} setIsModal={setIsModal} />}
-      <Container $pageNum={pageNum}>
-        <Header>
-          <Profile userName={userName} profileImg={profileImg} />
-          <Button onClick={() => setIsModal((prev) => !prev)}>
-            <IoIosMore size={25} color="white" />
-          </Button>
-        </Header>
-        <Wrapper>
-          {pageNum === 0 ? (
-            <Cover
-              coverUrl={coverUrl && coverUrl}
-              title={title}
-              onclick={onRightClick}
-              side="right"
-              buttonLeft="auto"
-              buttonRight="0px"
-            />
-          ) : (
-            <Page
-              imgUrl={images.length !== 0 && images[pageNum - 1]}
-              text={texts[pageNum - 1]}
-              pageNum={pageNum}
-              onLeftClick={onLeftClick}
-              onRightClick={onRightClick}
-            />
-          )}
-        </Wrapper>
-      </Container>
-    </Root>
+      <Header>
+        <Profile userName={userName} profileImg={profileImg} />
+        <Button onClick={() => setIsModal((prev) => !prev)}>
+          <IoIosMore size={25} color="white" />
+        </Button>
+      </Header>
+      <Wrapper>
+        {pageNum === 0 ? (
+          <Cover
+            coverUrl={coverUrl && coverUrl}
+            title={title}
+            onclick={onRightClick}
+            side="right"
+            buttonLeft="auto"
+            buttonRight="0px"
+          />
+        ) : (
+          <Page
+            imgUrl={images.length !== 0 && images[pageNum - 1]}
+            text={texts[pageNum - 1]}
+            pageNum={pageNum}
+            onLeftClick={onLeftClick}
+            onRightClick={onRightClick}
+          />
+        )}
+      </Wrapper>
+    </Container>
   );
 }
 
-const Root = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
 const Container = styled.div`
   width: ${(props) => (props.$pageNum === 0 ? "50%" : "100%")};
-  padding: 50px 0;
+  padding: 30px 0;
   box-sizing: border-box;
   transition: all 0.5s ease-in-out;
 `;
 
 const Header = styled.div`
   margin: 10px 0px;
-  margin-top: 15px;
   display: flex;
   align-items: center;
 `;

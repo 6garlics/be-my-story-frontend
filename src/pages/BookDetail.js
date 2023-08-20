@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import { styled } from "styled-components";
 import Book from "../components/timeline/Book";
 import { getBook } from "./../api/books";
 
@@ -21,8 +22,8 @@ const BookDetail = () => {
   }, []);
 
   return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+    <Root>
+      <Container>
         {book && (
           <Book
             userName={book.userName}
@@ -32,9 +33,22 @@ const BookDetail = () => {
             images={book.images}
           />
         )}
-      </div>
-    </div>
+      </Container>
+    </Root>
   );
 };
+
+const Root = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+`;
 
 export default BookDetail;

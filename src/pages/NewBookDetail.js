@@ -4,6 +4,7 @@ import Book from "../components/timeline/Book";
 import { getMyInfo, getUserInfo } from "./../api/users";
 import { createCover, createImage } from "./../api/books";
 import { useSelector } from "react-redux";
+import { styled } from "styled-components";
 
 const NewBookDetail = () => {
   const location = useLocation();
@@ -18,8 +19,8 @@ const NewBookDetail = () => {
   console.log(images);
 
   return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+    <Root>
+      <Container>
         <Book
           userName={location.state.userName}
           title={location.state.title}
@@ -29,9 +30,22 @@ const NewBookDetail = () => {
             return image.imgUrl;
           })}
         />
-      </div>
-    </div>
+      </Container>
+    </Root>
   );
 };
+
+const Root = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+`;
 
 export default NewBookDetail;

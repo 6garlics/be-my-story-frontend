@@ -31,7 +31,6 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   width: 100%;
-  width: 1000px;
 `;
 
 const ImageBox = styled.div`
@@ -42,17 +41,6 @@ const ImageBox = styled.div`
   overflow: hidden;
   border-radius: 3% 3% 3% 3%;
   border: 1px solid grey;
-`;
-
-const Loader2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 500px;
-  color: grey;
-  font-size: 20px;
 `;
 
 const Loader = styled.div`
@@ -83,7 +71,7 @@ const Title = styled.div`
   word-break: keep-all;
   text-align: center;
   font-family: "Gaegu";
-  font-size: 45px;
+  font-size: 40px;
 `;
 
 const Button = styled.button`
