@@ -14,7 +14,7 @@ import ColorContext from "../contexts/Color";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { settings } from "../components/book_shelf/carousel";
+import { settings } from "../components/common/carousel";
 
 const Bookshelf = () => {
   const { userName } = useParams();
@@ -95,19 +95,6 @@ const Container = styled.div`
   align-items: center;
   width: 364px;
   height: 278px;
-  .slick-dots {
-    .slick-active {
-      button::before {
-        color: white;
-      }
-    }
-    button::before {
-      color: #e9e9e9;
-    }
-  }
-  /* .slick-cloned {
-    display: none !important;
-  } */
 `;
 
 const Profile = styled.div`
@@ -152,6 +139,19 @@ const BookList = styled.div`
   height: 400px;
   padding: 20px;
   box-sizing: border-box;
+  .slick-dots {
+    .slick-active {
+      button::before {
+        color: white;
+      }
+    }
+    button::before {
+      color: #e9e9e9;
+    }
+  }
+  /* .slick-cloned {
+    display: none !important;
+  } */
 `;
 
 export default Bookshelf;

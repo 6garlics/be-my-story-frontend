@@ -52,14 +52,14 @@ function Book({
   };
 
   return (
-    <Container $pageNum={pageNum}>
+    <Container className="book" $pageNum={pageNum}>
       {/* <img id="img" src="/images/dummy1.png" />
       <canvas id="canvas"></canvas>
       <div id="palette"></div>
       <hr />
       <div id="complementary"></div> */}
       {isModal && <DiaryModal isModal={isModal} setIsModal={setIsModal} />}
-      <Header>
+      <Header className="header">
         <Profile userName={userName} profileImg={profileImg} />
         <Button onClick={() => setIsModal((prev) => !prev)}>
           <IoIosMore size={25} color="white" />
@@ -90,7 +90,7 @@ function Book({
 }
 
 const Container = styled.div`
-  width: ${(props) => (props.$pageNum === 0 ? "50%" : "100%")};
+  width: ${(props) => (props.$pageNum === 0 ? "400px" : "800px")};
   padding: 30px 0;
   box-sizing: border-box;
   transition: all 0.5s ease-in-out;

@@ -4,9 +4,147 @@ import { styled } from "styled-components";
 import Book from "../components/timeline/Book";
 import { friends } from "../data/FriendsData";
 import { getBooks } from "../api/books";
+import { settings } from "../components/common/carousel";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 //const id = 0;
 const texts = ["1", "2", "3", "4", "5"];
+const booksData = [
+  {
+    bookId: 1,
+    userName: "abc",
+    title: "랄랄라",
+    date: "",
+    genre: "",
+    coverUrl:
+      "https://t4.ftcdn.net/jpg/05/55/59/43/1000_F_555594374_OXYC3gAnPNLfr3smkYsWPTQJVYPV3UYP.jpg",
+    texts: ["첫번째 문단", "두번째 문단", "세번째 문단"],
+    images: [
+      {
+        imgUrl:
+          "https://t4.ftcdn.net/jpg/03/49/81/77/1000_F_349817774_NvqiNi9fVYO1SIcdqiwaJGyjwT0dRI8e.jpg",
+      },
+      {
+        imgUrl:
+          "https://t4.ftcdn.net/jpg/05/69/55/11/1000_F_569551106_FELWntaV4NlNHL5Qjg5iCNMokor5Ujjb.jpg",
+      },
+      {
+        imgUrl:
+          "https://t3.ftcdn.net/jpg/05/67/77/30/1000_F_567773066_kew8LmnKsJKc8eYQbVC9vmJAGuXEQG2t.jpg",
+      },
+    ],
+  },
+  {
+    bookId: 2,
+    userName: "jiwon",
+    title: "룰룰루",
+    date: "",
+    genre: "",
+    coverUrl:
+      "https://t4.ftcdn.net/jpg/05/47/81/59/1000_F_547815918_svDjWQ7kKO3BFO6SwVxiDUpZ9Ab9FZM2.jpg",
+    texts: ["첫번째 문단", "두번째 문단"],
+    images: [
+      {
+        imgUrl:
+          "https://t3.ftcdn.net/jpg/05/37/60/32/1000_F_537603256_DZAWtM86Z8LtQ0QDDAA3cN0jmRt0Idk7.jpg",
+      },
+      {
+        imgUrl:
+          "https://t3.ftcdn.net/jpg/04/56/99/06/1000_F_456990624_XjNK1xPQwQupyWatvJoT7dgBlHwQvbPI.jpg",
+      },
+    ],
+  },
+  {
+    bookId: 1,
+    userName: "abc",
+    title: "랄랄라",
+    date: "",
+    genre: "",
+    coverUrl:
+      "https://t4.ftcdn.net/jpg/05/55/59/43/1000_F_555594374_OXYC3gAnPNLfr3smkYsWPTQJVYPV3UYP.jpg",
+    texts: ["첫번째 문단", "두번째 문단", "세번째 문단"],
+    images: [
+      {
+        imgUrl:
+          "https://t4.ftcdn.net/jpg/03/49/81/77/1000_F_349817774_NvqiNi9fVYO1SIcdqiwaJGyjwT0dRI8e.jpg",
+      },
+      {
+        imgUrl:
+          "https://t4.ftcdn.net/jpg/05/69/55/11/1000_F_569551106_FELWntaV4NlNHL5Qjg5iCNMokor5Ujjb.jpg",
+      },
+      {
+        imgUrl:
+          "https://t3.ftcdn.net/jpg/05/67/77/30/1000_F_567773066_kew8LmnKsJKc8eYQbVC9vmJAGuXEQG2t.jpg",
+      },
+    ],
+  },
+  {
+    bookId: 2,
+    userName: "jiwon",
+    title: "룰룰루",
+    date: "",
+    genre: "",
+    coverUrl:
+      "https://t4.ftcdn.net/jpg/05/47/81/59/1000_F_547815918_svDjWQ7kKO3BFO6SwVxiDUpZ9Ab9FZM2.jpg",
+    texts: ["첫번째 문단", "두번째 문단"],
+    images: [
+      {
+        imgUrl:
+          "https://t3.ftcdn.net/jpg/05/37/60/32/1000_F_537603256_DZAWtM86Z8LtQ0QDDAA3cN0jmRt0Idk7.jpg",
+      },
+      {
+        imgUrl:
+          "https://t3.ftcdn.net/jpg/04/56/99/06/1000_F_456990624_XjNK1xPQwQupyWatvJoT7dgBlHwQvbPI.jpg",
+      },
+    ],
+  },
+  {
+    bookId: 1,
+    userName: "abc",
+    title: "랄랄라",
+    date: "",
+    genre: "",
+    coverUrl:
+      "https://t4.ftcdn.net/jpg/05/55/59/43/1000_F_555594374_OXYC3gAnPNLfr3smkYsWPTQJVYPV3UYP.jpg",
+    texts: ["첫번째 문단", "두번째 문단", "세번째 문단"],
+    images: [
+      {
+        imgUrl:
+          "https://t4.ftcdn.net/jpg/03/49/81/77/1000_F_349817774_NvqiNi9fVYO1SIcdqiwaJGyjwT0dRI8e.jpg",
+      },
+      {
+        imgUrl:
+          "https://t4.ftcdn.net/jpg/05/69/55/11/1000_F_569551106_FELWntaV4NlNHL5Qjg5iCNMokor5Ujjb.jpg",
+      },
+      {
+        imgUrl:
+          "https://t3.ftcdn.net/jpg/05/67/77/30/1000_F_567773066_kew8LmnKsJKc8eYQbVC9vmJAGuXEQG2t.jpg",
+      },
+    ],
+  },
+  {
+    bookId: 2,
+    userName: "jiwon",
+    title: "룰룰루",
+    date: "",
+    genre: "",
+    coverUrl:
+      "https://t4.ftcdn.net/jpg/05/47/81/59/1000_F_547815918_svDjWQ7kKO3BFO6SwVxiDUpZ9Ab9FZM2.jpg",
+    texts: ["첫번째 문단", "두번째 문단"],
+    images: [
+      {
+        imgUrl:
+          "https://t3.ftcdn.net/jpg/05/37/60/32/1000_F_537603256_DZAWtM86Z8LtQ0QDDAA3cN0jmRt0Idk7.jpg",
+      },
+      {
+        imgUrl:
+          "https://t3.ftcdn.net/jpg/04/56/99/06/1000_F_456990624_XjNK1xPQwQupyWatvJoT7dgBlHwQvbPI.jpg",
+      },
+    ],
+  },
+];
 
 function Timeline() {
   const [books, setBooks] = useState([]);
@@ -14,8 +152,9 @@ function Timeline() {
   //전체 동화책 조회
   useEffect(() => {
     async function fetchBooks() {
-      const data = await getBooks();
-      setBooks(data);
+      // const data = await getBooks();
+      // setBooks(data);
+      setBooks(booksData);
     }
     fetchBooks();
   }, []);
@@ -23,16 +162,20 @@ function Timeline() {
   return (
     <Root>
       <Container>
-        {books.map((book, index) => (
-          <Book
-            key={index}
-            userName={book.userName}
-            title={book.title}
-            texts={book.texts}
-            coverUrl={book.coverUrl}
-            images={book.images}
-          />
-        ))}
+        <SliderWrapper>
+          <Slider {...settings}>
+            {books.map((book, index) => (
+              <Book
+                key={index}
+                userName={book.userName}
+                title={book.title}
+                texts={book.texts}
+                coverUrl={book.coverUrl}
+                images={book.images}
+              />
+            ))}
+          </Slider>
+        </SliderWrapper>
       </Container>
     </Root>
   );
@@ -48,7 +191,68 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 100%;
+`;
+
+const SliderWrapper = styled.div`
+  width: 1000px;
+  height: 600px;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  .slick-track{
+    width: 100vw;
+    height: 600px;
+    display: flex;
+  }
+  .slick-slide{
+    /* z-index: -1; */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .center .slick-slide{
+    pointer-events: none;
+    z-index: 0;
+    flex: 1;
+    filter : brightness(60%);
+    .book {
+      width: 300px;
+      .header{
+        visibility: hidden;
+      }
+    }
+  }
+  .center .slick-active {
+    z-index: 1;
+    flex: 2;
+    filter : brightness(80%);
+    .book {
+      width: 400px;
+    }
+  }
+  .center .slick-center {
+    z-index: 2;
+    flex: 3;
+    filter : brightness(100%);
+    .book {
+      width: 500px;
+      .header{
+        visibility: visible;
+      }
+    }
+  }
+  .slick-dots {
+    .slick-active {
+      button::before {
+        color: white;
+      }
+    }
+    button::before {
+      color: #e9e9e9;
+    }
+  }s
 `;
 
 export default Timeline;
