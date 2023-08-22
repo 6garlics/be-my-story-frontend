@@ -206,6 +206,7 @@ const SliderWrapper = styled.div`
     display: flex;
   }
   .slick-slide{
+    transition: all 0.5s ease-in-out;
     /* z-index: -1; */
     position: relative;
     display: flex;
