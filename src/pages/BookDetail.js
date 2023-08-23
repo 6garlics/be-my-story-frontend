@@ -41,6 +41,8 @@ const BookDetail = () => {
 const Root = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
 `;
 
 const Container = styled.div`
@@ -48,7 +50,8 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 80%;
+  transform: translate(0, -35px);
 `;
 
 export default BookDetail;
