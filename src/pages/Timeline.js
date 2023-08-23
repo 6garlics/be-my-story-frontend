@@ -14,7 +14,7 @@ const texts = ["1", "2", "3", "4", "5"];
 const booksData = [
   {
     bookId: 1,
-    userName: "abc",
+    userName: "cat",
     title: "랄랄라",
     date: "",
     genre: "",
@@ -202,8 +202,7 @@ const SliderWrapper = styled.div`
   position: relative;
   .slick-track{
     width: 100vw;
-    height: 600px;
-    display: flex;
+    height: 600px;    
   }
   .slick-slide{
     transition: all 0.5s ease-in-out;
@@ -216,7 +215,6 @@ const SliderWrapper = styled.div`
   .center .slick-slide{
     pointer-events: none;
     z-index: 0;
-    flex: 1;
     filter : brightness(60%);
     .book {
       width: 300px;
@@ -227,15 +225,14 @@ const SliderWrapper = styled.div`
   }
   .center .slick-active {
     z-index: 1;
-    flex: 2;
     filter : brightness(80%);
     .book {
       width: 400px;
     }
   }
   .center .slick-center {
+    /* pointer-events: auto; */
     z-index: 2;
-    flex: 3;
     filter : brightness(100%);
     .book {
       width: 500px;

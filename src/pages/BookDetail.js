@@ -50,7 +50,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 40%;
   transform: translate(0, -35px);
 `;
 

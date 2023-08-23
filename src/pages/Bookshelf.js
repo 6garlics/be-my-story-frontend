@@ -232,7 +232,7 @@ const CalenderWrapper = styled.div`
   justify-content: center;
   align-items: center;
   .react-calendar {
-    width: 65%;
+    width: 60%;
     /* border: 1px solid grey; */
     border-radius: 20px;
     padding: 10px;
