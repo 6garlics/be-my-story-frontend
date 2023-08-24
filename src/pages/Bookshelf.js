@@ -88,15 +88,34 @@ const Bookshelf = () => {
       <Container>
         <Profile>
           <ProfileIcon src={profileImg} />
-          <ProfileName>{userName}</ProfileName>
+          <ProfileNameWrapper>
+            <ProfileName>{userName}</ProfileName>
+            <Settings>
+              <Img src="/icons/settings.png" />
+            </Settings>
+          </ProfileNameWrapper>
           <ProfileInfo>
-            <Follower>팔로워 225명</Follower>
-            <Following>팔로잉 274명</Following>
-            <FriendsButton onClick={toggleFriends}>
+            <Books>
+              동화책
+              <br />
+              237
+            </Books>
+            <Follower>
+              팔로워
+              <br />
+              225
+            </Follower>
+            <Following>
+              팔로잉
+              <br />
+              274
+            </Following>
+            {/* <FriendsButton onClick={toggleFriends}>
               <FaUserFriends size={30} color="white" />
               <FriendsText $color={colors.theme3}>친구목록</FriendsText>
-            </FriendsButton>
+            </FriendsButton> */}
           </ProfileInfo>
+          <FollowButton>친구맺기</FollowButton>
         </Profile>
         {/* <BookList>
           {books.map((book) => (
@@ -178,27 +197,66 @@ const ProfileIcon = styled.img`
   border-radius: 100%;
 `;
 
+const ProfileNameWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const ProfileName = styled.div`
   flex: none;
   font-size: 30px;
 `;
 
+const Settings = styled.div`
+  width: 16px;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  display: block;
+  margin-left: 10px;
+  margin-top: 7px;
+`;
+
 const ProfileInfo = styled.div`
-  width: 80%;
+  width: 70%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   margin-top: 20px;
 `;
 
-const Follower = styled.div`
-  width: 70px;
+const Books = styled.div`
+  /* width: 60px; */
   text-align: center;
 `;
 
-const Following = styled.div`
-  width: 70px;
+const Follower = styled.div`
+  /* width: 60px; */
   text-align: center;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Following = styled.div`
+  /* width: 60px; */
+  text-align: center;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const FollowButton = styled.button`
+  width: 70%;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  background: white;
+  margin-top: 20px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const FriendsButton = styled.button`
@@ -236,20 +294,35 @@ const CalenderWrapper = styled.div`
     /* border: 1px solid grey; */
     border-radius: 20px;
     padding: 10px;
+    /* background: rgba(255, 255, 255, 0.5); */
+  }
+  .react-calendar__navigation {
+    margin: 0;
+  }
+  .react-calendar__navigation__label {
+    font-size: 15px;
+    font-weight: bold;
   }
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus {
     background: none;
   }
+  .react-calendar__month-view__weekdays {
+    border-bottom: 1px solid lightgrey;
+  }
+
   .react-calendar__month-view__weekdays__weekday {
-    /* display: flex;
+    display: flex;
     justify-content: start;
     margin-left: 1px;
     color: black;
     abbr {
       text-decoration: none;
-    } */
-    display: none;
+    }
+    /* display: none; */
+  }
+  .react-calendar__month-view__days {
+    margin-top: 10px;
   }
   .react-calendar__tile--now {
     background: none;
