@@ -14,6 +14,7 @@ import ColorContext from "../contexts/Color";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment";
+import Profile from "../components/book_shelf/Profile";
 
 const booksData = [
   {
@@ -49,14 +50,9 @@ const booksData = [
 const Bookshelf = () => {
   const { userName } = useParams();
   const [profileImg, setProfileImg] = useState();
-  const [showingFriends, setShowingFriends] = useState(false);
   const [books, setBooks] = useState();
 
   const colors = useContext(ColorContext);
-
-  const toggleFriends = () => {
-    setShowingFriends((prev) => !prev);
-  };
 
   //유저 정보 조회
   useEffect(() => {
@@ -86,47 +82,7 @@ const Bookshelf = () => {
   return books ? (
     <div style={{ display: "flex" }}>
       <Container>
-        <Profile>
-          <ProfileIcon src={profileImg} />
-          <ProfileNameWrapper>
-            <ProfileName>{userName}</ProfileName>
-            <Settings>
-              <Img src="/icons/settings.png" />
-            </Settings>
-          </ProfileNameWrapper>
-          <ProfileInfo>
-            <Books>
-              동화책
-              <br />
-              237
-            </Books>
-            <Follower>
-              팔로워
-              <br />
-              225
-            </Follower>
-            <Following>
-              팔로잉
-              <br />
-              274
-            </Following>
-            {/* <FriendsButton onClick={toggleFriends}>
-              <FaUserFriends size={30} color="white" />
-              <FriendsText $color={colors.theme3}>친구목록</FriendsText>
-            </FriendsButton> */}
-          </ProfileInfo>
-          <FollowButton>친구맺기</FollowButton>
-        </Profile>
-        {/* <BookList>
-          {books.map((book) => (
-            <BookCover
-              key={book.bookId}
-              bookId={book.bookId}
-              coverUrl={book.coverUrl}
-              title={book.title}
-            />
-          ))}
-        </BookList> */}
+        <Profile profileImg={profileImg} userName={userName} />
         <CalenderWrapper $background={colors.theme4}>
           <Calendar
             calendarType="hebrew"
@@ -180,110 +136,6 @@ const Container = styled.div`
   height: calc(100vh - 60px);
 `;
 
-const Profile = styled.div`
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-right: 1px solid grey;
-  width: 100%;
-  height: calc(100vh - 60px);
-`;
-
-const ProfileIcon = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-`;
-
-const ProfileNameWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const ProfileName = styled.div`
-  flex: none;
-  font-size: 30px;
-`;
-
-const Settings = styled.div`
-  width: 16px;
-`;
-
-const Img = styled.img`
-  width: 100%;
-  display: block;
-  margin-left: 10px;
-  margin-top: 7px;
-`;
-
-const ProfileInfo = styled.div`
-  width: 70%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 20px;
-`;
-
-const Books = styled.div`
-  /* width: 60px; */
-  text-align: center;
-`;
-
-const Follower = styled.div`
-  /* width: 60px; */
-  text-align: center;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const Following = styled.div`
-  /* width: 60px; */
-  text-align: center;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const FollowButton = styled.button`
-  width: 70%;
-  height: 30px;
-  border-radius: 10px;
-  border: none;
-  background: white;
-  margin-top: 20px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const FriendsButton = styled.button`
-  width: 70px;
-  height: 70px;
-  border: none;
-  border-radius: 20%;
-  background: none;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const FriendsText = styled.div`
-  font-size: 13px;
-  /* color: ${(props) => props.$color}; */
-  color: white;
-`;
-
-const BookList = styled.div`
-  width: 90vw;
-  height: 400px;
-  padding: 20px;
-  box-sizing: border-box;
-  display: flex;
-`;
-
 const CalenderWrapper = styled.div`
   flex: 5;
   display: flex;
@@ -291,7 +143,6 @@ const CalenderWrapper = styled.div`
   align-items: center;
   .react-calendar {
     width: 60%;
-    /* border: 1px solid grey; */
     border-radius: 20px;
     padding: 10px;
     /* background: rgba(255, 255, 255, 0.5); */
