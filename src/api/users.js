@@ -74,7 +74,7 @@ export const logout = async (body) => {
   }
 };
 
-//🍋 내 정보 조회
+//내 정보 조회
 export const getMyInfo = async () => {
   try {
     const res = await client.get(`/users/me`);
@@ -88,10 +88,80 @@ export const getMyInfo = async () => {
   }
 };
 
-//🍋 다른 유저 정보 조회
+//다른 유저 정보 조회
 export const getUserInfo = async (userName) => {
   try {
     const res = await client.get(`/users?userName=${userName}`);
+
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
+//친구 추가
+export const follow = async (friendName) => {
+  try {
+    const res = await client.post(`/users/follow/${friendName}`);
+
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
+//친구 삭제
+export const unfollow = async (friendName) => {
+  try {
+    const res = await client.delete(`/users/follow/${friendName}`);
+
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
+//친구 여부 조회
+export const checkFriend = async (friendName) => {
+  try {
+    const res = await client.get(`/users/following/${friendName}`);
+
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
+//팔로잉 조회
+export const getFollowing = async () => {
+  try {
+    const res = await client.get(`/users/following`);
+
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
+//팔로워 조회
+export const getFollower = async () => {
+  try {
+    const res = await client.get(`/users/follower`);
 
     console.log(res.data);
     return res.data;

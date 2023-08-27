@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { DotLoader } from "react-spinners";
 
-const Cover = ({ coverUrl, title, onclick, buttonLeft, buttonRight }) => {
+const Cover = ({ coverUrl, title, onclick }) => {
   // console.log("coverUrl", coverUrl);
 
   return (
@@ -16,11 +16,7 @@ const Cover = ({ coverUrl, title, onclick, buttonLeft, buttonRight }) => {
           </Loader>
         )}
         <Title>{title}</Title>
-        <Button
-          onClick={onclick}
-          left={buttonLeft}
-          right={buttonRight}
-        ></Button>
+        <Button onClick={onclick}></Button>
       </ImageBox>
     </Container>
   );

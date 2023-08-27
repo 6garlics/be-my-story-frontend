@@ -7,7 +7,7 @@ export const settings = {
   infinite: true,
   slidesToShow: 3,
   // slidesToScroll: 5,
-  // swipeToSlide: true,
+  swipeToSlide: true,
   speed: 300,
   // initialSlide: 0,
   nextArrow: <SampleNextArrow />,

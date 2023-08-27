@@ -90,8 +90,8 @@ function Book({
 }
 
 const Container = styled.div`
-  /* width: ${(props) => (props.$pageNum === 0 ? "100%" : "200%")}; */
-  transform: ${(props) => props.$pageNum !== 0 && "scale(2)"};
+  width: ${(props) => (props.$pageNum === 0 ? "100%" : "200%")};
+  /* transform: ${(props) => props.$pageNum !== 0 && "scale(2)"}; */
   padding: 30px 0;
   box-sizing: border-box;
   transition: all 0.5s ease-in-out;

@@ -8,12 +8,13 @@ import { settings } from "../components/common/carousel";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import BookCover from "../components/timeline/BookCover";
 
 //const id = 0;
 const texts = ["1", "2", "3", "4", "5"];
 const booksData = [
   {
-    bookId: 1,
+    bookId: 27,
     userName: "cat",
     title: "랄랄라",
     date: "",
@@ -37,7 +38,7 @@ const booksData = [
     ],
   },
   {
-    bookId: 2,
+    bookId: 28,
     userName: "jiwon",
     title: "룰룰루",
     date: "",
@@ -57,7 +58,7 @@ const booksData = [
     ],
   },
   {
-    bookId: 1,
+    bookId: 29,
     userName: "abc",
     title: "랄랄라",
     date: "",
@@ -81,7 +82,7 @@ const booksData = [
     ],
   },
   {
-    bookId: 2,
+    bookId: 30,
     userName: "jiwon",
     title: "룰룰루",
     date: "",
@@ -101,7 +102,7 @@ const booksData = [
     ],
   },
   {
-    bookId: 1,
+    bookId: 31,
     userName: "abc",
     title: "랄랄라",
     date: "",
@@ -125,7 +126,7 @@ const booksData = [
     ],
   },
   {
-    bookId: 2,
+    bookId: 32,
     userName: "jiwon",
     title: "룰룰루",
     date: "",
@@ -165,8 +166,9 @@ function Timeline() {
         <SliderWrapper>
           <Slider {...settings}>
             {books.map((book, index) => (
-              <Book
+              <BookCover
                 key={index}
+                bookId={book.bookId}
                 userName={book.userName}
                 title={book.title}
                 texts={book.texts}
@@ -216,7 +218,7 @@ const SliderWrapper = styled.div`
     pointer-events: none;
     z-index: 0;
     filter : brightness(60%);
-    .book {
+    .book-cover {
       width: 300px;
       .header{
         visibility: hidden;
@@ -226,15 +228,15 @@ const SliderWrapper = styled.div`
   .center .slick-active {
     z-index: 1;
     filter : brightness(80%);
-    .book {
+    .book-cover {
       width: 400px;
     }
   }
   .center .slick-center {
-    /* pointer-events: auto; */
+    pointer-events: auto;
     z-index: 2;
     filter : brightness(100%);
-    .book {
+    .book-cover {
       width: 500px;
       .header{
         visibility: visible;
