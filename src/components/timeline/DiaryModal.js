@@ -5,8 +5,9 @@ import { IoClose } from "react-icons/io5";
 import { useContext } from "react";
 import ColorContext from "../../contexts/Color";
 
-const DiaryModal = ({ open, setIsModal }) => {
+const DiaryModal = ({ diary, setIsModal }) => {
   const colors = useContext(ColorContext);
+
   useEffect(() => {
     document.body.style.cssText = `
     position: fixed;
@@ -19,6 +20,7 @@ const DiaryModal = ({ open, setIsModal }) => {
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
   }, []);
+
   return (
     <Wrapper>
       <Layer
@@ -32,17 +34,11 @@ const DiaryModal = ({ open, setIsModal }) => {
             <IoClose size={22} color="#78b9ff" />
           </CloseBtn>
           <Header>
-            <Date>2023년 7월 23일 일요일</Date>
-            <Genre>모험</Genre>
+            <Date>{diary.date}</Date>
+            <Genre>{diary.genre}</Genre>
           </Header>
-
-          <Title>자전거</Title>
-
-          <Contents>
-            오늘 밤에 자전거를 탔다. 자전거는 처음 탈 때는 좀 중심잡기가
-            힘들었다. 그러나 재미있었다. 자전거를 잘 타서 엄마, 아빠 산책 갈 때
-            나도 가야겠다.
-          </Contents>
+          <Title>{diary.title}</Title>
+          <Contents>{diary.contents}</Contents>
         </Inner>
       </DiaryWrapper>
     </Wrapper>
@@ -55,7 +51,6 @@ const Wrapper = styled.div``;
 
 const Layer = styled.div`
   z-index: 1;
-  //display: block;
   background: rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
@@ -81,14 +76,12 @@ const DiaryWrapper = styled.div`
 `;
 
 const Inner = styled.div`
-  /* z-index: 2; */
   width: 400px;
   height: min(600px, calc(70vh - 50px));
   padding: 45px 20px;
   padding-bottom: 20px;
   box-sizing: border-box;
   border-radius: 9px;
-  /* outline: 17px solid #78b9ff; */
   background: #fff;
   /* box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.15); */
   display: flex;
@@ -124,7 +117,6 @@ const CloseBtn = styled.button`
   &:hover {
     cursor: pointer;
   }
-  /* border: 1px solid red; */
 `;
 
 const Header = styled.div`

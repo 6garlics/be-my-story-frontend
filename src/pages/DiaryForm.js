@@ -89,6 +89,7 @@ const DiaryForm = () => {
     if (textsData) {
       navigate(`/new-book/${textsData.bookId}/detail`, {
         state: {
+          bookId: textsData.bookId,
           userName: localStorage.getItem("userName"),
           title: textsData.title,
           texts: textsData.texts,

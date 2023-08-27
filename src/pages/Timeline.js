@@ -39,7 +39,7 @@ const booksData = [
   },
   {
     bookId: 28,
-    userName: "jiwon",
+    userName: "lion",
     title: "룰룰루",
     date: "",
     genre: "",

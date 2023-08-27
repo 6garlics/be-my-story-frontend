@@ -13,8 +13,10 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import CommentList from "../common/CommentList";
 import { BsChat } from "react-icons/bs";
+import { getDiary } from "../../api/books";
 
 function Book({
+  bookId,
   userName = "임시 사용자명",
   title = "자전거 모험",
   texts = ["첫번째", "두번째", "세번째"],
@@ -25,6 +27,7 @@ function Book({
   const [showComments, setShowComments] = useState(false);
   const [pageNum, setPageNum] = useState(0);
   const [profileImg, setProfileImg] = useState();
+  const [diary, setDiary] = useState();
   // const [refresh, setRefresh] = useState(0);
 
   const navigate = useNavigate();
@@ -35,6 +38,15 @@ function Book({
   // useEffect(() => {
   //   main();
   // }, []);
+
+  //일기 조회
+  useEffect(() => {
+    async function fetchDiary() {
+      const data = await getDiary(bookId);
+      setDiary(data);
+    }
+    fetchDiary();
+  }, []);
 
   //유저 정보 조회
   useEffect(() => {
@@ -65,7 +77,7 @@ function Book({
       <div id="palette"></div>
       <hr />
       <div id="complementary"></div> */}
-      {isModal && <DiaryModal isModal={isModal} setIsModal={setIsModal} />}
+      {isModal && <DiaryModal diary={diary} setIsModal={setIsModal} />}
       <CloseBtn onClick={() => navigate(-1)}>
         <IoIosArrowBack size={30} color="white" />
       </CloseBtn>

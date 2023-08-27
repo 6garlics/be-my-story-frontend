@@ -23,20 +23,16 @@ const NewBookDetail = () => {
 
   return (
     <Root>
-      <CloseBtn onClick={() => navigate(-1)}>
-        <IoIosArrowBack size={27} color="white" />
-      </CloseBtn>
-      <Container>
-        <Book
-          userName={location.state.userName}
-          title={location.state.title}
-          texts={location.state.texts}
-          coverUrl={coverUrl}
-          images={images.map((image, index) => {
-            return image.imgUrl;
-          })}
-        />
-      </Container>
+      <Book
+        bookId={location.state.bookId}
+        userName={location.state.userName}
+        title={location.state.title}
+        texts={location.state.texts}
+        coverUrl={coverUrl}
+        images={images.map((image, index) => {
+          return image.imgUrl;
+        })}
+      />
     </Root>
   );
 };
@@ -46,28 +42,6 @@ const Root = styled.div`
   justify-content: center;
   align-items: center;
   height: calc(100vh - 60px);
-`;
-
-const CloseBtn = styled.button`
-  margin: 0;
-  padding: 7px;
-  position: fixed;
-  top: 70px;
-  left: 5px;
-  background: none;
-  border: none;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 40%;
-  transform: translate(0, -35px);
 `;
 
 export default NewBookDetail;

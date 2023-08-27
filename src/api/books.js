@@ -21,7 +21,7 @@ export const getBooks = async () => {
   }
 };
 
-//🍋 책장 조회
+//책장 조회
 export const getBookshelf = async (userName) => {
   try {
     const res = await client.get(`/books?userName=${userName}`);
@@ -52,7 +52,7 @@ export const getBook = async (bookId) => {
 //동화책 1개 수정
 export const editBook = async () => {};
 
-//🍋 동화 텍스트 생성
+//동화 텍스트 생성
 export const createTexts = async (body) => {
   try {
     const res = await client.post(`/books`, body, {
@@ -68,7 +68,7 @@ export const createTexts = async (body) => {
   }
 };
 
-//🍋 표지 생성
+//표지 생성
 export const createCover = async (bookId, dispatch) => {
   try {
     const res = await client.get(
@@ -91,7 +91,7 @@ export const createCover = async (bookId, dispatch) => {
   }
 };
 
-//🍋 일러스트 1개 생성
+//일러스트 1개 생성
 export const createImage = async (bookId, pageNum, dispatch) => {
   try {
     const res = await client.get(
@@ -110,6 +110,20 @@ export const createImage = async (bookId, pageNum, dispatch) => {
     });
     dispatch({ type: "SORT_IMAGES" });
 
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
+//일기 조회
+export const getDiary = async (bookId) => {
+  try {
+    const res = await client.get(`/books/${bookId}/diary`);
+
+    console.log("일기", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");

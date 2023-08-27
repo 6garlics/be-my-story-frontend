@@ -25,6 +25,7 @@ const BookDetail = () => {
     <Root>
       {book && (
         <Book
+          bookId={book.bookId}
           userName={book.userName}
           title={book.title}
           texts={book.texts}
