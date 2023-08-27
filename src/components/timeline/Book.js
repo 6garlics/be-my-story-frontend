@@ -65,12 +65,12 @@ function Book({
       <div id="palette"></div>
       <hr />
       <div id="complementary"></div> */}
+      {isModal && <DiaryModal isModal={isModal} setIsModal={setIsModal} />}
       <CloseBtn onClick={() => navigate(-1)}>
         <IoIosArrowBack size={30} color="white" />
       </CloseBtn>
       <Wrapper>
         <Container $pageNum={pageNum}>
-          {isModal && <DiaryModal isModal={isModal} setIsModal={setIsModal} />}
           <Header>
             <Profile userName={userName} profileImg={profileImg} />
             <Buttons>
