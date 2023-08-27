@@ -72,8 +72,8 @@ const Bookshelf = () => {
       try {
         const data = await getBookshelf(userName);
         console.log(data);
-        // setBooks(data);
-        setBooks(booksData);
+        setBooks(data);
+        // setBooks(booksData);
       } catch (err) {}
     }
     fetchBooks();

@@ -9,6 +9,10 @@ import { TbNotebook, TbNotes } from "react-icons/tb";
 import { useDispatch } from "react-redux";
 import { getUserInfo } from "../../api/users";
 import { getMyInfo } from "./../../api/users";
+import { useNavigate } from "react-router-dom";
+import { IoIosArrowBack } from "react-icons/io";
+import CommentList from "../common/CommentList";
+import { BsChat } from "react-icons/bs";
 
 function Book({
   userName = "임시 사용자명",
@@ -18,9 +22,12 @@ function Book({
   images,
 }) {
   const [isModal, setIsModal] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const [pageNum, setPageNum] = useState(0);
   const [profileImg, setProfileImg] = useState();
   // const [refresh, setRefresh] = useState(0);
+
+  const navigate = useNavigate();
 
   console.log(images);
 
@@ -52,62 +59,69 @@ function Book({
   };
 
   return (
-    <Container className="book" $pageNum={pageNum}>
+    <Root>
       {/* <img id="img" src="/images/dummy1.png" />
       <canvas id="canvas"></canvas>
       <div id="palette"></div>
       <hr />
       <div id="complementary"></div> */}
-      {isModal && <DiaryModal isModal={isModal} setIsModal={setIsModal} />}
-      <Header className="header">
-        <Profile userName={userName} profileImg={profileImg} />
-        <Button onClick={() => setIsModal((prev) => !prev)}>
-          <IoIosMore size={25} color="white" />
-        </Button>
-      </Header>
+      <CloseBtn onClick={() => navigate(-1)}>
+        <IoIosArrowBack size={30} color="white" />
+      </CloseBtn>
       <Wrapper>
-        {pageNum === 0 ? (
-          <Cover
-            coverUrl={coverUrl && coverUrl}
-            title={title}
-            onclick={onRightClick}
-            side="right"
-            buttonLeft="auto"
-            buttonRight="0px"
-          />
-        ) : (
-          <Page
-            imgUrl={images.length !== 0 && images[pageNum - 1]}
-            text={texts[pageNum - 1]}
-            pageNum={pageNum}
-            onLeftClick={onLeftClick}
-            onRightClick={onRightClick}
-          />
-        )}
+        <Container $pageNum={pageNum}>
+          {isModal && <DiaryModal isModal={isModal} setIsModal={setIsModal} />}
+          <Header>
+            <Profile userName={userName} profileImg={profileImg} />
+            <Buttons>
+              <Button onClick={() => setShowComments((prev) => !prev)}>
+                <BsChat size={25} color="white" />
+              </Button>
+              <Button onClick={() => setIsModal((prev) => !prev)}>
+                <IoIosMore size={27} color="white" />
+              </Button>
+            </Buttons>
+          </Header>
+          {pageNum === 0 ? (
+            <Cover
+              coverUrl={coverUrl && coverUrl}
+              title={title}
+              onclick={onRightClick}
+              side="right"
+              buttonLeft="auto"
+              buttonRight="0px"
+            />
+          ) : (
+            <Page
+              imgUrl={images.length !== 0 && images[pageNum - 1]}
+              text={texts[pageNum - 1]}
+              pageNum={pageNum}
+              onLeftClick={onLeftClick}
+              onRightClick={onRightClick}
+            />
+          )}
+        </Container>
       </Wrapper>
-    </Container>
+      <CommentListWrapper $showComments={showComments}>
+        {showComments && <CommentList setShowComments={setShowComments} />}
+      </CommentListWrapper>
+    </Root>
   );
 }
 
-const Container = styled.div`
-  width: ${(props) => (props.$pageNum === 0 ? "100%" : "200%")};
-  /* transform: ${(props) => props.$pageNum !== 0 && "scale(2)"}; */
-  padding: 30px 0;
-  box-sizing: border-box;
-  transition: all 0.5s ease-in-out;
+const Root = styled.div`
   display: flex;
-  flex-direction: column;
-`;
-
-const Header = styled.div`
-  margin: 10px 0px;
-  display: flex;
+  justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
 `;
 
-const Button = styled.button`
-  margin-left: auto;
-  margin-top: 12px;
+const CloseBtn = styled.button`
+  position: fixed;
+  top: 70px;
+  left: 5px;
+  padding: 7px;
   background: none;
   border: none;
   &:hover {
@@ -118,6 +132,46 @@ const Button = styled.button`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
+const Container = styled.div`
+  width: ${(props) => (props.$pageNum === 0 ? "40%" : "80%")};
+  display: flex;
+  flex-direction: column;
+  transform: translate(0, -35px);
+  transition: all 0.5s ease-in-out;
+`;
+
+const Header = styled.div`
+  margin: 10px 0px;
+  display: flex;
+  align-items: center;
+`;
+
+const Buttons = styled.div`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+`;
+
+const Button = styled.button`
+  margin-top: 12px;
+  background: none;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const CommentListWrapper = styled.div`
+  width: ${(props) => (props.$showComments ? "30%" : "0px")};
+  transition: all 0.2s ease-in-out;
+  height: 100%;
+  margin-left: auto;
+  background: white;
 `;
 
 export default Book;

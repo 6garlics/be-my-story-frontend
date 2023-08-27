@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import Book from "../components/timeline/Book";
 import { getBook } from "./../api/books";
@@ -23,17 +23,15 @@ const BookDetail = () => {
 
   return (
     <Root>
-      <Container>
-        {book && (
-          <Book
-            userName={book.userName}
-            title={book.title}
-            texts={book.texts}
-            coverUrl={book.coverUrl}
-            images={book.images}
-          />
-        )}
-      </Container>
+      {book && (
+        <Book
+          userName={book.userName}
+          title={book.title}
+          texts={book.texts}
+          coverUrl={book.coverUrl}
+          images={book.images}
+        />
+      )}
     </Root>
   );
 };
@@ -43,15 +41,6 @@ const Root = styled.div`
   justify-content: center;
   align-items: center;
   height: calc(100vh - 60px);
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 40%;
-  transform: translate(0, -35px);
 `;
 
 export default BookDetail;

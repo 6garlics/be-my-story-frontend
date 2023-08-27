@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Book from "../components/timeline/Book";
 import { getMyInfo, getUserInfo } from "./../api/users";
 import { createCover, createImage } from "./../api/books";
 import { useSelector } from "react-redux";
 import { styled } from "styled-components";
+import { IoIosArrowBack } from "react-icons/io";
 
 const NewBookDetail = () => {
   const location = useLocation();
   console.log(location);
+
+  const navigate = useNavigate();
 
   const [newImages, setNewImages] = useState();
 
@@ -20,6 +23,9 @@ const NewBookDetail = () => {
 
   return (
     <Root>
+      <CloseBtn onClick={() => navigate(-1)}>
+        <IoIosArrowBack size={27} color="white" />
+      </CloseBtn>
       <Container>
         <Book
           userName={location.state.userName}
@@ -40,6 +46,19 @@ const Root = styled.div`
   justify-content: center;
   align-items: center;
   height: calc(100vh - 60px);
+`;
+
+const CloseBtn = styled.button`
+  margin: 0;
+  padding: 7px;
+  position: fixed;
+  top: 70px;
+  left: 5px;
+  background: none;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Container = styled.div`
