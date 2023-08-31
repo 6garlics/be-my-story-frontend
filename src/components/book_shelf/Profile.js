@@ -92,13 +92,13 @@ const Profile = ({ profileImg, userName }) => {
 };
 
 const Root = styled.div`
-  flex: 2;
+  flex: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-right: 1px solid grey;
-  width: 100%;
+  width: 350px;
   height: calc(100vh - 60px);
   position: relative;
 `;

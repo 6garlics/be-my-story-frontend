@@ -83,7 +83,19 @@ const Bookshelf = () => {
     <div style={{ display: "flex" }}>
       <Container>
         <Profile profileImg={profileImg} userName={userName} />
-        <CalenderWrapper $background={colors.theme4}>
+        <Wrapper $background={colors.theme4}>
+          {books.map((book) => (
+            <BookCoverWrapper>
+              <BookCover
+                key={book.bookId}
+                bookId={book.bookId}
+                coverUrl={book.coverUrl}
+                title={book.title}
+              />
+            </BookCoverWrapper>
+          ))}
+        </Wrapper>
+        {/* <CalendarWrapper>
           <Calendar
             calendarType="hebrew"
             formatDay={(locale, date) => moment(date).format("DD")}
@@ -113,7 +125,7 @@ const Bookshelf = () => {
               }
             }}
           />
-        </CalenderWrapper>
+          </CalendarWrapper> */}
       </Container>
       {/* {showingFriends && (
         <Friends
@@ -136,7 +148,47 @@ const Container = styled.div`
   height: calc(100vh - 60px);
 `;
 
-const CalenderWrapper = styled.div`
+const Wrapper = styled.div`
+  height: 100%;
+  flex: 5;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 60px;
+  box-sizing: border-box;
+  overflow: scroll;
+  /* 스크롤바 숨기기 */
+  &::-webkit-scrollbar {
+    display: none; /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+  }
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+`;
+
+const BookCoverWrapper = styled.div`
+  padding: 3%;
+  box-sizing: border-box;
+  @media (min-width: 2001px) {
+    width: 16%;
+  }
+  @media (max-width: 2000px) {
+    width: 20%;
+  }
+  @media (max-width: 1700px) {
+    width: 25%;
+  }
+  @media (max-width: 1400px) {
+    width: 33%;
+  }
+  @media (max-width: 1100px) {
+    width: 50%;
+  }
+  @media (max-width: 800px) {
+    width: 100%;
+  }
+`;
+
+const CalendarWrapper = styled.div`
   flex: 5;
   display: flex;
   justify-content: center;
