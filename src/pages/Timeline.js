@@ -184,6 +184,7 @@ function Timeline() {
 }
 
 const Root = styled.div`
+  height: calc(100vh - 60px);
   display: flex;
   justify-content: center;
 `;
@@ -197,24 +198,34 @@ const Container = styled.div`
 `;
 
 const SliderWrapper = styled.div`
+/* border: 1px solid white; */
   width: 1000px;
-  height: 600px;
-  padding: 20px;
+  padding: 30px;
   box-sizing: border-box;
   position: relative;
+  .slick-initialized{
+    width: 100%;
+    /* border: 1px solid grey; */
+  }
   .slick-track{
-    width: 100vw;
-    height: 600px;    
+    height: 500px;
   }
   .slick-slide{
-    transition: all 0.5s ease-in-out;
-    /* z-index: -1; */
+    /* transition: all 0.5s ease-in-out; */
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    .book-cover{
+      width: 230px;
+    }
   }
-  .center .slick-slide{
+  .slick-current + .slick-active{
+    .book-cover{
+      width: 300px;
+    }
+  }
+  /* .center .slick-slide{
     pointer-events: none;
     z-index: 0;
     filter : brightness(60%);
@@ -242,7 +253,7 @@ const SliderWrapper = styled.div`
         visibility: visible;
       }
     }
-  }
+  } */
   .slick-dots {
     .slick-active {
       button::before {

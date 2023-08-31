@@ -73,6 +73,8 @@ const Button = styled.button`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  border-radius: 3% 3% 3% 3%;
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.3);
 `;
 
 export default BookCover;

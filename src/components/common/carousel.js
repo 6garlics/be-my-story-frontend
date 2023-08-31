@@ -1,7 +1,7 @@
 export const settings = {
-  className: "center",
-  centerMode: true,
-  centerPadding: "150px",
+  // className: "center",
+  // centerMode: true,
+  // centerPadding: "150px",
   // arrow: true,
   dots: true,
   infinite: true,
