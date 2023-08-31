@@ -150,10 +150,10 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-  width: ${(props) => (props.$pageNum === 0 ? "40%" : "80%")};
+  width: ${(props) => (props.$pageNum === 0 ? "35%" : "70%")};
   display: flex;
   flex-direction: column;
-  transform: translate(0, -35px);
+  /* transform: translate(0, -35px); */
   transition: all 0.5s ease-in-out;
 `;
 
