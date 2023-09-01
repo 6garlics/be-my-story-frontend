@@ -45,9 +45,11 @@ const Profile = ({ profileImg, userName }) => {
       <ProfileIcon src={profileImg} />
       <ProfileNameWrapper>
         <ProfileName>{userName}</ProfileName>
-        <Settings>
-          <Img src="/icons/settings.png" />
-        </Settings>
+        {userName === myName && (
+          <Settings>
+            <Img src="/icons/settings.png" />
+          </Settings>
+        )}
       </ProfileNameWrapper>
       <ProfileInfo>
         <Books>
