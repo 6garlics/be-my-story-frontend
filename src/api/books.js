@@ -50,7 +50,20 @@ export const getBook = async (bookId) => {
 };
 
 //동화책 1개 수정
-export const editBook = async () => {};
+export const editBook = async (bookId, body) => {
+  try {
+    const res = await client.put(`/books/${bookId}`, body, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
 
 //동화 텍스트 생성
 export const createTexts = async (body) => {

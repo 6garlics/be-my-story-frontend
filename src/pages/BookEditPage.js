@@ -3,6 +3,7 @@ import PageEdit from "../components/book_edit/PageEdit";
 import { styled } from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { editBook } from "../api/books";
 
 const book = {
   bookId: 1,
@@ -61,9 +62,20 @@ const bookTemp = {
   ],
 };
 
-const BookEditPage = () => {
-  const [pageNum, setPageNum] = useState(0);
+const BookEditPage = ({ bookId }) => {
+  const [pageNum, setPageNum] = useState(0); //0은 표지의 인덱스
+  const [positions, setPositions] = useState([
+    ...book.pages.map((_) => {
+      return { x: 0, y: 0 };
+    }),
+    { x: 0, y: 0 },
+  ]);
+  const [print, setPrint] = useState();
   const navigate = useNavigate();
+
+  // Redux의 상태를 꺼내서 book에 저장해야함
+  // newBookDetail 참고
+
   // const location = useLocation();
 
   // const book = location.state.book;
@@ -75,7 +87,26 @@ const BookEditPage = () => {
   //   navigate("/bookshelf/0");
   // };
 
-  const onSave = () => {};
+  const onSave = async () => {
+    // await editBook(bookId, {
+    //   title: book.title,
+    //   titlePos: positions[0],
+    //   coverUrl: book.coverUrl,
+    //   pages: book.pages.map((page, index) => {
+    //     return { ...page, textPos: positions[index + 1] };
+    //   }),
+    // });
+    setPrint({
+      title: book.title,
+      titlePos: positions[0],
+      coverUrl: book.coverUrl,
+      pages: book.pages.map((page, index) => {
+        return { ...page, textPos: positions[index + 1] };
+      }),
+    });
+  };
+
+  console.log(print);
 
   const onLeftClick = () => {
     if (pageNum <= 1) setPageNum((prev) => prev - 1); //내용에서 표지로
@@ -86,17 +117,21 @@ const BookEditPage = () => {
     else if (pageNum <= book.pages.length - 2) setPageNum((prev) => prev + 2);
   };
 
-  console.log(pageNum);
+  // console.log(pageNum);
 
   return (
     <RootContainer>
       <Container>
+        {/* 왼쪽 버튼 */}
         <Button onClick={onLeftClick}>
           <IoIosArrowBack />
         </Button>
         {/* 표지 */}
         <PageEdit
+          positions={positions}
+          setPositions={setPositions}
           page={{ text: book.title, imgUrl: book.coverUrl }}
+          index={0}
           show={pageNum === 0}
         />
         {/* 내용 */}
@@ -107,23 +142,28 @@ const BookEditPage = () => {
                 {/* 왼쪽 페이지 */}
                 <PageEdit
                   key={index}
+                  positions={positions}
+                  setPositions={setPositions}
                   page={book.pages[index]}
-                  index={index}
-                  show={index === pageNum - 1}
+                  index={index + 1}
+                  show={index + 1 === pageNum}
                 />
                 {/* 오른쪽 페이지 */}
                 {index < book.pages.length - 1 && (
                   <PageEdit
                     key={index + 1}
+                    positions={positions}
+                    setPositions={setPositions}
                     page={book.pages[index + 1]}
-                    index={index + 1}
-                    show={index === pageNum - 1}
+                    index={index + 2}
+                    show={index + 1 === pageNum}
                   />
                 )}
               </PageWrapper>
             )
           );
         })}
+        {/* 오른쪽 버튼 */}
         <Button onClick={onRightClick}>
           <IoIosArrowForward />
         </Button>
