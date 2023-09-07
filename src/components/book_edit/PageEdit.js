@@ -2,9 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useDrag } from "react-use-gesture";
 import { styled } from "styled-components";
 
-const PageEdit = ({ page, index, show }) => {
+const PageEdit = ({ positions, setPositions, page, index, show }) => {
   const [text, setText] = useState(page.text);
   const [textPos, setTextPos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const newPositions = positions;
+    newPositions[index].x = textPos.x;
+    newPositions[index].y = textPos.y;
+    setPositions(newPositions);
+  }, [textPos]);
 
   const bindTextPos = useDrag((params) => {
     setTextPos({ x: params.offset[0], y: params.offset[1] });
@@ -14,13 +21,13 @@ const PageEdit = ({ page, index, show }) => {
     setText(page.text);
   }, [page]);
 
-  console.log("page", page);
-  console.log("show", show);
+  // console.log("page", page);
+  // console.log("show", show);
 
   return (
     <Container $show={show}>
       <Image src={page.imgUrl} />
-      <PageNum>{index && index + 1}</PageNum>
+      <PageNum>{index !== 0 && index}</PageNum>
       {/* <TextWrapper> */}
       {/* <MoveHandle src="/icons/move.png" /> */}
       <TextArea
@@ -78,12 +85,13 @@ const MoveHandle = styled.img`
   }
 `;
 
-const TextArea = styled.textarea`
+const TextArea = styled.textarea.attrs((props) => ({
+  style: {
+    top: props.$y >= 0 ? (props.$y <= 250 ? props.$y + "px" : "250px") : "0px",
+    left: props.$x >= 0 ? (props.$x <= 250 ? props.$x + "px" : "250px") : "0px",
+  },
+}))`
   position: absolute;
-  top: ${(props) =>
-    props.$y >= 0 ? (props.$y <= 250 ? props.$y + "px" : "250px") : "0px"};
-  left: ${(props) =>
-    props.$x >= 0 ? (props.$x <= 250 ? props.$x + "px" : "250px") : "0px"};
   background: none;
   border: none;
   color: white;
