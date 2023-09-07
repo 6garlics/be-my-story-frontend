@@ -2,7 +2,7 @@ import { Routes, Route, NavLink } from "react-router-dom";
 import { styled } from "styled-components";
 import Timeline from "./pages/Timeline";
 import DiaryForm from "./pages/DiaryForm";
-import BookForm from "./pages/BookForm";
+import BookEditPage from "./pages/BookEditPage";
 import Bookshelf from "./pages/Bookshelf";
 import NewBookDetail from "./pages/NewBookDetail";
 import Login from "./pages/Login";
@@ -27,22 +27,19 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           {/* 접근제한 페이지 */}
-          <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<Timeline />} />
-            <Route path="/diary-form" element={<DiaryForm />} />
-            <Route path="/book-form" element={<BookForm />} />
-            <Route
-              path="/bookshelf/:userName"
-              Component={(props) => (
-                <Bookshelf {...props} key={window.location.pathname} />
-              )}
-            />
-            <Route path="/book/:bookId/detail" element={<BookDetail />} />
-            <Route
-              path="/new-book/:bookId/detail"
-              element={<NewBookDetail />}
-            />
-          </Route>
+          {/* <Route element={<PrivateRoutes />}> */}
+          <Route path="/" element={<Timeline />} />
+          <Route path="/diary-form" element={<DiaryForm />} />
+          <Route path="/book-edit" element={<BookEditPage />} />
+          <Route
+            path="/bookshelf/:userName"
+            Component={(props) => (
+              <Bookshelf {...props} key={window.location.pathname} />
+            )}
+          />
+          <Route path="/book/:bookId/detail" element={<BookDetail />} />
+          <Route path="/new-book/detail" element={<NewBookDetail />} />
+          {/* </Route> */}
         </Routes>
       </Main>
     </Container>

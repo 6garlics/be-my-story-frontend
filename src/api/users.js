@@ -145,11 +145,11 @@ export const checkFriend = async (friendName) => {
 };
 
 //팔로잉 조회
-export const getFollowing = async () => {
+export const getFollowing = async (userName) => {
   try {
-    const res = await client.get(`/users/following`);
+    const res = await client.get(`/users/${userName}/following`);
 
-    console.log(res.data);
+    console.log("팔로잉 목록", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");
@@ -159,11 +159,11 @@ export const getFollowing = async () => {
 };
 
 //팔로워 조회
-export const getFollower = async () => {
+export const getFollower = async (userName) => {
   try {
-    const res = await client.get(`/users/follower`);
+    const res = await client.get(`/users/${userName}/follower`);
 
-    console.log(res.data);
+    console.log("팔로워 목록", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");
