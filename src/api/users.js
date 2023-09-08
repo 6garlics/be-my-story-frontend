@@ -2,10 +2,12 @@ import React from "react";
 import axios from "axios";
 import client from "./client";
 
+const domain = "https://www.bemystory.store";
+
 //회원가입
 export const join = async (body) => {
   try {
-    const res = await axios.post(`http://43.202.81.68:80/users/join`, body, {
+    const res = await axios.post(`${domain}/join`, body, {
       headers: { "Content-Type": "application/json" },
     });
 
@@ -21,9 +23,7 @@ export const join = async (body) => {
 //아이디 중복확인
 export const checkDuplicate = async (userName) => {
   try {
-    const res = await axios.get(
-      `http://43.202.81.68:80/checkUserName?userName=${userName}`
-    );
+    const res = await axios.get(`${domain}/checkUserName?userName=${userName}`);
 
     console.log(res.data);
     return res;
@@ -37,7 +37,7 @@ export const checkDuplicate = async (userName) => {
 //로그인
 export const login = async (body) => {
   try {
-    const res = await axios.post(`http://43.202.81.68:80/users/login`, body, {
+    const res = await axios.post(`${domain}/users/login`, body, {
       headers: { "Content-Type": "application/json" },
     });
 
@@ -57,7 +57,7 @@ export const login = async (body) => {
 //로그아웃
 export const logout = async (body) => {
   try {
-    const res = await client.post(`http://43.202.81.68:80/users/logout`, body, {
+    const res = await client.post(`${domain}/users/logout`, body, {
       headers: { "Content-Type": "application/json" },
     });
 
