@@ -15,10 +15,10 @@ const Profile = ({ profileImg, userName }) => {
   useEffect(() => {
     async function fetchFriends() {
       //팔로잉 조회
-      const followingData = await getFollowing();
+      const followingData = await getFollowing(userName);
       setFollowing(followingData);
       //팔로워 조회
-      const followerData = await getFollower();
+      const followerData = await getFollower(userName);
       setFollower(followerData);
       //친구 여부 조회
       // const isFriendData = await checkFriend();
@@ -65,7 +65,8 @@ const Profile = ({ profileImg, userName }) => {
           <div>{following.length}</div>
         </Following>
       </ProfileInfo>
-      {userName !== myName &&
+      {myName &&
+        userName !== myName &&
         (isFriend ? (
           <FollowButton onClick={onUnfollow}>친구끊기</FollowButton>
         ) : (
