@@ -24,8 +24,7 @@ const FriendListItem = ({ userName, onFollow, onUnfollow, friendStatus }) => {
   return (
     <Root>
       <Profile userName={userName} />
-      {myName &&
-        userName !== myName &&
+      {friendStatus !== "self" &&
         (friendStatus === "none" ? (
           <FollowBtn
             onClick={() => onFollow(userName)}
