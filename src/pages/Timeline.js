@@ -103,7 +103,7 @@ const booksData = [
   },
   {
     bookId: 31,
-    userName: "abc",
+    userName: "whale",
     title: "랄랄라",
     date: "",
     genre: "",
