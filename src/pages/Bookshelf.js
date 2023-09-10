@@ -54,7 +54,7 @@ const Bookshelf = () => {
 
   const colors = useContext(ColorContext);
 
-  //해당 책장의 유저 정보 조회
+  //유저 정보 조회
   useEffect(() => {
     async function fetchUserInfo() {
       try {
