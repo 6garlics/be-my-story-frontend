@@ -8,24 +8,12 @@ import Profile from "../common/Profile";
 import { getMyInfo } from "./../../api/users";
 
 const FriendListItem = ({ userName, onFollow, onUnfollow, friendStatus }) => {
-  const [myName, setMyName] = useState();
   const colors = useContext(ColorContext);
-
-  useEffect(() => {
-    async function fetchMyName() {
-      try {
-        const data = await getMyInfo();
-        setMyName(data.userName);
-      } catch (e) {}
-    }
-    fetchMyName();
-  }, []);
 
   return (
     <Root>
       <Profile userName={userName} />
-      {myName &&
-        userName !== myName &&
+      {friendStatus !== "self" &&
         (friendStatus === "none" ? (
           <FollowBtn
             onClick={() => onFollow(userName)}
