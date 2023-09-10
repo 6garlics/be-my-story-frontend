@@ -45,7 +45,7 @@ function Book({
       const data = await getDiary(bookId);
       setDiary(data);
     }
-    // fetchDiary();
+    fetchDiary();
   }, []);
 
   //내 정보 조회
