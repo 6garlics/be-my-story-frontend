@@ -107,7 +107,7 @@ export const follow = async (friendName) => {
   try {
     const res = await client.post(`/users/follow/${friendName}`);
 
-    console.log(res.data);
+    console.log(`${friendName}을 팔로우`, res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");
@@ -121,7 +121,7 @@ export const unfollow = async (friendName) => {
   try {
     const res = await client.delete(`/users/follow/${friendName}`);
 
-    console.log(res.data);
+    console.log(`${friendName}을 언팔`, res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");

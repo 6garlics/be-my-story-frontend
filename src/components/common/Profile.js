@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { getUserInfo } from "../../api/users";
 
-const Profile = ({ userName, profileImg }) => {
+const Profile = ({ userName }) => {
+  const [profileImg, setProfileImg] = useState();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchUserInfo() {
+      try {
+        const data = await getUserInfo(userName);
+        setProfileImg(data.profileImg);
+      } catch (e) {}
+    }
+    fetchUserInfo();
+  }, []);
+
   return (
     <Container>
-      <NLink to={`/bookshelf/${userName}`}>
+      <Wrapper onClick={() => navigate(`/bookshelf/${userName}`)}>
         <ProfileIcon src={profileImg} />
-      </NLink>
-      <NLink to={`/bookshelf/${userName}`}>
+      </Wrapper>
+      <Wrapper onClick={() => navigate(`/bookshelf/${userName}`)}>
         <ProfileName>{userName}</ProfileName>
-      </NLink>
+      </Wrapper>
     </Container>
   );
 };
@@ -20,11 +35,10 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const NLink = styled(NavLink)`
-  padding: 0px;
-  margin: 0px;
-  text-decoration: none;
-  color: white;
+const Wrapper = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const ProfileIcon = styled.img`

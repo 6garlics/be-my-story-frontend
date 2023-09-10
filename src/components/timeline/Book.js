@@ -27,7 +27,6 @@ function Book({
   const [isModal, setIsModal] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [pageNum, setPageNum] = useState(0);
-  const [profileImg, setProfileImg] = useState();
   const [diary, setDiary] = useState();
   // const [refresh, setRefresh] = useState(0);
 
@@ -58,17 +57,6 @@ function Book({
       } catch (err) {}
     }
     fetchMyInfo();
-  }, []);
-
-  //유저 정보 조회
-  useEffect(() => {
-    async function fetchUserInfo() {
-      try {
-        const userData = await getUserInfo(userName);
-        setProfileImg(userData.profileImg);
-      } catch (err) {}
-    }
-    fetchUserInfo();
   }, []);
 
   //동화 삭제
@@ -106,7 +94,7 @@ function Book({
       <Wrapper>
         <Container $pageNum={pageNum}>
           <Header>
-            <Profile userName={userName} profileImg={profileImg} />
+            <Profile userName={userName} />
             <Buttons>
               <Button onClick={() => setShowComments((prev) => !prev)}>
                 <BsChat size={25} color="white" />
