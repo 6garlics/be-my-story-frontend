@@ -7,7 +7,7 @@ const domain = "https://www.bemystory.store";
 //회원가입
 export const join = async (body) => {
   try {
-    const res = await axios.post(`${domain}/join`, body, {
+    const res = await axios.post(`${domain}/users/join`, body, {
       headers: { "Content-Type": "application/json" },
     });
 
