@@ -12,7 +12,7 @@ export const getBooks = async () => {
       }
     );
 
-    console.log(res.data);
+    console.log("전체 동화책 조회", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");
@@ -26,7 +26,7 @@ export const getBookshelf = async (userName) => {
   try {
     const res = await client.get(`/books?userName=${userName}`);
 
-    console.log(res.data);
+    console.log("책장 조회", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");
@@ -40,7 +40,7 @@ export const getBook = async (bookId) => {
   try {
     const res = await client.get(`/books/${bookId}`);
 
-    console.log(res.data);
+    console.log("동화책 1개 조회", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");
@@ -56,7 +56,21 @@ export const editBook = async (bookId, body) => {
       headers: { "Content-Type": "application/json" },
     });
 
-    console.log(res.data);
+    console.log("동화책 1개 수정", res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
+//동화책 1개 삭제
+export const deleteBook = async (bookId) => {
+  try {
+    const res = await client.delete(`/books/${bookId}`);
+
+    console.log("동화책 1개 삭제", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");
@@ -72,7 +86,7 @@ export const createTexts = async (body) => {
       headers: { "Content-Type": "application/json" },
     });
 
-    console.log(res.data);
+    console.log("동화 텍스트 생성", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");
@@ -92,7 +106,7 @@ export const createCover = async (bookId, dispatch) => {
       }
     );
 
-    console.log("cover", res.data);
+    console.log("표지 생성", res.data);
     //리덕스에 저장
     dispatch({ type: "UPDATE_COVER", data: { coverUrl: res.data.coverUrl } });
 
@@ -115,7 +129,7 @@ export const createImage = async (bookId, pageNum, dispatch) => {
       }
     );
 
-    console.log(res.data);
+    console.log("일러스트 1개 생성", res.data);
     //리덕스에 저장
     dispatch({
       type: "UPDATE_IMAGES",
@@ -136,7 +150,7 @@ export const getDiary = async (bookId) => {
   try {
     const res = await client.get(`/books/${bookId}/diary`);
 
-    console.log("일기", res.data);
+    console.log("일기 조회", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");
@@ -150,7 +164,7 @@ export const postDiary = async (body) => {
   try {
     const res = await client.post(`/diary`, body);
 
-    console.log("저장된 일기의 id", res.data);
+    console.log("일기 저장 - 저장된 일기의 id", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");
@@ -164,7 +178,7 @@ export const postBook = async (body) => {
   try {
     const res = await client.post(`/books`, body);
 
-    console.log("저장된 동화책의 id", res.data);
+    console.log("최초 동화책 저장 - 저장된 동화책의 id", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");

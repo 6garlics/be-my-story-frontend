@@ -6,7 +6,7 @@ import BookCover from "../components/book_shelf/BookCover";
 import Friends from "../components/book_shelf/Friends";
 import { users } from "../data/UsersData";
 import { FaUserFriends } from "react-icons/fa";
-import { getBookshelf } from "./../api/books";
+import { getBookshelf } from "../api/books";
 import { getUserInfo } from "./../api/users";
 import { useEffect } from "react";
 import { useContext } from "react";
@@ -82,7 +82,11 @@ const Bookshelf = () => {
   return books ? (
     <div style={{ display: "flex" }}>
       <Container>
-        <Profile profileImg={profileImg} userName={userName} />
+        <Profile
+          profileImg={profileImg}
+          userName={userName}
+          bookCnt={books.length}
+        />
         <Wrapper $background={colors.theme4}>
           {books.map((book) => (
             <BookCoverWrapper>

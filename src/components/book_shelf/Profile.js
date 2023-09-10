@@ -2,11 +2,18 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { styled } from "styled-components";
-import { follow, getFollower, getFollowing, getMyInfo } from "../../api/users";
+import {
+  follow,
+  getFollower,
+  getFollowing,
+  getMyInfo,
+  unfollow,
+} from "../../api/users";
 import { checkFriend } from "./../../api/users";
+import FriendList from "./FriendList";
 
-const Profile = ({ profileImg, userName }) => {
-  const [showFriendList, setShowFriendList] = useState(0);
+const Profile = ({ profileImg, userName, bookCnt }) => {
+  const [showFriendList, setShowFriendList] = useState(0); //0: 리스트 숨기기, 1: 팔로워 리스트, 2: 팔로잉 리스트
   const [following, setFollowing] = useState([]);
   const [follower, setFollower] = useState([]);
   const [isFriend, setIsFriend] = useState(false);
@@ -31,13 +38,13 @@ const Profile = ({ profileImg, userName }) => {
   }, []);
 
   //팔로우 하기
-  const onFollow = async () => {
+  const onFollow = async (userName) => {
     await follow(userName);
   };
 
   //언팔 하기
-  const onUnfollow = async () => {
-    // await unfollow(userName);
+  const onUnfollow = async (userName) => {
+    await unfollow(userName);
   };
 
   return (
@@ -54,7 +61,7 @@ const Profile = ({ profileImg, userName }) => {
       <ProfileInfo>
         <Books>
           <div>동화책</div>
-          <div>42</div>
+          <div>{bookCnt}</div>
         </Books>
         <Follower onClick={() => setShowFriendList((prev) => 1)}>
           <div>팔로워</div>
@@ -68,27 +75,22 @@ const Profile = ({ profileImg, userName }) => {
       {myName &&
         userName !== myName &&
         (isFriend ? (
-          <FollowButton onClick={onUnfollow}>친구끊기</FollowButton>
+          <FollowButton onClick={() => onUnfollow(userName)}>
+            친구끊기
+          </FollowButton>
         ) : (
-          <FollowButton onClick={onFollow}>친구맺기</FollowButton>
+          <FollowButton onClick={() => onFollow(userName)}>
+            친구맺기
+          </FollowButton>
         ))}
-      {showFriendList === 1 && (
-        <FollowerList>
-          <div>팔로워 리스트</div>
-          {follower.map((f) => (
-            <div>{f.userName}</div>
-          ))}
-          <CloseBtn onClick={() => setShowFriendList((prev) => 0)}>X</CloseBtn>
-        </FollowerList>
-      )}
-      {showFriendList === 2 && (
-        <FollowingList>
-          <div>팔로잉 리스트</div>
-          {following.map((f) => (
-            <div>{f.userName}</div>
-          ))}
-          <CloseBtn onClick={() => setShowFriendList((prev) => 0)}>X</CloseBtn>
-        </FollowingList>
+      {showFriendList !== 0 && (
+        <FriendList
+          friends={showFriendList === 1 ? follower : following}
+          onFollow={onFollow}
+          onUnfollow={onUnfollow}
+          showFriendList={showFriendList}
+          setShowFriendList={setShowFriendList}
+        />
       )}
     </Root>
   );
@@ -173,23 +175,5 @@ const FollowButton = styled.button`
     cursor: pointer;
   }
 `;
-
-const FollowerList = styled.div`
-  width: 100%;
-  height: 100%;
-  color: black;
-  background: white;
-  position: absolute;
-`;
-
-const FollowingList = styled.div`
-  width: 100%;
-  height: 100%;
-  color: black;
-  background: white;
-  position: absolute;
-`;
-
-const CloseBtn = styled.button``;
 
 export default Profile;
