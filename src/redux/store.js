@@ -11,6 +11,27 @@ function reducer(currentState = initialState, action) {
   const newState = { ...currentState };
 
   switch (action.type) {
+    case "RESET":
+      newState.userName = "";
+      newState.coverUrl = "";
+      newState.images = [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+      ];
+      break;
     case "UPDATE_USERNAME":
       newState.userName = action.data.userName;
       break;
@@ -21,16 +42,13 @@ function reducer(currentState = initialState, action) {
 
     case "UPDATE_IMAGES":
       console.log(action.data.imgUrl);
-      newState.images = [
-        ...currentState.images,
-        { index: action.data.index, imgUrl: action.data.imgUrl },
-      ];
+      newState.images[action.data.pageNum] = action.data.imgUrl;
       break;
 
     case "SORT_IMAGES":
       const newImages = [...currentState.images];
       newImages.sort(function (a, b) {
-        return a.index - b.index;
+        return a.pageNum - b.pageNum;
       });
       console.log("newImages", newImages);
       newState.images = newImages;

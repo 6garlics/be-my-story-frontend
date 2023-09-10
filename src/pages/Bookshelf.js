@@ -6,7 +6,7 @@ import BookCover from "../components/book_shelf/BookCover";
 import Friends from "../components/book_shelf/Friends";
 import { users } from "../data/UsersData";
 import { FaUserFriends } from "react-icons/fa";
-import { getBookshelf } from "./../api/books";
+import { getBookshelf } from "../api/books";
 import { getUserInfo } from "./../api/users";
 import { useEffect } from "react";
 import { useContext } from "react";

@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { DotLoader } from "react-spinners";
-import { createCover, createImage, createTexts } from "../api/books";
+import { createCover, createImage, createTexts } from "../api/AIbooks";
 import { getMyInfo } from "../api/users";
 import { useDispatch } from "react-redux";
 
@@ -42,7 +42,23 @@ const DiaryForm = () => {
   const [userName, setUserName] = useState();
   const [profileImg, setProfileImg] = useState();
   const [coverUrl, setCoverUrl] = useState("");
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -63,20 +79,28 @@ const DiaryForm = () => {
     //내정보 조회
     // const userData = await getMyInfo();
 
+    //리덕스 초기화
+    dispatch({
+      type: "RESET",
+    });
+
     //동화 텍스트 생성
     const textsData = await createTexts(formData);
 
     //표지 생성
-    const coverData = createCover(textsData.bookId, dispatch);
+    const coverData = createCover(
+      { title: textsData.title, texts: textsData.texts },
+      dispatch
+    );
     setCoverUrl(coverData.coverUrl);
 
     //일러스트 여러장 생성
-    textsData.texts.forEach(async (_, pageNum) => {
+    textsData.texts.forEach(async (text, pageNum) => {
       let newBookImages = images;
       try {
         newBookImages[pageNum] = await createImage(
-          textsData.bookId,
           pageNum,
+          { text: text },
           dispatch
         );
         setImages(newBookImages);
@@ -87,9 +111,9 @@ const DiaryForm = () => {
 
     //동화 텍스트 생성되면 리다이렉션
     if (textsData) {
-      navigate(`/new-book/${textsData.bookId}/detail`, {
+      navigate(`/new-book/detail`, {
         state: {
-          bookId: textsData.bookId,
+          // bookId: textsData.bookId,
           userName: localStorage.getItem("userName"),
           title: textsData.title,
           texts: textsData.texts,

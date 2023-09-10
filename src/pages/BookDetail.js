@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import Book from "../components/timeline/Book";
-import { getBook } from "./../api/books";
+import { getBook } from "../api/books";
 
 const BookDetail = () => {
   const { bookId } = useParams();

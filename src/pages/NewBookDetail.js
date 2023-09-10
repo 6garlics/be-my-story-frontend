@@ -2,36 +2,56 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Book from "../components/timeline/Book";
 import { getMyInfo, getUserInfo } from "./../api/users";
-import { createCover, createImage } from "./../api/books";
-import { useSelector } from "react-redux";
+import { createCover, createImage } from "../api/books";
+import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
 
 const NewBookDetail = () => {
+  const [coverUrl, setCoverUrl] = useState();
+  const [images, setImages] = useState();
   const location = useLocation();
   console.log(location);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [newImages, setNewImages] = useState();
 
   //Redux의 상태 꺼내오기
-  const coverUrl = useSelector((state) => state.coverUrl);
-  const images = useSelector((state) => state.images);
+  setCoverUrl(useSelector((state) => state.coverUrl));
+  setImages(useSelector((state) => state.images));
   console.log(coverUrl);
   console.log(images);
+
+  //누락된 일러스트 재요청
+  useEffect(() => {
+    location.texts.forEach(async (text, pageNum) => {
+      if (images[pageNum] === "") {
+        let newBookImages = images;
+        try {
+          newBookImages[pageNum] = await createImage(
+            pageNum,
+            { text: text },
+            dispatch
+          );
+          images = newBookImages;
+        } catch (err) {
+          console.log("일러스트 재요청 에러", pageNum);
+        }
+      }
+    });
+  }, []);
 
   return (
     <Root>
       <Book
-        bookId={location.state.bookId}
+        // bookId={location.state.bookId}
         userName={location.state.userName}
         title={location.state.title}
         texts={location.state.texts}
         coverUrl={coverUrl}
-        images={images.map((image, index) => {
-          return image.imgUrl;
-        })}
+        images={images}
       />
     </Root>
   );
