@@ -12,7 +12,7 @@ import {
 import { checkFriend } from "./../../api/users";
 import FriendList from "./FriendList";
 
-const Profile = ({ profileImg, userName }) => {
+const Profile = ({ profileImg, userName, bookCnt }) => {
   const [showFriendList, setShowFriendList] = useState(0); //0: 리스트 숨기기, 1: 팔로워 리스트, 2: 팔로잉 리스트
   const [following, setFollowing] = useState([]);
   const [follower, setFollower] = useState([]);
@@ -61,7 +61,7 @@ const Profile = ({ profileImg, userName }) => {
       <ProfileInfo>
         <Books>
           <div>동화책</div>
-          <div>42</div>
+          <div>{bookCnt}</div>
         </Books>
         <Follower onClick={() => setShowFriendList((prev) => 1)}>
           <div>팔로워</div>

@@ -82,7 +82,11 @@ const Bookshelf = () => {
   return books ? (
     <div style={{ display: "flex" }}>
       <Container>
-        <Profile profileImg={profileImg} userName={userName} />
+        <Profile
+          profileImg={profileImg}
+          userName={userName}
+          bookCnt={books.length}
+        />
         <Wrapper $background={colors.theme4}>
           {books.map((book) => (
             <BookCoverWrapper>
