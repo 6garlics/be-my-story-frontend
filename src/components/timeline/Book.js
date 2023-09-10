@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import CommentList from "../common/CommentList";
 import { BsChat } from "react-icons/bs";
-import { getDiary } from "../../api/books";
+import { deleteBook, getDiary } from "../../api/books";
 
 function Book({
   bookId,
@@ -23,6 +23,7 @@ function Book({
   coverUrl,
   images,
 }) {
+  const [myName, setMyName] = useState();
   const [isModal, setIsModal] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [pageNum, setPageNum] = useState(0);
@@ -45,7 +46,18 @@ function Book({
       const data = await getDiary(bookId);
       setDiary(data);
     }
-    fetchDiary();
+    // fetchDiary();
+  }, []);
+
+  //내 정보 조회
+  useEffect(() => {
+    async function fetchMyInfo() {
+      try {
+        const myData = await getMyInfo();
+        setMyName(myData.userName);
+      } catch (err) {}
+    }
+    fetchMyInfo();
   }, []);
 
   //유저 정보 조회
@@ -58,6 +70,16 @@ function Book({
     }
     fetchUserInfo();
   }, []);
+
+  //동화 삭제
+  const onDelete = async () => {
+    try {
+      if (window.confirm("동화를 삭제하시겠습니까?")) {
+        await deleteBook(bookId);
+        navigate(-1);
+      }
+    } catch (e) {}
+  };
 
   const onLeftClick = () => {
     if (pageNum > 0) {
@@ -89,6 +111,11 @@ function Book({
               <Button onClick={() => setShowComments((prev) => !prev)}>
                 <BsChat size={25} color="white" />
               </Button>
+              {myName && myName === userName && (
+                <Button onClick={onDelete}>
+                  <DeleteBtn src="/icons/delete.png" />
+                </Button>
+              )}
               <Button onClick={() => setIsModal((prev) => !prev)}>
                 <IoIosMore size={27} color="white" />
               </Button>
@@ -176,6 +203,10 @@ const Button = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const DeleteBtn = styled.img`
+  width: 25px;
 `;
 
 const CommentListWrapper = styled.div`

@@ -65,6 +65,20 @@ export const editBook = async (bookId, body) => {
   }
 };
 
+//동화책 1개 삭제
+export const deleteBook = async (bookId) => {
+  try {
+    const res = await client.delete(`/books/${bookId}`);
+
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
 //동화 텍스트 생성
 export const createTexts = async (body) => {
   try {
