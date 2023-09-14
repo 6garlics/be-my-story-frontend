@@ -4,6 +4,7 @@ import { login } from "../api/users";
 import ColorContext from "../contexts/Color";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { userSlice } from "../redux/userSlice";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -24,7 +25,7 @@ const Login = () => {
       console.log(Object.fromEntries(formData));
       try {
         const data = await login(formData);
-        dispatch({ type: "UPDATE_USERNAME", data: { userName: userName } });
+        dispatch(userSlice.actions.setUserName({ userName: userName }));
         navigate("/");
       } catch (err) {
         if (err.response.status === 401) setMessage("비밀번호가 틀렸어요.");

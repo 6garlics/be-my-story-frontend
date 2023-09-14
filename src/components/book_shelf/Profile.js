@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { styled } from "styled-components";
 import {
   follow,
@@ -17,7 +18,8 @@ const Profile = ({ profileImg, userName, bookCnt }) => {
   const [following, setFollowing] = useState([]);
   const [follower, setFollower] = useState([]);
   const [isFriend, setIsFriend] = useState(false);
-  const [myName, setMyName] = useState("");
+  // const [myName, setMyName] = useState("");
+  const myName = useSelector((state) => state.user.userName);
 
   useEffect(() => {
     async function fetchFriends() {
@@ -31,8 +33,8 @@ const Profile = ({ profileImg, userName, bookCnt }) => {
       // const isFriendData = await checkFriend();
       // setIsFriend(isFriendData);
       //내정보 조회
-      const myData = await getMyInfo();
-      setMyName(myData.userName);
+      // const myData = await getMyInfo();
+      // setMyName(myData.userName);
     }
     fetchFriends();
   }, []);

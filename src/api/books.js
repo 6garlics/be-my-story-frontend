@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import client from "./client";
+import { setCover, setImages, sortImages } from "../redux/bookSlice";
 
 //전체 동화책 조회
 export const getBooks = async () => {
@@ -108,7 +109,7 @@ export const createCover = async (bookId, dispatch) => {
 
     console.log("표지 생성", res.data);
     //리덕스에 저장
-    dispatch({ type: "UPDATE_COVER", data: { coverUrl: res.data.coverUrl } });
+    dispatch(setCover({ coverUrl: res.data.coverUrl }));
 
     return res.data;
   } catch (err) {
@@ -131,11 +132,8 @@ export const createImage = async (bookId, pageNum, dispatch) => {
 
     console.log("일러스트 1개 생성", res.data);
     //리덕스에 저장
-    dispatch({
-      type: "UPDATE_IMAGES",
-      data: { index: res.data.index, imgUrl: res.data.imgUrl },
-    });
-    dispatch({ type: "SORT_IMAGES" });
+    dispatch(setImages({ index: res.data.index, imgUrl: res.data.imgUrl }));
+    dispatch(sortImages());
 
     return res.data;
   } catch (err) {

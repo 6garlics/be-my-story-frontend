@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Book from "../components/timeline/Book";
 import { getMyInfo, getUserInfo } from "./../api/users";
-import { createCover, createImage } from "../api/books";
+import { createCover, createImage } from "../api/AIbooks";
 import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
@@ -19,8 +19,8 @@ const NewBookDetail = () => {
   const [newImages, setNewImages] = useState();
 
   //Redux의 상태 꺼내오기
-  setCoverUrl(useSelector((state) => state.coverUrl));
-  setImages(useSelector((state) => state.images));
+  setCoverUrl(useSelector((state) => state.book.coverUrl));
+  setImages(useSelector((state) => state.book.images));
   console.log(coverUrl);
   console.log(images);
 

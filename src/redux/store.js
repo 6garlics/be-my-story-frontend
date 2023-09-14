@@ -1,61 +1,24 @@
-import { createStore } from "redux";
-import { useDispatch } from "react-redux";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { bookSlice } from "./bookSlice";
+import { userSlice } from "./userSlice";
+import storage from "redux-persist/lib/storage";
+import persistReducer from "redux-persist/es/persistReducer";
 
-const initialState = {
-  userName: "",
-  coverUrl: "",
-  images: [],
+const persistConfig = {
+  key: "root",
+  storage,
+  blacklist: [],
 };
 
-function reducer(currentState = initialState, action) {
-  const newState = { ...currentState };
+const reducers = combineReducers({
+  book: bookSlice.reducer,
+  user: userSlice.reducer,
+});
 
-  switch (action.type) {
-    case "RESET":
-      newState.userName = "";
-      newState.coverUrl = "";
-      newState.images = [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-      ];
-      break;
-    case "UPDATE_USERNAME":
-      newState.userName = action.data.userName;
-      break;
+const persistedReducer = persistReducer(persistConfig, reducers);
 
-    case "UPDATE_COVER":
-      newState.coverUrl = action.data.coverUrl;
-      break;
+const store = configureStore({
+  reducer: persistedReducer,
+});
 
-    case "UPDATE_IMAGES":
-      console.log(action.data.imgUrl);
-      newState.images[action.data.pageNum] = action.data.imgUrl;
-      break;
-
-    case "SORT_IMAGES":
-      const newImages = [...currentState.images];
-      newImages.sort(function (a, b) {
-        return a.pageNum - b.pageNum;
-      });
-      console.log("newImages", newImages);
-      newState.images = newImages;
-      break;
-  }
-
-  return newState;
-}
-
-export const store = createStore(reducer);
+export default store;

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import AIclient from "./AIclient";
+import { setCover, setImages } from "../redux/bookSlice";
 
 //동화 텍스트 생성
 export const createTexts = async (body) => {
@@ -27,7 +28,7 @@ export const createCover = async (body, dispatch) => {
 
     console.log("cover", res.data);
     //리덕스에 저장
-    dispatch({ type: "UPDATE_COVER", data: { coverUrl: res.data.coverUrl } });
+    dispatch(setCover({ coverUrl: res.data.coverUrl }));
 
     return res.data;
   } catch (err) {
@@ -46,10 +47,7 @@ export const createImage = async (pageNum, body, dispatch) => {
 
     console.log(res.data);
     //리덕스에 저장
-    dispatch({
-      type: "UPDATE_IMAGES",
-      data: { pageNum: res.data.pageNum, imgUrl: res.data.imgUrl },
-    });
+    dispatch(setImages({ pageNum: res.data.pageNum, imgUrl: res.data.imgUrl }));
     // dispatch({ type: "SORT_IMAGES" });
 
     return res.data;
