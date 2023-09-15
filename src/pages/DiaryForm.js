@@ -9,6 +9,7 @@ import { DotLoader } from "react-spinners";
 import { createCover, createImage, createTexts } from "../api/AIbooks";
 import { getMyInfo } from "../api/users";
 import { useDispatch } from "react-redux";
+import { reset } from "../redux/bookSlice";
 
 const genres = [
   "모험",
@@ -80,9 +81,7 @@ const DiaryForm = () => {
     // const userData = await getMyInfo();
 
     //리덕스 초기화
-    dispatch({
-      type: "RESET",
-    });
+    dispatch(reset());
 
     //동화 텍스트 생성
     const textsData = await createTexts(formData);

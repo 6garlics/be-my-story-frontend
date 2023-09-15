@@ -6,7 +6,7 @@ import Cover from "./Cover";
 import DiaryModal from "./DiaryModal";
 import { IoIosMore } from "react-icons/io";
 import { TbNotebook, TbNotes } from "react-icons/tb";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../api/users";
 import { getMyInfo } from "./../../api/users";
 import { useNavigate } from "react-router-dom";
@@ -23,7 +23,7 @@ function Book({
   coverUrl,
   images,
 }) {
-  const [myName, setMyName] = useState();
+  // const [myName, setMyName] = useState();
   const [isModal, setIsModal] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [pageNum, setPageNum] = useState(0);
@@ -31,6 +31,7 @@ function Book({
   // const [refresh, setRefresh] = useState(0);
 
   const navigate = useNavigate();
+  const myName = useSelector((state) => state.user.userName);
 
   console.log(images);
 
@@ -49,15 +50,15 @@ function Book({
   }, []);
 
   //내 정보 조회
-  useEffect(() => {
-    async function fetchMyInfo() {
-      try {
-        const myData = await getMyInfo();
-        setMyName(myData.userName);
-      } catch (err) {}
-    }
-    fetchMyInfo();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchMyInfo() {
+  //     try {
+  //       const myData = await getMyInfo();
+  //       setMyName(myData.userName);
+  //     } catch (err) {}
+  //   }
+  //   fetchMyInfo();
+  // }, []);
 
   //동화 삭제
   const onDelete = async () => {

@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const AIclient = axios.create();
-AIclient.defaults.baseURL =
-  "https://yc2bgtwjbosyjziwdos7kbbvma0cdaql.lambda-url.eu-north-1.on.aws";
+AIclient.defaults.baseURL = "http://220.117.120.143:8000";
 // AIclient.defaults.withCredentials = true;
 AIclient.defaults.headers.common["Content-Type"] = "application/json";
 
