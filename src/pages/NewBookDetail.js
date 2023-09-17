@@ -26,20 +26,20 @@ const NewBookDetail = () => {
   console.log(images);
 
   //누락된 일러스트 재요청
-  useEffect(() => {
-    location.texts.forEach(async (text, pageNum) => {
-      if (images[pageNum] === "") {
-        dispatch(
-          thunkCreateImage({
-            pageNum: pageNum,
-            body: {
-              text: text,
-            },
-          })
-        );
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   location.texts.forEach(async (text, pageNum) => {
+  //     if (images[pageNum] === "") {
+  //       dispatch(
+  //         thunkCreateImage({
+  //           pageNum: pageNum,
+  //           body: {
+  //             text: text,
+  //           },
+  //         })
+  //       );
+  //     }
+  //   });
+  // }, []);
 
   return (
     <Root>
