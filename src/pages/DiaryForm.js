@@ -9,7 +9,7 @@ import { DotLoader } from "react-spinners";
 import { createCover, createImage, createTexts } from "../api/AIbooks";
 import { getMyInfo } from "../api/users";
 import { useDispatch } from "react-redux";
-import { reset } from "../redux/bookSlice";
+import { reset, thunkCreateCover, thunkCreateImage } from "../redux/bookSlice";
 
 const genres = [
   "모험",
@@ -87,25 +87,23 @@ const DiaryForm = () => {
     const textsData = await createTexts(formData);
 
     //표지 생성
-    const coverData = createCover(
-      { title: textsData.title, texts: textsData.texts },
-      dispatch
+    dispatch(
+      thunkCreateCover({
+        title: textsData.title,
+        texts: textsData.texts,
+      })
     );
-    setCoverUrl(coverData.coverUrl);
 
     //일러스트 여러장 생성
     textsData.texts.forEach(async (text, pageNum) => {
-      let newBookImages = images;
-      try {
-        newBookImages[pageNum] = await createImage(
-          pageNum,
-          { text: text },
-          dispatch
-        );
-        setImages(newBookImages);
-      } catch (err) {
-        console.log("일러스트 생성 에러", pageNum);
-      }
+      dispatch(
+        thunkCreateImage({
+          pageNum: pageNum,
+          body: {
+            text: text,
+          },
+        })
+      );
     });
 
     //동화 텍스트 생성되면 리다이렉션
@@ -116,8 +114,8 @@ const DiaryForm = () => {
           userName: localStorage.getItem("userName"),
           title: textsData.title,
           texts: textsData.texts,
-          coverUrl: coverUrl,
-          images: images,
+          // coverUrl: coverUrl,
+          // images: images,
         },
       });
     } else {
