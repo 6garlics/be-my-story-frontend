@@ -47,7 +47,7 @@ export const bookSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(thunkCreateCover.fulfilled, (state, action) => {
-      state.coverUrl = action.payload;
+      state.coverUrl = action.payload.coverUrl;
     });
     builder.addCase(thunkCreateImage.fulfilled, (state, action) => {
       state.images[action.payload.pageNum] = action.payload.imgUrl;
