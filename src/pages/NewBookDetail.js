@@ -6,10 +6,11 @@ import { createCover, createImage } from "../api/AIbooks";
 import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
+import { thunkCreateImage } from "../redux/bookSlice";
 
 const NewBookDetail = () => {
-  const [coverUrl, setCoverUrl] = useState();
-  const [images, setImages] = useState();
+  // const [coverUrl, setCoverUrl] = useState();
+  // const [images, setImages] = useState();
   const location = useLocation();
   console.log(location);
 
@@ -19,8 +20,8 @@ const NewBookDetail = () => {
   const [newImages, setNewImages] = useState();
 
   //Redux의 상태 꺼내오기
-  setCoverUrl(useSelector((state) => state.book.coverUrl));
-  setImages(useSelector((state) => state.book.images));
+  const coverUrl = useSelector((state) => state.book.coverUrl);
+  const images = useSelector((state) => state.book.images);
   console.log(coverUrl);
   console.log(images);
 
@@ -28,17 +29,14 @@ const NewBookDetail = () => {
   useEffect(() => {
     location.texts.forEach(async (text, pageNum) => {
       if (images[pageNum] === "") {
-        let newBookImages = images;
-        try {
-          newBookImages[pageNum] = await createImage(
-            pageNum,
-            { text: text },
-            dispatch
-          );
-          images = newBookImages;
-        } catch (err) {
-          console.log("일러스트 재요청 에러", pageNum);
-        }
+        dispatch(
+          thunkCreateImage({
+            pageNum: pageNum,
+            body: {
+              text: text,
+            },
+          })
+        );
       }
     });
   }, []);
