@@ -1,11 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import AIclient from "../api/AIclient";
+
+export const thunkCreateCover = createAsyncThunk(
+  "bookSlice/fetchBookCover",
+  async (body) => {
+    const res = await AIclient.post(`/cover`, body, {
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("cover", res.data);
+    return res.data;
+  }
+);
+
+export const thunkCreateImage = createAsyncThunk(
+  "bookSlice/thunkCreateImage",
+  async ({ pageNum, body }) => {
+    const res = await AIclient.post(`/textToImage/${pageNum}`, body, {
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log(res.data);
+    return res.data;
+  }
+);
 
 export const bookSlice = createSlice({
   name: "bookSlice",
   initialState: { coverUrl: "", images: [] },
   reducers: {
     reset: (state, action) => {
-      state.userName = "";
       state.coverUrl = "";
       state.images = Array.from({ length: 15 }, () => "");
     },
@@ -22,6 +44,14 @@ export const bookSlice = createSlice({
       });
       console.log("newImages", state.images);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(thunkCreateCover.fulfilled, (state, action) => {
+      state.coverUrl = action.payload;
+    });
+    builder.addCase(thunkCreateImage.fulfilled, (state, action) => {
+      state.images[action.payload.pageNum] = action.payload.imgUrl;
+    });
   },
 });
 
