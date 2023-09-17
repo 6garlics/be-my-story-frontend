@@ -19,7 +19,7 @@ export const thunkCreateImage = createAsyncThunk(
       headers: { "Content-Type": "application/json" },
     });
     console.log(res.data);
-    return res.data;
+    return { imgUrl: res.data.imgUrl, pageNum: pageNum };
   }
 );
 
