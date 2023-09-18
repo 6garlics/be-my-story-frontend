@@ -61,10 +61,6 @@ const DiaryForm = () => {
     formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));
 
-    //일기 저장
-    const diaryData = await postDiary(formData);
-    setDiaryId(diaryData);
-
     //리덕스 초기화
     dispatch(reset());
 
@@ -90,6 +86,10 @@ const DiaryForm = () => {
         })
       );
     });
+
+    //일기 저장
+    const diaryData = await postDiary(formData);
+    setDiaryId(diaryData);
 
     //최초 동화책 저장
     const BookData = await postBook({
