@@ -8,8 +8,9 @@ import { ko } from "date-fns/esm/locale";
 import { DotLoader } from "react-spinners";
 import { createCover, createImage, createTexts } from "../api/AIbooks";
 import { getMyInfo } from "../api/users";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { reset, thunkCreateCover, thunkCreateImage } from "../redux/bookSlice";
+import { postDiary, postBook } from "../api/books";
 
 const genres = [
   "모험",
@@ -39,30 +40,13 @@ const DiaryForm = () => {
   const [selectedGenre, setSelectedGenre] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
-  const [userName, setUserName] = useState();
-  const [profileImg, setProfileImg] = useState();
-  const [coverUrl, setCoverUrl] = useState("");
-  const [images, setImages] = useState([
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-  ]);
+  const [diaryId, setDiaryId] = useState();
+  const [bookId, setBookId] = useState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const coverUrl = useSelector((state) => state.book.coverUrl);
+  const images = useSelector((state) => state.book.images);
 
   //일기 제출
   const submitDiary = async (event) => {
@@ -77,8 +61,9 @@ const DiaryForm = () => {
     formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));
 
-    //내정보 조회
-    // const userData = await getMyInfo();
+    //일기 저장
+    const diaryData = await postDiary(formData);
+    setDiaryId(diaryData);
 
     //리덕스 초기화
     dispatch(reset());
@@ -106,16 +91,30 @@ const DiaryForm = () => {
       );
     });
 
+    //최초 동화책 저장
+    const BookData = await postBook({
+      diaryId: diaryId,
+      title: textsData.title,
+      genre: genres[selectedGenre],
+      coverUrl: coverUrl,
+      date: date,
+      pages: textsData.forEach((text, index) => ({
+        text: text,
+        imgUrl: images[index],
+        x: 0,
+        y: 0,
+      })),
+    });
+    setBookId(BookData);
+
     //동화 텍스트 생성되면 리다이렉션
     if (textsData) {
       navigate(`/new-book/detail`, {
         state: {
-          // bookId: textsData.bookId,
+          bookId: bookId,
           userName: localStorage.getItem("userName"),
           title: textsData.title,
           texts: textsData.texts,
-          // coverUrl: coverUrl,
-          // images: images,
         },
       });
     } else {
