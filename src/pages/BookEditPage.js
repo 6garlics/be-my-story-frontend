@@ -13,27 +13,22 @@ const book = {
   date: "2023-06-29",
   pages: [
     {
-      pageNum: 0,
       imgUrl: "/images/image1.png",
       text: "첫번째 페이지",
     },
     {
-      pageNum: 1,
       imgUrl: "/images/image2.png",
       text: "두번째 페이지~~~",
     },
     {
-      pageNum: 2,
       imgUrl: "/images/image3.png",
       text: "세번째 페이지~~~~~~",
     },
     {
-      pageNum: 3,
       imgUrl: "/images/image4.png",
       text: "네번째 페이지~~~~~~~~~",
     },
     {
-      pageNum: 4,
       imgUrl: "/images/image5.png",
       text: "다섯번째 페이지~~~~~~~~~",
     },
