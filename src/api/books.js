@@ -160,7 +160,9 @@ export const getDiary = async (bookId) => {
 //일기 저장
 export const postDiary = async (body) => {
   try {
-    const res = await client.post(`/diary`, body);
+    const res = await client.post(`/diary`, body, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
     console.log("일기 저장 - 저장된 일기의 id", res.data);
     return res.data;
