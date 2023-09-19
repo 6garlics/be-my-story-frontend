@@ -12,16 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { reset, thunkCreateCover, thunkCreateImage } from "../redux/bookSlice";
 import { postDiary, postBook } from "../api/books";
 
-const genres = [
-  "모험",
-  "성장",
-  "판타지",
-  "코미디",
-  "우화",
-  "SF",
-  "추리",
-  "드라마",
-];
+const genres = ["모험", "우주", "바다", "공룡", "전래동화", "마법", "신화"];
 
 const suggestions = [
   "오늘 친구랑 가장 재밌었던 일은 뭐야?",
@@ -290,7 +281,7 @@ const RadioButton = styled.input`
 `;
 
 const Genre = styled.div`
-  width: 48px;
+  min-width: 50px;
   text-align: center;
   margin: 6px;
   padding: 5px 10px;
