@@ -176,7 +176,9 @@ export const postDiary = async (body) => {
 //최초 동화책 저장
 export const postBook = async (body) => {
   try {
-    const res = await client.post(`/books`, body);
+    const res = await client.post(`/books`, body, {
+      headers: { "Content-Type": "application/json" },
+    });
 
     console.log("최초 동화책 저장 - 저장된 동화책의 id", res.data);
     return res.data;
