@@ -98,7 +98,7 @@ const DiaryForm = () => {
       genre: genres[selectedGenre],
       coverUrl: coverUrl,
       date: date,
-      pages: textsData.forEach((text, index) => ({
+      pages: textsData.texts.map((text, index) => ({
         text: text,
         imgUrl: images[index],
         x: 0,
