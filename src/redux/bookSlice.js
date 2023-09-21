@@ -38,8 +38,8 @@ export const thunkCreateImage = createAsyncThunk(
 export const bookSlice = createSlice({
   name: "bookSlice",
   initialState: {
-    bookId: null,
-    diaryId: null,
+    bookId: "",
+    diaryId: "",
     genre: "",
     date: "",
     title: "",
