@@ -71,13 +71,13 @@ const DiaryForm = () => {
     //리덕스 초기화
     dispatch(reset());
 
+    //동화 텍스트 생성
+    dispatch(thunkCreateTexts(formData));
+
     //메타데이터 저장
     dispatch(bookSlice.actions.setDiaryId(diaryId));
     dispatch(bookSlice.actions.setGenre(genres[selectedGenre]));
     dispatch(bookSlice.actions.setDate(dateToString(date)));
-
-    //동화 텍스트 생성
-    dispatch(thunkCreateTexts(formData));
   };
 
   useEffect(() => {
