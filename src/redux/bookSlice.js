@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AIclient from "../api/AIclient";
+import { postBook } from "../api/books";
 
 export const thunkCreateTexts = createAsyncThunk(
   "bookSlice/fetchBookTexts",
@@ -37,6 +38,10 @@ export const thunkCreateImage = createAsyncThunk(
 export const bookSlice = createSlice({
   name: "bookSlice",
   initialState: {
+    bookId: null,
+    diaryId: null,
+    genre: "",
+    date: "",
     title: "",
     texts: [],
     coverUrl: "",
@@ -46,12 +51,28 @@ export const bookSlice = createSlice({
   },
   reducers: {
     reset: (state, action) => {
+      state.bookId = null;
+      state.diaryId = null;
+      state.genre = "";
+      state.date = "";
       state.title = "";
       state.texts = [];
       state.coverUrl = "";
       state.images = Array.from({ length: 15 }, () => "");
       state.imageCnt = 0;
       state.saved = false;
+    },
+    setBookId: (state, action) => {
+      state.bookId = action.payload;
+    },
+    setDiaryId: (state, action) => {
+      state.diaryId = action.payload;
+    },
+    setGenre: (state, action) => {
+      state.genre = action.payload;
+    },
+    setDate: (state, action) => {
+      state.date = action.payload;
     },
     setCover: (state, action) => {
       state.coverUrl = action.payload.coverUrl;
@@ -78,12 +99,45 @@ export const bookSlice = createSlice({
     builder.addCase(thunkCreateCover.fulfilled, (state, action) => {
       state.coverUrl = action.payload.coverUrl;
     });
-    builder.addCase(thunkCreateImage.fulfilled, (state, action) => {
+    builder.addCase(thunkCreateImage.fulfilled, async (state, action) => {
       state.images[action.payload.pageNum] = action.payload.imgUrl;
       state.imageCnt++;
+      if (
+        state.title &&
+        state.texts.length !== 0 &&
+        state.imageCnt === state.texts.length &&
+        !state.saved
+      ) {
+        //최초 동화책 저장
+        const body = {
+          diaryId: state.diaryId,
+          title: state.title,
+          genre: state.genre,
+          coverUrl: state.coverUrl,
+          date: state.date,
+          pages: state.texts.map((text, index) => ({
+            text: text,
+            imgUrl: state.images[index],
+            x: 0,
+            y: 0,
+          })),
+        };
+        console.log(body);
+        const BookData = await postBook(body);
+        state.bookId = BookData.bookId;
+        state.saved = true; //저장됐다고 표시
+      }
     });
   },
 });
 
-export const { reset, setCover, setImages, sortImages, setSaved } =
-  bookSlice.actions;
+export const {
+  reset,
+  setDiaryId,
+  setGenre,
+  setDate,
+  setCover,
+  setImages,
+  sortImages,
+  setSaved,
+} = bookSlice.actions;

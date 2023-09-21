@@ -11,6 +11,7 @@ import { getMyInfo } from "../api/users";
 import { useDispatch, useSelector } from "react-redux";
 import {
   reset,
+  setGenre,
   setSaved,
   thunkCreateCover,
   thunkCreateImage,
@@ -71,8 +72,12 @@ const DiaryForm = () => {
     //리덕스 초기화
     dispatch(reset());
 
+    //메타데이터 저장
+    dispatch(setDiaryId(diaryId));
+    dispatch(setGenre(genres[selectedGenre]));
+    dispatch(setDate(dateToString(date)));
+
     //동화 텍스트 생성
-    // const textsData = await createTexts(formData);
     dispatch(thunkCreateTexts(formData));
   };
 
