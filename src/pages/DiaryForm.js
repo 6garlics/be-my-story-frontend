@@ -10,6 +10,7 @@ import { createCover, createImage, createTexts } from "../api/AIbooks";
 import { getMyInfo } from "../api/users";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  bookSlice,
   reset,
   setGenre,
   setSaved,
@@ -73,9 +74,9 @@ const DiaryForm = () => {
     dispatch(reset());
 
     //메타데이터 저장
-    dispatch(setDiaryId(diaryId));
-    dispatch(setGenre(genres[selectedGenre]));
-    dispatch(setDate(dateToString(date)));
+    dispatch(bookSlice.actions.setDiaryId(diaryId));
+    dispatch(bookSlice.actions.setGenre(genres[selectedGenre]));
+    dispatch(bookSlice.actions.setDate(dateToString(date)));
 
     //동화 텍스트 생성
     dispatch(thunkCreateTexts(formData));
