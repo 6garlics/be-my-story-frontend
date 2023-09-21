@@ -99,16 +99,11 @@ export const bookSlice = createSlice({
     builder.addCase(thunkCreateCover.fulfilled, (state, action) => {
       state.coverUrl = action.payload.coverUrl;
     });
-    builder.addCase(thunkCreateImage.fulfilled, async (state, action) => {
+    builder.addCase(thunkCreateImage.fulfilled, (state, action) => {
       state.images[action.payload.pageNum] = action.payload.imgUrl;
       state.imageCnt++;
-      if (
-        state.title &&
-        state.texts.length !== 0 &&
-        state.imageCnt === state.texts.length &&
-        !state.saved
-      ) {
-        //최초 동화책 저장
+      //최초 동화책 저장 함수
+      async function saveBook() {
         const body = {
           diaryId: state.diaryId,
           title: state.title,
@@ -126,6 +121,14 @@ export const bookSlice = createSlice({
         const BookData = await postBook(body);
         state.bookId = BookData.bookId;
         state.saved = true; //저장됐다고 표시
+      }
+      if (
+        state.title &&
+        state.texts.length !== 0 &&
+        state.imageCnt === state.texts.length &&
+        !state.saved
+      ) {
+        saveBook();
       }
     });
   },
