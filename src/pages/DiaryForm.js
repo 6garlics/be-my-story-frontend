@@ -53,7 +53,7 @@ const DiaryForm = () => {
   useEffect(() => {
     async function createBook() {
       //텍스트가 생성되면
-      if (title && texts.length !== 0) {
+      if (title && texts.length !== 0 && coverUrl === "" && imageCnt === 0) {
         //표지 생성
         dispatch(
           thunkCreateCover({
