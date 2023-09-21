@@ -51,8 +51,8 @@ const NewBookDetail = () => {
         };
         console.log(body);
         const BookData = await postBook(body);
-        setBookId(BookData);
-        setSaved(true); //저장됐다고 표시
+        setBookId(BookData.bookId);
+        dispatch(setSaved(true)); //저장됐다고 표시
       }
     }
     saveBook();
