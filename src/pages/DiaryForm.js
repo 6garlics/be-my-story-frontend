@@ -12,8 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   bookSlice,
   reset,
-  setGenre,
-  setSaved,
   thunkCreateCover,
   thunkCreateImage,
   thunkCreateTexts,
