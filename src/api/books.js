@@ -175,6 +175,7 @@ export const postDiary = async (body) => {
 
 //최초 동화책 저장
 export const postBook = async (body) => {
+  console.log("최초 동화책 저장 body", body);
   try {
     const res = await client.post(`/books`, body, {
       headers: { "Content-Type": "application/json" },
