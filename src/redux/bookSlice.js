@@ -36,7 +36,14 @@ export const thunkCreateImage = createAsyncThunk(
 
 export const bookSlice = createSlice({
   name: "bookSlice",
-  initialState: { title: "", texts: [], coverUrl: "", images: [], imageCnt: 0 },
+  initialState: {
+    title: "",
+    texts: [],
+    coverUrl: "",
+    images: [],
+    imageCnt: 0,
+    saved: false,
+  },
   reducers: {
     reset: (state, action) => {
       state.title = "";
@@ -44,6 +51,7 @@ export const bookSlice = createSlice({
       state.coverUrl = "";
       state.images = Array.from({ length: 15 }, () => "");
       state.imageCnt = 0;
+      state.saved = false;
     },
     setCover: (state, action) => {
       state.coverUrl = action.payload.coverUrl;
@@ -57,6 +65,9 @@ export const bookSlice = createSlice({
         return a.pageNum - b.pageNum;
       });
       console.log("newImages", state.images);
+    },
+    setSaved: (state, action) => {
+      state.saved = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -74,4 +85,5 @@ export const bookSlice = createSlice({
   },
 });
 
-export const { reset, setCover, setImages, sortImages } = bookSlice.actions;
+export const { reset, setCover, setImages, sortImages, setSaved } =
+  bookSlice.actions;
