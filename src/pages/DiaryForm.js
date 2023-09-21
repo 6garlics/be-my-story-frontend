@@ -64,18 +64,20 @@ const DiaryForm = () => {
     formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));
 
-    //일기 저장
-    const diaryData = await postDiary(formData);
-    setDiaryId(diaryData.diaryId);
-
     //리덕스 초기화
     dispatch(reset());
+
+    //일기 저장
+    await postDiary(formData).then((diaryData) => {
+      dispatch(bookSlice.actions.setDiaryId(diaryData.diaryId));
+    });
+    // setDiaryId(diaryData.diaryId);
 
     //동화 텍스트 생성
     dispatch(thunkCreateTexts(formData));
 
     //메타데이터 저장
-    diaryId && dispatch(bookSlice.actions.setDiaryId(diaryId));
+    // diaryId && dispatch(bookSlice.actions.setDiaryId(diaryId));
     dispatch(bookSlice.actions.setGenre(genres[selectedGenre]));
     dispatch(bookSlice.actions.setDate(dateToString(date)));
   };
