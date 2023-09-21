@@ -119,7 +119,7 @@ export const bookSlice = createSlice({
         };
         console.log(body);
         const BookData = await postBook(body);
-        state.bookId = BookData.bookId;
+        // state.bookId = BookData.bookId;
         state.saved = true; //저장됐다고 표시
       }
       if (
