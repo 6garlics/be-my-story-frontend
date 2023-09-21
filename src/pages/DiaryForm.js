@@ -11,6 +11,7 @@ import { getMyInfo } from "../api/users";
 import { useDispatch, useSelector } from "react-redux";
 import {
   reset,
+  setSaved,
   thunkCreateCover,
   thunkCreateImage,
   thunkCreateTexts,
@@ -47,64 +48,9 @@ const DiaryForm = () => {
   const coverUrl = useSelector((state) => state.book.coverUrl);
   const images = useSelector((state) => state.book.images);
   const imageCnt = useSelector((state) => state.book.imageCnt);
+  const saved = useSelector((state) => state.book.saved);
 
   console.log("동화 텍스트", title, texts);
-
-  useEffect(() => {
-    async function createBook() {
-      //텍스트가 생성되면
-      if (title && texts.length !== 0 && coverUrl === "" && imageCnt === 0) {
-        //표지 생성
-        dispatch(
-          thunkCreateCover({
-            title: title,
-            texts: texts,
-          })
-        );
-
-        //일러스트 여러장 생성
-        texts.forEach(async (text, pageNum) => {
-          dispatch(
-            thunkCreateImage({
-              pageNum: pageNum,
-              body: {
-                text: text,
-              },
-            })
-          );
-        });
-
-        //최초 동화책 저장
-        if (imageCnt === texts.length) {
-          const BookData = await postBook({
-            diaryId: diaryId,
-            title: title,
-            genre: genres[selectedGenre],
-            coverUrl: coverUrl,
-            date: date,
-            pages: texts.map((text, index) => ({
-              text: text,
-              imgUrl: images[index],
-              x: 0,
-              y: 0,
-            })),
-          });
-          setBookId(BookData);
-        }
-
-        //열람페이지로 리다이렉션
-        navigate(`/new-book/detail`, {
-          state: {
-            bookId: bookId,
-            userName: userName,
-            title: title,
-            texts: texts,
-          },
-        });
-      }
-    }
-    createBook();
-  }, [title]);
 
   //일기 제출 핸들러
   const submitDiary = async (event) => {
@@ -130,6 +76,69 @@ const DiaryForm = () => {
     // const textsData = await createTexts(formData);
     dispatch(thunkCreateTexts(formData));
   };
+
+  useEffect(() => {
+    async function createBook() {
+      //텍스트가 생성되면
+      if (title && texts.length !== 0 && coverUrl === "" && imageCnt === 0) {
+        //표지 생성
+        dispatch(
+          thunkCreateCover({
+            title: title,
+            texts: texts,
+          })
+        );
+
+        //일러스트 여러장 생성
+        texts.forEach(async (text, pageNum) => {
+          dispatch(
+            thunkCreateImage({
+              pageNum: pageNum,
+              body: {
+                text: text,
+              },
+            })
+          );
+        });
+      }
+    }
+    createBook();
+  }, [title]);
+
+  useEffect(() => {
+    async function saveBook() {
+      //동화책이 완성됐지만 아직 저장되지 않았다면
+      if (imageCnt === texts.length && !saved) {
+        //최초 동화책 저장
+        const BookData = await postBook({
+          diaryId: diaryId,
+          title: title,
+          genre: genres[selectedGenre],
+          coverUrl: coverUrl,
+          date: date,
+          pages: texts.map((text, index) => ({
+            text: text,
+            imgUrl: images[index],
+            x: 0,
+            y: 0,
+          })),
+        });
+        setBookId(BookData);
+        setSaved(true); //저장됐다고 표시
+      }
+
+      //열람페이지로 리다이렉션
+      navigate(`/new-book/detail`, {
+        state: {
+          bookId: bookId,
+          userName: userName,
+          title: title,
+          texts: texts,
+        },
+      });
+    }
+    saveBook();
+  }, [imageCnt]);
 
   const dateToString = (date) => {
     const yyyy = date.getFullYear();
