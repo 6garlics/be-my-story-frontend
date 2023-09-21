@@ -9,19 +9,15 @@ import { DotLoader } from "react-spinners";
 import { createCover, createImage, createTexts } from "../api/AIbooks";
 import { getMyInfo } from "../api/users";
 import { useDispatch, useSelector } from "react-redux";
-import { reset, thunkCreateCover, thunkCreateImage } from "../redux/bookSlice";
+import {
+  reset,
+  thunkCreateCover,
+  thunkCreateImage,
+  thunkCreateTexts,
+} from "../redux/bookSlice";
 import { postDiary, postBook } from "../api/books";
 
-const genres = [
-  "모험",
-  "성장",
-  "판타지",
-  "코미디",
-  "우화",
-  "SF",
-  "추리",
-  "드라마",
-];
+const genres = ["모험", "우주", "바다", "공룡", "전래동화", "마법", "신화"];
 
 const suggestions = [
   "오늘 친구랑 가장 재밌었던 일은 뭐야?",
@@ -33,7 +29,7 @@ const days = ["일", "월", "화", "수", "목", "금", "토"];
 
 const DiaryForm = () => {
   const [date, setDate] = useState(new window.Date());
-  const [title, setTitle] = useState("자전거");
+  const [diaryTitle, setTitle] = useState("자전거");
   const [contents, setText] = useState(
     "오늘 밤에 자전거를 탔다. 자전거는 처음 탈 때는 좀 중심잡기가 힘들었다. 그러나 재미있었다. 자전거를 잘 타서 엄마, 아빠 산책 갈 때 나도 가야겠다."
   );
@@ -45,10 +41,16 @@ const DiaryForm = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userName = useSelector((state) => state.user.userName);
+  const title = useSelector((state) => state.book.title);
+  const texts = useSelector((state) => state.book.texts);
   const coverUrl = useSelector((state) => state.book.coverUrl);
   const images = useSelector((state) => state.book.images);
+  const imageCnt = useSelector((state) => state.book.imageCnt);
 
-  //일기 제출
+  console.log("동화 텍스트", title, texts);
+
+  //일기 제출 핸들러
   const submitDiary = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -61,60 +63,64 @@ const DiaryForm = () => {
     formData.append("date", dateToString(date));
     console.log(Object.fromEntries(formData));
 
-    //리덕스 초기화
-    dispatch(reset());
-
-    //동화 텍스트 생성
-    const textsData = await createTexts(formData);
-
-    //표지 생성
-    dispatch(
-      thunkCreateCover({
-        title: textsData.title,
-        texts: textsData.texts,
-      })
-    );
-
-    //일러스트 여러장 생성
-    textsData.texts.forEach(async (text, pageNum) => {
-      dispatch(
-        thunkCreateImage({
-          pageNum: pageNum,
-          body: {
-            text: text,
-          },
-        })
-      );
-    });
-
     //일기 저장
     const diaryData = await postDiary(formData);
     setDiaryId(diaryData);
 
-    //최초 동화책 저장
-    const BookData = await postBook({
-      diaryId: diaryId,
-      title: textsData.title,
-      genre: genres[selectedGenre],
-      coverUrl: coverUrl,
-      date: date,
-      pages: textsData.texts.map((text, index) => ({
-        text: text,
-        imgUrl: images[index],
-        x: 0,
-        y: 0,
-      })),
-    });
-    setBookId(BookData);
+    //리덕스 초기화
+    dispatch(reset());
 
-    //동화 텍스트 생성되면 리다이렉션
-    if (textsData) {
+    //동화 텍스트 생성
+    // const textsData = await createTexts(formData);
+    dispatch(thunkCreateTexts(formData));
+
+    //텍스트가 생성되면
+    if (title && title.length !== 0) {
+      //표지 생성
+      dispatch(
+        thunkCreateCover({
+          title: title,
+          texts: texts,
+        })
+      );
+
+      //일러스트 여러장 생성
+      texts.forEach(async (text, pageNum) => {
+        dispatch(
+          thunkCreateImage({
+            pageNum: pageNum,
+            body: {
+              text: text,
+            },
+          })
+        );
+      });
+
+      //최초 동화책 저장
+      if (imageCnt === texts.length) {
+        const BookData = await postBook({
+          diaryId: diaryId,
+          title: title,
+          genre: genres[selectedGenre],
+          coverUrl: coverUrl,
+          date: date,
+          pages: texts.map((text, index) => ({
+            text: text,
+            imgUrl: images[index],
+            x: 0,
+            y: 0,
+          })),
+        });
+        setBookId(BookData);
+      }
+
+      //열람페이지로 리다이렉션
       navigate(`/new-book/detail`, {
         state: {
           bookId: bookId,
-          userName: localStorage.getItem("userName"),
-          title: textsData.title,
-          texts: textsData.texts,
+          userName: userName,
+          title: title,
+          texts: texts,
         },
       });
     } else {
@@ -154,7 +160,7 @@ const DiaryForm = () => {
         <Title
           placeholder="제목"
           name="title"
-          value={title}
+          value={diaryTitle}
           onChange={(e) => setTitle(e.target.value)}
         />
         <Contents
@@ -290,7 +296,7 @@ const RadioButton = styled.input`
 `;
 
 const Genre = styled.div`
-  width: 48px;
+  min-width: 50px;
   text-align: center;
   margin: 6px;
   padding: 5px 10px;
