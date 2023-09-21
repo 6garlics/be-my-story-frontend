@@ -108,7 +108,7 @@ const DiaryForm = () => {
   useEffect(() => {
     async function saveBook() {
       //동화책이 완성됐지만 아직 저장되지 않았다면
-      if (imageCnt === texts.length && !saved) {
+      if (texts.length !== 0 && imageCnt === texts.length && !saved) {
         //최초 동화책 저장
         const BookData = await postBook({
           diaryId: diaryId,
