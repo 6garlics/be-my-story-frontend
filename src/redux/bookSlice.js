@@ -120,7 +120,6 @@ export const bookSlice = createSlice({
         console.log(body);
         const BookData = await postBook(body);
         // state.bookId = BookData.bookId;
-        state.saved = true; //저장됐다고 표시
       }
       if (
         state.title &&
@@ -129,6 +128,7 @@ export const bookSlice = createSlice({
         !state.saved
       ) {
         saveBook();
+        state.saved = true; //저장됐다고 표시
       }
     });
   },
@@ -136,7 +136,6 @@ export const bookSlice = createSlice({
 
 export const {
   reset,
-  setDiaryId,
   setGenre,
   setDate,
   setCover,
