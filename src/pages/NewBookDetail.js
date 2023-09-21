@@ -51,8 +51,8 @@ const NewBookDetail = () => {
         };
         console.log(body);
         const BookData = await postBook(body);
-        setBookId(BookData);
-        setSaved(true); //저장됐다고 표시
+        setBookId(BookData.bookId);
+        dispatch(setSaved(true)); //저장됐다고 표시
       }
     }
     saveBook();
@@ -77,7 +77,7 @@ const NewBookDetail = () => {
   return (
     <Root>
       <Book
-        bookId={location.state.bookId}
+        bookId={bookId}
         userName={location.state.userName}
         title={location.state.title}
         texts={location.state.texts}
