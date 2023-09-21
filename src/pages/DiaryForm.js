@@ -50,6 +50,65 @@ const DiaryForm = () => {
 
   console.log("동화 텍스트", title, texts);
 
+  useEffect(() => {
+    async function createBook() {
+      //텍스트가 생성되면
+      if (title && texts.length !== 0) {
+        //표지 생성
+        dispatch(
+          thunkCreateCover({
+            title: title,
+            texts: texts,
+          })
+        );
+
+        //일러스트 여러장 생성
+        texts.forEach(async (text, pageNum) => {
+          dispatch(
+            thunkCreateImage({
+              pageNum: pageNum,
+              body: {
+                text: text,
+              },
+            })
+          );
+        });
+
+        //최초 동화책 저장
+        if (imageCnt === texts.length) {
+          const BookData = await postBook({
+            diaryId: diaryId,
+            title: title,
+            genre: genres[selectedGenre],
+            coverUrl: coverUrl,
+            date: date,
+            pages: texts.map((text, index) => ({
+              text: text,
+              imgUrl: images[index],
+              x: 0,
+              y: 0,
+            })),
+          });
+          setBookId(BookData);
+        }
+
+        //열람페이지로 리다이렉션
+        navigate(`/new-book/detail`, {
+          state: {
+            bookId: bookId,
+            userName: userName,
+            title: title,
+            texts: texts,
+          },
+        });
+      } else {
+        setLoading(false);
+        setError(true);
+      }
+    }
+    createBook();
+  }, [title]);
+
   //일기 제출 핸들러
   const submitDiary = async (event) => {
     event.preventDefault();
@@ -73,60 +132,6 @@ const DiaryForm = () => {
     //동화 텍스트 생성
     // const textsData = await createTexts(formData);
     dispatch(thunkCreateTexts(formData));
-
-    //텍스트가 생성되면
-    if (title && title.length !== 0) {
-      //표지 생성
-      dispatch(
-        thunkCreateCover({
-          title: title,
-          texts: texts,
-        })
-      );
-
-      //일러스트 여러장 생성
-      texts.forEach(async (text, pageNum) => {
-        dispatch(
-          thunkCreateImage({
-            pageNum: pageNum,
-            body: {
-              text: text,
-            },
-          })
-        );
-      });
-
-      //최초 동화책 저장
-      if (imageCnt === texts.length) {
-        const BookData = await postBook({
-          diaryId: diaryId,
-          title: title,
-          genre: genres[selectedGenre],
-          coverUrl: coverUrl,
-          date: date,
-          pages: texts.map((text, index) => ({
-            text: text,
-            imgUrl: images[index],
-            x: 0,
-            y: 0,
-          })),
-        });
-        setBookId(BookData);
-      }
-
-      //열람페이지로 리다이렉션
-      navigate(`/new-book/detail`, {
-        state: {
-          bookId: bookId,
-          userName: userName,
-          title: title,
-          texts: texts,
-        },
-      });
-    } else {
-      setLoading(false);
-      setError(true);
-    }
   };
 
   const dateToString = (date) => {
