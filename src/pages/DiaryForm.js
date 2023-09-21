@@ -125,17 +125,17 @@ const DiaryForm = () => {
         });
         setBookId(BookData);
         setSaved(true); //저장됐다고 표시
-      }
 
-      //열람페이지로 리다이렉션
-      navigate(`/new-book/detail`, {
-        state: {
-          bookId: bookId,
-          userName: userName,
-          title: title,
-          texts: texts,
-        },
-      });
+        //열람페이지로 리다이렉션
+        navigate(`/new-book/detail`, {
+          state: {
+            bookId: bookId,
+            userName: userName,
+            title: title,
+            texts: texts,
+          },
+        });
+      }
     }
     saveBook();
   }, [imageCnt]);
