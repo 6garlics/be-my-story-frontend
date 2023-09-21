@@ -1,6 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AIclient from "../api/AIclient";
 
+export const thunkCreateTexts = createAsyncThunk(
+  "bookSlice/fetchBookTexts",
+  async (body) => {
+    const res = await AIclient.post(`/diaryToStory`, body, {
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("textsData", res.data);
+    return res.data;
+  }
+);
+
 export const thunkCreateCover = createAsyncThunk(
   "bookSlice/fetchBookCover",
   async (body) => {
@@ -25,11 +36,14 @@ export const thunkCreateImage = createAsyncThunk(
 
 export const bookSlice = createSlice({
   name: "bookSlice",
-  initialState: { coverUrl: "", images: [] },
+  initialState: { title: "", texts: [], coverUrl: "", images: [], imageCnt: 0 },
   reducers: {
     reset: (state, action) => {
+      state.title = "";
+      state.texts = [];
       state.coverUrl = "";
       state.images = Array.from({ length: 15 }, () => "");
+      state.imageCnt = 0;
     },
     setCover: (state, action) => {
       state.coverUrl = action.payload.coverUrl;
@@ -46,11 +60,16 @@ export const bookSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(thunkCreateTexts.fulfilled, (state, action) => {
+      state.title = action.payload.title;
+      state.texts = action.payload.texts;
+    });
     builder.addCase(thunkCreateCover.fulfilled, (state, action) => {
       state.coverUrl = action.payload.coverUrl;
     });
     builder.addCase(thunkCreateImage.fulfilled, (state, action) => {
       state.images[action.payload.pageNum] = action.payload.imgUrl;
+      state.imageCnt++;
     });
   },
 });
