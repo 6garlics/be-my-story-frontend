@@ -75,7 +75,7 @@ const DiaryForm = () => {
     dispatch(thunkCreateTexts(formData));
 
     //메타데이터 저장
-    dispatch(bookSlice.actions.setDiaryId(diaryId));
+    // dispatch(bookSlice.actions.setDiaryId(76));
     dispatch(bookSlice.actions.setGenre(genres[selectedGenre]));
     dispatch(bookSlice.actions.setDate(dateToString(date)));
   };
