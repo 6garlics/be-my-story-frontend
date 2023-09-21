@@ -66,13 +66,13 @@ const DiaryForm = () => {
 
     //일기 저장
     const diaryData = await postDiary(formData);
-    // setDiaryId(diaryData.diaryId);
+    setDiaryId(diaryData.diaryId);
 
     //리덕스 초기화
     dispatch(reset());
 
     //메타데이터 저장
-    dispatch(bookSlice.actions.setDiaryId(diaryData.diaryId));
+    dispatch(bookSlice.actions.setDiaryId(75));
     dispatch(bookSlice.actions.setGenre(genres[selectedGenre]));
     dispatch(bookSlice.actions.setDate(dateToString(date)));
 
