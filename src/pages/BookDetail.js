@@ -28,9 +28,9 @@ const BookDetail = () => {
           bookId={book.bookId}
           userName={book.userName}
           title={book.title}
-          texts={book.texts}
+          texts={book.pages.map((page) => page.text)}
           coverUrl={book.coverUrl}
-          images={book.images}
+          images={book.pages.map((page) => page.imgUrl)}
         />
       )}
     </Root>
