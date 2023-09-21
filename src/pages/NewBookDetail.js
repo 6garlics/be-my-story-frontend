@@ -77,7 +77,7 @@ const NewBookDetail = () => {
   return (
     <Root>
       <Book
-        bookId={location.state.bookId}
+        bookId={bookId}
         userName={location.state.userName}
         title={location.state.title}
         texts={location.state.texts}
