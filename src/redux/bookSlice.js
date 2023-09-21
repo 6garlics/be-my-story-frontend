@@ -39,7 +39,7 @@ export const bookSlice = createSlice({
   name: "bookSlice",
   initialState: {
     bookId: "",
-    diaryId: "",
+    diaryId: 75,
     genre: "",
     date: "",
     title: "",
@@ -52,7 +52,7 @@ export const bookSlice = createSlice({
   reducers: {
     reset: (state, action) => {
       state.bookId = "";
-      state.diaryId = "";
+      state.diaryId = 75;
       state.genre = "";
       state.date = "";
       state.title = "";
