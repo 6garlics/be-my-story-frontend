@@ -66,7 +66,7 @@ const DiaryForm = () => {
 
     //일기 저장
     const diaryData = await postDiary(formData);
-    setDiaryId(diaryData);
+    setDiaryId(diaryData.diaryId);
 
     //리덕스 초기화
     dispatch(reset());
@@ -105,7 +105,7 @@ const DiaryForm = () => {
           state: {
             diaryId: diaryId,
             genre: genres[selectedGenre],
-            date: date,
+            date: dateToString(date),
             userName: userName,
             title: title,
             texts: texts,
