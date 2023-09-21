@@ -101,9 +101,6 @@ const DiaryForm = () => {
             texts: texts,
           },
         });
-      } else {
-        setLoading(false);
-        setError(true);
       }
     }
     createBook();
