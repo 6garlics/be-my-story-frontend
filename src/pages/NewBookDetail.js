@@ -31,32 +31,32 @@ const NewBookDetail = () => {
   console.log(coverUrl);
   console.log(images);
 
-  useEffect(() => {
-    async function saveBook() {
-      //동화책이 완성됐지만 아직 저장되지 않았다면
-      if (title && texts.length !== 0 && imageCnt === texts.length && !saved) {
-        //최초 동화책 저장
-        const body = {
-          diaryId: location.state.diaryId,
-          title: title,
-          genre: location.state.genre,
-          coverUrl: coverUrl,
-          date: location.state.date,
-          pages: texts.map((text, index) => ({
-            text: text,
-            imgUrl: images[index],
-            x: 0,
-            y: 0,
-          })),
-        };
-        console.log(body);
-        const BookData = await postBook(body);
-        setBookId(BookData.bookId);
-        dispatch(setSaved(true)); //저장됐다고 표시
-      }
-    }
-    saveBook();
-  }, [imageCnt]);
+  // useEffect(() => {
+  //   async function saveBook() {
+  //     //동화책이 완성됐지만 아직 저장되지 않았다면
+  //     if (title && texts.length !== 0 && imageCnt === texts.length && !saved) {
+  //       //최초 동화책 저장
+  //       const body = {
+  //         diaryId: location.state.diaryId,
+  //         title: title,
+  //         genre: location.state.genre,
+  //         coverUrl: coverUrl,
+  //         date: location.state.date,
+  //         pages: texts.map((text, index) => ({
+  //           text: text,
+  //           imgUrl: images[index],
+  //           x: 0,
+  //           y: 0,
+  //         })),
+  //       };
+  //       console.log(body);
+  //       const BookData = await postBook(body);
+  //       setBookId(BookData.bookId);
+  //       dispatch(setSaved(true)); //저장됐다고 표시
+  //     }
+  //   }
+  //   saveBook();
+  // }, [imageCnt]);
 
   //누락된 일러스트 재요청
   // useEffect(() => {
