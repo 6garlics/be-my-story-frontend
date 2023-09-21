@@ -38,7 +38,6 @@ const DiaryForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [diaryId, setDiaryId] = useState();
-  const [bookId, setBookId] = useState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -100,36 +99,13 @@ const DiaryForm = () => {
             })
           );
         });
-      }
-    }
-    createBook();
-  }, [title]);
-
-  useEffect(() => {
-    async function saveBook() {
-      //동화책이 완성됐지만 아직 저장되지 않았다면
-      if (texts.length !== 0 && imageCnt === texts.length && !saved) {
-        //최초 동화책 저장
-        const BookData = await postBook({
-          diaryId: diaryId,
-          title: title,
-          genre: genres[selectedGenre],
-          coverUrl: coverUrl,
-          date: date,
-          pages: texts.map((text, index) => ({
-            text: text,
-            imgUrl: images[index],
-            x: 0,
-            y: 0,
-          })),
-        });
-        setBookId(BookData);
-        setSaved(true); //저장됐다고 표시
 
         //열람페이지로 리다이렉션
         navigate(`/new-book/detail`, {
           state: {
-            bookId: bookId,
+            diaryId: diaryId,
+            genre: genres[selectedGenre],
+            date: date,
             userName: userName,
             title: title,
             texts: texts,
@@ -137,8 +113,8 @@ const DiaryForm = () => {
         });
       }
     }
-    saveBook();
-  }, [imageCnt]);
+    createBook();
+  }, [title]);
 
   const dateToString = (date) => {
     const yyyy = date.getFullYear();
