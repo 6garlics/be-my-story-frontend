@@ -68,7 +68,7 @@ const DiaryForm = () => {
     dispatch(reset());
 
     //일기 저장
-    await postDiary(formData).then((diaryData) => {
+    postDiary(formData).then((diaryData) => {
       dispatch(bookSlice.actions.setDiaryId(diaryData.diaryId));
     });
     // setDiaryId(diaryData.diaryId);
