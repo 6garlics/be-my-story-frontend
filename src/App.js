@@ -8,15 +8,56 @@ import NewBookDetail from "./pages/NewBookDetail";
 import Login from "./pages/Login";
 import Header from "./components/common/Header";
 import Join from "./pages/Join";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ColorContext from "./contexts/Color";
 import Page from "./components/common/Page";
 import Book from "./components/timeline/Book";
 import BookDetail from "./pages/BookDetail";
 import PrivateRoutes from "./accessControl/PrivateRoutes";
+import { useDispatch, useSelector } from "react-redux";
+import { postBook } from "./api/books";
+import { bookSlice } from "./redux/bookSlice";
 
 function App() {
+  const dispatch = useDispatch();
   const colors = useContext(ColorContext);
+  const diaryId = useSelector((state) => state.book.diaryId);
+  const genre = useSelector((state) => state.book.genre);
+  const date = useSelector((state) => state.book.date);
+  const title = useSelector((state) => state.book.title);
+  const texts = useSelector((state) => state.book.texts);
+  const coverUrl = useSelector((state) => state.book.coverUrl);
+  const images = useSelector((state) => state.book.images);
+  const imageCnt = useSelector((state) => state.book.imageCnt);
+  const saved = useSelector((state) => state.book.saved);
+
+  useEffect(() => {
+    async function saveBook() {
+      //동화책이 완성됐지만 아직 저장되지 않았다면
+      if (title && texts.length !== 0 && imageCnt === texts.length && !saved) {
+        //최초 동화책 저장
+        const body = {
+          diaryId: diaryId,
+          title: title,
+          genre: genre,
+          coverUrl: coverUrl,
+          date: date,
+          pages: texts.map((text, index) => ({
+            text: text,
+            imgUrl: images[index],
+            x: 0,
+            y: 0,
+          })),
+        };
+        console.log(body);
+        const bookData = await postBook(body);
+        dispatch(bookSlice.actions.setBookId(bookData.bookId)); //bookId 저장
+        dispatch(bookSlice.actions.setSaved(true)); //저장됐다고 표시
+      }
+    }
+    saveBook();
+  }, [imageCnt]);
+
   return (
     <Container className="App" $background={colors.background}>
       <Header />
