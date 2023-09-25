@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AIclient from "../api/AIclient";
 import { postBook } from "../api/books";
+import { useDispatch } from "react-redux";
 
 export const thunkCreateTexts = createAsyncThunk(
   "bookSlice/fetchBookTexts",
@@ -32,6 +33,15 @@ export const thunkCreateImage = createAsyncThunk(
     });
     console.log(res.data);
     return { imgUrl: res.data.imgUrl, pageNum: pageNum };
+  }
+);
+
+export const thunkSaveBook = createAsyncThunk(
+  "bookSlice/thunkSaveBook",
+  async (body) => {
+    const bookData = await postBook(body);
+    console.log(bookData);
+    return bookData.bookId;
   }
 );
 
@@ -102,8 +112,13 @@ export const bookSlice = createSlice({
     builder.addCase(thunkCreateImage.fulfilled, (state, action) => {
       state.images[action.payload.pageNum] = action.payload.imgUrl;
       state.imageCnt++;
-      //최초 동화책 저장 함수
-      async function saveBook() {
+      //만약 동화책이 완성됐지만 아직 저장이 안된 상태라면
+      if (
+        state.title &&
+        state.texts.length !== 0 &&
+        state.imageCnt === state.texts.length &&
+        !state.saved
+      ) {
         const body = {
           diaryId: state.diaryId,
           title: state.title,
@@ -117,21 +132,13 @@ export const bookSlice = createSlice({
             y: 0,
           })),
         };
-        console.log(body);
-        const BookData = await postBook(body).then((bookData) => {
-          state.bookId = bookData.bookId;
-        });
-        // state.bookId = BookData.bookId;
-      }
-      if (
-        state.title &&
-        state.texts.length !== 0 &&
-        state.imageCnt === state.texts.length &&
-        !state.saved
-      ) {
-        saveBook();
+        const dispatch = useDispatch();
+        dispatch(thunkSaveBook(body)); //최초 동화책 저장
         state.saved = true; //저장됐다고 표시
       }
+    });
+    builder.addCase(thunkSaveBook.fulfilled, (state, action) => {
+      state.bookId = action.payload;
     });
   },
 });
