@@ -73,6 +73,12 @@ export const bookSlice = createSlice({
     setDate: (state, action) => {
       state.date = action.payload;
     },
+    setTitle: (state, action) => {
+      state.title = action.payload;
+    },
+    setTexts: (state, action) => {
+      state.texts[action.payload.index] = action.payload.text;
+    },
     setSaved: (state, action) => {
       state.saved = action.payload;
     },

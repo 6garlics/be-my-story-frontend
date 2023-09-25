@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { editBook } from "../api/books";
+import { useSelector } from "react-redux";
 
 const book = {
   bookId: 1,
@@ -57,15 +58,25 @@ const bookTemp = {
   ],
 };
 
-const BookEditPage = ({ bookId }) => {
-  const [pageNum, setPageNum] = useState(0); //0은 표지의 인덱스
+const BookEditPage = () => {
+  //Redux의 상태 꺼내오기
+  const bookId = useSelector((state) => state.book.bookId);
+  const title = useSelector((state) => state.book.title);
+  const texts = useSelector((state) => state.book.texts);
+  const coverUrl = useSelector((state) => state.book.coverUrl);
+  const images = useSelector((state) => state.book.images);
+
+  //현재 열람하고 있는 페이지 번호 (0번째는 표지)
+  const [pageNum, setPageNum] = useState(0);
+
+  //각 텍스트의 위치 좌표 (0번째는 제목)
   const [positions, setPositions] = useState([
-    ...book.pages.map((_) => {
+    ...texts.map((_) => {
       return { x: 0, y: 0 };
     }),
     { x: 0, y: 0 },
   ]);
-  const [print, setPrint] = useState();
+
   const navigate = useNavigate();
 
   // Redux의 상태를 꺼내서 book에 저장해야함
@@ -82,26 +93,21 @@ const BookEditPage = ({ bookId }) => {
   //   navigate("/bookshelf/0");
   // };
 
-  const onSave = async () => {
-    // await editBook(bookId, {
-    //   title: book.title,
-    //   titlePos: positions[0],
-    //   coverUrl: book.coverUrl,
-    //   pages: book.pages.map((page, index) => {
-    //     return { ...page, textPos: positions[index + 1] };
-    //   }),
-    // });
-    setPrint({
-      title: book.title,
+  //동화책 수정 api 요청
+  const handleEditBook = async () => {
+    const body = {
+      title: title,
       titlePos: positions[0],
-      coverUrl: book.coverUrl,
-      pages: book.pages.map((page, index) => {
-        return { ...page, textPos: positions[index + 1] };
-      }),
-    });
+      coverUrl: coverUrl,
+      pages: texts.map((text, index) => ({
+        text: text,
+        imgUrl: images[index],
+        textPos: positions[index + 1],
+      })),
+    };
+    console.log("동화책 1개 수정 api 요청 바디", body);
+    await editBook(bookId, body);
   };
-
-  console.log(print);
 
   const onLeftClick = () => {
     if (pageNum <= 1) setPageNum((prev) => prev - 1); //내용에서 표지로
@@ -109,10 +115,8 @@ const BookEditPage = ({ bookId }) => {
   };
   const onRightClick = () => {
     if (pageNum === 0) setPageNum((prev) => prev + 1); //표지에서 내용으로
-    else if (pageNum <= book.pages.length - 2) setPageNum((prev) => prev + 2);
+    else if (pageNum <= texts.length - 2) setPageNum((prev) => prev + 2);
   };
-
-  // console.log(pageNum);
 
   return (
     <RootContainer>
@@ -125,12 +129,12 @@ const BookEditPage = ({ bookId }) => {
         <PageEdit
           positions={positions}
           setPositions={setPositions}
-          page={{ text: book.title, imgUrl: book.coverUrl }}
+          page={{ text: title, imgUrl: coverUrl }}
           index={0}
           show={pageNum === 0}
         />
         {/* 내용 */}
-        {book.pages.map((page, index) => {
+        {texts.map((text, index) => {
           return (
             index % 2 === 0 && (
               <PageWrapper>
@@ -139,17 +143,22 @@ const BookEditPage = ({ bookId }) => {
                   key={index}
                   positions={positions}
                   setPositions={setPositions}
-                  page={book.pages[index]}
+                  //page={book.pages[index]}
+                  //page={{ text: text, imgUrl: images[index] }}
+                  text={texts[index]}
+                  imgUrl={images[index]}
                   index={index + 1}
                   show={index + 1 === pageNum}
                 />
                 {/* 오른쪽 페이지 */}
-                {index < book.pages.length - 1 && (
+                {index < texts.length - 1 && (
                   <PageEdit
                     key={index + 1}
                     positions={positions}
                     setPositions={setPositions}
-                    page={book.pages[index + 1]}
+                    //page={book.pages[index + 1]}
+                    text={texts[index + 1]}
+                    imgUrl={images[index + 1]}
                     index={index + 2}
                     show={index + 1 === pageNum}
                   />
@@ -163,7 +172,7 @@ const BookEditPage = ({ bookId }) => {
           <IoIosArrowForward />
         </Button>
       </Container>
-      <Submit type="submit" onClick={onSave}>
+      <Submit type="submit" onClick={handleEditBook}>
         동화책 만들기
       </Submit>
     </RootContainer>

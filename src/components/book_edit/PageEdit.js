@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useDrag } from "react-use-gesture";
 import { styled } from "styled-components";
+import { useDispatch } from "react-redux";
+import { bookSlice } from "../../redux/bookSlice";
 
-const PageEdit = ({ positions, setPositions, page, index, show }) => {
-  const [text, setText] = useState(page.text);
+const PageEdit = ({
+  positions,
+  setPositions,
+  //page,
+  text,
+  imgUrl,
+  index,
+  show,
+}) => {
+  const dispatch = useDispatch();
+  const [newText, setNewText] = useState(text);
   const [textPos, setTextPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -18,15 +29,33 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
   });
 
   useEffect(() => {
-    setText(page.text);
-  }, [page]);
+    setNewText(text);
+  }, [text]);
+
+  //textarea 수정시
+  const handleChangeText = (e) => {
+    setNewText(e.target.value);
+    //표지라면 제목 수정
+    if (index === 0) {
+      dispatch(bookSlice.actions.setTitle(e.target.value));
+    }
+    //표지가 아닌 페이지라면 텍스트 수정
+    else {
+      dispatch(
+        bookSlice.actions.setTexts({
+          index: index - 1,
+          text: e.target.value,
+        })
+      );
+    }
+  };
 
   // console.log("page", page);
   // console.log("show", show);
 
   return (
     <Container $show={show}>
-      <Image src={page.imgUrl} />
+      <Image src={imgUrl} />
       <PageNum>{index !== 0 && index}</PageNum>
       {/* <TextWrapper> */}
       {/* <MoveHandle src="/icons/move.png" /> */}
@@ -34,8 +63,8 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
         {...bindTextPos()}
         $x={textPos.x}
         $y={textPos.y}
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={newText}
+        onChange={handleChangeText}
       ></TextArea>
       {/* </TextWrapper> */}
     </Container>
