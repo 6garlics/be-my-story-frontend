@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AIclient from "../api/AIclient";
 import { postBook } from "../api/books";
-import { useDispatch } from "react-redux";
 
 export const thunkCreateTexts = createAsyncThunk(
   "bookSlice/fetchBookTexts",
@@ -27,12 +26,12 @@ export const thunkCreateCover = createAsyncThunk(
 
 export const thunkCreateImage = createAsyncThunk(
   "bookSlice/thunkCreateImage",
-  async ({ pageNum, body }) => {
+  async ({ pageNum, body, dispatch }) => {
     const res = await AIclient.post(`/textToImage/${pageNum}`, body, {
       headers: { "Content-Type": "application/json" },
     });
     console.log(res.data);
-    return { imgUrl: res.data.imgUrl, pageNum: pageNum };
+    return { imgUrl: res.data.imgUrl, pageNum: pageNum, dispatch: dispatch };
   }
 );
 
@@ -132,8 +131,7 @@ export const bookSlice = createSlice({
             y: 0,
           })),
         };
-        const dispatch = useDispatch();
-        dispatch(thunkSaveBook(body)); //최초 동화책 저장
+        action.payload.dispatch(thunkSaveBook(body)); //최초 동화책 저장
         state.saved = true; //저장됐다고 표시
       }
     });

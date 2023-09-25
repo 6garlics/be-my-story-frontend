@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { DotLoader } from "react-spinners";
-import { createCover, createImage, createTexts } from "../api/AIbooks";
-import { getMyInfo } from "../api/users";
 import { useDispatch, useSelector } from "react-redux";
 import {
   bookSlice,
@@ -16,7 +13,7 @@ import {
   thunkCreateImage,
   thunkCreateTexts,
 } from "../redux/bookSlice";
-import { postDiary, postBook } from "../api/books";
+import { postDiary } from "../api/books";
 
 const genres = ["모험", "우주", "바다", "공룡", "전래동화", "마법", "신화"];
 
@@ -102,6 +99,7 @@ const DiaryForm = () => {
               body: {
                 text: text,
               },
+              dispatch: dispatch,
             })
           );
         });
