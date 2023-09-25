@@ -35,6 +35,7 @@ export const thunkCreateImage = createAsyncThunk(
   }
 );
 
+/*
 export const thunkSaveBook = createAsyncThunk(
   "bookSlice/thunkSaveBook",
   async (body) => {
@@ -43,6 +44,7 @@ export const thunkSaveBook = createAsyncThunk(
     return bookData.bookId;
   }
 );
+*/
 
 export const bookSlice = createSlice({
   name: "bookSlice",
@@ -112,6 +114,7 @@ export const bookSlice = createSlice({
       state.images[action.payload.pageNum] = action.payload.imgUrl;
       state.imageCnt++;
       //만약 동화책이 완성됐지만 아직 저장이 안된 상태라면
+      /*
       if (
         state.title &&
         state.texts.length !== 0 &&
@@ -131,13 +134,16 @@ export const bookSlice = createSlice({
             y: 0,
           })),
         };
-        action.payload.dispatch(thunkSaveBook(body)); //최초 동화책 저장
+        thunkSaveBook(body); //최초 동화책 저장
         state.saved = true; //저장됐다고 표시
       }
+      */
     });
+    /*
     builder.addCase(thunkSaveBook.fulfilled, (state, action) => {
       state.bookId = action.payload;
     });
+    */
   },
 });
 
