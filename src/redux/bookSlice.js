@@ -118,7 +118,9 @@ export const bookSlice = createSlice({
           })),
         };
         console.log(body);
-        const BookData = await postBook(body);
+        const BookData = await postBook(body).then((bookData) => {
+          state.bookId = bookData.bookId;
+        });
         // state.bookId = BookData.bookId;
       }
       if (
