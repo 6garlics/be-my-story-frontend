@@ -5,10 +5,7 @@ import Profile from "../common/Profile";
 import Cover from "./Cover";
 import DiaryModal from "./DiaryModal";
 import { IoIosMore } from "react-icons/io";
-import { TbNotebook, TbNotes } from "react-icons/tb";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo } from "../../api/users";
-import { getMyInfo } from "./../../api/users";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import CommentList from "../common/CommentList";
@@ -16,19 +13,17 @@ import { BsChat } from "react-icons/bs";
 import { deleteBook, getDiary } from "../../api/books";
 
 function Book({
-  bookId,
   userName = "임시 사용자명",
+  bookId,
   title = "자전거 모험",
   texts = ["첫번째", "두번째", "세번째"],
   coverUrl,
   images,
 }) {
-  // const [myName, setMyName] = useState();
   const [isModal, setIsModal] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [pageNum, setPageNum] = useState(0);
   const [diary, setDiary] = useState();
-  // const [refresh, setRefresh] = useState(0);
 
   const navigate = useNavigate();
   const myName = useSelector((state) => state.user.userName);
@@ -48,17 +43,6 @@ function Book({
     }
     fetchDiary();
   }, []);
-
-  //내 정보 조회
-  // useEffect(() => {
-  //   async function fetchMyInfo() {
-  //     try {
-  //       const myData = await getMyInfo();
-  //       setMyName(myData.userName);
-  //     } catch (err) {}
-  //   }
-  //   fetchMyInfo();
-  // }, []);
 
   //동화 삭제
   const onDelete = async () => {
@@ -169,7 +153,6 @@ const Container = styled.div`
   width: ${(props) => (props.$pageNum === 0 ? "35%" : "70%")};
   display: flex;
   flex-direction: column;
-  /* transform: translate(0, -35px); */
   transition: all 0.5s ease-in-out;
 `;
 

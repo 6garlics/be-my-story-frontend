@@ -1,4 +1,4 @@
-import { Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { styled } from "styled-components";
 import Timeline from "./pages/Timeline";
 import DiaryForm from "./pages/DiaryForm";
@@ -10,10 +10,7 @@ import Header from "./components/common/Header";
 import Join from "./pages/Join";
 import { useContext, useEffect } from "react";
 import ColorContext from "./contexts/Color";
-import Page from "./components/common/Page";
-import Book from "./components/timeline/Book";
 import BookDetail from "./pages/BookDetail";
-import PrivateRoutes from "./accessControl/PrivateRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { postBook } from "./api/books";
 import { bookSlice } from "./redux/bookSlice";
@@ -34,7 +31,13 @@ function App() {
   useEffect(() => {
     async function saveBook() {
       //동화책이 완성됐지만 아직 저장되지 않았다면
-      if (title && texts.length !== 0 && imageCnt === texts.length && !saved) {
+      if (
+        title &&
+        texts.length !== 0 &&
+        coverUrl &&
+        imageCnt === texts.length &&
+        !saved
+      ) {
         //최초 동화책 저장
         const body = {
           diaryId: diaryId,
