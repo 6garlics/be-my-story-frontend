@@ -96,8 +96,8 @@ const DiaryForm = () => {
           );
         });
 
-        //열람페이지로 리다이렉션
-        navigate(`/new-book/detail`);
+        //수정페이지로 리다이렉션
+        navigate(`/book-edit`);
       }
     }
     createBook();
