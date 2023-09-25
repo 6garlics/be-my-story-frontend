@@ -8,7 +8,6 @@ import { DotLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import {
   bookSlice,
-  reset,
   thunkCreateCover,
   thunkCreateImage,
   thunkCreateTexts,
@@ -34,17 +33,13 @@ const DiaryForm = () => {
   const [selectedGenre, setSelectedGenre] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [diaryId, setDiaryId] = useState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userName = useSelector((state) => state.user.userName);
   const title = useSelector((state) => state.book.title);
   const texts = useSelector((state) => state.book.texts);
   const coverUrl = useSelector((state) => state.book.coverUrl);
-  const images = useSelector((state) => state.book.images);
   const imageCnt = useSelector((state) => state.book.imageCnt);
-  const saved = useSelector((state) => state.book.saved);
 
   console.log("동화 텍스트", title, texts);
 
@@ -62,26 +57,24 @@ const DiaryForm = () => {
     console.log(Object.fromEntries(formData));
 
     //리덕스 초기화
-    dispatch(reset());
+    dispatch(bookSlice.actions.reset());
 
     //일기 저장
     postDiary(formData).then((diaryData) => {
       dispatch(bookSlice.actions.setDiaryId(diaryData.diaryId));
     });
-    // setDiaryId(diaryData.diaryId);
 
     //동화 텍스트 생성
     dispatch(thunkCreateTexts(formData));
 
     //메타데이터 저장
-    // diaryId && dispatch(bookSlice.actions.setDiaryId(diaryId));
     dispatch(bookSlice.actions.setGenre(genres[selectedGenre]));
     dispatch(bookSlice.actions.setDate(dateToString(date)));
   };
 
   useEffect(() => {
     async function createBook() {
-      //텍스트가 생성되면
+      //제목과 텍스트는 생성되고, 커버와 일러스트는 생성 안된 상태라면
       if (title && texts.length !== 0 && coverUrl === "" && imageCnt === 0) {
         //표지 생성
         dispatch(
@@ -99,22 +92,12 @@ const DiaryForm = () => {
               body: {
                 text: text,
               },
-              dispatch: dispatch,
             })
           );
         });
 
         //열람페이지로 리다이렉션
-        navigate(`/new-book/detail`, {
-          state: {
-            diaryId: diaryId,
-            genre: genres[selectedGenre],
-            date: dateToString(date),
-            userName: userName,
-            title: title,
-            texts: texts,
-          },
-        });
+        navigate(`/new-book/detail`);
       }
     }
     createBook();
