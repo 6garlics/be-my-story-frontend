@@ -129,7 +129,8 @@ const BookEditPage = () => {
         <PageEdit
           positions={positions}
           setPositions={setPositions}
-          page={{ text: title, imgUrl: coverUrl }}
+          text={title}
+          imgUrl={coverUrl}
           index={0}
           show={pageNum === 0}
         />
