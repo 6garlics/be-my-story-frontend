@@ -107,6 +107,7 @@ const BookEditPage = () => {
     };
     console.log("동화책 1개 수정 api 요청 바디", body);
     await editBook(bookId, body);
+    navigate(`book/${bookId}/detail`);
   };
 
   const onLeftClick = () => {
