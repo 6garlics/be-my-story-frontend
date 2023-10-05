@@ -3,6 +3,7 @@ import { useDrag } from "react-use-gesture";
 import { styled } from "styled-components";
 import { useDispatch } from "react-redux";
 import { bookSlice } from "../../redux/bookSlice";
+import { useRef } from "react";
 
 const PageEdit = ({
   positions,
@@ -16,7 +17,41 @@ const PageEdit = ({
   const dispatch = useDispatch();
   const [newText, setNewText] = useState(text);
   const [textPos, setTextPos] = useState({ x: 0, y: 0 });
+  const [focus, setFocus] = useState(false);
 
+  const textarea = useRef(); //TextArea 참조
+  const textWrapper = useRef(); //TextWrapper 참조
+  const dragHandle = useRef(); //DragHandle 참조
+
+  //포커스
+  const onFocus = (e) => {
+    setFocus(true);
+  };
+
+  //포커스해제
+  const removeFocus = (e) => {
+    if (
+      document.activeElement !== textarea.current &&
+      dragHandle.current !== e.target
+    ) {
+      // ref로 지정한 영역이 event.target을 포함하지 않았을 경우 코드 실행
+      setFocus(false);
+    }
+  };
+
+  //포커스해제 이벤트 핸들러 달기
+  useEffect(() => {
+    window.addEventListener("click", removeFocus);
+  }, []);
+
+  useEffect(() => {
+    //TextArea의 높이 자동 조절 하기
+    textarea.current.style.height = "auto";
+    textarea.current.style.height = textarea.current.scrollHeight + "px";
+    textWrapper.current.style.height = textarea.current.scrollHeight + "px";
+  }, [show]);
+
+  //좌표 업데이트
   useEffect(() => {
     const newPositions = positions;
     newPositions[index].x = textPos.x;
@@ -48,6 +83,10 @@ const PageEdit = ({
         })
       );
     }
+    //TextArea의 높이 자동 조절 하기
+    textarea.current.style.height = "auto";
+    textarea.current.style.height = textarea.current.scrollHeight + "px";
+    textWrapper.current.style.height = textarea.current.scrollHeight + "px";
   };
 
   // console.log("page", page);
@@ -56,17 +95,24 @@ const PageEdit = ({
   return (
     <Container $show={show}>
       <Image src={imgUrl} />
+      <TextWrapper ref={textWrapper} $x={textPos.x} $y={textPos.y}>
+        <DragHandle
+          src="/icons/move.png"
+          ref={dragHandle}
+          {...bindTextPos()}
+          $focus={focus}
+        />
+        <TextArea
+          rows={1}
+          ref={textarea}
+          value={newText}
+          onChange={handleChangeText}
+          onFocus={onFocus}
+          $focus={focus}
+          $isCover={index === 0}
+        ></TextArea>
+      </TextWrapper>
       <PageNum>{index !== 0 && index}</PageNum>
-      {/* <TextWrapper> */}
-      {/* <MoveHandle src="/icons/move.png" /> */}
-      <TextArea
-        {...bindTextPos()}
-        $x={textPos.x}
-        $y={textPos.y}
-        value={newText}
-        onChange={handleChangeText}
-      ></TextArea>
-      {/* </TextWrapper> */}
     </Container>
   );
 };
@@ -77,15 +123,20 @@ const Container = styled.div`
   align-items: center;
   display: ${(props) => !props.$show && "none"};
   position: relative;
-  width: 300px;
-  height: 0px;
-  padding-bottom: 300px;
+  width: 100%;
+  /* height: 0px; */
+  /* padding-bottom: 50%; */
+  &:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+  border-radius: 10px;
   overflow: hidden;
 `;
 
 const Image = styled.img`
   width: 100%;
-  border-radius: 10px;
   position: absolute;
   /* 이미지 드래그 막기 */
   -webkit-user-drag: none;
@@ -95,14 +146,25 @@ const Image = styled.img`
   user-drag: none;
 `;
 
-const TextWrapper = styled.div`
+const TextWrapper = styled.div.attrs((props) => ({
+  style: {
+    top: props.$y >= 0 ? `${props.$y}px` : "0px",
+    left: props.$x >= 0 ? `${props.$x}px` : "0px",
+  },
+}))`
+  width: 50%;
   position: absolute;
-  border: 1px solid blue;
-  padding: 20px;
 `;
 
-const MoveHandle = styled.img`
-  width: 20px;
+const DragHandle = styled.img`
+  ${(props) => !props.$focus && "display: none"};
+  z-index: 1;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 8px;
+  padding: 2px;
   /* 이미지 드래그 막기 */
   -webkit-user-drag: none;
   -khtml-user-drag: none;
@@ -114,29 +176,31 @@ const MoveHandle = styled.img`
   }
 `;
 
-const TextArea = styled.textarea.attrs((props) => ({
-  style: {
-    top: props.$y >= 0 ? (props.$y <= 250 ? props.$y + "px" : "250px") : "0px",
-    left: props.$x >= 0 ? (props.$x <= 250 ? props.$x + "px" : "250px") : "0px",
-  },
-}))`
+const TextArea = styled.textarea`
   position: absolute;
   background: none;
   border: none;
+  resize: none;
+  box-sizing: border-box;
+  height: 0px;
   color: white;
-  padding: 5px;
-  /* resize: none; */
   font-size: 15px;
-  border-radius: 10px;
   overflow: hidden;
+  width: 100%;
+  padding: 1.5vw;
+  font-size: 1.2vw;
+  ${(props) =>
+    props.$isCover &&
+    "font-size: 3.2vw;  font-weight: bold; word-break: keep-all; text-align: center; font-family: Gaegu;"};
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 30px 25px rgba(0, 0, 0, 0.2);
+  border-radius: 2em;
 
   &:focus {
-    outline: none;
-    outline: 1px solid white;
-    &::before {
-      content: "와";
-    }
+    /* outline: 1px solid white; */
   }
+  ${(props) => (props.$focus ? "outline: 1px solid white" : "outline: none")};
+
   /* 우측하단의 크기조절 손잡이 숨기기 */
   &::-webkit-resizer {
     /* display: none; */

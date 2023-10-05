@@ -2,28 +2,15 @@ import React from "react";
 import { styled } from "styled-components";
 import { DotLoader } from "react-spinners";
 
-const Page = ({ imgUrl, text, pageNum = 1, onLeftClick, onRightClick }) => {
+const Page = ({ page, pageNum }) => {
+  page && console.log(page.text);
   return (
     <Container>
-      <ImageWrapper>
-        {imgUrl ? (
-          <Image src={imgUrl} />
-        ) : (
-          <Loader>
-            <DotLoader color="#78B9FF" size={100} />
-          </Loader>
-        )}
-        <Button onClick={onLeftClick} $left="0px" $right="auto">
-          왼쪽
-        </Button>
-      </ImageWrapper>
-      <TextWrapper>
-        <Text>{text}</Text>
-        <PageNum>{pageNum}</PageNum>
-        <Button onClick={onRightClick} $left="auto" $right="0px">
-          오른쪽
-        </Button>
-      </TextWrapper>
+      <Image src={page && page.imgUrl} />
+      {page && (
+        <Text $textPos={page.textPos ?? { x: 0, y: 0 }}>{page.text}</Text>
+      )}
+      {page && <PageNum>{pageNum}</PageNum>}
     </Container>
   );
 };
@@ -31,59 +18,46 @@ const Page = ({ imgUrl, text, pageNum = 1, onLeftClick, onRightClick }) => {
 export default Page;
 
 const Container = styled.div`
-  display: flex;
-  width: 100%;
-  min-width: 500px;
+  width: 50%;
+  height: 0px;
+  padding-bottom: 50%;
   border-radius: 10px;
   border: 1px solid grey;
   overflow: hidden;
-`;
-
-const ImageWrapper = styled.div`
-  flex: 1;
-  padding-bottom: 50%;
-  height: 0;
   position: relative;
+  background: rgba(0, 0, 0, 0.2);
 `;
 
 const Image = styled.img`
   width: 100%;
   position: absolute;
+  display: block;
+  vertical-align: top;
 `;
 
-const TextWrapper = styled.div`
-  flex: 1;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  background: skyblue;
-  color: black;
-  position: relative;
-  /* 스크롤 */
-  overflow: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const Text = styled.div`
-  white-space: normal;
-  font-size: 18px;
-  line-height: 30px;
+const Text = styled.div.attrs((props) => ({
+  style: {
+    top: props.$textPos.y + "px",
+    left: props.$textPos.x + "px",
+  },
+}))`
   position: absolute;
-  padding: 30px;
   box-sizing: border-box;
   max-height: 100%;
+  width: 50%;
+  padding: 1.5vw;
+  font-size: 1.2vw;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 30px 25px rgba(0, 0, 0, 0.2);
+  border-radius: 5em;
 `;
 
 const PageNum = styled.div`
   position: absolute;
-  right: 20px;
-  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  bottom: 10px;
+  font-size: 1.5vw;
 `;
 
 const Button = styled.button`

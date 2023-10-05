@@ -2,9 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { DotLoader } from "react-spinners";
 
-const Cover = ({ coverUrl, title, onclick }) => {
-  // console.log("coverUrl", coverUrl);
-
+const Cover = ({ title, titlePos, coverUrl, onclick }) => {
   return (
     <Container>
       <ImageBox>
@@ -15,7 +13,7 @@ const Cover = ({ coverUrl, title, onclick }) => {
             <DotLoader color="#78B9FF" size={100} />
           </Loader>
         )}
-        <Title>{title}</Title>
+        <Title $titlePos={titlePos}>{title}</Title>
         <Button onClick={onclick}></Button>
       </ImageBox>
     </Container>
@@ -56,18 +54,29 @@ const Image = styled.img`
   border-radius: 3% 3% 3% 3%;
 `;
 
-const Title = styled.div`
+const Title = styled.div.attrs(
+  (props) =>
+    props.$titlePos && {
+      style: {
+        top: props.$titlePos.y + "px",
+        left: props.$titlePos.x + "px",
+      },
+    }
+)`
+  ${(props) =>
+    !props.$titlePos &&
+    "left: 50%; transform: translate(-50%, 0%); margin-top: 2vw"};
   position: absolute;
   width: 60%;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 30px;
+  padding: 0.5vw;
+  font-size: 3.2vw;
   font-weight: bold;
   word-break: keep-all;
   text-align: center;
   font-family: "Gaegu";
-  font-size: 40px;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 30px 25px rgba(0, 0, 0, 0.2);
+  border-radius: 5em;
 `;
 
 const Button = styled.button`
@@ -83,22 +92,6 @@ const Button = styled.button`
   &:hover {
     cursor: pointer;
   }
-`;
-
-const PageNum = styled.div`
-  margin: 3px;
-  position: absolute;
-  bottom: 12px;
-  left: ${(props) => props.left};
-  right: ${(props) => props.right};
-  text-align: center;
-`;
-
-const PageText = styled.div`
-  text-align: center;
-  font-size: 20px;
-  word-break: keep-all;
-  height: 6rem;
 `;
 
 export default Cover;

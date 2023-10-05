@@ -107,11 +107,12 @@ const BookEditPage = () => {
     };
     console.log("동화책 1개 수정 api 요청 바디", body);
     await editBook(bookId, body);
+    navigate(`book/${bookId}/detail`);
   };
 
   const onLeftClick = () => {
-    if (pageNum <= 1) setPageNum((prev) => prev - 1); //내용에서 표지로
-    else setPageNum((prev) => prev - 2);
+    if (pageNum === 1) setPageNum((prev) => prev - 1); //내용에서 표지로
+    else if (pageNum > 1) setPageNum((prev) => prev - 2);
   };
   const onRightClick = () => {
     if (pageNum === 0) setPageNum((prev) => prev + 1); //표지에서 내용으로
@@ -125,49 +126,53 @@ const BookEditPage = () => {
         <Button onClick={onLeftClick}>
           <IoIosArrowBack />
         </Button>
-        {/* 표지 */}
-        <PageEdit
-          positions={positions}
-          setPositions={setPositions}
-          text={title}
-          imgUrl={coverUrl}
-          index={0}
-          show={pageNum === 0}
-        />
-        {/* 내용 */}
-        {texts.map((text, index) => {
-          return (
-            index % 2 === 0 && (
-              <PageWrapper>
-                {/* 왼쪽 페이지 */}
-                <PageEdit
-                  key={index}
-                  positions={positions}
-                  setPositions={setPositions}
-                  //page={book.pages[index]}
-                  //page={{ text: text, imgUrl: images[index] }}
-                  text={texts[index]}
-                  imgUrl={images[index]}
-                  index={index + 1}
-                  show={index + 1 === pageNum}
-                />
-                {/* 오른쪽 페이지 */}
-                {index < texts.length - 1 && (
-                  <PageEdit
-                    key={index + 1}
-                    positions={positions}
-                    setPositions={setPositions}
-                    //page={book.pages[index + 1]}
-                    text={texts[index + 1]}
-                    imgUrl={images[index + 1]}
-                    index={index + 2}
-                    show={index + 1 === pageNum}
-                  />
-                )}
-              </PageWrapper>
-            )
-          );
-        })}
+        <Wrapper $smallWidth={pageNum === 0 || pageNum === texts.length}>
+          {/* 표지 */}
+          <PageEdit
+            positions={positions}
+            setPositions={setPositions}
+            text={title}
+            imgUrl={coverUrl}
+            index={0}
+            show={pageNum === 0}
+          />
+          {/* 내용 */}
+          <>
+            {texts.map((text, index) => {
+              return (
+                index % 2 === 0 && (
+                  <PageWrapper>
+                    {/* 왼쪽 페이지 */}
+                    <PageEdit
+                      key={index}
+                      positions={positions}
+                      setPositions={setPositions}
+                      //page={book.pages[index]}
+                      //page={{ text: text, imgUrl: images[index] }}
+                      text={texts[index]}
+                      imgUrl={images[index]}
+                      index={index + 1}
+                      show={index + 1 === pageNum}
+                    />
+                    {/* 오른쪽 페이지 */}
+                    {index < texts.length - 1 && (
+                      <PageEdit
+                        key={index + 1}
+                        positions={positions}
+                        setPositions={setPositions}
+                        //page={book.pages[index + 1]}
+                        text={texts[index + 1]}
+                        imgUrl={images[index + 1]}
+                        index={index + 2}
+                        show={index + 1 === pageNum}
+                      />
+                    )}
+                  </PageWrapper>
+                )
+              );
+            })}
+          </>
+        </Wrapper>
         {/* 오른쪽 버튼 */}
         <Button onClick={onRightClick}>
           <IoIosArrowForward />
@@ -191,10 +196,28 @@ const RootContainer = styled.div`
 const Container = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+
+const Wrapper = styled.div`
+  width: ${(props) => (props.$smallWidth ? "35%" : "70%")};
 `;
 
 const PageWrapper = styled.div`
   display: flex;
+  position: relative;
+`;
+
+const EndingPage = styled.div`
+  width: 100%;
+  /* height: 0px; */
+  /* padding-bottom: 50%; */
+  &:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
 `;
 
 const Button = styled.button`
