@@ -12,23 +12,14 @@ import CommentList from "../common/CommentList";
 import { BsChat } from "react-icons/bs";
 import { deleteBook, getDiary } from "../../api/books";
 
-function Book({
-  userName = "임시 사용자명",
-  bookId,
-  title = "자전거 모험",
-  texts = ["첫번째", "두번째", "세번째"],
-  coverUrl,
-  images,
-}) {
+function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
   const [isModal, setIsModal] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  const [pageNum, setPageNum] = useState(0);
+  const [pageNum, setPageNum] = useState(0); //현재 열람하고 있는 페이지 번호 (0번째는 표지)
   const [diary, setDiary] = useState();
 
   const navigate = useNavigate();
   const myName = useSelector((state) => state.user.userName);
-
-  console.log(images);
 
   //팔레트
   // useEffect(() => {
@@ -55,14 +46,12 @@ function Book({
   };
 
   const onLeftClick = () => {
-    if (pageNum > 0) {
-      setPageNum((prev) => prev - 1);
-    }
+    if (pageNum <= 1) setPageNum((prev) => prev - 1); //내용에서 표지로
+    else setPageNum((prev) => prev - 2);
   };
   const onRightClick = () => {
-    if (pageNum < texts.length) {
-      setPageNum((prev) => prev + 1);
-    }
+    if (pageNum === 0) setPageNum((prev) => prev + 1); //표지에서 내용으로
+    else if (pageNum <= pages.length - 2) setPageNum((prev) => prev + 2);
   };
 
   return (
@@ -78,6 +67,7 @@ function Book({
       </CloseBtn>
       <Wrapper>
         <Container $pageNum={pageNum}>
+          {/* 헤더 */}
           <Header>
             <Profile userName={userName} />
             <Buttons>
@@ -95,22 +85,24 @@ function Book({
             </Buttons>
           </Header>
           {pageNum === 0 ? (
+            // 표지
             <Cover
-              coverUrl={coverUrl && coverUrl}
               title={title}
+              titlePos={titlePos}
+              coverUrl={coverUrl && coverUrl}
               onclick={onRightClick}
-              side="right"
-              buttonLeft="auto"
-              buttonRight="0px"
             />
           ) : (
-            <Page
-              imgUrl={images.length !== 0 && images[pageNum - 1]}
-              text={texts[pageNum - 1]}
-              pageNum={pageNum}
-              onLeftClick={onLeftClick}
-              onRightClick={onRightClick}
-            />
+            <PageWrapper>
+              {/* 왼쪽 버튼 */}
+              <PageButton onClick={onLeftClick} $side="left" />
+              {/* 왼쪽 페이지 */}
+              <Page page={pages[pageNum - 1]} pageNum={pageNum} />
+              {/* 오른쪽 페이지 */}
+              <Page page={pages[pageNum]} pageNum={pageNum + 1} />
+              {/* 오른쪽 버튼 */}
+              <PageButton onClick={onRightClick} $side="right" />
+            </PageWrapper>
           )}
         </Container>
       </Wrapper>
@@ -187,6 +179,28 @@ const CommentListWrapper = styled.div`
   height: 100%;
   margin-left: auto;
   background: white;
+`;
+
+const PageWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 0px;
+  padding-bottom: 50%;
+  position: relative;
+`;
+
+const PageButton = styled.button`
+  position: absolute;
+  z-index: 1;
+  width: 25%;
+  height: 0px;
+  padding-bottom: 50%;
+  background: none;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+  ${(props) => (props.$side === "left" ? "left: 0px" : "right: 0px")}
 `;
 
 export default Book;

@@ -25,12 +25,12 @@ const BookDetail = () => {
     <Root>
       {book && (
         <Book
-          bookId={book.bookId}
           userName={book.userName}
+          bookId={book.bookId}
           title={book.title}
-          texts={book.pages.map((page) => page.text)}
+          titlePos={book.titlePos}
           coverUrl={book.coverUrl}
-          images={book.pages.map((page) => page.imgUrl)}
+          pages={book.pages}
         />
       )}
     </Root>
