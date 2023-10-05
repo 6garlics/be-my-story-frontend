@@ -97,12 +97,14 @@ const BookEditPage = () => {
   const handleEditBook = async () => {
     const body = {
       title: title,
-      titlePos: positions[0],
+      titleX: positions[0].x,
+      titleY: positions[0].y,
       coverUrl: coverUrl,
       pages: texts.map((text, index) => ({
         text: text,
         imgUrl: images[index],
-        textPos: positions[index + 1],
+        x: positions[index + 1].x,
+        y: positions[index + 1].y,
       })),
     };
     console.log("동화책 1개 수정 api 요청 바디", body);

@@ -28,7 +28,7 @@ const BookDetail = () => {
           userName={book.userName}
           bookId={book.bookId}
           title={book.title}
-          titlePos={book.titlePos}
+          titlePos={{ x: book.titleX, y: book.titleY }}
           coverUrl={book.coverUrl}
           pages={book.pages}
         />
