@@ -93,6 +93,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
               onclick={onRightClick}
             />
           ) : (
+            // 내용
             <PageWrapper>
               {/* 왼쪽 버튼 */}
               <PageButton onClick={onLeftClick} $side="left" />
