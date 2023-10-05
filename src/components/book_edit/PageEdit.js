@@ -109,6 +109,7 @@ const PageEdit = ({
           onChange={handleChangeText}
           onFocus={onFocus}
           $focus={focus}
+          $isCover={index === 0}
         ></TextArea>
       </TextWrapper>
       <PageNum>{index !== 0 && index}</PageNum>
@@ -188,6 +189,9 @@ const TextArea = styled.textarea`
   width: 100%;
   padding: 1.5vw;
   font-size: 1.2vw;
+  ${(props) =>
+    props.$isCover &&
+    "font-size: 3.2vw;  font-weight: bold; word-break: keep-all; text-align: center; font-family: Gaegu;"};
   background: rgba(0, 0, 0, 0.2);
   box-shadow: 0px 0px 30px 25px rgba(0, 0, 0, 0.2);
   border-radius: 2em;
