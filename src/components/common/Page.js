@@ -8,7 +8,9 @@ const Page = ({ page, pageNum }) => {
     <Container>
       <Image src={page && page.imgUrl} />
       {page && (
-        <Text $textPos={page.textPos ?? { x: 0, y: 0 }}>{page.text}</Text>
+        <Text $textPos={page.x ? { x: page.x, y: page.y } : { x: 0, y: 0 }}>
+          {page.text}
+        </Text>
       )}
       {page && <PageNum>{pageNum}</PageNum>}
     </Container>
