@@ -204,8 +204,6 @@ const TextArea = styled.textarea`
   color: white;
   font-size: 15px;
   overflow: hidden;
-  word-break: keep-all;
-  text-align: center;
   width: 100%;
   padding: 1.5vw;
   font-size: 1.2vw;
