@@ -138,6 +138,7 @@ const Container = styled.div`
 const Image = styled.img`
   width: 100%;
   position: absolute;
+  background: white;
   /* 이미지 드래그 막기 */
   -webkit-user-drag: none;
   -khtml-user-drag: none;

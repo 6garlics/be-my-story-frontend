@@ -5,12 +5,14 @@ import Profile from "../common/Profile";
 import Cover from "./Cover";
 import DiaryModal from "./DiaryModal";
 import { IoIosMore } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import CommentList from "../common/CommentList";
 import { BsChat } from "react-icons/bs";
 import { deleteBook, getDiary } from "../../api/books";
+import pencil from "../../assets/pencil.svg";
+import { bookSlice } from "../../redux/bookSlice";
 
 function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
   const [isModal, setIsModal] = useState(false);
@@ -19,6 +21,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
   const [diary, setDiary] = useState();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const myName = useSelector((state) => state.user.userName);
 
   //팔레트
@@ -34,6 +37,17 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
     }
     fetchDiary();
   }, []);
+
+  //동화 수정
+  const onEdit = () => {
+    // 열람 중인 동화책 데이터를 redux에 담기
+    dispatch(bookSlice.actions.setBookId(bookId));
+    dispatch(bookSlice.actions.setTitle(title));
+    dispatch(bookSlice.actions.setTexts(pages.map((page) => page.text)));
+    dispatch(bookSlice.actions.setCover(coverUrl));
+    dispatch(bookSlice.actions.setImages(pages.map((page) => page.imgUrl)));
+    navigate("/book-edit");
+  };
 
   //동화 삭제
   const onDelete = async () => {
@@ -73,6 +87,9 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
             <Buttons>
               <Button onClick={() => setShowComments((prev) => !prev)}>
                 <BsChat size={25} color="white" />
+              </Button>
+              <Button onClick={onEdit}>
+                <DeleteBtn src={pencil} />
               </Button>
               {myName && myName === userName && (
                 <Button onClick={onDelete}>
