@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import { useDispatch } from "react-redux";
 import { bookSlice } from "../../redux/bookSlice";
 import { useRef } from "react";
+import { DotLoader } from "react-spinners";
 
 const PageEdit = ({
   positions,
@@ -94,7 +95,13 @@ const PageEdit = ({
 
   return (
     <Container $show={show}>
-      <Image src={imgUrl} />
+      {imgUrl && imgUrl !== "" ? (
+        <Image src={imgUrl} />
+      ) : (
+        <Loader>
+          <DotLoader color="#78B9FF" size={100} />
+        </Loader>
+      )}
       <TextWrapper ref={textWrapper} $x={textPos.x} $y={textPos.y}>
         <DragHandle
           src="/icons/move.png"
@@ -145,6 +152,16 @@ const Image = styled.img`
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
+`;
+
+const Loader = styled.div`
+  width: 100%;
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
 `;
 
 const TextWrapper = styled.div.attrs((props) => ({
