@@ -49,7 +49,7 @@ const booksData = [
 
 const Bookshelf = () => {
   const { userName } = useParams();
-  const [profileImg, setProfileImg] = useState();
+  const [profile, setProfile] = useState();
   const [books, setBooks] = useState();
 
   const colors = useContext(ColorContext);
@@ -60,7 +60,7 @@ const Bookshelf = () => {
       try {
         const data = await getUserInfo(userName);
         console.log(data);
-        setProfileImg(data.profileImg);
+        setProfile(data);
       } catch (err) {}
     }
     fetchUserInfo();
@@ -83,8 +83,9 @@ const Bookshelf = () => {
     <div style={{ display: "flex" }}>
       <Container>
         <Profile
-          profileImg={profileImg}
           userName={userName}
+          profileImg={profile.profileImg}
+          friendStatus={profile.friendStatus}
           bookCnt={books.length}
         />
         <Wrapper $background={colors.theme4}>

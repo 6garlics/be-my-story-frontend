@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -12,14 +12,15 @@ import {
 } from "../../api/users";
 import { checkFriend } from "./../../api/users";
 import FriendList from "./FriendList";
+import ColorContext from "./../../contexts/Color";
 
-const Profile = ({ profileImg, userName, bookCnt }) => {
+const Profile = ({ userName, profileImg, friendStatus, bookCnt }) => {
   const [showFriendList, setShowFriendList] = useState(0); //0: 리스트 숨기기, 1: 팔로워 리스트, 2: 팔로잉 리스트
   const [following, setFollowing] = useState([]);
   const [follower, setFollower] = useState([]);
-  const [isFriend, setIsFriend] = useState(false);
   // const [myName, setMyName] = useState("");
   const myName = useSelector((state) => state.user.userName);
+  const colors = useContext(ColorContext);
 
   useEffect(() => {
     async function fetchFriends() {
@@ -76,12 +77,20 @@ const Profile = ({ profileImg, userName, bookCnt }) => {
       </ProfileInfo>
       {myName &&
         userName !== myName &&
-        (isFriend ? (
-          <FollowButton onClick={() => onUnfollow(userName)}>
+        (friendStatus === "following" ? (
+          <FollowButton
+            $background="white"
+            $color="black"
+            onClick={() => onUnfollow(userName)}
+          >
             친구끊기
           </FollowButton>
         ) : (
-          <FollowButton onClick={() => onFollow(userName)}>
+          <FollowButton
+            $background={colors.theme3}
+            $color="white"
+            onClick={() => onFollow(userName)}
+          >
             친구맺기
           </FollowButton>
         ))}
@@ -171,7 +180,9 @@ const FollowButton = styled.button`
   height: 30px;
   border-radius: 10px;
   border: none;
-  background: white;
+  background: ${({ $background }) => $background};
+  color: ${({ $color }) => $color};
+  font-weight: bold;
   margin-top: 20px;
   &:hover {
     cursor: pointer;
