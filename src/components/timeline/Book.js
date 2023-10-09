@@ -46,6 +46,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
     dispatch(bookSlice.actions.setTexts(pages.map((page) => page.text)));
     dispatch(bookSlice.actions.setCover(coverUrl));
     dispatch(bookSlice.actions.setImages(pages.map((page) => page.imgUrl)));
+    dispatch(bookSlice.actions.setSaved(true));
     navigate("/book-edit");
   };
 
