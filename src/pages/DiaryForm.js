@@ -6,21 +6,17 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { DotLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
+import { topics } from "../assets/topics.js";
+import { postDiary } from "../api/books";
+import refresh from "../assets/refresh.svg";
 import {
   bookSlice,
   thunkCreateCover,
   thunkCreateImage,
   thunkCreateTexts,
 } from "../redux/bookSlice";
-import { postDiary } from "../api/books";
 
 const genres = ["모험", "우주", "바다", "공룡", "전래동화", "마법", "신화"];
-
-const suggestions = [
-  "오늘 친구랑 가장 재밌었던 일은 뭐야?",
-  "친구랑 가장 해보고 싶은 것은 뭐야?",
-  "너랑 가장 친한 친구에 대해서 얘기해줘",
-];
 
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -33,15 +29,28 @@ const DiaryForm = () => {
   const [selectedGenre, setSelectedGenre] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [topic, setTopic] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userName = useSelector((state) => state.user.userName);
   const title = useSelector((state) => state.book.title);
   const texts = useSelector((state) => state.book.texts);
   const coverUrl = useSelector((state) => state.book.coverUrl);
   const imageCnt = useSelector((state) => state.book.imageCnt);
 
-  console.log("동화 텍스트", title, texts);
+  useEffect(() => {
+    console.log("동화 텍스트", title, texts);
+  }, [title, texts]);
+
+  //랜덤 토픽 생성
+  const getTopic = () => {
+    setTopic(topics[Math.floor(Math.random() * topics.length)]);
+  };
+
+  useEffect(() => {
+    getTopic();
+  }, []);
 
   //일기 제출 핸들러
   const submitDiary = async (event) => {
@@ -51,10 +60,11 @@ const DiaryForm = () => {
     //폼데이터 가공
     const formData = new FormData(event.target);
     formData.delete("genre");
-    formData.append("genre", genres[selectedGenre]);
+    formData.append("keyword", genres[selectedGenre]);
     formData.delete("date");
-    formData.append("date", dateToString(date));
-    console.log(Object.fromEntries(formData));
+    // formData.append("date", dateToString(date));
+    formData.append("name", userName);
+    console.log("작성된 일기", Object.fromEntries(formData));
 
     //리덕스 초기화
     dispatch(bookSlice.actions.reset());
@@ -119,7 +129,10 @@ const DiaryForm = () => {
     <Error>에러가 발생했어요.</Error>
   ) : (
     <Wrapper>
-      <Suggestion>오늘 가장 재밌었던 일이 뭐야?</Suggestion>
+      <TopicWrapper>
+        <Topic>{topic}</Topic>
+        <RefreshIcon src={refresh} onClick={getTopic} />
+      </TopicWrapper>
       <Form onSubmit={submitDiary}>
         <SDatePicker
           value={date}
@@ -199,11 +212,29 @@ const Wrapper = styled.div`
   box-sizing: border-box;
 `;
 
-const Suggestion = styled.div`
+const TopicWrapper = styled.div`
+  //width: 700px;
+  display: flex;
+  justify-content: center;
+`;
+
+const Topic = styled.div`
+  max-width: 660px;
+  text-align: center;
   flex: none;
-  font-size: 50px;
+  font-size: 45px;
   font-family: "Gaegu";
   padding: 20px 0;
+  word-break: keep-all;
+`;
+
+const RefreshIcon = styled.img`
+  position: relative;
+  right: 0;
+  margin-left: 20px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Form = styled.form`
