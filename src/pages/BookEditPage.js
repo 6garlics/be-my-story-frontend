@@ -65,6 +65,7 @@ const BookEditPage = () => {
   const texts = useSelector((state) => state.book.texts);
   const coverUrl = useSelector((state) => state.book.coverUrl);
   const images = useSelector((state) => state.book.images);
+  const saved = useSelector((state) => state.book.saved);
 
   //현재 열람하고 있는 페이지 번호 (0번째는 표지)
   const [pageNum, setPageNum] = useState(0);
@@ -78,20 +79,6 @@ const BookEditPage = () => {
   ]);
 
   const navigate = useNavigate();
-
-  // Redux의 상태를 꺼내서 book에 저장해야함
-  // newBookDetail 참고
-
-  // const location = useLocation();
-
-  // const book = location.state.book;
-  // useEffect(() => {
-  //   console.log("받아온 데이터: ", book);
-  // }, []);
-
-  // const createBook = () => {
-  //   navigate("/bookshelf/0");
-  // };
 
   //동화책 수정 api 요청
   const handleEditBook = async () => {
@@ -180,7 +167,7 @@ const BookEditPage = () => {
           <IoIosArrowForward />
         </Button>
       </Container>
-      <Submit type="submit" onClick={handleEditBook}>
+      <Submit type="submit" onClick={handleEditBook} disabled={!saved}>
         동화책 만들기
       </Submit>
     </RootContainer>
