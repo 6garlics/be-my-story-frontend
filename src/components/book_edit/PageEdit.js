@@ -78,7 +78,7 @@ const PageEdit = ({
     //표지가 아닌 페이지라면 텍스트 수정
     else {
       dispatch(
-        bookSlice.actions.setTexts({
+        bookSlice.actions.setText({
           index: index - 1,
           text: e.target.value,
         })
