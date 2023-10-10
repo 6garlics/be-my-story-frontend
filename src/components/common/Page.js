@@ -49,6 +49,7 @@ const Text = styled.div.attrs((props) => ({
   width: 50%;
   padding: 1.5vw;
   font-size: 1.2vw;
+  word-break: keep-all;
   background: rgba(0, 0, 0, 0.2);
   box-shadow: 0px 0px 30px 25px rgba(0, 0, 0, 0.2);
   border-radius: 5em;

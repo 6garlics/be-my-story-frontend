@@ -164,7 +164,7 @@ const Container = styled.div`
   width: ${(props) => (props.$pageNum === 0 ? "35%" : "70%")};
   display: flex;
   flex-direction: column;
-  transition: all 0.5s ease-in-out;
+  //transition: all 0.5s ease-in-out;
 `;
 
 const Header = styled.div`

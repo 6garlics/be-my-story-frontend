@@ -63,11 +63,8 @@ const Title = styled.div.attrs(
       },
     }
 )`
-  ${(props) =>
-    !props.$titlePos &&
-    "left: 50%; transform: translate(-50%, 0%); margin-top: 2vw"};
   position: absolute;
-  width: 60%;
+  width: 90%;
   padding: 0.5vw;
   font-size: 3.2vw;
   font-weight: bold;
@@ -77,6 +74,7 @@ const Title = styled.div.attrs(
   background: rgba(0, 0, 0, 0.2);
   box-shadow: 0px 0px 30px 25px rgba(0, 0, 0, 0.2);
   border-radius: 5em;
+  border: 1px solid red;
 `;
 
 const Button = styled.button`
