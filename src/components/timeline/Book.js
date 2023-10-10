@@ -35,7 +35,10 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
       const data = await getDiary(bookId);
       setDiary(data);
     }
-    fetchDiary();
+    //본인 동화인 경우에만 일기 조회
+    if (myName === userName) {
+      fetchDiary();
+    }
   }, []);
 
   //동화 수정
@@ -86,20 +89,27 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
           <Header>
             <Profile userName={userName} />
             <Buttons>
+              {/* 댓글 보기 버튼 */}
               <Button onClick={() => setShowComments((prev) => !prev)}>
                 <BsChat size={25} color="white" />
               </Button>
-              <Button onClick={onEdit}>
-                <DeleteBtn src={pencil} />
-              </Button>
+              {/* 본인 동화책에만 보이는 버튼들 */}
               {myName && myName === userName && (
-                <Button onClick={onDelete}>
-                  <DeleteBtn src="/icons/delete.png" />
-                </Button>
+                <>
+                  {/* 동화 수정 버튼 */}
+                  <Button onClick={onEdit}>
+                    <DeleteBtn src={pencil} />
+                  </Button>
+                  {/* 동화 삭제 버튼 */}
+                  <Button onClick={onDelete}>
+                    <DeleteBtn src="/icons/delete.png" />
+                  </Button>
+                  {/* 일기 보기 버튼 */}
+                  <Button onClick={() => setIsModal((prev) => !prev)}>
+                    <IoIosMore size={27} color="white" />
+                  </Button>
+                </>
               )}
-              <Button onClick={() => setIsModal((prev) => !prev)}>
-                <IoIosMore size={27} color="white" />
-              </Button>
             </Buttons>
           </Header>
           {pageNum === 0 ? (
