@@ -33,8 +33,7 @@ const ImageBox = styled.div`
   height: 0px;
   padding-bottom: 100%;
   overflow: hidden;
-  border-radius: 3% 3% 3% 3%;
-  border: 1px solid grey;
+  border-radius: 1vw;
 `;
 
 const Loader = styled.div`
@@ -51,15 +50,14 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 3% 3% 3% 3%;
 `;
 
 const Title = styled.div.attrs(
   (props) =>
     props.$titlePos && {
       style: {
-        top: props.$titlePos.y + "px",
-        left: props.$titlePos.x + "px",
+        top: props.$titlePos.y + "%",
+        left: props.$titlePos.x + "%",
       },
     }
 )`

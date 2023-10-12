@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bookSlice } from "../../redux/bookSlice";
 import { useRef } from "react";
 import { DotLoader } from "react-spinners";
+import { current } from "@reduxjs/toolkit";
 
 const PageEdit = ({
   positions,
@@ -20,7 +21,10 @@ const PageEdit = ({
   const [newText, setNewText] = useState(text);
   const [textPos, setTextPos] = useState({ x: 0, y: 0 });
   const [focus, setFocus] = useState(false);
+  const [percentX, setPercentX] = useState(0);
+  const [percentY, setPercentY] = useState(0);
 
+  const container = useRef(); //Container 참조
   const textarea = useRef(); //TextArea 참조
   const textWrapper = useRef(); //TextWrapper 참조
   const dragHandle = useRef(); //DragHandle 참조
@@ -46,30 +50,23 @@ const PageEdit = ({
     window.addEventListener("click", removeFocus);
   }, []);
 
-  useEffect(() => {
-    //TextArea의 높이 자동 조절 하기
+  //TextArea의 높이 자동 조절 함수
+  const fitHeight = () => {
     textarea.current.style.height = "auto";
     textarea.current.style.height = textarea.current.scrollHeight + "px";
     textWrapper.current.style.height = textarea.current.scrollHeight + "px";
-  }, [show]);
+  };
 
-  //좌표 업데이트
   useEffect(() => {
-    const newPositions = positions;
-    newPositions[index].x = textPos.x;
-    newPositions[index].y = textPos.y;
-    setPositions(newPositions);
-  }, [textPos]);
-
-  const bindTextPos = useDrag((params) => {
-    setTextPos({ x: params.offset[0], y: params.offset[1] });
-  });
+    //TextArea의 높이 자동 조절
+    fitHeight();
+  }, [show]);
 
   useEffect(() => {
     setNewText(text);
   }, [text]);
 
-  //textarea 수정시
+  //textarea 내용 수정 시
   const handleChangeText = (e) => {
     setNewText(e.target.value);
     //표지라면 제목 수정
@@ -85,17 +82,45 @@ const PageEdit = ({
         })
       );
     }
-    //TextArea의 높이 자동 조절 하기
-    textarea.current.style.height = "auto";
-    textarea.current.style.height = textarea.current.scrollHeight + "px";
-    textWrapper.current.style.height = textarea.current.scrollHeight + "px";
+    //TextArea의 높이 자동 조절
+    fitHeight();
   };
 
-  // console.log("page", page);
-  // console.log("show", show);
+  //퍼센트 좌표 업데이트
+  useEffect(() => {
+    const newPositions = positions;
+    newPositions[index].x = percentX;
+    newPositions[index].y = percentY;
+    setPositions(newPositions);
+  }, [textPos]);
+
+  //픽셀 좌표 바인딩
+  const bindTextPos = useDrag((params) => {
+    setTextPos({ x: params.offset[0], y: params.offset[1] });
+  });
+
+  //퍼센트 좌표 계산
+  useEffect(() => {
+    let width =
+      container.current &&
+      Number(
+        window
+          .getComputedStyle(container.current)
+          .getPropertyValue("width")
+          .replace("px", "")
+      );
+
+    if (container.current && !isNaN(width)) {
+      const x = (textPos.x / width) * 100;
+      const y = (textPos.y / width) * 100;
+      setPercentX(x >= 0 ? (x <= 90 ? x : 90) : 0);
+      setPercentY(y >= 0 ? (y <= 90 ? y : 90) : 0);
+    }
+  });
+  console.log(Math.floor(percentX), Math.floor(percentY));
 
   return (
-    <Container $show={show}>
+    <Container $show={show} ref={container}>
       {imgUrl && imgUrl !== "" ? (
         <Image src={imgUrl} />
       ) : (
@@ -105,8 +130,8 @@ const PageEdit = ({
       )}
       <TextWrapper
         ref={textWrapper}
-        $x={textPos.x}
-        $y={textPos.y}
+        $x={percentX}
+        $y={percentY}
         $isCover={index === 0}
         $hideShadow={!imgUrl}
       >
@@ -145,7 +170,7 @@ const Container = styled.div`
     display: block;
     padding-bottom: 100%;
   }
-  border-radius: 10px;
+  border-radius: 1vw;
   overflow: hidden;
 `;
 
@@ -171,10 +196,10 @@ const Loader = styled.div`
   background: grey;
 `;
 
-const TextWrapper = styled.div.attrs((props) => ({
+const TextWrapper = styled.div.attrs(({ $x, $y }) => ({
   style: {
-    top: props.$y >= 0 ? `${props.$y}px` : "0px",
-    left: props.$x >= 0 ? `${props.$x}px` : "0px",
+    top: $y + "%",
+    left: $x + "%",
   },
 }))`
   width: ${({ $isCover }) => ($isCover ? "90%" : "50%")};
