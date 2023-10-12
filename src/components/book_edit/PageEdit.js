@@ -225,6 +225,7 @@ const TextArea = styled.textarea`
   width: 100%;
   padding: 1vw;
   font-size: 1.2vw;
+  font-family: "Nanum Gothic";
   word-break: keep-all;
   border-radius: 2.5vw;
   overflow: hidden;
