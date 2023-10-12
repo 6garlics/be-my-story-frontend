@@ -3,15 +3,17 @@ import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
 import Nav from "./Nav";
 import ColorContext from "./../../contexts/Color";
+import logo from "../../assets/logo.svg";
 
 const Header = () => {
   const colors = useContext(ColorContext);
   return (
     <Container $background={colors.background}>
-      <Logo to="/">
-        <BE $color={colors.theme3}>BE</BE>
-        <Text>MY STORY</Text>
-      </Logo>
+      <Wrapper to="/">
+        <Logo src={logo} />
+        <EngText>토리</EngText>
+        <KorText $color={colors.theme3}>TORI</KorText>
+      </Wrapper>
       <Nav />
     </Container>
   );
@@ -30,21 +32,40 @@ const Container = styled.div`
   background: ${(props) => props.$background};
 `;
 
-const Logo = styled(NavLink)`
+const Wrapper = styled(NavLink)`
   display: flex;
+  align-items: center;
   color: black;
   font-size: 30px;
   font-weight: bold;
   text-decoration: none;
+  /* border: 1px solid white; */
 `;
 
-const BE = styled.div`
-  color: ${(props) => props.$color};
-  margin-right: 13px;
+const Logo = styled.img`
+  width: 26px;
+  margin-left: 4px;
+  margin-right: 14px;
+  /* border: 1px solid white; */
 `;
 
-const Text = styled.div`
+const EngText = styled.div`
   color: white;
+  font-size: 42px;
+  font-family: "Gaegu";
+  /* border: 1px solid white; */
+  padding-top: 10px;
+`;
+
+const KorText = styled.div`
+  /* border: 1px solid white; */
+
+  font-size: 16px;
+  font-family: "Gaegu";
+  color: white;
+  /* color: ${({ $color }) => $color}; */
+  margin-top: 18px;
+  margin-left: 4px;
 `;
 
 export default Header;
