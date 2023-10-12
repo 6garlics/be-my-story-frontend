@@ -79,6 +79,9 @@ export const bookSlice = createSlice({
     setTexts: (state, action) => {
       state.texts = action.payload;
     },
+    setText: (state, action) => {
+      state.texts[action.payload.index] = action.payload.text;
+    },
     setCover: (state, action) => {
       state.coverUrl = action.payload;
     },

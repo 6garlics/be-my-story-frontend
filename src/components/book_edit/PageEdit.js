@@ -78,7 +78,7 @@ const PageEdit = ({
     //표지가 아닌 페이지라면 텍스트 수정
     else {
       dispatch(
-        bookSlice.actions.setTexts({
+        bookSlice.actions.setText({
           index: index - 1,
           text: e.target.value,
         })
@@ -102,7 +102,12 @@ const PageEdit = ({
           <DotLoader color="#78B9FF" size={100} />
         </Loader>
       )}
-      <TextWrapper ref={textWrapper} $x={textPos.x} $y={textPos.y}>
+      <TextWrapper
+        ref={textWrapper}
+        $x={textPos.x}
+        $y={textPos.y}
+        $isCover={index === 0}
+      >
         <DragHandle
           src="/icons/move.png"
           ref={dragHandle}
@@ -170,7 +175,7 @@ const TextWrapper = styled.div.attrs((props) => ({
     left: props.$x >= 0 ? `${props.$x}px` : "0px",
   },
 }))`
-  width: 50%;
+  width: ${({ $isCover }) => ($isCover ? "90%" : "50%")};
   position: absolute;
 `;
 
@@ -200,19 +205,24 @@ const TextArea = styled.textarea`
   border: none;
   resize: none;
   box-sizing: border-box;
-  height: 0px;
   color: white;
-  font-size: 15px;
   overflow: hidden;
   width: 100%;
   padding: 1.5vw;
   font-size: 1.2vw;
-  ${(props) =>
-    props.$isCover &&
-    "font-size: 3.2vw;  font-weight: bold; word-break: keep-all; text-align: center; font-family: Gaegu;"};
+  word-break: keep-all;
   background: rgba(0, 0, 0, 0.2);
   box-shadow: 0px 0px 30px 25px rgba(0, 0, 0, 0.2);
   border-radius: 2em;
+  ${(props) =>
+    props.$isCover &&
+    `padding: 0.5vw;
+    font-size: 3.2vw;
+    font-weight: bold;
+    word-break: keep-all;
+    text-align: center;
+    font-family: Gaegu;
+    border-radius: 5em;`};
 
   &:focus {
     /* outline: 1px solid white; */

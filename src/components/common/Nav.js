@@ -7,10 +7,12 @@ import { HiBookOpen, HiOutlineBookOpen } from "react-icons/hi2";
 import ColorContext from "../../contexts/Color";
 import { logout } from "../../api/users";
 import { isLogin } from "../../accessControl/isLogin";
+import { useSelector } from "react-redux";
 
 const iconSize = 28;
 
 const Nav = () => {
+  const userName = useSelector((state) => state.user.userName);
   const colors = useContext(ColorContext);
   const navigate = useNavigate();
 
@@ -41,10 +43,7 @@ const Nav = () => {
           <NLink to="/diary-form" $activeColor={colors.theme3}>
             <TbSquareRoundedPlusFilled size={iconSize} />
           </NLink>
-          <NLink
-            to={`/bookshelf/${localStorage.getItem("userName")}`}
-            $activeColor={colors.theme3}
-          >
+          <NLink to={`/bookshelf/${userName}`} $activeColor={colors.theme3}>
             <HiBookOpen size={iconSize} />
           </NLink>
         </>

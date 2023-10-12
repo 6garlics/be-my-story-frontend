@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
 import {
   follow,
@@ -13,41 +13,47 @@ import {
 import { checkFriend } from "./../../api/users";
 import FriendList from "./FriendList";
 import ColorContext from "./../../contexts/Color";
+import { userSlice } from "../../redux/userSlice";
 
 const Profile = ({ userName, profileImg, friendStatus, bookCnt }) => {
-  const [showFriendList, setShowFriendList] = useState(0); //0: 리스트 숨기기, 1: 팔로워 리스트, 2: 팔로잉 리스트
+  //0: 리스트 숨기기, 1: 팔로워 리스트, 2: 팔로잉 리스트
+  const [showFriendList, setShowFriendList] = useState(0);
   const [following, setFollowing] = useState([]);
   const [follower, setFollower] = useState([]);
-  // const [myName, setMyName] = useState("");
   const myName = useSelector((state) => state.user.userName);
+  const refresh = useSelector((state) => state.user.refresh);
   const colors = useContext(ColorContext);
 
+  const dispatch = useDispatch();
+
+  //팔로잉, 팔로워 리스트 조회
   useEffect(() => {
     async function fetchFriends() {
-      //팔로잉 조회
+      //팔로잉 리스트 조회
       const followingData = await getFollowing(userName);
       setFollowing(followingData);
-      //팔로워 조회
+      //팔로워 리스트 조회
       const followerData = await getFollower(userName);
       setFollower(followerData);
-      //친구 여부 조회
-      // const isFriendData = await checkFriend();
-      // setIsFriend(isFriendData);
-      //내정보 조회
-      // const myData = await getMyInfo();
-      // setMyName(myData.userName);
     }
     fetchFriends();
-  }, []);
+  }, [refresh]);
+
+  //재렌더링
+  const onRefresh = () => {
+    dispatch(userSlice.actions.setRefresh(!refresh));
+  };
 
   //팔로우 하기
   const onFollow = async (userName) => {
     await follow(userName);
+    onRefresh();
   };
 
   //언팔 하기
   const onUnfollow = async (userName) => {
     await unfollow(userName);
+    onRefresh();
   };
 
   return (

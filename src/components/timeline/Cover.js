@@ -63,11 +63,8 @@ const Title = styled.div.attrs(
       },
     }
 )`
-  ${(props) =>
-    !props.$titlePos &&
-    "left: 50%; transform: translate(-50%, 0%); margin-top: 2vw"};
   position: absolute;
-  width: 60%;
+  width: 90%;
   padding: 0.5vw;
   font-size: 3.2vw;
   font-weight: bold;

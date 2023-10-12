@@ -97,6 +97,7 @@ const Container = styled.div`
   flex-direction: column;
   color: white;
   background: ${(props) => props.$background};
+  font-family: "Nanum Gothic" !important;
 `;
 
 const Main = styled.main`

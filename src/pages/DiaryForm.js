@@ -9,6 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { topics } from "../assets/topics.js";
 import { postDiary } from "../api/books";
 import refresh from "../assets/refresh.svg";
+import arrowLeft from "../assets/arrowLeft.svg";
+import arrowRight from "../assets/arrowRight.svg";
+import { S } from "./diaryFormStyle";
 import {
   bookSlice,
   thunkCreateCover,
@@ -26,10 +29,12 @@ const DiaryForm = () => {
   const [contents, setText] = useState(
     "오늘 밤에 자전거를 탔다. 자전거는 처음 탈 때는 좀 중심잡기가 힘들었다. 그러나 재미있었다. 자전거를 잘 타서 엄마, 아빠 산책 갈 때 나도 가야겠다."
   );
+  const [characterName, setCharacterName] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [topic, setTopic] = useState("");
+  const [page, setPage] = useState(0); //현재 작성 중인 폼
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -63,7 +68,6 @@ const DiaryForm = () => {
     formData.append("keyword", genres[selectedGenre]);
     formData.delete("date");
     // formData.append("date", dateToString(date));
-    formData.append("name", userName);
     console.log("작성된 일기", Object.fromEntries(formData));
 
     //리덕스 초기화
@@ -121,211 +125,93 @@ const DiaryForm = () => {
   };
 
   return loading ? (
-    <Loader>
+    <S.Loader>
       <DotLoader color="#78B9FF" size={100} />
-      <LoaderText>동화책을 만들고 있어요!</LoaderText>
-    </Loader>
+      <S.LoaderText>동화책을 만들고 있어요!</S.LoaderText>
+    </S.Loader>
   ) : error ? (
-    <Error>에러가 발생했어요.</Error>
+    <S.Error>에러가 발생했어요.</S.Error>
   ) : (
-    <Wrapper>
-      <TopicWrapper>
-        <Topic>{topic}</Topic>
-        <RefreshIcon src={refresh} onClick={getTopic} />
-      </TopicWrapper>
-      <Form onSubmit={submitDiary}>
-        <SDatePicker
-          value={date}
-          name="date"
-          dateFormat="yyyy년 MM월 dd일"
-          maxDate={new window.Date()}
-          locale={ko}
-          selected={date}
-          onChange={(date) => setDate(date)}
-        />
-        {/* <Suggestion>{suggestions[Math.floor(Math.random() * 3)]}</Suggestion> */}
-        <Title
-          placeholder="제목"
-          name="title"
-          value={diaryTitle}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <Contents
-          placeholder="일기를 써주세요."
-          name="contents"
-          value={contents}
-          onChange={(e) => setText(e.target.value)}
-        />
-        <Genres>
-          {genres.map((genre, index) => {
-            return (
-              <Label key={index}>
-                <RadioButton
-                  type="radio"
-                  name="genre"
-                  value={index}
-                  onChange={(e) => setSelectedGenre(index)}
-                />
-                <Genre index={index} selectedGenre={selectedGenre}>
-                  {genre}
-                </Genre>
-              </Label>
-            );
-          })}
-        </Genres>
-        <SubmitButton type="submit">다음</SubmitButton>
-      </Form>
-    </Wrapper>
+    <S.Wrapper>
+      <S.TopicWrapper>
+        <S.Topic>{topic}</S.Topic>
+        <S.RefreshIcon src={refresh} onClick={getTopic} />
+      </S.TopicWrapper>
+      <S.Form onSubmit={submitDiary}>
+        <S.FormBox $show={page === 0}>
+          <S.Header>
+            <S.SDatePicker
+              value={date}
+              name="date"
+              dateFormat="yyyy년 MM월 dd일"
+              maxDate={new window.Date()}
+              locale={ko}
+              selected={date}
+              onChange={(date) => setDate(date)}
+            />
+          </S.Header>
+
+          <S.Title
+            placeholder="제목"
+            name="title"
+            value={diaryTitle}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+
+          <S.Contents
+            placeholder="일기를 써보아요."
+            name="contents"
+            value={contents}
+            onChange={(e) => setText(e.target.value)}
+          />
+          <S.ButtonWrapper>
+            <div></div>
+            <S.Button type="button" onClick={() => setPage((prev) => prev + 1)}>
+              <S.Text>다음</S.Text>
+              <S.Img src={arrowRight} />
+            </S.Button>
+          </S.ButtonWrapper>
+        </S.FormBox>
+        <S.FormBox $show={page === 1}>
+          <S.CharacterNameWrapper>
+            <S.Label>주인공의 이름을 정해볼까요?</S.Label>
+            <S.CharacterName
+              name="name"
+              value={characterName}
+              onChange={(e) => setCharacterName(e.target.value)}
+            ></S.CharacterName>
+          </S.CharacterNameWrapper>
+          <S.GenreWrapper>
+            <S.Label>이야기의 배경을 골라보아요.</S.Label>
+            <S.Genres>
+              {genres.map((genre, index) => {
+                return (
+                  <S.GenreLabel key={index}>
+                    <S.RadioButton
+                      type="radio"
+                      name="genre"
+                      value={index}
+                      onChange={(e) => setSelectedGenre(index)}
+                    />
+                    <S.Genre index={index} selectedGenre={selectedGenre}>
+                      {genre}
+                    </S.Genre>
+                  </S.GenreLabel>
+                );
+              })}
+            </S.Genres>
+          </S.GenreWrapper>
+          <S.ButtonWrapper>
+            <S.Button type="button" onClick={() => setPage((prev) => prev - 1)}>
+              <S.Img src={arrowLeft} />
+              <S.Text>이전</S.Text>
+            </S.Button>
+            <S.Button type="submit">만들기</S.Button>
+          </S.ButtonWrapper>
+        </S.FormBox>
+      </S.Form>
+    </S.Wrapper>
   );
 };
-
-const Loader = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 90vh;
-  color: grey;
-  font-size: 20px;
-`;
-
-const LoaderText = styled.div`
-  margin-top: 40px;
-`;
-
-const Error = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 90vh;
-  font-weight: bold;
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: calc(100vh - 60px);
-  padding-top: 50px;
-  padding-bottom: 70px;
-  box-sizing: border-box;
-`;
-
-const TopicWrapper = styled.div`
-  //width: 700px;
-  display: flex;
-  justify-content: center;
-`;
-
-const Topic = styled.div`
-  max-width: 660px;
-  text-align: center;
-  flex: none;
-  font-size: 45px;
-  font-family: "Gaegu";
-  padding: 20px 0;
-  word-break: keep-all;
-`;
-
-const RefreshIcon = styled.img`
-  position: relative;
-  right: 0;
-  margin-left: 20px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const Form = styled.form`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  width: 700px;
-  border-radius: 12px;
-  box-sizing: border-box;
-  padding: 25px;
-  color: black;
-  background: white;
-`;
-
-const SDatePicker = styled(DatePicker)`
-  height: 40px;
-  font-size: 20px;
-  border-radius: 10px 10px;
-  text-align: center;
-  border: none;
-  background: #beddff;
-  &:hover {
-    cursor: pointer;
-  }
-  &:focus {
-    outline: none;
-  }
-`;
-
-const Title = styled.input`
-  flex: 1.5;
-  border: none;
-  font-size: 25px;
-  padding-top: 25px;
-  padding-bottom: 10px;
-  &:focus {
-    outline: none;
-  }
-`;
-
-const Contents = styled.textarea`
-  flex: 15;
-  font-size: 17px;
-  line-height: 25px;
-  resize: none;
-  border: none;
-  &:focus {
-    outline: none;
-  }
-`;
-
-const Genres = styled.div`
-  flex: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 10px 0px;
-`;
-
-const Label = styled.label``;
-
-const RadioButton = styled.input`
-  display: none;
-`;
-
-const Genre = styled.div`
-  min-width: 50px;
-  text-align: center;
-  margin: 6px;
-  padding: 5px 10px;
-  border-radius: 50px;
-  outline: 1px solid lightgrey;
-  &:hover {
-    cursor: pointer;
-    font-weight: bold;
-  }
-  ${(props) =>
-    props.index === props.selectedGenre
-      ? { background: "#BEDDFF", fontWeight: "bold", outline: "none" }
-      : { background: "white" }}
-`;
-
-const SubmitButton = styled.button`
-  flex: 1.5;
-  border: none;
-  border-radius: 10px;
-  background-color: #beddff;
-  font-size: 18px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
 
 export default DiaryForm;

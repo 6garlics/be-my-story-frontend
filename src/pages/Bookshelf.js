@@ -15,6 +15,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment";
 import Profile from "../components/book_shelf/Profile";
+import { useSelector } from "react-redux";
 
 const booksData = [
   {
@@ -51,6 +52,7 @@ const Bookshelf = () => {
   const { userName } = useParams();
   const [profile, setProfile] = useState();
   const [books, setBooks] = useState();
+  const refresh = useSelector((state) => state.user.refresh);
 
   const colors = useContext(ColorContext);
 
@@ -64,7 +66,7 @@ const Bookshelf = () => {
       } catch (err) {}
     }
     fetchUserInfo();
-  }, []);
+  }, [refresh]);
 
   //책장 조회
   useEffect(() => {
