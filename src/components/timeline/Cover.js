@@ -56,8 +56,8 @@ const Title = styled.div.attrs(
   (props) =>
     props.$titlePos && {
       style: {
-        top: props.$titlePos.y + "px",
-        left: props.$titlePos.x + "px",
+        top: props.$titlePos.y + "%",
+        left: props.$titlePos.x + "%",
       },
     }
 )`

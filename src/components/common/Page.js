@@ -38,8 +38,8 @@ const Image = styled.img`
 
 const Text = styled.div.attrs((props) => ({
   style: {
-    top: props.$textPos.y + "px",
-    left: props.$textPos.x + "px",
+    top: props.$textPos.y + "%",
+    left: props.$textPos.x + "%",
   },
 }))`
   position: absolute;
