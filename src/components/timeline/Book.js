@@ -220,7 +220,7 @@ const PageWrapper = styled.div`
 
 const PageButton = styled.button`
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   width: 25%;
   height: 0px;
   padding-bottom: 50%;
