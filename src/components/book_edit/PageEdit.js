@@ -46,12 +46,21 @@ const PageEdit = ({
     window.addEventListener("click", removeFocus);
   }, []);
 
-  useEffect(() => {
-    //TextArea의 높이 자동 조절 하기
+  //TextArea의 높이 자동 조절 함수
+  const fitHeight = () => {
     textarea.current.style.height = "auto";
     textarea.current.style.height = textarea.current.scrollHeight + "px";
     textWrapper.current.style.height = textarea.current.scrollHeight + "px";
+  };
+
+  useEffect(() => {
+    //TextArea의 높이 자동 조절
+    fitHeight();
   }, [show]);
+
+  useEffect(() => {
+    setNewText(text);
+  }, [text]);
 
   //좌표 업데이트
   useEffect(() => {
@@ -65,11 +74,7 @@ const PageEdit = ({
     setTextPos({ x: params.offset[0], y: params.offset[1] });
   });
 
-  useEffect(() => {
-    setNewText(text);
-  }, [text]);
-
-  //textarea 수정시
+  //textarea 내용 수정 시
   const handleChangeText = (e) => {
     setNewText(e.target.value);
     //표지라면 제목 수정
@@ -85,10 +90,8 @@ const PageEdit = ({
         })
       );
     }
-    //TextArea의 높이 자동 조절 하기
-    textarea.current.style.height = "auto";
-    textarea.current.style.height = textarea.current.scrollHeight + "px";
-    textWrapper.current.style.height = textarea.current.scrollHeight + "px";
+    //TextArea의 높이 자동 조절
+    fitHeight();
   };
 
   // console.log("page", page);
