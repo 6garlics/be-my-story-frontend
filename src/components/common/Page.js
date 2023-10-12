@@ -3,7 +3,6 @@ import { styled } from "styled-components";
 import { DotLoader } from "react-spinners";
 
 const Page = ({ page, pageNum }) => {
-  page && console.log(page.text);
   return (
     <Container>
       <Image src={page && page.imgUrl} />
@@ -27,7 +26,7 @@ const Container = styled.div`
   border: 1px solid grey;
   overflow: hidden;
   position: relative;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
 `;
 
 const Image = styled.img`
@@ -47,12 +46,24 @@ const Text = styled.div.attrs((props) => ({
   box-sizing: border-box;
   max-height: 100%;
   width: 50%;
-  padding: 1.5vw;
+  padding: 1vw;
   font-size: 1.2vw;
   word-break: keep-all;
-  background: rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 0px 30px 25px rgba(0, 0, 0, 0.2);
-  border-radius: 5em;
+  z-index: 1;
+  /* 배경 그림자 */
+  &::before {
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5vw;
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 30px 30px rgba(0, 0, 0, 0.3);
+    z-index: -1;
+  }
 `;
 
 const PageNum = styled.div`

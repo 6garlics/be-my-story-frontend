@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDrag } from "react-use-gesture";
 import { styled } from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bookSlice } from "../../redux/bookSlice";
 import { useRef } from "react";
 import { DotLoader } from "react-spinners";
@@ -16,6 +16,7 @@ const PageEdit = ({
   show,
 }) => {
   const dispatch = useDispatch();
+  const saved = useSelector((state) => state.book.saved);
   const [newText, setNewText] = useState(text);
   const [textPos, setTextPos] = useState({ x: 0, y: 0 });
   const [focus, setFocus] = useState(false);
@@ -107,6 +108,7 @@ const PageEdit = ({
         $x={textPos.x}
         $y={textPos.y}
         $isCover={index === 0}
+        $saved={saved}
       >
         <DragHandle
           src="/icons/move.png"
@@ -150,7 +152,7 @@ const Container = styled.div`
 const Image = styled.img`
   width: 100%;
   position: absolute;
-  background: white;
+  background: grey;
   /* 이미지 드래그 막기 */
   -webkit-user-drag: none;
   -khtml-user-drag: none;
@@ -166,7 +168,7 @@ const Loader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
+  background: grey;
 `;
 
 const TextWrapper = styled.div.attrs((props) => ({
@@ -177,6 +179,20 @@ const TextWrapper = styled.div.attrs((props) => ({
 }))`
   width: ${({ $isCover }) => ($isCover ? "90%" : "50%")};
   position: absolute;
+  /* 배경 그림자 */
+  &::before {
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2.5vw;
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 30px 30px rgba(0, 0, 0, 0.3);
+    ${({ $saved }) => !$saved && { display: "none" }}
+  }
 `;
 
 const DragHandle = styled.img`
@@ -206,14 +222,13 @@ const TextArea = styled.textarea`
   resize: none;
   box-sizing: border-box;
   color: white;
-  overflow: hidden;
   width: 100%;
-  padding: 1.5vw;
+  padding: 1vw;
   font-size: 1.2vw;
+  font-family: "Nanum Gothic";
   word-break: keep-all;
-  background: rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 0px 30px 25px rgba(0, 0, 0, 0.2);
-  border-radius: 2em;
+  border-radius: 2.5vw;
+  overflow: hidden;
   ${(props) =>
     props.$isCover &&
     `padding: 0.5vw;
