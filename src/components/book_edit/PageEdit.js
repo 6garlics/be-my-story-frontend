@@ -108,7 +108,7 @@ const PageEdit = ({
         $x={textPos.x}
         $y={textPos.y}
         $isCover={index === 0}
-        $saved={saved}
+        $hideShadow={!imgUrl}
       >
         <DragHandle
           src="/icons/move.png"
@@ -191,7 +191,7 @@ const TextWrapper = styled.div.attrs((props) => ({
     border-radius: 2.5vw;
     background: rgba(0, 0, 0, 0.3);
     box-shadow: 0px 0px 30px 30px rgba(0, 0, 0, 0.3);
-    ${({ $saved }) => !$saved && { display: "none" }}
+    ${({ $hideShadow }) => !$hideShadow && { display: "none" }}
   }
 `;
 
