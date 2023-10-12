@@ -215,6 +215,8 @@ const PageWrapper = styled.div`
   width: 100%;
   height: 0px;
   padding-bottom: 50%;
+  /* border: 10px solid #78b9ff; */
+  /* border-radius: 2vw; */
   position: relative;
 `;
 

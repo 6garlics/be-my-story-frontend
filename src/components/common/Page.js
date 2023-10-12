@@ -1,11 +1,12 @@
 import React from "react";
 import { styled } from "styled-components";
 import { DotLoader } from "react-spinners";
+import endingPage from "../../assets/endingPage.svg";
 
 const Page = ({ page, pageNum }) => {
   return (
     <Container>
-      <Image src={page && page.imgUrl} />
+      <Image src={page ? page.imgUrl : endingPage} />
       {page && (
         <Text $textPos={page.x ? { x: page.x, y: page.y } : { x: 0, y: 0 }}>
           {page.text}
@@ -22,8 +23,7 @@ const Container = styled.div`
   width: 50%;
   height: 0px;
   padding-bottom: 50%;
-  border-radius: 10px;
-  border: 1px solid grey;
+  border-radius: 1vw;
   overflow: hidden;
   position: relative;
   background: rgba(0, 0, 0, 0.3);
