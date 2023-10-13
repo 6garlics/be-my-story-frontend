@@ -7,7 +7,7 @@ const Cover = ({ title, titlePos, coverUrl, onclick }) => {
     <Container>
       <ImageBox>
         {coverUrl ? (
-          <Image src={coverUrl} alt="" />
+          <Image src={coverUrl} alt="" loading="lazy" />
         ) : (
           <Loader>
             <DotLoader color="#78B9FF" size={100} />
