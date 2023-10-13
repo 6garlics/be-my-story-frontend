@@ -122,7 +122,7 @@ const PageEdit = ({
   return (
     <Container $show={show} ref={container}>
       {imgUrl && imgUrl !== "" ? (
-        <Image src={imgUrl} />
+        <Image src={imgUrl} loading="lazy" />
       ) : (
         <Loader>
           <DotLoader color="#78B9FF" size={100} />

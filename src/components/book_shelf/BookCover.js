@@ -12,7 +12,7 @@ const BookCover = ({ bookId, coverUrl, title }) => {
         navigate(`/book/${bookId}/detail`);
       }}
     >
-      <CoverImage src={coverUrl} />
+      <CoverImage src={coverUrl} loading="lazy" />
       <Title>{title}</Title>
     </Container>
   );

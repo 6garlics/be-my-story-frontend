@@ -6,7 +6,7 @@ import endingPage from "../../assets/endingPage.svg";
 const Page = ({ page, pageNum }) => {
   return (
     <Container>
-      <Image src={page ? page.imgUrl : endingPage} />
+      <Image src={page ? page.imgUrl : endingPage} loading="lazy" />
       {page && (
         <Text $textPos={page.x ? { x: page.x, y: page.y } : { x: 0, y: 0 }}>
           {page.text}
