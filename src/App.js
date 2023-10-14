@@ -39,7 +39,7 @@ function App() {
           genre: genre,
           coverUrl: coverUrl,
           date: date,
-          pages: pages,
+          pages: pages.slice(0, length),
         };
         console.log(body);
         const bookData = await postBook(body); //최초 동화책 저장
