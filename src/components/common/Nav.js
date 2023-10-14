@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import { HiHome, HiOutlineHome } from "react-icons/hi";
-import { TbSquareRoundedPlusFilled, TbSquareRoundedPlus } from "react-icons/tb";
-import { HiBookOpen, HiOutlineBookOpen } from "react-icons/hi2";
+import { HiHome } from "react-icons/hi";
+import { TbSquareRoundedPlusFilled } from "react-icons/tb";
+import { HiBookOpen } from "react-icons/hi2";
 import ColorContext from "../../contexts/Color";
 import { logout } from "../../api/users";
 import { isLogin } from "../../accessControl/isLogin";
@@ -18,7 +18,7 @@ const Nav = () => {
 
   const onLogout = async () => {
     try {
-      const data = await logout({});
+      await logout({});
       navigate("/login");
     } catch (err) {}
   };

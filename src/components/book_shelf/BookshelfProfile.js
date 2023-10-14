@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
 import { follow, getFollower, getFollowing, unfollow } from "../../api/users";
 import FriendList from "./FriendList";
-import ColorContext from "./../../contexts/Color";
+import ColorContext from "../../contexts/Color";
 import { userSlice } from "../../redux/userSlice";
 
-const Profile = ({ userName, profileImg, friendStatus, bookCnt }) => {
+const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
   //0: 리스트 숨기기, 1: 팔로워 리스트, 2: 팔로잉 리스트
   const [showFriendList, setShowFriendList] = useState(0);
   const [following, setFollowing] = useState([]);
@@ -188,4 +188,4 @@ const FollowButton = styled.button`
   }
 `;
 
-export default Profile;
+export default BookshelfProfile;

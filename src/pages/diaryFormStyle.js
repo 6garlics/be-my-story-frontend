@@ -8,7 +8,7 @@ export const Loader = styled.div`
   align-items: center;
   width: 100%;
   height: 90vh;
-  color: grey;
+  color: white;
   font-size: 20px;
 `;
 

@@ -1,7 +1,4 @@
-import React from "react";
-import axios from "axios";
 import AIclient from "./AIclient";
-import { setCover, setImages } from "../redux/bookSlice";
 
 //동화 텍스트 생성
 export const createTexts = async (body) => {
@@ -10,26 +7,23 @@ export const createTexts = async (body) => {
       headers: { "Content-Type": "application/json" },
     });
 
-    console.log(res.data);
+    console.log("생성된 동화 텍스트", res.data);
     return res.data;
   } catch (err) {
-    console.log("에러 발생");
+    console.log("동화 텍스트 에러 발생");
     console.log(err);
     throw err;
   }
 };
 
 //표지 생성
-export const createCover = async (body, dispatch) => {
+export const createCover = async (body) => {
   try {
     const res = await AIclient.post(`/cover`, body, {
       headers: { "Content-Type": "application/json" },
     });
 
-    console.log("cover", res.data);
-    //리덕스에 저장
-    dispatch(setCover({ coverUrl: res.data.coverUrl }));
-
+    console.log("생성된 커버", res.data);
     return res.data;
   } catch (err) {
     console.log("커버 에러 발생");
@@ -39,20 +33,16 @@ export const createCover = async (body, dispatch) => {
 };
 
 //일러스트 1개 생성
-export const createImage = async (pageNum, body, dispatch) => {
+export const createImage = async (pageNum, body) => {
   try {
     const res = await AIclient.post(`/textToImage/${pageNum}`, body, {
       headers: { "Content-Type": "application/json" },
     });
 
-    console.log(res.data);
-    //리덕스에 저장
-    dispatch(setImages({ pageNum: res.data.pageNum, imgUrl: res.data.imgUrl }));
-    // dispatch({ type: "SORT_IMAGES" });
-
+    console.log("생성된 일러스트", res.data);
     return res.data;
   } catch (err) {
-    console.log("에러 발생");
+    console.log("일러스트 에러 발생");
     console.log(err);
     throw err;
   }

@@ -22,7 +22,7 @@ function BookCover({ bookId, userName, title, coverUrl }) {
       } catch (err) {}
     }
     fetchUserInfo();
-  }, []);
+  }, [userName]);
 
   return (
     <Container className="book-cover">

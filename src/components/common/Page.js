@@ -1,6 +1,5 @@
 import React from "react";
 import { styled } from "styled-components";
-import { DotLoader } from "react-spinners";
 import endingPage from "../../assets/endingPage.svg";
 
 const Page = ({ page, pageNum }) => {
@@ -72,25 +71,4 @@ const PageNum = styled.div`
   transform: translate(-50%, 0%);
   bottom: 10px;
   font-size: 1.5vw;
-`;
-
-const Button = styled.button`
-  position: absolute;
-  width: 70%;
-  height: 100%;
-  left: ${(props) => props.$left};
-  right: ${(props) => props.$right};
-  opacity: 0;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const Loader = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
 `;

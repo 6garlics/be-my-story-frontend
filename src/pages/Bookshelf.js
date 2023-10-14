@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import ColorContext from "../contexts/Color";
 import "react-calendar/dist/Calendar.css";
-import Profile from "../components/book_shelf/Profile";
+import BookshelfProfile from "../components/book_shelf/BookshelfProfile";
 import { useSelector } from "react-redux";
 
 const Bookshelf = () => {
@@ -46,7 +46,7 @@ const Bookshelf = () => {
   return books ? (
     <div style={{ display: "flex" }}>
       <Container>
-        <Profile
+        <BookshelfProfile
           userName={userName}
           profileImg={profile.profileImg}
           friendStatus={profile.friendStatus}

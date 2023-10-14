@@ -1,36 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import AIclient from "../api/AIclient";
+import { createCover, createImage, createTexts } from "../api/AIbooks";
 
 export const thunkCreateTexts = createAsyncThunk(
   "bookSlice/fetchBookTexts",
   async (body) => {
-    const res = await AIclient.post(`/diaryToStory`, body, {
-      headers: { "Content-Type": "application/json" },
-    });
-    console.log("textsData", res.data);
-    return res.data;
+    const data = await createTexts(body);
+    return data;
   }
 );
 
 export const thunkCreateCover = createAsyncThunk(
   "bookSlice/fetchBookCover",
   async (body) => {
-    const res = await AIclient.post(`/cover`, body, {
-      headers: { "Content-Type": "application/json" },
-    });
-    console.log("cover", res.data);
-    return res.data;
+    const data = await createCover(body);
+    return data;
   }
 );
 
 export const thunkCreateImage = createAsyncThunk(
   "bookSlice/thunkCreateImage",
   async ({ pageNum, body }) => {
-    const res = await AIclient.post(`/textToImage/${pageNum}`, body, {
-      headers: { "Content-Type": "application/json" },
-    });
-    console.log(res.data);
-    return { imgUrl: res.data.imgUrl, pageNum: pageNum };
+    const data = await createImage(pageNum, body);
+    return { imgUrl: data.imgUrl, pageNum: pageNum };
   }
 );
 
@@ -42,9 +33,11 @@ export const bookSlice = createSlice({
     genre: "",
     date: "",
     title: "",
-    texts: [],
+    titleX: 0,
+    titleY: 0,
     coverUrl: "",
-    images: [],
+    pages: [],
+    length: 0,
     imageCnt: 0,
     saved: false,
   },
@@ -55,9 +48,16 @@ export const bookSlice = createSlice({
       state.genre = "";
       state.date = "";
       state.title = "";
-      state.texts = [];
+      state.titleX = 0;
+      state.titleY = 0;
       state.coverUrl = "";
-      state.images = Array.from({ length: 15 }, () => "");
+      state.pages = Array.from({ length: 15 }, () => ({
+        text: "",
+        imgUrl: "",
+        x: 0,
+        y: 0,
+      }));
+      state.length = 0;
       state.imageCnt = 0;
       state.saved = false;
     },
@@ -76,17 +76,23 @@ export const bookSlice = createSlice({
     setTitle: (state, action) => {
       state.title = action.payload;
     },
-    setTexts: (state, action) => {
-      state.texts = action.payload;
+    setTitleX: (state, action) => {
+      state.titleX = action.payload;
     },
-    setText: (state, action) => {
-      state.texts[action.payload.index] = action.payload.text;
+    setTitleY: (state, action) => {
+      state.titleY = action.payload;
     },
     setCover: (state, action) => {
       state.coverUrl = action.payload;
     },
-    setImages: (state, action) => {
-      state.images = action.payload;
+    setPages: (state, action) => {
+      state.pages = action.payload;
+    },
+    setLength: (state, action) => {
+      state.length = action.payload;
+    },
+    setText: (state, action) => {
+      state.pages[action.payload.index].text = action.payload.text;
     },
     setSaved: (state, action) => {
       state.saved = action.payload;
@@ -95,13 +101,16 @@ export const bookSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(thunkCreateTexts.fulfilled, (state, action) => {
       state.title = action.payload.title;
-      state.texts = action.payload.texts;
+      action.payload.texts.forEach((text, index) => {
+        state.pages[index].text = text;
+      });
+      state.length = action.payload.texts.length;
     });
     builder.addCase(thunkCreateCover.fulfilled, (state, action) => {
       state.coverUrl = action.payload.coverUrl;
     });
     builder.addCase(thunkCreateImage.fulfilled, (state, action) => {
-      state.images[action.payload.pageNum] = action.payload.imgUrl;
+      state.pages[action.payload.pageNum].imgUrl = action.payload.imgUrl;
       state.imageCnt++;
     });
   },
