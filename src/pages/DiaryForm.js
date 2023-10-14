@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { DotLoader } from "react-spinners";
@@ -21,43 +19,37 @@ import {
 
 const genres = ["모험", "우주", "바다", "공룡", "전래동화", "마법", "신화"];
 
-const days = ["일", "월", "화", "수", "목", "금", "토"];
+// const days = ["일", "월", "화", "수", "목", "금", "토"];
 
 const DiaryForm = () => {
   const [date, setDate] = useState(new window.Date());
-  const [diaryTitle, setTitle] = useState("자전거");
-  const [contents, setText] = useState(
-    "오늘 밤에 자전거를 탔다. 자전거는 처음 탈 때는 좀 중심잡기가 힘들었다. 그러나 재미있었다. 자전거를 잘 타서 엄마, 아빠 산책 갈 때 나도 가야겠다."
-  );
+  const [diaryTitle, setTitle] = useState("");
+  const [contents, setText] = useState("");
   const [characterName, setCharacterName] = useState("");
   const [selectedGenre, setSelectedGenre] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [topic, setTopic] = useState("");
   const [page, setPage] = useState(0); //현재 작성 중인 폼
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userName = useSelector((state) => state.user.userName);
   const title = useSelector((state) => state.book.title);
-  const texts = useSelector((state) => state.book.texts);
+  const pages = useSelector((state) => state.book.pages);
+  const length = useSelector((state) => state.book.length);
   const coverUrl = useSelector((state) => state.book.coverUrl);
   const imageCnt = useSelector((state) => state.book.imageCnt);
-
-  useEffect(() => {
-    console.log("동화 텍스트", title, texts);
-  }, [title, texts]);
 
   //랜덤 토픽 생성
   const getTopic = () => {
     setTopic(topics[Math.floor(Math.random() * topics.length)]);
   };
 
+  //초기 랜덤 토픽 설정
   useEffect(() => {
     getTopic();
   }, []);
 
-  //일기 제출 핸들러
+  //일기 제출 핸들러 (일기 저장, 동화 텍스트 생성)
   const submitDiary = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -67,7 +59,7 @@ const DiaryForm = () => {
     formData.delete("genre");
     formData.append("keyword", genres[selectedGenre]);
     formData.delete("date");
-    // formData.append("date", dateToString(date));
+    formData.append("date", dateToString(date));
     console.log("작성된 일기", Object.fromEntries(formData));
 
     //리덕스 초기화
@@ -79,6 +71,7 @@ const DiaryForm = () => {
     });
 
     //동화 텍스트 생성
+    formData.delete("date");
     dispatch(thunkCreateTexts(formData));
 
     //메타데이터 저장
@@ -86,25 +79,26 @@ const DiaryForm = () => {
     dispatch(bookSlice.actions.setDate(dateToString(date)));
   };
 
+  //표지와 일러스트 생성, book-edit으로 리다이렉션
   useEffect(() => {
     async function createBook() {
       //제목과 텍스트는 생성되고, 커버와 일러스트는 생성 안된 상태라면
-      if (title && texts.length !== 0 && coverUrl === "" && imageCnt === 0) {
+      if (title && length !== 0 && coverUrl === "" && imageCnt === 0) {
         //표지 생성
         dispatch(
           thunkCreateCover({
             title: title,
-            texts: texts,
+            texts: pages.map((page) => page.text),
           })
         );
 
         //일러스트 여러장 생성
-        texts.forEach(async (text, pageNum) => {
+        pages.forEach(async (page, pageNum) => {
           dispatch(
             thunkCreateImage({
               pageNum: pageNum,
               body: {
-                text: text,
+                text: page.text,
               },
             })
           );
@@ -115,8 +109,9 @@ const DiaryForm = () => {
       }
     }
     createBook();
-  }, [title]);
+  }, [title, pages, length, coverUrl, imageCnt, dispatch, navigate]);
 
+  //날짜 포맷팅 함수
   const dateToString = (date) => {
     const yyyy = date.getFullYear();
     const mm = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -129,8 +124,6 @@ const DiaryForm = () => {
       <DotLoader color="#78B9FF" size={100} />
       <S.LoaderText>동화책을 만들고 있어요!</S.LoaderText>
     </S.Loader>
-  ) : error ? (
-    <S.Error>에러가 발생했어요.</S.Error>
   ) : (
     <S.Wrapper>
       <S.TopicWrapper>

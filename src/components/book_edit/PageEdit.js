@@ -1,40 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useDrag } from "react-use-gesture";
 import { styled } from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { bookSlice } from "../../redux/bookSlice";
 import { useRef } from "react";
 import { DotLoader } from "react-spinners";
-import { current } from "@reduxjs/toolkit";
 
-const PageEdit = ({
-  positions,
-  setPositions,
-  //page,
-  text,
-  imgUrl,
-  index,
-  show,
-}) => {
-  const dispatch = useDispatch();
-  const saved = useSelector((state) => state.book.saved);
-  const [newText, setNewText] = useState(text);
-  const [textPos, setTextPos] = useState({ x: 0, y: 0 });
+const PageEdit = ({ positions, setPositions, page, index, show }) => {
+  //상태
+  const [newText, setNewText] = useState(page.text);
   const [focus, setFocus] = useState(false);
   const [percentX, setPercentX] = useState(0);
   const [percentY, setPercentY] = useState(0);
+  const [textPos, setTextPos] = useState({ x: 0, y: 0 });
 
+  //레퍼런스
   const container = useRef(); //Container 참조
   const textarea = useRef(); //TextArea 참조
   const textWrapper = useRef(); //TextWrapper 참조
   const dragHandle = useRef(); //DragHandle 참조
+  const dispatch = useDispatch();
 
-  //포커스
+  //TextArea 포커스 핸들러
   const onFocus = (e) => {
     setFocus(true);
   };
 
-  //포커스해제
+  //TextArea 포커스해제 핸들러
   const removeFocus = (e) => {
     if (
       document.activeElement !== textarea.current &&
@@ -45,7 +37,7 @@ const PageEdit = ({
     }
   };
 
-  //포커스해제 이벤트 핸들러 달기
+  //TextArea 포커스해제 핸들러 달기
   useEffect(() => {
     window.addEventListener("click", removeFocus);
   }, []);
@@ -57,16 +49,17 @@ const PageEdit = ({
     textWrapper.current.style.height = textarea.current.scrollHeight + "px";
   };
 
+  //초기 TextArea의 높이 자동 조절
   useEffect(() => {
-    //TextArea의 높이 자동 조절
     fitHeight();
   }, [show]);
 
+  //초기 text 설정
   useEffect(() => {
-    setNewText(text);
-  }, [text]);
+    setNewText(page.text);
+  }, [page.text]);
 
-  //textarea 내용 수정 시
+  //textarea 내용 수정 핸들러
   const handleChangeText = (e) => {
     setNewText(e.target.value);
     //표지라면 제목 수정
@@ -86,29 +79,43 @@ const PageEdit = ({
     fitHeight();
   };
 
+  //일러스트 가로길이 구하는 함수
+  const getWidth = () =>
+    container.current &&
+    Number(
+      window
+        .getComputedStyle(container.current)
+        .getPropertyValue("width")
+        .replace("px", "")
+    );
+
   //퍼센트 좌표 업데이트
   useEffect(() => {
     const newPositions = positions;
     newPositions[index].x = percentX;
     newPositions[index].y = percentY;
     setPositions(newPositions);
-  }, [textPos]);
+  }, [textPos, percentX, percentY, index, positions, setPositions]);
 
   //픽셀 좌표 바인딩
   const bindTextPos = useDrag((params) => {
     setTextPos({ x: params.offset[0], y: params.offset[1] });
   });
 
+  //초기 픽셀 좌표 계산
+  useEffect(() => {
+    const width = getWidth();
+    if (!isNaN(width)) {
+      setTextPos({
+        x: (page.x * width) / 100,
+        y: (page.y * width) / 100,
+      });
+    }
+  }, [page.x, page.y]);
+
   //퍼센트 좌표 계산
   useEffect(() => {
-    let width =
-      container.current &&
-      Number(
-        window
-          .getComputedStyle(container.current)
-          .getPropertyValue("width")
-          .replace("px", "")
-      );
+    const width = getWidth();
 
     if (container.current && !isNaN(width)) {
       const x = (textPos.x / width) * 100;
@@ -116,13 +123,12 @@ const PageEdit = ({
       setPercentX(x >= 0 ? (x <= 90 ? x : 90) : 0);
       setPercentY(y >= 0 ? (y <= 90 ? y : 90) : 0);
     }
-  });
-  console.log(Math.floor(percentX), Math.floor(percentY));
+  }, [textPos]);
 
   return (
     <Container $show={show} ref={container}>
-      {imgUrl && imgUrl !== "" ? (
-        <Image src={imgUrl} loading="lazy" />
+      {page.imgUrl && page.imgUrl !== "" ? (
+        <Image src={page.imgUrl} loading="lazy" />
       ) : (
         <Loader>
           <DotLoader color="#78B9FF" size={100} />
@@ -133,7 +139,7 @@ const PageEdit = ({
         $x={percentX}
         $y={percentY}
         $isCover={index === 0}
-        $hideShadow={!imgUrl}
+        $hideShadow={!page.imgUrl}
       >
         <DragHandle
           src="/icons/move.png"
@@ -160,7 +166,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  display: ${(props) => !props.$show && "none"};
+  height: ${(props) => !props.$show && "0px"};
   position: relative;
   width: 100%;
   /* height: 0px; */

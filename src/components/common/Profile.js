@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getUserInfo } from "../../api/users";
 
 const Profile = ({ userName }) => {
@@ -16,7 +16,7 @@ const Profile = ({ userName }) => {
       } catch (e) {}
     }
     fetchUserInfo();
-  }, []);
+  }, [userName]);
 
   return (
     <Container>

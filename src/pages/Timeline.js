@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { styled } from "styled-components";
-import Book from "../components/timeline/Book";
-import { friends } from "../data/FriendsData";
-import { getBooks } from "../api/books";
 import { settings } from "../components/common/carousel";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -11,7 +7,6 @@ import "slick-carousel/slick/slick-theme.css";
 import BookCover from "../components/timeline/BookCover";
 
 //const id = 0;
-const texts = ["1", "2", "3", "4", "5"];
 const booksData = [
   {
     bookId: 27,

@@ -4,7 +4,6 @@ import Timeline from "./pages/Timeline";
 import DiaryForm from "./pages/DiaryForm";
 import BookEditPage from "./pages/BookEditPage";
 import Bookshelf from "./pages/Bookshelf";
-import NewBookDetail from "./pages/NewBookDetail";
 import Login from "./pages/Login";
 import Header from "./components/common/Header";
 import Join from "./pages/Join";
@@ -22,44 +21,45 @@ function App() {
   const genre = useSelector((state) => state.book.genre);
   const date = useSelector((state) => state.book.date);
   const title = useSelector((state) => state.book.title);
-  const texts = useSelector((state) => state.book.texts);
   const coverUrl = useSelector((state) => state.book.coverUrl);
-  const images = useSelector((state) => state.book.images);
+  const pages = useSelector((state) => state.book.pages);
+  const length = useSelector((state) => state.book.length);
   const imageCnt = useSelector((state) => state.book.imageCnt);
   const saved = useSelector((state) => state.book.saved);
 
+  //최초 동화책 저장
   useEffect(() => {
     async function saveBook() {
       //동화책이 완성됐지만 아직 저장되지 않았다면
-      if (
-        title &&
-        texts.length !== 0 &&
-        coverUrl &&
-        imageCnt === texts.length &&
-        !saved
-      ) {
-        //최초 동화책 저장
+      if (title && length !== 0 && coverUrl && imageCnt === length && !saved) {
+        //바디 가공
         const body = {
           diaryId: diaryId,
           title: title,
           genre: genre,
           coverUrl: coverUrl,
           date: date,
-          pages: texts.map((text, index) => ({
-            text: text,
-            imgUrl: images[index],
-            x: 0,
-            y: 0,
-          })),
+          pages: pages,
         };
         console.log(body);
-        const bookData = await postBook(body);
+        const bookData = await postBook(body); //최초 동화책 저장
         dispatch(bookSlice.actions.setBookId(bookData.bookId)); //bookId 저장
         dispatch(bookSlice.actions.setSaved(true)); //저장됐다고 표시
       }
     }
     saveBook();
-  }, [imageCnt]);
+  }, [
+    imageCnt,
+    coverUrl,
+    date,
+    diaryId,
+    genre,
+    saved,
+    title,
+    pages,
+    length,
+    dispatch,
+  ]);
 
   return (
     <Container className="App" $background={colors.background}>
@@ -82,7 +82,6 @@ function App() {
             )}
           />
           <Route path="/book/:bookId/detail" element={<BookDetail />} />
-          <Route path="/new-book/detail" element={<NewBookDetail />} />
           {/* </Route> */}
         </Routes>
       </Main>

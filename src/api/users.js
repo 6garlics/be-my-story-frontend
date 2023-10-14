@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 import client from "./client";
 
@@ -62,7 +61,6 @@ export const logout = async (body) => {
     });
 
     console.log("로그아웃", res.data);
-    const token = res.data.token;
     localStorage.removeItem("beMyStoryToken");
     localStorage.removeItem("userName");
 

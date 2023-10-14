@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const BookCover = ({ bookId, coverUrl, title }) => {
   //console.log("BookCover: ", book);

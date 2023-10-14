@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import Book from "../components/timeline/Book";
 import { getBook } from "../api/books";
@@ -19,7 +19,7 @@ const BookDetail = () => {
       } catch (err) {}
     }
     fetchBook();
-  }, []);
+  }, [bookId]);
 
   return (
     <Root>

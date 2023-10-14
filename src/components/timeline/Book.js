@@ -39,16 +39,18 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
     if (myName === userName) {
       fetchDiary();
     }
-  }, []);
+  }, [bookId, myName, userName]);
 
   //동화 수정
   const onEdit = () => {
     // 열람 중인 동화책 데이터를 redux에 담기
     dispatch(bookSlice.actions.setBookId(bookId));
     dispatch(bookSlice.actions.setTitle(title));
-    dispatch(bookSlice.actions.setTexts(pages.map((page) => page.text)));
+    dispatch(bookSlice.actions.setTitleX(titlePos.x));
+    dispatch(bookSlice.actions.setTitleY(titlePos.y));
     dispatch(bookSlice.actions.setCover(coverUrl));
-    dispatch(bookSlice.actions.setImages(pages.map((page) => page.imgUrl)));
+    dispatch(bookSlice.actions.setPages(pages));
+    dispatch(bookSlice.actions.setLength(pages.length));
     dispatch(bookSlice.actions.setSaved(true));
     navigate("/book-edit");
   };
