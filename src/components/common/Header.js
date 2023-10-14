@@ -11,8 +11,8 @@ const Header = () => {
     <Container $background={colors.background}>
       <Wrapper to="/">
         <Logo src={logo} />
-        <EngText>토리</EngText>
-        <KorText $color={colors.theme3}>TORI</KorText>
+        <LargeText>토리</LargeText>
+        <SmallText>TORI</SmallText>
       </Wrapper>
       <Nav />
     </Container>
@@ -25,7 +25,6 @@ const Container = styled.div`
   height: 60px;
   padding: 0 15px;
   box-sizing: border-box;
-  /* border-bottom: 1px solid grey; */
   position: fixed;
   width: 100%;
   z-index: 1;
@@ -39,31 +38,25 @@ const Wrapper = styled(NavLink)`
   font-size: 30px;
   font-weight: bold;
   text-decoration: none;
-  /* border: 1px solid white; */
 `;
 
 const Logo = styled.img`
   width: 26px;
   margin-left: 4px;
   margin-right: 14px;
-  /* border: 1px solid white; */
 `;
 
-const EngText = styled.div`
+const LargeText = styled.div`
   color: white;
   font-size: 42px;
   font-family: "Gaegu";
-  /* border: 1px solid white; */
   padding-top: 10px;
 `;
 
-const KorText = styled.div`
-  /* border: 1px solid white; */
-
+const SmallText = styled.div`
   font-size: 16px;
   font-family: "Gaegu";
   color: white;
-  /* color: ${({ $color }) => $color}; */
   margin-top: 18px;
   margin-left: 4px;
 `;

@@ -3,14 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
-import {
-  follow,
-  getFollower,
-  getFollowing,
-  getMyInfo,
-  unfollow,
-} from "../../api/users";
-import { checkFriend } from "./../../api/users";
+import { follow, getFollower, getFollowing, unfollow } from "../../api/users";
 import FriendList from "./FriendList";
 import ColorContext from "./../../contexts/Color";
 import { userSlice } from "../../redux/userSlice";
@@ -37,7 +30,7 @@ const Profile = ({ userName, profileImg, friendStatus, bookCnt }) => {
       setFollower(followerData);
     }
     fetchFriends();
-  }, [refresh]);
+  }, [refresh, userName]);
 
   //재렌더링
   const onRefresh = () => {

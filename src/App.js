@@ -59,7 +59,18 @@ function App() {
       }
     }
     saveBook();
-  }, [imageCnt]);
+  }, [
+    imageCnt,
+    coverUrl,
+    date,
+    diaryId,
+    genre,
+    images,
+    saved,
+    texts,
+    title,
+    dispatch,
+  ]);
 
   return (
     <Container className="App" $background={colors.background}>

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { styled } from "styled-components";
 import { login } from "../api/users";
 import ColorContext from "../contexts/Color";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userSlice } from "../redux/userSlice";
 
@@ -12,7 +12,6 @@ const Login = () => {
   const [message, setMessage] = useState("");
 
   const focusColor = useContext(ColorContext).theme3;
-  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,7 +23,7 @@ const Login = () => {
       const formData = new FormData(event.target);
       console.log(Object.fromEntries(formData));
       try {
-        const data = await login(formData);
+        await login(formData);
         dispatch(userSlice.actions.setUserName({ userName: userName }));
         navigate("/");
       } catch (err) {
