@@ -22,7 +22,7 @@ const BookEditPage = () => {
 
   //각 텍스트의 위치 좌표 (0번째는 제목)
   const [positions, setPositions] = useState(
-    Array.from({ length: length + 1 }, () => ({ x: 0, y: 0 }))
+    Array.from({ length: 15 }, () => ({ x: 0, y: 0 }))
   );
 
   const navigate = useNavigate();
