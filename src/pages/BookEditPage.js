@@ -53,11 +53,13 @@ const BookEditPage = () => {
       titleX: positions[0].x,
       titleY: positions[0].y,
       coverUrl: coverUrl,
-      pages: pages.map((page, index) => ({
-        ...page,
-        x: positions[index + 1].x,
-        y: positions[index + 1].y,
-      })),
+      pages: pages
+        .map((page, index) => ({
+          ...page,
+          x: positions[index + 1].x,
+          y: positions[index + 1].y,
+        }))
+        .slice(0, length),
     };
     console.log("동화책 1개 수정 api 요청 바디", body);
     await editBook(bookId, body);

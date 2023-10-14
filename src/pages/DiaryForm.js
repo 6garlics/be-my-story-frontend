@@ -88,21 +88,21 @@ const DiaryForm = () => {
         dispatch(
           thunkCreateCover({
             title: title,
-            texts: pages.map((page) => page.text),
+            texts: pages.map((page) => page.text).slice(0, length),
           })
         );
 
         //일러스트 여러장 생성
-        pages.forEach(async (page, pageNum) => {
+        for (let i = 0; i < length; i++) {
           dispatch(
             thunkCreateImage({
-              pageNum: pageNum,
+              pageNum: i,
               body: {
-                text: page.text,
+                text: pages[i].text,
               },
             })
           );
-        });
+        }
 
         //수정페이지로 리다이렉션
         navigate(`/book-edit`);
