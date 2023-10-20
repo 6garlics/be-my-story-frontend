@@ -199,7 +199,7 @@ const Loader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: grey;
+  background: #2b2b66ff;
 `;
 
 const TextWrapper = styled.div.attrs(({ $x, $y }) => ({
@@ -220,8 +220,8 @@ const TextWrapper = styled.div.attrs(({ $x, $y }) => ({
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 2.5vw;
-    background: rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 0px 30px 30px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 30px 30px rgba(0, 0, 0, 0.4);
     ${({ $hideShadow }) => $hideShadow && { display: "none" }}
   }
 `;
@@ -255,15 +255,15 @@ const TextArea = styled.textarea`
   color: white;
   width: 100%;
   padding: 1vw;
-  font-size: 1.2vw;
-  font-family: "Nanum Gothic";
+  font-size: 1.3vw;
+  font-family: "Gaegu";
   word-break: keep-all;
   border-radius: 2.5vw;
   overflow: hidden;
   ${(props) =>
     props.$isCover &&
     `padding: 0.5vw;
-    font-size: 3.2vw;
+    font-size: 2.5vw;
     font-weight: bold;
     word-break: keep-all;
     text-align: center;
@@ -280,6 +280,7 @@ const TextArea = styled.textarea`
     /* display: none; */
     pointer-events: none;
   }
+  color: white;
 `;
 
 const PageNum = styled.div`
