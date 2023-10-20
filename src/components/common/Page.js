@@ -25,7 +25,7 @@ const Container = styled.div`
   border-radius: 1vw;
   overflow: hidden;
   position: relative;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
 `;
 
 const Image = styled.img`
@@ -46,7 +46,8 @@ const Text = styled.div.attrs((props) => ({
   max-height: 100%;
   width: 50%;
   padding: 1vw;
-  font-size: 1.2vw;
+  font-size: 1.3vw;
+  font-family: "Gaegu";
   word-break: keep-all;
   z-index: 1;
   /* 배경 그림자 */
@@ -59,8 +60,8 @@ const Text = styled.div.attrs((props) => ({
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 5vw;
-    background: rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 0px 30px 30px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 30px 30px rgba(0, 0, 0, 0.4);
     z-index: -1;
   }
 `;

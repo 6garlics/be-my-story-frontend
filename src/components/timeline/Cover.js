@@ -64,7 +64,7 @@ const Title = styled.div.attrs(
   position: absolute;
   width: 90%;
   padding: 0.5vw;
-  font-size: 3.2vw;
+  font-size: 2.5vw;
   font-weight: bold;
   word-break: keep-all;
   text-align: center;
