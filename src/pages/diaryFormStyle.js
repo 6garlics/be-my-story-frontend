@@ -37,7 +37,7 @@ export const Wrapper = styled.div`
   align-items: center;
   width: 80%;
   min-width: 500px;
-  max-width: 700px;
+  max-width: 600px;
   height: 100%;
   padding-top: 10px;
   padding-bottom: 20px;
@@ -207,7 +207,7 @@ export const GenreWrapper = styled.div`
 `;
 
 export const Genres = styled.div`
-  width: 400px;
+  width: 300px;
   display: flex;
   align-items: center;
   margin: 10px 0px;

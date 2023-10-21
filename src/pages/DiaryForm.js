@@ -18,7 +18,7 @@ import {
   thunkCreateTexts,
 } from "../redux/bookSlice";
 
-const genres = ["모험", "우주", "바다", "공룡", "전래동화", "마법", "신화"];
+const genres = ["모험", "우주", "바다", "공룡", "마법", "히어로"];
 
 // const days = ["일", "월", "화", "수", "목", "금", "토"];
 
