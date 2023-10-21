@@ -52,7 +52,7 @@ const Bookshelf = () => {
           friendStatus={profile.friendStatus}
           bookCnt={books.length}
         />
-        <Wrapper $background={colors.theme4}>
+        <Wrapper $background={colors.theme3}>
           {books.map((book) => (
             <BookCoverWrapper>
               <BookCover
@@ -89,12 +89,21 @@ const Wrapper = styled.div`
   padding: 60px;
   box-sizing: border-box;
   overflow: scroll;
-  /* 스크롤바 숨기기 */
+  overflow-x: hidden; //가로 스크롤바 숨기기
+  //스크롤바 디자인
   &::-webkit-scrollbar {
-    display: none; /* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+    width: 20px;
+    visibility: hidden;
   }
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
+  &::-webkit-scrollbar-thumb {
+    background: ${({ $background }) => $background};
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 4px solid transparent;
+  }
+  &::-webkit-scrollbar-track {
+    visibility: hidden;
+  }
 `;
 
 const BookCoverWrapper = styled.div`
