@@ -61,6 +61,9 @@ export const bookSlice = createSlice({
       state.imageCnt = 0;
       state.saved = false;
     },
+    setEnter: (state, action) => {
+      state.pages = state.pages.map((page) => page.text.replace("\n", "<br>"));
+    },
     setBookId: (state, action) => {
       state.bookId = action.payload;
     },
