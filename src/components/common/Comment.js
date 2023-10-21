@@ -27,7 +27,6 @@ const ProfileImg = styled.div`
   flex: none;
   width: 40px;
   height: 40px;
-  border: 1px solid lightgrey;
   border-radius: 20px;
   overflow: hidden;
   margin-top: 5px;

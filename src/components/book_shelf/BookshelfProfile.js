@@ -50,7 +50,7 @@ const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
   };
 
   return (
-    <Root>
+    <Root $showFriendList={showFriendList !== 0}>
       <ProfileIcon src={profileImg} />
       <ProfileNameWrapper>
         <ProfileName>{userName}</ProfileName>
@@ -93,7 +93,8 @@ const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
             친구맺기
           </FollowButton>
         ))}
-      {showFriendList !== 0 && (
+      {/*{showFriendList !== 0 && (*/}
+      <FriendListWrapper $showFriendList={showFriendList !== 0}>
         <FriendList
           friends={showFriendList === 1 ? follower : following}
           onFollow={onFollow}
@@ -101,7 +102,8 @@ const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
           showFriendList={showFriendList}
           setShowFriendList={setShowFriendList}
         />
-      )}
+      </FriendListWrapper>
+      {/*})}*/}
     </Root>
   );
 };
@@ -112,7 +114,11 @@ const Root = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-right: 1px solid grey;
+  border-right: ${({ $showFriendList }) =>
+    $showFriendList
+      ? "1px solid rgba(255,255,255, 0)"
+      : "1px solid rgba(255,255,255, 0.2)"};
+  transition: all 0.3s;
   width: 350px;
   height: calc(100vh - 60px);
   position: relative;
@@ -135,9 +141,8 @@ const ProfileName = styled.div`
 `;
 
 const Settings = styled.div`
-  width: 16px;
+  width: 14px;
   margin-left: 10px;
-  margin-top: 7px;
   &:hover {
     cursor: pointer;
   }
@@ -181,11 +186,22 @@ const FollowButton = styled.button`
   border: none;
   background: ${({ $background }) => $background};
   color: ${({ $color }) => $color};
+  font-size: inherit;
+  font-family: inherit;
   font-weight: bold;
   margin-top: 20px;
   &:hover {
     cursor: pointer;
   }
+`;
+
+const FriendListWrapper = styled.div`
+  width: 100%;
+  height: ${({ $showFriendList }) => ($showFriendList ? "100%" : "0px")};
+  bottom: 0;
+  transition: all 0.2s ease-in-out;
+  overflow: hidden;
+  position: absolute;
 `;
 
 export default BookshelfProfile;

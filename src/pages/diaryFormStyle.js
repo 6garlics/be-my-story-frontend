@@ -24,13 +24,23 @@ export const Error = styled.div`
   font-weight: bold;
 `;
 
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+`;
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 60px);
-  padding-top: 30px;
-  padding-bottom: 30px;
+  width: 80%;
+  min-width: 500px;
+  max-width: 700px;
+  height: 100%;
+  padding-top: 10px;
+  padding-bottom: 20px;
   box-sizing: border-box;
 `;
 
@@ -38,7 +48,7 @@ export const TopicWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 700px;
+  width: 100%;
   height: 110px;
 `;
 
@@ -46,7 +56,7 @@ export const Topic = styled.div`
   flex: 1;
   text-align: center;
   font-size: 30px;
-  font-family: "Gaegu";
+  font-family: inherit;
   word-break: keep-all;
   white-space: pre-wrap;
 `;
@@ -62,13 +72,14 @@ export const RefreshIcon = styled.img`
 export const Form = styled.form`
   flex: 1;
   display: flex;
+  width: 100%;
 `;
 
 export const FormBox = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  width: 700px;
+  width: 100%;
   border-radius: 12px;
   box-sizing: border-box;
   padding: 25px;
@@ -103,9 +114,10 @@ export const Header = styled.div`
 `;
 
 export const SDatePicker = styled(DatePicker)`
-  width: 130px;
+  width: 150px;
   height: 40px;
-  font-size: 16px;
+  font-size: 18px;
+  font-family: inherit;
   border-radius: 10px;
   padding: -10px;
   margin: 0px;
@@ -128,17 +140,18 @@ export const CharacterNameWrapper = styled.div`
 `;
 
 export const Label = styled.div`
-  font-size: 18px;
-  /* margin-bottom: 20px; */
+  font-size: 24px;
 `;
 
 export const CharacterName = styled.input`
   display: block;
-  width: 170px;
+  width: 150px;
   height: 34px;
   padding: 0px 8px;
+  padding-top: 2px;
   margin: 20px 0px;
-  font-size: 16px;
+  font-size: 20px;
+  font-family: inherit;
   border: none;
   border: 1px solid lightgrey;
   border-radius: 10px;
@@ -151,7 +164,8 @@ export const CharacterName = styled.input`
 export const Title = styled.input`
   flex: 1.5;
   border: none;
-  font-size: 25px;
+  font-size: 30px;
+  font-family: inherit;
   padding-top: 10px;
   padding-bottom: 10px;
   background: inherit;
@@ -165,9 +179,9 @@ export const Title = styled.input`
 
 export const Contents = styled.textarea`
   flex: 15;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 25px;
-  font-family: "Nanum Gothic";
+  font-family: inherit;
   resize: none;
   border: none;
   background: inherit;
@@ -213,9 +227,9 @@ export const Genre = styled.div`
     cursor: pointer;
     font-weight: bold;
   }
-  ${(props) =>
-    props.index === props.selectedGenre
-      ? { background: "#BEDDFF", fontWeight: "bold", outline: "none" }
+  ${({ $selected, $background }) =>
+    $selected
+      ? { background: $background, fontWeight: "bold", outline: "none" }
       : { background: "inherit" }}
 `;
 
@@ -230,12 +244,14 @@ export const Button = styled.button`
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  width: 100px;
+  width: 90px;
   height: 40px;
   border: none;
   border-radius: 10px;
-  background-color: #beddff;
-  font-size: 18px;
+  background: ${({ $background }) => ($background ? $background : "none")};
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: bold;
   &:hover {
     cursor: pointer;
   }
@@ -245,6 +261,7 @@ export const S = {
   Loader,
   LoaderText,
   Error,
+  Container,
   Wrapper,
   TopicWrapper,
   Topic,

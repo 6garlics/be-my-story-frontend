@@ -13,6 +13,10 @@ import { BsChat } from "react-icons/bs";
 import { deleteBook, getDiary } from "../../api/books";
 import pencil from "../../assets/pencil.svg";
 import { bookSlice } from "../../redux/bookSlice";
+import chat from "../../assets/chat.svg";
+import edit from "../../assets/edit.svg";
+import trash from "../../assets/trash.svg";
+import diaryIcon from "../../assets/diary.svg";
 
 function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
   const [isModal, setIsModal] = useState(false);
@@ -93,22 +97,22 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
             <Buttons>
               {/* 댓글 보기 버튼 */}
               <Button onClick={() => setShowComments((prev) => !prev)}>
-                <BsChat size={25} color="white" />
+                <Icon src={chat} />
               </Button>
               {/* 본인 동화책에만 보이는 버튼들 */}
               {myName && myName === userName && (
                 <>
+                  {/* 일기 보기 버튼 */}
+                  <Button onClick={() => setIsModal((prev) => !prev)}>
+                    <Icon src={diaryIcon} />
+                  </Button>
                   {/* 동화 수정 버튼 */}
                   <Button onClick={onEdit}>
-                    <DeleteBtn src={pencil} />
+                    <Icon src={edit} />
                   </Button>
                   {/* 동화 삭제 버튼 */}
                   <Button onClick={onDelete}>
-                    <DeleteBtn src="/icons/delete.png" />
-                  </Button>
-                  {/* 일기 보기 버튼 */}
-                  <Button onClick={() => setIsModal((prev) => !prev)}>
-                    <IoIosMore size={27} color="white" />
+                    <Icon src={trash} />
                   </Button>
                 </>
               )}
@@ -200,16 +204,22 @@ const Button = styled.button`
   }
 `;
 
+const Icon = styled.img`
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
+`;
+
 const DeleteBtn = styled.img`
   width: 25px;
 `;
 
 const CommentListWrapper = styled.div`
-  width: ${(props) => (props.$showComments ? "30%" : "0px")};
+  width: ${(props) => (props.$showComments ? "400px" : "0px")};
   transition: all 0.2s ease-in-out;
   height: 100%;
   margin-left: auto;
-  background: white;
 `;
 
 const PageWrapper = styled.div`

@@ -26,6 +26,7 @@ const Container = styled.div`
   overflow: hidden;
   position: relative;
   background: rgba(0, 0, 0, 0.4);
+  box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.15);
 `;
 
 const Image = styled.img`
