@@ -105,6 +105,10 @@ const Container = styled.div`
 
 const Main = styled.main`
   flex: 1;
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
+  width: 100%;
   height: calc(100vh - 60px);
   margin-top: 60px;
 `;

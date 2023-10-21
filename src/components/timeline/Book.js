@@ -17,6 +17,7 @@ import chat from "../../assets/chat.svg";
 import edit from "../../assets/edit.svg";
 import trash from "../../assets/trash.svg";
 import diaryIcon from "../../assets/diary.svg";
+import ArrowButton from "../common/ArrowButton";
 
 function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
   const [isModal, setIsModal] = useState(false);
@@ -70,8 +71,8 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
   };
 
   const onLeftClick = () => {
-    if (pageNum <= 1) setPageNum((prev) => prev - 1); //내용에서 표지로
-    else setPageNum((prev) => prev - 2);
+    if (pageNum === 1) setPageNum((prev) => prev - 1); //내용에서 표지로
+    else if (pageNum >= 3) setPageNum((prev) => prev - 2);
   };
   const onRightClick = () => {
     if (pageNum === 0) setPageNum((prev) => prev + 1); //표지에서 내용으로
@@ -90,6 +91,9 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
         <IoIosArrowBack size={30} color="white" />
       </CloseBtn>
       <Wrapper>
+        <ArrowButtonWrapper>
+          <ArrowButton onClick={onLeftClick} side="left" />
+        </ArrowButtonWrapper>
         <Container $pageNum={pageNum}>
           {/* 헤더 */}
           <Header>
@@ -118,28 +122,33 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
               )}
             </Buttons>
           </Header>
-          {pageNum === 0 ? (
-            // 표지
-            <Cover
-              title={title}
-              titlePos={titlePos}
-              coverUrl={coverUrl && coverUrl}
-              onclick={onRightClick}
-            />
-          ) : (
-            // 내용
-            <PageWrapper>
-              {/* 왼쪽 버튼 */}
-              <PageButton onClick={onLeftClick} $side="left" />
-              {/* 왼쪽 페이지 */}
-              <Page page={pages[pageNum - 1]} pageNum={pageNum} />
-              {/* 오른쪽 페이지 */}
-              <Page page={pages[pageNum]} pageNum={pageNum + 1} />
-              {/* 오른쪽 버튼 */}
-              <PageButton onClick={onRightClick} $side="right" />
-            </PageWrapper>
-          )}
+          <Main>
+            {pageNum === 0 ? (
+              // 표지
+              <Cover
+                title={title}
+                titlePos={titlePos}
+                coverUrl={coverUrl && coverUrl}
+                onclick={onRightClick}
+              />
+            ) : (
+              // 내용
+              <PageWrapper>
+                {/* 왼쪽 버튼 */}
+                <PageButton onClick={onLeftClick} $side="left" />
+                {/* 왼쪽 페이지 */}
+                <Page page={pages[pageNum - 1]} pageNum={pageNum} />
+                {/* 오른쪽 페이지 */}
+                <Page page={pages[pageNum]} pageNum={pageNum + 1} />
+                {/* 오른쪽 버튼 */}
+                <PageButton onClick={onRightClick} $side="right" />
+              </PageWrapper>
+            )}
+          </Main>
         </Container>
+        <ArrowButtonWrapper>
+          <ArrowButton onClick={onRightClick} side="right" />
+        </ArrowButtonWrapper>
       </Wrapper>
       <CommentListWrapper $showComments={showComments}>
         {showComments && <CommentList setShowComments={setShowComments} />}
@@ -173,17 +182,17 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
 `;
 
 const Container = styled.div`
   width: ${(props) => (props.$pageNum === 0 ? "35%" : "70%")};
   display: flex;
   flex-direction: column;
-  //transition: all 0.5s ease-in-out;
+  margin: 0px 20px;
 `;
 
 const Header = styled.div`
+  height: 50px;
   margin: 10px 0px;
   display: flex;
   align-items: center;
@@ -202,6 +211,11 @@ const Button = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const Main = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Icon = styled.img`
@@ -227,8 +241,6 @@ const PageWrapper = styled.div`
   width: 100%;
   height: 0px;
   padding-bottom: 50%;
-  /* border: 10px solid #78b9ff; */
-  /* border-radius: 2vw; */
   position: relative;
 `;
 
@@ -244,6 +256,10 @@ const PageButton = styled.button`
     cursor: pointer;
   }
   ${(props) => (props.$side === "left" ? "left: 0px" : "right: 0px")}
+`;
+
+const ArrowButtonWrapper = styled.div`
+  margin-top: 60px;
 `;
 
 export default Book;

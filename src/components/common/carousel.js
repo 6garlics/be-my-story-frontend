@@ -1,3 +1,14 @@
+import { styled } from "styled-components";
+import ArrowButton from "./ArrowButton";
+
+const Wrapper = styled.div`
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  z-index: 2;
+  border-radius: 25px;
+`;
+
 export const settings = {
   // className: "center",
   // centerMode: true,
@@ -10,8 +21,16 @@ export const settings = {
   swipeToSlide: true,
   speed: 300,
   // initialSlide: 0,
-  nextArrow: <SampleNextArrow />,
-  prevArrow: <SamplePrevArrow />,
+  nextArrow: (
+    <Wrapper>
+      <ArrowButton side="right" />
+    </Wrapper>
+  ),
+  prevArrow: (
+    <Wrapper>
+      <ArrowButton side="left" />
+    </Wrapper>
+  ),
 
   // responsive: [
   //   {
@@ -49,25 +68,3 @@ export const settings = {
   //   },
   // ],
 };
-
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block" }}
-      onClick={onClick}
-    />
-  );
-}
-
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block" }}
-      onClick={onClick}
-    />
-  );
-}
