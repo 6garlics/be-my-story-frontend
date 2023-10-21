@@ -188,6 +188,7 @@ const Container = styled.div`
   width: ${(props) => (props.$pageNum === 0 ? "35%" : "70%")};
   display: flex;
   flex-direction: column;
+  margin: 0px 20px;
 `;
 
 const Header = styled.div`

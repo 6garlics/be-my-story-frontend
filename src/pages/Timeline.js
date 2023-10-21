@@ -198,6 +198,12 @@ const SliderWrapper = styled.div`
   padding: 30px;
   box-sizing: border-box;
   position: relative;
+  //기존 버튼 숨기기
+  .slick-prev::before,
+  .slick-next::before {
+    opacity: 0;
+    display: none;
+  }
   .slick-initialized{
     width: 100%;
     /* border: 1px solid grey; */

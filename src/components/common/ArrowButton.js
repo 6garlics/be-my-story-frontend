@@ -20,7 +20,6 @@ const ArrowButton = ({ onClick, side }) => {
 };
 
 const Button = styled.button`
-  margin: 10px;
   padding: 10px;
   font-size: 30px;
   border: none;

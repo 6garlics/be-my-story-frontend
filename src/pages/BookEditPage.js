@@ -158,6 +158,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: ${(props) => (props.$smallWidth ? "35%" : "70%")};
+  margin: 0px 20px;
 `;
 
 const PageWrapper = styled.div`
