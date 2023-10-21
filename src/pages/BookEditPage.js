@@ -7,6 +7,7 @@ import { editBook } from "../api/books";
 import { useSelector } from "react-redux";
 import { useContext } from "react";
 import ColorContext from "../contexts/Color";
+import ArrowButton from "../components/common/ArrowButton";
 
 const BookEditPage = () => {
   //Redux의 상태 꺼내오기
@@ -83,13 +84,7 @@ const BookEditPage = () => {
     <RootContainer>
       <Container>
         {/* 왼쪽 버튼 */}
-        <Button
-          onClick={onLeftClick}
-          $color={colors.theme1}
-          $background={colors.theme4}
-        >
-          <IoIosArrowBack />
-        </Button>
+        <ArrowButton onClick={onLeftClick} side="left" />
         <Wrapper $smallWidth={pageNum === 0 || pageNum === length}>
           {/* 표지 */}
           <PageEdit
@@ -132,13 +127,7 @@ const BookEditPage = () => {
           </>
         </Wrapper>
         {/* 오른쪽 버튼 */}
-        <Button
-          onClick={onRightClick}
-          $color={colors.theme1}
-          $background={colors.theme4}
-        >
-          <IoIosArrowForward />
-        </Button>
+        <ArrowButton onClick={onRightClick} side="right" />
       </Container>
       <Submit
         type="submit"
