@@ -59,7 +59,7 @@ const DiaryForm = () => {
     //폼데이터 가공
     const formData = new FormData(event.target);
     formData.delete("genre");
-    formData.append("keyword", genres[selectedGenre]);
+    formData.append("genre", genres[selectedGenre]);
     formData.delete("date");
     formData.append("date", dateToString(date));
     console.log("작성된 일기", Object.fromEntries(formData));
@@ -71,6 +71,9 @@ const DiaryForm = () => {
     postDiary(formData).then((diaryData) => {
       dispatch(bookSlice.actions.setDiaryId(diaryData.diaryId));
     });
+
+    formData.delete("genre");
+    formData.append("keyword", genres[selectedGenre]);
 
     //동화 텍스트 생성
     formData.delete("date");
@@ -86,6 +89,8 @@ const DiaryForm = () => {
     async function createBook() {
       //제목과 텍스트는 생성되고, 커버와 일러스트는 생성 안된 상태라면
       if (title && length !== 0 && coverUrl === "" && imageCnt === 0) {
+        // \n을 <br>로 대체
+        dispatch(bookSlice.actions.setEnter());
         //표지 생성
         dispatch(
           thunkCreateCover({
