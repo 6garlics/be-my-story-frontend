@@ -72,11 +72,11 @@ const BookEditPage = () => {
 
   const onLeftClick = () => {
     if (pageNum === 1) setPageNum((prev) => prev - 1); //내용에서 표지로
-    else if (pageNum > 1) setPageNum((prev) => prev - 1);
+    else if (pageNum > 1) setPageNum((prev) => prev - 2);
   };
   const onRightClick = () => {
     if (pageNum === 0) setPageNum((prev) => prev + 1); //표지에서 내용으로
-    else if (pageNum <= length - 2) setPageNum((prev) => prev + 1);
+    else if (pageNum <= length - 2) setPageNum((prev) => prev + 2);
   };
 
   return (
@@ -101,30 +101,30 @@ const BookEditPage = () => {
           <>
             {pages.map((page, index) => {
               return (
-                // index % 2 === 0 && (
-                <PageWrapper>
-                  {/* 왼쪽 페이지 */}
-                  <PageEdit
-                    key={index}
-                    positions={positions}
-                    setPositions={setPositions}
-                    page={pages[index]}
-                    index={index + 1}
-                    show={index + 1 === pageNum}
-                  />
-                  {/* 오른쪽 페이지 */}
-                  {index < length - 1 && (
+                index % 2 === 0 && (
+                  <PageWrapper>
+                    {/* 왼쪽 페이지 */}
                     <PageEdit
-                      key={index + 1}
+                      key={index}
                       positions={positions}
                       setPositions={setPositions}
-                      page={pages[index + 1]}
-                      index={index + 2}
+                      page={pages[index]}
+                      index={index + 1}
                       show={index + 1 === pageNum}
                     />
-                  )}
-                </PageWrapper>
-                // )
+                    {/* 오른쪽 페이지 */}
+                    {index < length - 1 && (
+                      <PageEdit
+                        key={index + 1}
+                        positions={positions}
+                        setPositions={setPositions}
+                        page={pages[index + 1]}
+                        index={index + 2}
+                        show={index + 1 === pageNum}
+                      />
+                    )}
+                  </PageWrapper>
+                )
               );
             })}
           </>
