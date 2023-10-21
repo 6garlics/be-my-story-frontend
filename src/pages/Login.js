@@ -118,6 +118,8 @@ const Input = styled.input`
   border-radius: 9px;
   margin-bottom: 15px;
   border: 1px solid grey;
+  font-size: inherit;
+  font-family: inherit;
   &:focus {
     outline: ${(props) => `2px ${props.$outline} solid`};
   }
