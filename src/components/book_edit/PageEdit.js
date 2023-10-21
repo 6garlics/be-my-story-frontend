@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { bookSlice } from "../../redux/bookSlice";
 import { useRef } from "react";
 import { DotLoader } from "react-spinners";
+import { useContext } from "react";
+import ColorContext from "../../contexts/Color";
 
 const PageEdit = ({ positions, setPositions, page, index, show }) => {
   //상태
@@ -20,6 +22,7 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
   const textWrapper = useRef(); //TextWrapper 참조
   const dragHandle = useRef(); //DragHandle 참조
   const dispatch = useDispatch();
+  const colors = useContext(ColorContext);
 
   //TextArea 포커스 핸들러
   const onFocus = (e) => {
@@ -131,7 +134,7 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
         <Image src={page.imgUrl} loading="lazy" />
       ) : (
         <Loader>
-          <DotLoader color="#78B9FF" size={100} />
+          <DotLoader color={colors.theme3} size={"10vw"} />
         </Loader>
       )}
       <TextWrapper
@@ -178,7 +181,7 @@ const Container = styled.div`
 const Image = styled.img`
   width: 100%;
   position: absolute;
-  background: grey;
+  background: rgba(255, 255, 255, 0.1);
   /* 이미지 드래그 막기 */
   -webkit-user-drag: none;
   -khtml-user-drag: none;
@@ -194,7 +197,7 @@ const Loader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #2b2b66ff;
+  background: rgba(255, 255, 255, 0.1);
 `;
 
 const TextWrapper = styled.div.attrs(({ $x, $y }) => ({
@@ -283,6 +286,8 @@ const PageNum = styled.div`
   text-align: center;
   position: absolute;
   bottom: 1px;
+  font-size: 1.5vw;
+:
 `;
 
 // const RadioButton = styled.input`
