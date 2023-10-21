@@ -89,8 +89,6 @@ const DiaryForm = () => {
     async function createBook() {
       //제목과 텍스트는 생성되고, 커버와 일러스트는 생성 안된 상태라면
       if (title && length !== 0 && coverUrl === "" && imageCnt === 0) {
-        // \n을 <br>로 대체
-        dispatch(bookSlice.actions.setEnter());
         //표지 생성
         dispatch(
           thunkCreateCover({
