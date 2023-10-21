@@ -11,7 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const focusColor = useContext(ColorContext).theme3;
+  const colors = useContext(ColorContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -45,7 +45,7 @@ const Login = () => {
             id="userName"
             name="userName"
             value={userName}
-            $outline={focusColor}
+            $outline={colors.theme3}
             onChange={(e) => {
               setUserName(e.target.value);
               setMessage("");
@@ -57,7 +57,7 @@ const Login = () => {
             id="password"
             name="password"
             value={password}
-            $outline={focusColor}
+            $outline={colors.theme3}
             onChange={(e) => {
               setPassword(e.target.value);
               setMessage("");
@@ -65,7 +65,9 @@ const Login = () => {
           />
           <Footer>
             <Message>{message}</Message>
-            <SignUpBtn type="submit">로그인</SignUpBtn>
+            <SignUpBtn type="submit" $background={colors.theme3}>
+              로그인
+            </SignUpBtn>
           </Footer>
         </Form>
       </Wrapper>
@@ -115,7 +117,10 @@ const Input = styled.input`
   height: 30px;
   border-radius: 9px;
   margin-bottom: 15px;
+  padding: 0 5px;
   border: 1px solid grey;
+  font-size: inherit;
+  font-family: inherit;
   &:focus {
     outline: ${(props) => `2px ${props.$outline} solid`};
   }
@@ -133,9 +138,11 @@ const Message = styled.div`
 
 const SignUpBtn = styled.button`
   border: none;
-  padding: 10px 15px;
-  border-radius: 20px;
-  background: #78b9ff;
+  padding: 8px 15px;
+  border-radius: 30px;
+  background: ${({ $background }) => $background};
+  font-size: inherit;
+  font-family: inherit;
   color: white;
   text-align: center;
   margin-left: auto;
