@@ -83,7 +83,11 @@ const BookEditPage = () => {
     <RootContainer>
       <Container>
         {/* 왼쪽 버튼 */}
-        <Button onClick={onLeftClick} $background={colors.theme4}>
+        <Button
+          onClick={onLeftClick}
+          $color={colors.theme1}
+          $background={colors.theme4}
+        >
           <IoIosArrowBack />
         </Button>
         <Wrapper $smallWidth={pageNum === 0 || pageNum === length}>
@@ -91,8 +95,6 @@ const BookEditPage = () => {
           <PageEdit
             positions={positions}
             setPositions={setPositions}
-            // text={title}
-            // imgUrl={coverUrl}
             page={{ text: title, imgUrl: coverUrl, x: titleX, y: titleY }}
             index={0}
             show={pageNum === 0}
@@ -130,7 +132,11 @@ const BookEditPage = () => {
           </>
         </Wrapper>
         {/* 오른쪽 버튼 */}
-        <Button onClick={onRightClick} $background={colors.theme4}>
+        <Button
+          onClick={onRightClick}
+          $color={colors.theme1}
+          $background={colors.theme4}
+        >
           <IoIosArrowForward />
         </Button>
       </Container>
@@ -138,9 +144,9 @@ const BookEditPage = () => {
         type="submit"
         onClick={handleEditBook}
         disabled={!saved}
-        $background={colors.theme5}
+        $background={colors.theme1}
       >
-        동화책 만들기
+        완성하기
       </Submit>
     </RootContainer>
   );
@@ -178,24 +184,31 @@ const Button = styled.button`
   width: 50px;
   height: 50px;
   border-radius: 100px;
+  color: white;
+  background: ${({ $background }) => $background};
+  opacity: 0.8;
   &:hover {
-    color: white;
-    background: ${({ $background }) => $background};
+    opacity: 1;
     cursor: pointer;
   }
 `;
 
 const Submit = styled.button`
-  padding: 10px;
+  padding: 8px 14px;
   margin-top: 10px;
-  font-size: 30px;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: inherit;
   border: none;
-  border-radius: 10px;
+  border-radius: 30px;
+  color: white;
   background: ${({ $background }) => $background};
-  font-size: 18px;
   &:hover {
     cursor: pointer;
   }
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 `;
 
 export default BookEditPage;
