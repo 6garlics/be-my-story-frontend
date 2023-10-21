@@ -25,6 +25,9 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   width: 100%;
+  border-radius: 1vw;
+  overflow: hidden;
+  box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.15);
 `;
 
 const ImageBox = styled.div`
@@ -33,7 +36,6 @@ const ImageBox = styled.div`
   height: 0px;
   padding-bottom: 100%;
   overflow: hidden;
-  border-radius: 1vw;
 `;
 
 const Loader = styled.div`

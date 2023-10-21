@@ -166,18 +166,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: ${(props) => !props.$show && "0px"};
+  display: ${(props) => !props.$show && "none"};
   position: relative;
   width: 100%;
-  /* height: 0px; */
-  /* padding-bottom: 50%; */
-  &:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-  }
+  aspect-ratio: 1 / 1;
   border-radius: 1vw;
   overflow: hidden;
+  box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.15);
 `;
 
 const Image = styled.img`

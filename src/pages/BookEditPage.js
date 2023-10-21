@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { editBook } from "../api/books";
 import { useSelector } from "react-redux";
+import { useContext } from "react";
+import ColorContext from "../contexts/Color";
 
 const BookEditPage = () => {
   //Redux의 상태 꺼내오기
@@ -16,6 +18,8 @@ const BookEditPage = () => {
   const pages = useSelector((state) => state.book.pages);
   const length = useSelector((state) => state.book.length);
   const saved = useSelector((state) => state.book.saved);
+
+  const colors = useContext(ColorContext);
 
   //현재 열람하고 있는 페이지 번호 (0번째는 표지)
   const [pageNum, setPageNum] = useState(0);
@@ -79,7 +83,7 @@ const BookEditPage = () => {
     <RootContainer>
       <Container>
         {/* 왼쪽 버튼 */}
-        <Button onClick={onLeftClick}>
+        <Button onClick={onLeftClick} $background={colors.theme4}>
           <IoIosArrowBack />
         </Button>
         <Wrapper $smallWidth={pageNum === 0 || pageNum === length}>
@@ -126,11 +130,16 @@ const BookEditPage = () => {
           </>
         </Wrapper>
         {/* 오른쪽 버튼 */}
-        <Button onClick={onRightClick}>
+        <Button onClick={onRightClick} $background={colors.theme4}>
           <IoIosArrowForward />
         </Button>
       </Container>
-      <Submit type="submit" onClick={handleEditBook} disabled={!saved}>
+      <Submit
+        type="submit"
+        onClick={handleEditBook}
+        disabled={!saved}
+        $background={colors.theme5}
+      >
         동화책 만들기
       </Submit>
     </RootContainer>
@@ -171,7 +180,7 @@ const Button = styled.button`
   border-radius: 100px;
   &:hover {
     color: white;
-    background: #beddff;
+    background: ${({ $background }) => $background};
     cursor: pointer;
   }
 `;
@@ -182,7 +191,7 @@ const Submit = styled.button`
   font-size: 30px;
   border: none;
   border-radius: 10px;
-  background-color: #beddff;
+  background: ${({ $background }) => $background};
   font-size: 18px;
   &:hover {
     cursor: pointer;

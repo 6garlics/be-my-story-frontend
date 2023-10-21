@@ -23,10 +23,11 @@ const Root = styled.div`
   width: 100%;
   height: calc(100vh - 60px);
   margin-left: auto;
-  background: white;
   padding: 20px;
   box-sizing: border-box;
   color: black;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 0.7vw;
 `;
 
 const Header = styled.div`

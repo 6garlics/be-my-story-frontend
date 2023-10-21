@@ -8,6 +8,9 @@ import ColorContext from "../../contexts/Color";
 import { logout } from "../../api/users";
 import { isLogin } from "../../accessControl/isLogin";
 import { useSelector } from "react-redux";
+import home from "../../assets/home.svg";
+import write from "../../assets/write.svg";
+import bookshelf from "../../assets/bookshelf.svg";
 
 const iconSize = 28;
 
@@ -36,15 +39,17 @@ const Nav = () => {
         </>
       ) : (
         <>
-          <NLink onClick={onLogout}>Logout</NLink>
+          <NLink to="/login" onClick={onLogout}>
+            Logout
+          </NLink>
           <NLink to="/" $activeColor={colors.theme3}>
-            <HiHome size={iconSize} />
+            <Icon src={home} />
           </NLink>
           <NLink to="/diary-form" $activeColor={colors.theme3}>
-            <TbSquareRoundedPlusFilled size={iconSize} />
+            <Icon src={write} />
           </NLink>
           <NLink to={`/bookshelf/${userName}`} $activeColor={colors.theme3}>
-            <HiBookOpen size={iconSize} />
+            <Icon src={bookshelf} />
           </NLink>
         </>
       )}
@@ -59,15 +64,19 @@ const Container = styled.div`
 `;
 
 const NLink = styled(NavLink)`
-  /* width: 28px; */
-  height: 28px;
+  //width: 20px;
+  //height: 28px;
   display: flex;
   align-items: center;
   margin-left: 15px;
-  color: grey;
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 0.5;
   &.active {
-    color: ${(props) => props.$activeColor};
+    opacity: 1;
+    color: rgba(255, 255, 255, 1);
   }
 `;
+
+const Icon = styled.img``;
 
 export default Nav;

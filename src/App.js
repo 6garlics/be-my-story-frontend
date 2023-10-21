@@ -96,15 +96,16 @@ const Container = styled.div`
   flex-direction: column;
   color: white;
   background: ${(props) => props.$background};
-  font-family: "Nanum Gothic" !important;
+  font-family: "Gaegu" !important;
+  font-size: 18px;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)),
+    url(/images/star.png) no-repeat center fixed;
+  background-size: cover;
 `;
 
 const Main = styled.main`
   flex: 1;
-  height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url(/images/sea.jpg) no-repeat center fixed;
-  background-size: cover;
+  height: calc(100vh - 60px);
   margin-top: 60px;
 `;
 

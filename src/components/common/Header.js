@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
 import Nav from "./Nav";
 import ColorContext from "./../../contexts/Color";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logoPurple.svg";
 
 const Header = () => {
   const colors = useContext(ColorContext);
@@ -28,7 +28,6 @@ const Container = styled.div`
   position: fixed;
   width: 100%;
   z-index: 1;
-  background: ${(props) => props.$background};
 `;
 
 const Wrapper = styled(NavLink)`
@@ -41,7 +40,7 @@ const Wrapper = styled(NavLink)`
 `;
 
 const Logo = styled.img`
-  width: 26px;
+  width: 30px;
   margin-left: 4px;
   margin-right: 14px;
 `;
@@ -51,6 +50,7 @@ const LargeText = styled.div`
   font-size: 42px;
   font-family: "Gaegu";
   padding-top: 10px;
+  white-space: nowrap;
 `;
 
 const SmallText = styled.div`

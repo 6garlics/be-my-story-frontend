@@ -29,16 +29,16 @@ const DiaryModal = ({ diary, setIsModal }) => {
         }}
       ></Layer>
       <DiaryWrapper $background={colors.theme4}>
-        <Inner>
+        <Inner $background={colors.theme4}>
           <CloseBtn onClick={() => setIsModal((prev) => !prev)}>
-            <IoClose size={22} color="#78b9ff" />
+            <IoClose size={22} color={colors.theme4} />
           </CloseBtn>
-          <Header>
+          <Header $background={colors.theme4}>
             <Date>{diary.date}</Date>
-            <Genre>{diary.genre}</Genre>
+            <Genre $background={colors.theme4}>{diary.genre}</Genre>
           </Header>
-          <Title>{diary.title}</Title>
-          <Contents>{diary.contents}</Contents>
+          <Title $background={colors.theme4}>{diary.title}</Title>
+          <Contents $background={colors.theme4}>{diary.contents}</Contents>
         </Inner>
       </DiaryWrapper>
     </Wrapper>
@@ -82,7 +82,7 @@ const Inner = styled.div`
   padding-bottom: 20px;
   box-sizing: border-box;
   border-radius: 9px;
-  background: #fff;
+  background: white;
   /* box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.15); */
   display: flex;
   flex-direction: column;
@@ -121,17 +121,17 @@ const CloseBtn = styled.button`
 
 const Header = styled.div`
   display: flex;
+  align-items: center;
   padding: 10px 5px;
-  border-top: 1px solid #78b9ff;
+  border-top: 1px solid ${(props) => props.$background};
 `;
 
 const Date = styled.div``;
 
 const Genre = styled.div`
   margin-left: auto;
-  font-size: 12px;
-  font-weight: bold;
-  background: #78b9ff;
+  font-size: 18px;
+  background: ${(props) => props.$background};
   color: white;
   padding: 0 7px;
   padding-top: 2px;
@@ -141,12 +141,13 @@ const Genre = styled.div`
 
 const Title = styled.div`
   padding: 20px 5px;
-  border-top: 1px solid #78b9ff;
-  font-size: 18px;
+  border-top: 1px solid ${(props) => props.$background};
+  font-size: 22px;
+  font-weight: bold;
 `;
 
 const Contents = styled.div`
   padding: 0px 5px;
   flex: auto;
-  border-bottom: 1px solid #78b9ff;
+  border-bottom: 1px solid ${(props) => props.$background};
 `;

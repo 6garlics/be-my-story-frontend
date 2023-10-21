@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
@@ -10,6 +10,7 @@ import refresh from "../assets/refresh.svg";
 import arrowLeft from "../assets/arrowLeft.svg";
 import arrowRight from "../assets/arrowRight.svg";
 import { S } from "./diaryFormStyle";
+import ColorContext from "./../contexts/Color";
 import {
   bookSlice,
   thunkCreateCover,
@@ -38,6 +39,7 @@ const DiaryForm = () => {
   const length = useSelector((state) => state.book.length);
   const coverUrl = useSelector((state) => state.book.coverUrl);
   const imageCnt = useSelector((state) => state.book.imageCnt);
+  const colors = useContext(ColorContext);
 
   //랜덤 토픽 생성
   const getTopic = () => {
@@ -125,85 +127,99 @@ const DiaryForm = () => {
       <S.LoaderText>동화책을 만들고 있어요!</S.LoaderText>
     </S.Loader>
   ) : (
-    <S.Wrapper>
-      <S.TopicWrapper>
-        <S.Topic>{topic}</S.Topic>
-        <S.RefreshIcon src={refresh} onClick={getTopic} />
-      </S.TopicWrapper>
-      <S.Form onSubmit={submitDiary}>
-        <S.FormBox $show={page === 0}>
-          <S.Header>
-            <S.SDatePicker
-              value={date}
-              name="date"
-              dateFormat="yyyy년 MM월 dd일"
-              maxDate={new window.Date()}
-              locale={ko}
-              selected={date}
-              onChange={(date) => setDate(date)}
+    <S.Container>
+      <S.Wrapper>
+        {/* 일기 토픽 */}
+        <S.TopicWrapper>
+          <S.Topic>{topic}</S.Topic>
+          <S.RefreshIcon src={refresh} onClick={getTopic} />
+        </S.TopicWrapper>
+        <S.Form onSubmit={submitDiary}>
+          <S.FormBox $show={page === 0}>
+            <S.Header>
+              <S.SDatePicker
+                value={date}
+                name="date"
+                dateFormat="yyyy년 MM월 dd일"
+                maxDate={new window.Date()}
+                locale={ko}
+                selected={date}
+                onChange={(date) => setDate(date)}
+              />
+            </S.Header>
+
+            <S.Title
+              placeholder="제목"
+              name="title"
+              value={diaryTitle}
+              onChange={(e) => setTitle(e.target.value)}
             />
-          </S.Header>
 
-          <S.Title
-            placeholder="제목"
-            name="title"
-            value={diaryTitle}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-
-          <S.Contents
-            placeholder="일기를 써보아요."
-            name="contents"
-            value={contents}
-            onChange={(e) => setText(e.target.value)}
-          />
-          <S.ButtonWrapper>
-            <div></div>
-            <S.Button type="button" onClick={() => setPage((prev) => prev + 1)}>
-              <S.Text>다음</S.Text>
-              <S.Img src={arrowRight} />
-            </S.Button>
-          </S.ButtonWrapper>
-        </S.FormBox>
-        <S.FormBox $show={page === 1}>
-          <S.CharacterNameWrapper>
-            <S.Label>주인공의 이름을 정해볼까요?</S.Label>
-            <S.CharacterName
-              name="name"
-              value={characterName}
-              onChange={(e) => setCharacterName(e.target.value)}
-            ></S.CharacterName>
-          </S.CharacterNameWrapper>
-          <S.GenreWrapper>
-            <S.Label>이야기의 배경을 골라보아요.</S.Label>
-            <S.Genres>
-              {genres.map((genre, index) => {
-                return (
-                  <S.GenreLabel key={index}>
-                    <S.RadioButton
-                      type="radio"
-                      name="genre"
-                      value={index}
-                      onChange={(e) => setSelectedGenre(index)}
-                    />
-                    <S.Genre index={index} selectedGenre={selectedGenre}>
-                      {genre}
-                    </S.Genre>
-                  </S.GenreLabel>
-                );
-              })}
-            </S.Genres>
-          </S.GenreWrapper>
-          <S.ButtonWrapper>
-            <S.Button type="button" onClick={() => setPage((prev) => prev - 1)}>
-              <S.Img src={arrowLeft} />
-              <S.Text>이전</S.Text>
-            </S.Button>
-            <S.Button type="submit">만들기</S.Button>
-          </S.ButtonWrapper>
-        </S.FormBox>
-      </S.Form>
-    </S.Wrapper>
+            <S.Contents
+              placeholder="일기를 써보아요."
+              name="contents"
+              value={contents}
+              onChange={(e) => setText(e.target.value)}
+            />
+            <S.ButtonWrapper>
+              <div></div>
+              <S.Button
+                type="button"
+                onClick={() => setPage((prev) => prev + 1)}
+              >
+                <S.Text>다음</S.Text>
+                <S.Img src={arrowRight} />
+              </S.Button>
+            </S.ButtonWrapper>
+          </S.FormBox>
+          <S.FormBox $show={page === 1}>
+            <S.CharacterNameWrapper>
+              <S.Label>주인공의 이름을 정해볼까요?</S.Label>
+              <S.CharacterName
+                name="name"
+                value={characterName}
+                onChange={(e) => setCharacterName(e.target.value)}
+              ></S.CharacterName>
+            </S.CharacterNameWrapper>
+            <S.GenreWrapper>
+              <S.Label>이야기의 배경을 골라보아요.</S.Label>
+              <S.Genres>
+                {genres.map((genre, index) => {
+                  return (
+                    <S.GenreLabel key={index}>
+                      <S.RadioButton
+                        type="radio"
+                        name="genre"
+                        value={index}
+                        onChange={(e) => setSelectedGenre(index)}
+                      />
+                      <S.Genre
+                        $selected={index === selectedGenre}
+                        $background={colors.theme5}
+                      >
+                        {genre}
+                      </S.Genre>
+                    </S.GenreLabel>
+                  );
+                })}
+              </S.Genres>
+            </S.GenreWrapper>
+            <S.ButtonWrapper>
+              <S.Button
+                type="button"
+                onClick={() => setPage((prev) => prev - 1)}
+              >
+                <S.Img src={arrowLeft} />
+                <S.Text>이전</S.Text>
+              </S.Button>
+              <S.Button type="submit" $background={colors.theme5}>
+                만들기
+              </S.Button>
+            </S.ButtonWrapper>
+          </S.FormBox>
+        </S.Form>
+      </S.Wrapper>
+    </S.Container>
   );
 };
 

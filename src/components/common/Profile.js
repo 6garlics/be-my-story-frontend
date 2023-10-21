@@ -49,8 +49,8 @@ const ProfileIcon = styled.img`
 
 const ProfileName = styled.div`
   margin-left: 10px;
-  margin-bottom: 6px;
-  font-size: 18px;
+  margin-bottom: 2px;
+  font-size: 22px;
 `;
 
 export default Profile;

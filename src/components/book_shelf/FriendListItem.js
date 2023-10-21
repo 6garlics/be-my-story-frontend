@@ -34,10 +34,11 @@ const Root = styled.div`
 `;
 const FollowBtn = styled.button`
   background: ${(props) => props.$background};
-  width: 70px;
   padding: 3px 7px;
   border: none;
   border-radius: 7px;
+  font-size: 16px;
+  font-family: inherit;
   color: white;
   &:hover {
     cursor: pointer;
