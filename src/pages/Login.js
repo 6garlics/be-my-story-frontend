@@ -117,6 +117,7 @@ const Input = styled.input`
   height: 30px;
   border-radius: 9px;
   margin-bottom: 15px;
+  padding: 0 5px;
   border: 1px solid grey;
   font-size: inherit;
   font-family: inherit;
