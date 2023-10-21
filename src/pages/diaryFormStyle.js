@@ -73,6 +73,9 @@ export const Form = styled.form`
   flex: 1;
   display: flex;
   width: 100%;
+  border-radius: 12px;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
 `;
 
 export const FormBox = styled.div`
@@ -80,11 +83,9 @@ export const FormBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-radius: 12px;
   box-sizing: border-box;
   padding: 25px;
-  color: black;
-  background: white;
+  color: inherit;
   display: ${({ $show }) => !$show && "none"};
 `;
 
@@ -122,6 +123,7 @@ export const SDatePicker = styled(DatePicker)`
   padding: -10px;
   margin: 0px;
   border: none;
+  color: inherit;
   background: inherit;
   &:hover {
     cursor: pointer;
@@ -153,11 +155,12 @@ export const CharacterName = styled.input`
   font-size: 20px;
   font-family: inherit;
   border: none;
-  border: 1px solid lightgrey;
+  outline: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 10px;
+  color: inherit;
   background: inherit;
   &:focus {
-    outline: none;
+    outline: 2px solid rgba(255, 255, 255, 0.3);
   }
 `;
 
@@ -168,12 +171,13 @@ export const Title = styled.input`
   font-family: inherit;
   padding-top: 10px;
   padding-bottom: 10px;
+  color: inherit;
   background: inherit;
   &:focus {
     outline: none;
   }
   &::placeholder {
-    color: #999999;
+    color: rgba(255, 255, 255, 0.3);
   }
 `;
 
@@ -184,12 +188,13 @@ export const Contents = styled.textarea`
   font-family: inherit;
   resize: none;
   border: none;
+  color: inherit;
   background: inherit;
   &:focus {
     outline: none;
   }
   &::placeholder {
-    color: #999999;
+    color: rgba(255, 255, 255, 0.3);
   }
 `;
 
@@ -221,16 +226,22 @@ export const Genre = styled.div`
   margin: 10px;
   padding: 5px 10px;
   border-radius: 50px;
-  outline: 1px solid lightgrey;
+  outline: 1px solid rgba(255, 255, 255, 0.3);
   white-space: nowrap;
-  &:hover {
-    cursor: pointer;
-    font-weight: bold;
-  }
+
   ${({ $selected, $background }) =>
     $selected
-      ? { background: $background, fontWeight: "bold", outline: "none" }
-      : { background: "inherit" }}
+      ? {
+          background: $background,
+          color: "black",
+          fontWeight: "bold",
+          outline: "none",
+        }
+      : { background: "inherit" }};
+  &:hover {
+    cursor: pointer;
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+  }
 `;
 
 export const ButtonWrapper = styled.div`
@@ -248,6 +259,7 @@ export const Button = styled.button`
   height: 40px;
   border: none;
   border-radius: 10px;
+  color: ${({ $background }) => ($background ? "black" : "inherit")};
   background: ${({ $background }) => ($background ? $background : "none")};
   font-family: inherit;
   font-size: 20px;

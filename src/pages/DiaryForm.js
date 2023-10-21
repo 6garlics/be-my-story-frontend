@@ -123,7 +123,7 @@ const DiaryForm = () => {
 
   return loading ? (
     <S.Loader>
-      <DotLoader color="#78B9FF" size={100} />
+      <DotLoader color={colors.theme3} size={100} />
       <S.LoaderText>동화책을 만들고 있어요!</S.LoaderText>
     </S.Loader>
   ) : (
