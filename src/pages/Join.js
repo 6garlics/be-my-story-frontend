@@ -25,7 +25,7 @@ const Join = () => {
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
-  const theme3 = useContext(ColorContext).theme3;
+  const colors = useContext(ColorContext);
   const navigate = useNavigate();
 
   //회원가입 버튼 클릭 시
@@ -144,7 +144,7 @@ const Join = () => {
   return (
     <Container>
       <Wrapper>
-        <Text>{`Be My Story 회원가입`}</Text>
+        <Text>{`TORI 회원가입`}</Text>
         <Form onSubmit={onJoin}>
           <Label htmlFor="userName">사용자 이름</Label>
           <InputWrapper>
@@ -153,9 +153,12 @@ const Join = () => {
               name="userName"
               value={userName}
               onChange={onChangeName}
-              $outline={theme3}
+              $outline={colors.theme3}
             />
-            <CheckDuplicate onClick={onCheckDuplicate} $background={theme3}>
+            <CheckDuplicate
+              onClick={onCheckDuplicate}
+              $background={colors.theme3}
+            >
               중복확인
             </CheckDuplicate>
           </InputWrapper>
@@ -169,7 +172,7 @@ const Join = () => {
             name="email"
             value={email}
             onChange={onChangeEmail}
-            $outline={theme3}
+            $outline={colors.theme3}
           />
           <Message $color={isEmail ? "lightgreen" : "red"}>
             {email.length > 0 && emailMessage}
@@ -182,7 +185,7 @@ const Join = () => {
             name="password"
             value={password}
             onChange={onChangePassword}
-            $outline={theme3}
+            $outline={colors.theme3}
           />
           <Message $color={isPassword ? "lightgreen" : "red"}>
             {password.length > 0 && passwordMessage}
@@ -194,7 +197,7 @@ const Join = () => {
             id="passwordConfirm"
             value={passwordConfirm}
             onChange={onChangePasswordConfirm}
-            $outline={theme3}
+            $outline={colors.theme3}
           />
           <Message $color={isPasswordConfirm ? "lightgreen" : "red"}>
             {passwordConfirm.length > 0 && passwordConfirmMessage}
@@ -202,6 +205,7 @@ const Join = () => {
           <SignUpBtn
             type="submit"
             disabled={!(isName && isEmail && isPassword && isPasswordConfirm)}
+            $background={colors.theme3}
           >
             가입하기
           </SignUpBtn>
@@ -260,6 +264,8 @@ const Input = styled.input`
   border-radius: 9px;
   padding: 0 5px;
   border: 1px solid grey;
+  font-size: inherit;
+  font-family: inherit;
   &:focus {
     outline: ${(props) => `2px ${props.$outline} solid`};
   }
@@ -277,10 +283,12 @@ const CheckDuplicate = styled.button`
   &:hover {
     cursor: pointer;
   }
+  font-size: 16px;
+  font-family: inherit;
 `;
 
 const Message = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 15px;
   height: 20px;
   color: ${(props) => props.$color};
@@ -288,10 +296,12 @@ const Message = styled.div`
 
 const SignUpBtn = styled.button`
   border: none;
-  padding: 10px 15px;
-  border-radius: 20px;
-  background: #78b9ff;
+  padding: 8px 15px;
+  border-radius: 30px;
+  background: ${({ $background }) => $background};
   color: white;
+  font-size: inherit;
+  font-family: inherit;
   text-align: center;
   margin-left: auto;
   margin-top: 10px;
