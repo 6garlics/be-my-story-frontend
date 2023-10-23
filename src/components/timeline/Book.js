@@ -91,6 +91,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
         <IoIosArrowBack size={30} color="white" />
       </CloseBtn>
       <Wrapper>
+        {/* 왼쪽 버튼 */}
         <ArrowButtonWrapper>
           <ArrowButton onClick={onLeftClick} side="left" />
         </ArrowButtonWrapper>
@@ -133,19 +134,37 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
               />
             ) : (
               // 내용
-              <PageWrapper>
+              <>
+                {pages.map(
+                  (page, index) =>
+                    index % 2 === 0 && (
+                      <PageWrapper>
+                        <Page
+                          page={pages[index]}
+                          index={index + 1}
+                          show={index + 1 === pageNum}
+                        />
+                        <Page
+                          page={pages[index + 1]}
+                          index={index + 2}
+                          show={index + 1 === pageNum}
+                        />
+                      </PageWrapper>
+                    )
+                )}
                 {/* 왼쪽 버튼 */}
-                <PageButton onClick={onLeftClick} $side="left" />
+                {/* <PageButton onClick={onLeftClick} $side="left" /> */}
                 {/* 왼쪽 페이지 */}
-                <Page page={pages[pageNum - 1]} pageNum={pageNum} />
+                {/* <Page page={pages[pageNum - 1]} pageNum={pageNum} /> */}
                 {/* 오른쪽 페이지 */}
-                <Page page={pages[pageNum]} pageNum={pageNum + 1} />
+                {/* <Page page={pages[pageNum]} pageNum={pageNum + 1} /> */}
                 {/* 오른쪽 버튼 */}
-                <PageButton onClick={onRightClick} $side="right" />
-              </PageWrapper>
+                {/* <PageButton onClick={onRightClick} $side="right" /> */}
+              </>
             )}
           </Main>
         </Container>
+        {/* 오른쪽 버튼 */}
         <ArrowButtonWrapper>
           <ArrowButton onClick={onRightClick} side="right" />
         </ArrowButtonWrapper>
@@ -214,7 +233,9 @@ const Button = styled.button`
 `;
 
 const Main = styled.div`
+  width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -239,8 +260,6 @@ const CommentListWrapper = styled.div`
 const PageWrapper = styled.div`
   display: flex;
   width: 100%;
-  height: 0px;
-  padding-bottom: 50%;
   position: relative;
 `;
 
