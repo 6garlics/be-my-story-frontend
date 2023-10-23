@@ -169,6 +169,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
           <ArrowButton onClick={onRightClick} side="right" />
         </ArrowButtonWrapper>
       </Wrapper>
+      {/* 댓글창 */}
       <CommentListWrapper $showComments={showComments}>
         {showComments && <CommentList setShowComments={setShowComments} />}
       </CommentListWrapper>

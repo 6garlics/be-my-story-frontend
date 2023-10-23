@@ -26,7 +26,7 @@ const Root = styled.div`
   padding: 20px;
   box-sizing: border-box;
   color: black;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 0.7vw;
 `;
 
