@@ -87,7 +87,7 @@ const BookEditPage = () => {
       </CloseBtn>
       <Container>
         {/* 왼쪽 버튼 */}
-        <ArrowButton onClick={onLeftClick} side="left" />
+        <ArrowButton onClick={onLeftClick} side="left" hide={pageNum === 0} />
         <Wrapper $smallWidth={pageNum === 0 || pageNum === length}>
           {/* 표지 */}
           <PageEdit
@@ -130,7 +130,11 @@ const BookEditPage = () => {
           </>
         </Wrapper>
         {/* 오른쪽 버튼 */}
-        <ArrowButton onClick={onRightClick} side="right" />
+        <ArrowButton
+          onClick={onRightClick}
+          side="right"
+          hide={pageNum !== 0 && pageNum >= pages.length - 1}
+        />
       </Container>
       <Submit
         type="submit"

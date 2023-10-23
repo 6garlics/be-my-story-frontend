@@ -169,7 +169,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
           <ArrowButton
             onClick={onRightClick}
             side="right"
-            hide={pageNum >= pages.length - 1}
+            hide={pageNum !== 0 && pageNum >= pages.length - 1}
           />
         </ArrowButtonWrapper>
       </Wrapper>
