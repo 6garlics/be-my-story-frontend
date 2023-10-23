@@ -29,11 +29,11 @@ function BookCover({ bookId, userName, title, coverUrl }) {
       {isModal && <DiaryModal isModal={isModal} setIsModal={setIsModal} />}
       <Header className="header">
         <Profile userName={userName} profileImg={profileImg} />
-        <Button onClick={() => setIsModal((prev) => !prev)}>
+        {/* <Button onClick={() => setIsModal((prev) => !prev)}>
           <IoIosMore size={25} color="white" />
-        </Button>
+        </Button> */}
       </Header>
-      <Wrapper>
+      <Wrapper onClick={() => navigate(`/book/${bookId}/detail`)}>
         <Cover
           coverUrl={coverUrl && coverUrl}
           title={title}
@@ -75,6 +75,9 @@ const Wrapper = styled.div`
   justify-content: center;
   border-radius: 3% 3% 3% 3%;
   box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.3);
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default BookCover;

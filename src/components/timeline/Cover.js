@@ -14,7 +14,7 @@ const Cover = ({ title, titlePos, coverUrl, onclick }) => {
           </Loader>
         )}
         <Title $titlePos={titlePos}>{title}</Title>
-        <Button onClick={onclick}></Button>
+        {/* <Button onClick={onclick}></Button> */}
       </ImageBox>
     </Container>
   );

@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import BookCover from "../components/timeline/BookCover";
+import { getBooks } from "../api/books";
 
 //const id = 0;
 const booksData = [
@@ -148,9 +149,8 @@ function Timeline() {
   //전체 동화책 조회
   useEffect(() => {
     async function fetchBooks() {
-      // const data = await getBooks();
-      // setBooks(data);
-      setBooks(booksData);
+      const data = await getBooks();
+      setBooks(data.content);
     }
     fetchBooks();
   }, []);
@@ -166,9 +166,7 @@ function Timeline() {
                 bookId={book.bookId}
                 userName={book.userName}
                 title={book.title}
-                texts={book.texts}
                 coverUrl={book.coverUrl}
-                images={book.images}
               />
             ))}
           </Slider>
