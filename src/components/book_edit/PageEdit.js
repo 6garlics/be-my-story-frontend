@@ -169,7 +169,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  display: ${(props) => !props.$show && "none"};
+  height: ${(props) => !props.$show && "0px"};
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
