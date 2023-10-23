@@ -2,16 +2,16 @@ import React from "react";
 import { styled } from "styled-components";
 import endingPage from "../../assets/endingPage.svg";
 
-const Page = ({ page, pageNum }) => {
+const Page = ({ page, index, show }) => {
   return (
-    <Container>
+    <Container $show={show}>
       <Image src={page ? page.imgUrl : endingPage} loading="lazy" />
       {page && (
         <Text $textPos={page.x ? { x: page.x, y: page.y } : { x: 0, y: 0 }}>
           {page.text}
         </Text>
       )}
-      {page && <PageNum>{pageNum}</PageNum>}
+      {page && <PageNum>{index}</PageNum>}
     </Container>
   );
 };
@@ -20,8 +20,8 @@ export default Page;
 
 const Container = styled.div`
   width: 50%;
-  height: 0px;
-  padding-bottom: 50%;
+  aspect-ratio: 1 / 1;
+  height: ${({ $show }) => !$show && "0px"};
   border-radius: 1vw;
   overflow: hidden;
   position: relative;

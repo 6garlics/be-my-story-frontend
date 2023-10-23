@@ -144,7 +144,7 @@ const Join = () => {
   return (
     <Container>
       <Wrapper>
-        <Text>{`TORI 회원가입`}</Text>
+        <Text>{`토리 회원가입`}</Text>
         <Form onSubmit={onJoin}>
           <Label htmlFor="userName">사용자 이름</Label>
           <InputWrapper>

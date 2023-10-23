@@ -38,7 +38,7 @@ const Login = () => {
   return (
     <Container>
       <Wrapper>
-        <Text>{`Be My Story 로그인`}</Text>
+        <Text>{`토리 로그인`}</Text>
         <Form onSubmit={onLogin}>
           <Label htmlFor="userName">사용자 이름</Label>
           <Input

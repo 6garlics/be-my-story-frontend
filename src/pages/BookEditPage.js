@@ -82,6 +82,9 @@ const BookEditPage = () => {
 
   return (
     <RootContainer>
+      <CloseBtn onClick={() => navigate(-1)}>
+        <IoIosArrowBack size={30} color="white" />
+      </CloseBtn>
       <Container>
         {/* 왼쪽 버튼 */}
         <ArrowButton onClick={onLeftClick} side="left" />
@@ -147,6 +150,18 @@ const RootContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: calc(100vh - 60px);
+`;
+
+const CloseBtn = styled.button`
+  position: fixed;
+  top: 70px;
+  left: 5px;
+  padding: 7px;
+  background: none;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Container = styled.div`
