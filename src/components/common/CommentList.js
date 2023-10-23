@@ -4,6 +4,12 @@ import Comment from "./Comment";
 import { IoClose } from "react-icons/io5";
 
 const CommentList = ({ setShowComments }) => {
+  //더미데이터
+  const comments = [
+    { userName: "cat", content: "우와 동화책 완전 재밌어요" },
+    { userName: "dog", content: "그림 엄청 예쁘네용" },
+    { userName: "bird", content: "굿굿bb" },
+  ];
   return (
     <Root>
       <Header>
@@ -12,9 +18,9 @@ const CommentList = ({ setShowComments }) => {
           <IoClose size={23} color="black" />
         </CloseBtn>
       </Header>
-      <Comment />
-      <Comment />
-      <Comment />
+      {comments.map((comment) => (
+        <Comment userName={comment.userName} content={comment.content} />
+      ))}
     </Root>
   );
 };

@@ -1,18 +1,15 @@
 import React from "react";
 import { styled } from "styled-components";
 
-const Comment = () => {
+const Comment = ({ userName, content }) => {
   return (
     <Root>
       <ProfileImg>
         <Img src="/images/logo.png" />
       </ProfileImg>
       <Wrapper>
-        <UserName>Jamie0829</UserName>
-        <Content>
-          우와 동화책이 너무
-          멋져요!우와아아ㅏ아아ㅏ아아아아ㅏ아아아아아ㅏ아아ㅏ아아아ㅏ아아ㅏㅏ아아아아아아아ㅏㅇ
-        </Content>
+        <UserName>{userName}</UserName>
+        <Content>{content}</Content>
       </Wrapper>
     </Root>
   );
@@ -20,7 +17,7 @@ const Comment = () => {
 
 const Root = styled.div`
   display: flex;
-  margin: 10px 0px;
+  margin: 24px 0px;
 `;
 
 const ProfileImg = styled.div`
@@ -29,7 +26,7 @@ const ProfileImg = styled.div`
   height: 40px;
   border-radius: 20px;
   overflow: hidden;
-  margin-top: 5px;
+  margin-top: 4px;
 `;
 
 const Img = styled.img`
@@ -41,9 +38,12 @@ const Wrapper = styled.div`
 `;
 
 const UserName = styled.div`
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  font-size: 18px;
+`;
 
 export default Comment;
