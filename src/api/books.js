@@ -4,8 +4,8 @@ import client from "./client";
 //전체 동화책 조회
 export const getBooks = async () => {
   try {
-    const res = await axios.get(
-      `https://1d805cb7-0534-49b3-93af-7b95cf7604c4.mock.pstmn.io/books`,
+    const res = await client.get(
+      `/timeline?category=ALL&page=1&size=10&sort=DESC`,
       {
         headers: { "Content-Type": "application/json" },
       }

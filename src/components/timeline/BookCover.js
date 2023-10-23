@@ -29,9 +29,9 @@ function BookCover({ bookId, userName, title, coverUrl }) {
       {isModal && <DiaryModal isModal={isModal} setIsModal={setIsModal} />}
       <Header className="header">
         <Profile userName={userName} profileImg={profileImg} />
-        <Button onClick={() => setIsModal((prev) => !prev)}>
+        {/* <Button onClick={() => setIsModal((prev) => !prev)}>
           <IoIosMore size={25} color="white" />
-        </Button>
+        </Button> */}
       </Header>
       <Wrapper>
         <Cover
