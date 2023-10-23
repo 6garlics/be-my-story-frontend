@@ -93,7 +93,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
       <Wrapper>
         {/* 왼쪽 버튼 */}
         <ArrowButtonWrapper>
-          <ArrowButton onClick={onLeftClick} side="left" />
+          <ArrowButton onClick={onLeftClick} side="left" hide={pageNum === 0} />
         </ArrowButtonWrapper>
         <Container $pageNum={pageNum}>
           {/* 헤더 */}
@@ -166,7 +166,11 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
         </Container>
         {/* 오른쪽 버튼 */}
         <ArrowButtonWrapper>
-          <ArrowButton onClick={onRightClick} side="right" />
+          <ArrowButton
+            onClick={onRightClick}
+            side="right"
+            hide={pageNum >= pages.length - 1}
+          />
         </ArrowButtonWrapper>
       </Wrapper>
       {/* 댓글창 */}

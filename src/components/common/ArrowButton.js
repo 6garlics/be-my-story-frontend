@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import ColorContext from "../../contexts/Color";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
-const ArrowButton = ({ onClick, side }) => {
+const ArrowButton = ({ onClick, side, hide }) => {
   const colors = useContext(ColorContext);
   return (
     <div>
@@ -12,6 +12,7 @@ const ArrowButton = ({ onClick, side }) => {
         onClick={onClick}
         $color={colors.theme1}
         $background={colors.theme4}
+        $hide={hide}
       >
         {side === "left" ? <IoIosArrowBack /> : <IoIosArrowForward />}
       </Button>
@@ -28,11 +29,12 @@ const Button = styled.button`
   border-radius: 100px;
   color: white;
   background: ${({ $background }) => $background};
-  opacity: 0.8;
+  opacity: 0.9;
   &:hover {
     opacity: 1;
     cursor: pointer;
   }
+  visibility: ${({ $hide }) => $hide && "hidden"};
 `;
 
 export default ArrowButton;
