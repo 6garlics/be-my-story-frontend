@@ -182,6 +182,7 @@ const DiaryForm = () => {
                 name="name"
                 value={characterName}
                 onChange={(e) => setCharacterName(e.target.value)}
+                autocomplete="off"
               ></S.CharacterName>
             </S.CharacterNameWrapper>
             <S.GenreWrapper>
