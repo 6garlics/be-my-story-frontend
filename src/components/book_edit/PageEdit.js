@@ -130,11 +130,13 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
 
   return (
     <Container $show={show} ref={container}>
-      {page.imgUrl && page.imgUrl !== "" ? (
+      {page.imgUrl && page.imgUrl !== "" && page.imgUrl !== "null" ? (
         <Image src={page.imgUrl} loading="lazy" />
       ) : (
         <Loader>
-          <DotLoader color={colors.theme3} size={"10vw"} />
+          {page.imgUrl !== "null" && (
+            <DotLoader color={colors.theme3} size={"10vw"} />
+          )}
         </Loader>
       )}
       <TextWrapper

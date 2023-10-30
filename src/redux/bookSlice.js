@@ -92,7 +92,12 @@ export const bookSlice = createSlice({
       state.pages = action.payload;
     },
     addPage: (state, action) => {
-      state.pages.push({ text: "", imgUrl: "", x: 0, y: 0 });
+      state.pages.push({
+        text: "이야기를 적어보아요",
+        imgUrl: "null",
+        x: 0,
+        y: 0,
+      });
       state.length += 1;
     },
     setLength: (state, action) => {
