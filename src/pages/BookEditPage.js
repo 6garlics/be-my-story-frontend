@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useContext } from "react";
 import ColorContext from "../contexts/Color";
 import ArrowButton from "../components/common/ArrowButton";
+import SequelPage from "../components/book_edit/SequelPage";
 
 const BookEditPage = () => {
   //Redux의 상태 꺼내오기
@@ -104,25 +105,33 @@ const BookEditPage = () => {
                 index % 2 === 0 && (
                   <PageWrapper>
                     {/* 왼쪽 페이지 */}
-                    <PageEdit
-                      key={index}
-                      positions={positions}
-                      setPositions={setPositions}
-                      page={pages[index]}
-                      index={index + 1}
-                      show={index + 1 === pageNum}
-                    />
-                    {/* 오른쪽 페이지 */}
-                    {index < length - 1 && (
+                    {index === length - 1 ? (
+                      <SequelPage show={index + 1 === pageNum} />
+                    ) : (
                       <PageEdit
-                        key={index + 1}
+                        key={index}
                         positions={positions}
                         setPositions={setPositions}
-                        page={pages[index + 1]}
-                        index={index + 2}
+                        page={pages[index]}
+                        index={index + 1}
                         show={index + 1 === pageNum}
                       />
                     )}
+
+                    {/* 오른쪽 페이지 */}
+                    {index < length - 1 &&
+                      (index === length - 2 ? (
+                        <SequelPage show={index + 1 === pageNum} />
+                      ) : (
+                        <PageEdit
+                          key={index + 1}
+                          positions={positions}
+                          setPositions={setPositions}
+                          page={pages[index + 1]}
+                          index={index + 2}
+                          show={index + 1 === pageNum}
+                        />
+                      ))}
                   </PageWrapper>
                 )
               );
