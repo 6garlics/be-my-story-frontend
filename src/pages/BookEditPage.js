@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PageEdit from "../components/book_edit/PageEdit";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
 import { editBook } from "../api/books";
 import { useSelector } from "react-redux";
 import { useContext } from "react";
@@ -195,24 +195,6 @@ const PageWrapper = styled.div`
   display: flex;
   position: relative;
 `;
-
-const Button = styled.button`
-  margin: 10px;
-  padding: 10px;
-  font-size: 30px;
-  border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 100px;
-  color: white;
-  background: ${({ $background }) => $background};
-  opacity: 0.8;
-  &:hover {
-    opacity: 1;
-    cursor: pointer;
-  }
-`;
-
 const Submit = styled.button`
   padding: 8px 14px;
   margin-top: 10px;

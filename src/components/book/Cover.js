@@ -76,19 +76,4 @@ const Title = styled.div.attrs(
   border-radius: 5em;
 `;
 
-const Button = styled.button`
-  position: absolute;
-  top: 0px;
-  left: ${(props) => props.left};
-  right: ${(props) => props.right};
-  width: 100%;
-  height: 100%;
-  padding: 0px;
-  margin: 0px;
-  opacity: 0;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 export default Cover;

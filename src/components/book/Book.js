@@ -4,14 +4,11 @@ import Page from "../common/Page";
 import Profile from "../common/Profile";
 import Cover from "./Cover";
 import DiaryModal from "./DiaryModal";
-import { IoIosMore } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import CommentList from "../common/CommentList";
-import { BsChat } from "react-icons/bs";
 import { deleteBook, getDiary } from "../../api/books";
-import pencil from "../../assets/pencil.svg";
 import { bookSlice } from "../../redux/bookSlice";
 import chat from "../../assets/chat.svg";
 import edit from "../../assets/edit.svg";
@@ -259,10 +256,6 @@ const Icon = styled.img`
   }
 `;
 
-const DeleteBtn = styled.img`
-  width: 25px;
-`;
-
 const CommentListWrapper = styled.div`
   width: ${(props) => (props.$showComments ? "400px" : "0px")};
   transition: all 0.2s ease-in-out;
@@ -274,20 +267,6 @@ const PageWrapper = styled.div`
   display: flex;
   width: 100%;
   position: relative;
-`;
-
-const PageButton = styled.button`
-  position: absolute;
-  z-index: 2;
-  width: 25%;
-  height: 0px;
-  padding-bottom: 50%;
-  background: none;
-  border: none;
-  &:hover {
-    cursor: pointer;
-  }
-  ${(props) => (props.$side === "left" ? "left: 0px" : "right: 0px")}
 `;
 
 const ArrowButtonWrapper = styled.div`
