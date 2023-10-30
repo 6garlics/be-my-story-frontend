@@ -16,12 +16,14 @@ import trash from "../../assets/trash.svg";
 import diaryIcon from "../../assets/diary.svg";
 import ArrowButton from "../common/ArrowButton";
 import mail from "../../assets/mail.svg";
+import LetterForm from "./LetterForm";
 
 function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
   const [isModal, setIsModal] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [pageNum, setPageNum] = useState(0); //현재 열람하고 있는 페이지 번호 (0번째는 표지)
   const [diary, setDiary] = useState();
+  const [showLetterForm, setShowLetterForm] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -86,6 +88,10 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
       <hr />
       <div id="complementary"></div> */}
       {isModal && <DiaryModal diary={diary} setIsModal={setIsModal} />}
+      <LetterForm
+        showLetterForm={showLetterForm}
+        setShowLetterForm={setShowLetterForm}
+      />
       <CloseBtn onClick={() => navigate(-1)}>
         <IoIosArrowBack size={30} color="white" />
       </CloseBtn>
@@ -99,16 +105,20 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
           <Header>
             <Profile userName={userName} />
             <Buttons>
+              {/* 친구 동화책에만 보이는 버튼 */}
+              {myName && myName !== userName && (
+                // 편지 쓰기 버튼
+                <Button>
+                  <Icon
+                    src={mail}
+                    onClick={() => setShowLetterForm((prev) => !prev)}
+                  />
+                </Button>
+              )}
               {/* 댓글 보기 버튼 */}
               <Button onClick={() => setShowComments((prev) => !prev)}>
                 <Icon src={chat} />
               </Button>
-              {/* 친구 동화책에만 보이는 버튼 */}
-              {myName && myName !== userName && (
-                <Button>
-                  <Icon src={mail} />
-                </Button>
-              )}
               {/* 내 동화책에만 보이는 버튼 */}
               {myName && myName === userName && (
                 <>
@@ -180,7 +190,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
       </Wrapper>
       {/* 댓글창 */}
       <CommentListWrapper $showComments={showComments}>
-        {showComments && <CommentList setShowComments={setShowComments} />}
+        <CommentList setShowComments={setShowComments} />
       </CommentListWrapper>
     </Root>
   );
@@ -258,6 +268,7 @@ const Icon = styled.img`
 
 const CommentListWrapper = styled.div`
   width: ${(props) => (props.$showComments ? "400px" : "0px")};
+  overflow: hidden;
   transition: all 0.2s ease-in-out;
   height: 100%;
   margin-left: auto;

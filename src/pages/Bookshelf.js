@@ -52,7 +52,7 @@ const Bookshelf = () => {
           friendStatus={profile.friendStatus}
           bookCnt={books.length}
         />
-        <Wrapper $background={colors.theme3}>
+        <Wrapper>
           {books.map((book) => (
             <BookCoverWrapper>
               <BookCover
@@ -96,7 +96,7 @@ const Wrapper = styled.div`
     visibility: hidden;
   }
   &::-webkit-scrollbar-thumb {
-    background: ${({ $background }) => $background};
+    background: rgba(151, 161, 255, 0.6);
     border-radius: 10px;
     background-clip: padding-box;
     border: 4px solid transparent;
