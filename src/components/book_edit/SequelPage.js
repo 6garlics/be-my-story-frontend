@@ -14,8 +14,10 @@ const SequelPage = ({ show }) => {
 
   return (
     <Root $show={show}>
-      <PlusIcon src={plusCircle} onClick={onAddPage} />
-      <SequelText>뒷이야기 이어쓰기</SequelText>
+      <Container>
+        <PlusIcon src={plusCircle} onClick={onAddPage} />
+        <SequelText>뒷이야기 이어쓰기</SequelText>
+      </Container>
     </Root>
   );
 };
@@ -23,11 +25,18 @@ const SequelPage = ({ show }) => {
 export default SequelPage;
 
 const Root = styled.div`
+  position: relative;
+  width: 100%;
+  height: ${(props) => !props.$show && "0px"};
+  overflow: hidden;
+`;
+
+const Container = styled.div`
+  position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
   background: rgba(255, 255, 255, 0.15);
-  height: ${(props) => !props.$show && "0px"};
-  overflow: hidden;
+
   border-radius: 1vw;
   display: flex;
   flex-direction: column;
