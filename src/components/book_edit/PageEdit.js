@@ -198,6 +198,7 @@ const Root = styled.div`
 `;
 
 const Container = styled.div`
+  margin-top: 42px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -322,7 +323,10 @@ const PageNum = styled.div`
 
 const CreateImgButton = styled.div`
   background: ${({ $background }) => $background};
-  margin: 10px;
+  display: flex;
+  align-items: center;
+  height: 26px;
+  margin-top: 10px;
   padding: 6px 10px;
   border-radius: 30px;
   color: rgba(255, 255, 255, 0.9);

@@ -32,11 +32,11 @@ const Root = styled.div`
 `;
 
 const Container = styled.div`
+  margin-top: 42px;
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
   background: rgba(255, 255, 255, 0.15);
-
   border-radius: 1vw;
   display: flex;
   flex-direction: column;
