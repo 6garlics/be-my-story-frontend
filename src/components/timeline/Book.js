@@ -18,6 +18,7 @@ import edit from "../../assets/edit.svg";
 import trash from "../../assets/trash.svg";
 import diaryIcon from "../../assets/diary.svg";
 import ArrowButton from "../common/ArrowButton";
+import mail from "../../assets/mail.svg";
 
 function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
   const [isModal, setIsModal] = useState(false);
@@ -105,7 +106,13 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
               <Button onClick={() => setShowComments((prev) => !prev)}>
                 <Icon src={chat} />
               </Button>
-              {/* 본인 동화책에만 보이는 버튼들 */}
+              {/* 친구 동화책에만 보이는 버튼 */}
+              {myName && myName !== userName && (
+                <Button>
+                  <Icon src={mail} />
+                </Button>
+              )}
+              {/* 내 동화책에만 보이는 버튼 */}
               {myName && myName === userName && (
                 <>
                   {/* 일기 보기 버튼 */}
