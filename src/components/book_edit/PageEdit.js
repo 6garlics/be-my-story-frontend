@@ -2,13 +2,25 @@ import React, { useState, useEffect } from "react";
 import { useDrag } from "react-use-gesture";
 import { styled } from "styled-components";
 import { useDispatch } from "react-redux";
-import { bookSlice, thunkCreateImage } from "../../redux/bookSlice";
+import {
+  bookSlice,
+  thunkCreateCover,
+  thunkCreateImage,
+} from "../../redux/bookSlice";
 import { useRef } from "react";
 import { DotLoader } from "react-spinners";
 import { useContext } from "react";
 import ColorContext from "../../contexts/Color";
 
-const PageEdit = ({ positions, setPositions, page, index, show }) => {
+const PageEdit = ({
+  positions,
+  setPositions,
+  page,
+  index,
+  show,
+  title,
+  texts,
+}) => {
   //상태
   const [newText, setNewText] = useState(page.text);
   const [focus, setFocus] = useState(false);
@@ -128,7 +140,18 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
     }
   }, [textPos]);
 
-  //삽화 재생성 핸들러
+  //표지 생성 핸들러
+  const onCreateCover = () => {
+    dispatch(
+      thunkCreateCover({
+        title: title,
+        texts: texts,
+      })
+    );
+    dispatch(bookSlice.actions.setCover(""));
+  };
+
+  //삽화 생성 핸들러
   const onCreateImage = () => {
     dispatch(
       thunkCreateImage({
@@ -172,6 +195,7 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
             value={newText}
             onChange={handleChangeText}
             onFocus={onFocus}
+            placeholder="이야기를 적어보아요"
             $focus={focus}
             $isCover={index === 0}
           ></TextArea>
@@ -179,8 +203,11 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
         <PageNum>{index !== 0 && index}</PageNum>
       </Container>
       {
-        <CreateImgButton onClick={onCreateImage} $background={colors.theme3}>
-          삽화 만들기
+        <CreateImgButton
+          onClick={index === 0 ? onCreateCover : onCreateImage}
+          $background={colors.theme3}
+        >
+          {index === 0 ? "표지 만들기" : "삽화 만들기"}
         </CreateImgButton>
       }
     </Root>

@@ -97,6 +97,8 @@ const BookEditPage = () => {
             page={{ text: title, imgUrl: coverUrl, x: titleX, y: titleY }}
             index={0}
             show={pageNum === 0}
+            title={title}
+            texts={pages.map((page) => page.text)}
           />
           {/* 내용 */}
           <>
