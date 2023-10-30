@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import { HiHome } from "react-icons/hi";
-import { TbSquareRoundedPlusFilled } from "react-icons/tb";
-import { HiBookOpen } from "react-icons/hi2";
 import ColorContext from "../../contexts/Color";
 import { logout } from "../../api/users";
 import { isLogin } from "../../accessControl/isLogin";
@@ -11,8 +8,6 @@ import { useSelector } from "react-redux";
 import home from "../../assets/home.svg";
 import write from "../../assets/write.svg";
 import bookshelf from "../../assets/bookshelf.svg";
-
-const iconSize = 28;
 
 const Nav = () => {
   const userName = useSelector((state) => state.user.userName);

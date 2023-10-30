@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
-import Book from "../components/timeline/Book";
+import Book from "../components/book/Book";
 import { getBook } from "../api/books";
 
 const BookDetail = () => {

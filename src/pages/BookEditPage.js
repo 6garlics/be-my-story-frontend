@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import PageEdit from "../components/book_edit/PageEdit";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
 import { editBook } from "../api/books";
 import { useSelector } from "react-redux";
 import { useContext } from "react";
 import ColorContext from "../contexts/Color";
 import ArrowButton from "../components/common/ArrowButton";
+import SequelPage from "../components/book_edit/SequelPage";
 
 const BookEditPage = () => {
   //Redux의 상태 꺼내오기
@@ -96,6 +97,8 @@ const BookEditPage = () => {
             page={{ text: title, imgUrl: coverUrl, x: titleX, y: titleY }}
             index={0}
             show={pageNum === 0}
+            title={title}
+            texts={pages.map((page) => page.text)}
           />
           {/* 내용 */}
           <>
@@ -104,25 +107,33 @@ const BookEditPage = () => {
                 index % 2 === 0 && (
                   <PageWrapper>
                     {/* 왼쪽 페이지 */}
-                    <PageEdit
-                      key={index}
-                      positions={positions}
-                      setPositions={setPositions}
-                      page={pages[index]}
-                      index={index + 1}
-                      show={index + 1 === pageNum}
-                    />
-                    {/* 오른쪽 페이지 */}
-                    {index < length - 1 && (
+                    {index === length - 1 ? (
+                      <SequelPage show={index + 1 === pageNum} />
+                    ) : (
                       <PageEdit
-                        key={index + 1}
+                        key={index}
                         positions={positions}
                         setPositions={setPositions}
-                        page={pages[index + 1]}
-                        index={index + 2}
+                        page={pages[index]}
+                        index={index + 1}
                         show={index + 1 === pageNum}
                       />
                     )}
+
+                    {/* 오른쪽 페이지 */}
+                    {index < length - 1 &&
+                      (index === length - 2 ? (
+                        <SequelPage show={index + 1 === pageNum} />
+                      ) : (
+                        <PageEdit
+                          key={index + 1}
+                          positions={positions}
+                          setPositions={setPositions}
+                          page={pages[index + 1]}
+                          index={index + 2}
+                          show={index + 1 === pageNum}
+                        />
+                      ))}
                   </PageWrapper>
                 )
               );
@@ -184,24 +195,6 @@ const PageWrapper = styled.div`
   display: flex;
   position: relative;
 `;
-
-const Button = styled.button`
-  margin: 10px;
-  padding: 10px;
-  font-size: 30px;
-  border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 100px;
-  color: white;
-  background: ${({ $background }) => $background};
-  opacity: 0.8;
-  &:hover {
-    opacity: 1;
-    cursor: pointer;
-  }
-`;
-
 const Submit = styled.button`
   padding: 8px 14px;
   margin-top: 10px;

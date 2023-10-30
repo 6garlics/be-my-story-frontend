@@ -43,7 +43,7 @@ const Join = () => {
       console.log(Object.fromEntries(formData));
 
       try {
-        const data = await join(formData);
+        await join(formData);
         navigate("/login");
       } catch (err) {
         if (err.response.status === 409) {
@@ -129,7 +129,7 @@ const Join = () => {
   const onCheckDuplicate = () => {
     if (isName) {
       try {
-        const data = checkDuplicate(userName);
+        checkDuplicate(userName);
         setNameMessage("올바른 이름이에요.");
         setIsUniqueName(true);
       } catch (err) {

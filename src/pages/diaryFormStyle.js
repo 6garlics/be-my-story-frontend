@@ -76,6 +76,7 @@ export const Form = styled.form`
   border-radius: 12px;
   color: white;
   background: rgba(255, 255, 255, 0.2);
+  box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.15);
 `;
 
 export const FormBox = styled.div`

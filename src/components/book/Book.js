@@ -4,26 +4,26 @@ import Page from "../common/Page";
 import Profile from "../common/Profile";
 import Cover from "./Cover";
 import DiaryModal from "./DiaryModal";
-import { IoIosMore } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import CommentList from "../common/CommentList";
-import { BsChat } from "react-icons/bs";
 import { deleteBook, getDiary } from "../../api/books";
-import pencil from "../../assets/pencil.svg";
 import { bookSlice } from "../../redux/bookSlice";
 import chat from "../../assets/chat.svg";
 import edit from "../../assets/edit.svg";
 import trash from "../../assets/trash.svg";
 import diaryIcon from "../../assets/diary.svg";
 import ArrowButton from "../common/ArrowButton";
+import mail from "../../assets/mail.svg";
+import LetterForm from "./LetterForm";
 
 function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
   const [isModal, setIsModal] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [pageNum, setPageNum] = useState(0); //현재 열람하고 있는 페이지 번호 (0번째는 표지)
   const [diary, setDiary] = useState();
+  const [showLetterForm, setShowLetterForm] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -55,7 +55,8 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
     dispatch(bookSlice.actions.setTitleY(titlePos.y));
     dispatch(bookSlice.actions.setCover(coverUrl));
     dispatch(bookSlice.actions.setPages(pages));
-    dispatch(bookSlice.actions.setLength(pages.length));
+    dispatch(bookSlice.actions.addPage()); //뒷이야기 생성할 빈페이지 추가
+    dispatch(bookSlice.actions.setLength(pages.length + 1));
     dispatch(bookSlice.actions.setSaved(true));
     navigate("/book-edit");
   };
@@ -87,6 +88,10 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
       <hr />
       <div id="complementary"></div> */}
       {isModal && <DiaryModal diary={diary} setIsModal={setIsModal} />}
+      <LetterForm
+        showLetterForm={showLetterForm}
+        setShowLetterForm={setShowLetterForm}
+      />
       <CloseBtn onClick={() => navigate(-1)}>
         <IoIosArrowBack size={30} color="white" />
       </CloseBtn>
@@ -100,11 +105,21 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
           <Header>
             <Profile userName={userName} />
             <Buttons>
+              {/* 친구 동화책에만 보이는 버튼 */}
+              {myName && myName !== userName && (
+                // 편지 쓰기 버튼
+                <Button>
+                  <Icon
+                    src={mail}
+                    onClick={() => setShowLetterForm((prev) => !prev)}
+                  />
+                </Button>
+              )}
               {/* 댓글 보기 버튼 */}
               <Button onClick={() => setShowComments((prev) => !prev)}>
                 <Icon src={chat} />
               </Button>
-              {/* 본인 동화책에만 보이는 버튼들 */}
+              {/* 내 동화책에만 보이는 버튼 */}
               {myName && myName === userName && (
                 <>
                   {/* 일기 보기 버튼 */}
@@ -175,7 +190,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
       </Wrapper>
       {/* 댓글창 */}
       <CommentListWrapper $showComments={showComments}>
-        {showComments && <CommentList setShowComments={setShowComments} />}
+        <CommentList setShowComments={setShowComments} />
       </CommentListWrapper>
     </Root>
   );
@@ -251,12 +266,9 @@ const Icon = styled.img`
   }
 `;
 
-const DeleteBtn = styled.img`
-  width: 25px;
-`;
-
 const CommentListWrapper = styled.div`
   width: ${(props) => (props.$showComments ? "400px" : "0px")};
+  overflow: hidden;
   transition: all 0.2s ease-in-out;
   height: 100%;
   margin-left: auto;
@@ -266,20 +278,6 @@ const PageWrapper = styled.div`
   display: flex;
   width: 100%;
   position: relative;
-`;
-
-const PageButton = styled.button`
-  position: absolute;
-  z-index: 2;
-  width: 25%;
-  height: 0px;
-  padding-bottom: 50%;
-  background: none;
-  border: none;
-  &:hover {
-    cursor: pointer;
-  }
-  ${(props) => (props.$side === "left" ? "left: 0px" : "right: 0px")}
 `;
 
 const ArrowButtonWrapper = styled.div`

@@ -2,13 +2,25 @@ import React, { useState, useEffect } from "react";
 import { useDrag } from "react-use-gesture";
 import { styled } from "styled-components";
 import { useDispatch } from "react-redux";
-import { bookSlice } from "../../redux/bookSlice";
+import {
+  bookSlice,
+  thunkCreateCover,
+  thunkCreateImage,
+} from "../../redux/bookSlice";
 import { useRef } from "react";
 import { DotLoader } from "react-spinners";
 import { useContext } from "react";
 import ColorContext from "../../contexts/Color";
 
-const PageEdit = ({ positions, setPositions, page, index, show }) => {
+const PageEdit = ({
+  positions,
+  setPositions,
+  page,
+  index,
+  show,
+  title,
+  texts,
+}) => {
   //상태
   const [newText, setNewText] = useState(page.text);
   const [focus, setFocus] = useState(false);
@@ -128,48 +140,95 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
     }
   }, [textPos]);
 
+  //표지 생성 핸들러
+  const onCreateCover = () => {
+    dispatch(
+      thunkCreateCover({
+        title: title,
+        texts: texts,
+      })
+    );
+    dispatch(bookSlice.actions.setCover(""));
+  };
+
+  //삽화 생성 핸들러
+  const onCreateImage = () => {
+    dispatch(
+      thunkCreateImage({
+        pageNum: index - 1,
+        body: {
+          text: newText,
+        },
+      })
+    );
+    dispatch(bookSlice.actions.setImage({ index: index - 1, imgUrl: "" }));
+  };
+
   return (
-    <Container $show={show} ref={container}>
-      {page.imgUrl && page.imgUrl !== "" ? (
-        <Image src={page.imgUrl} loading="lazy" />
-      ) : (
-        <Loader>
-          <DotLoader color={colors.theme3} size={"10vw"} />
-        </Loader>
-      )}
-      <TextWrapper
-        ref={textWrapper}
-        $x={percentX}
-        $y={percentY}
-        $isCover={index === 0}
-        $hideShadow={!page.imgUrl}
-      >
-        <DragHandle
-          src="/icons/move.png"
-          ref={dragHandle}
-          {...bindTextPos()}
-          $focus={focus}
-        />
-        <TextArea
-          rows={1}
-          ref={textarea}
-          value={newText}
-          onChange={handleChangeText}
-          onFocus={onFocus}
-          $focus={focus}
+    <Root $show={show}>
+      <Container $show={show} ref={container}>
+        {page.imgUrl && page.imgUrl !== "" && page.imgUrl !== "null" ? (
+          <Image src={page.imgUrl} loading="lazy" />
+        ) : (
+          <Loader>
+            {page.imgUrl !== "null" && (
+              <DotLoader color={colors.theme3} size={"10vw"} />
+            )}
+          </Loader>
+        )}
+        <TextWrapper
+          ref={textWrapper}
+          $x={percentX}
+          $y={percentY}
           $isCover={index === 0}
-        ></TextArea>
-      </TextWrapper>
-      <PageNum>{index !== 0 && index}</PageNum>
-    </Container>
+          $hideShadow={!page.imgUrl || page.imgUrl === "null"}
+        >
+          <DragHandle
+            src="/icons/move.png"
+            ref={dragHandle}
+            {...bindTextPos()}
+            $focus={focus}
+          />
+          <TextArea
+            rows={1}
+            ref={textarea}
+            value={newText}
+            onChange={handleChangeText}
+            onFocus={onFocus}
+            placeholder="이야기를 적어보아요"
+            $focus={focus}
+            $isCover={index === 0}
+          ></TextArea>
+        </TextWrapper>
+        <PageNum>{index !== 0 && index}</PageNum>
+      </Container>
+      {
+        <CreateImgButton
+          onClick={index === 0 ? onCreateCover : onCreateImage}
+          $background={colors.theme3}
+        >
+          {index === 0 ? "표지 만들기" : "삽화 만들기"}
+        </CreateImgButton>
+      }
+    </Root>
   );
 };
 
-const Container = styled.div`
+const Root = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   height: ${(props) => !props.$show && "0px"};
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+`;
+
+const Container = styled.div`
+  margin-top: 42px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -287,7 +346,23 @@ const PageNum = styled.div`
   position: absolute;
   bottom: 1px;
   font-size: 1.5vw;
-:
+`;
+
+const CreateImgButton = styled.div`
+  background: ${({ $background }) => $background};
+  display: flex;
+  align-items: center;
+  height: 26px;
+  margin-top: 10px;
+  padding: 6px 10px;
+  border-radius: 30px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.3);
+  &:hover {
+    cursor: pointer;
+    color: white;
+    background: rgba(255, 255, 255, 0.4);
+  }
 `;
 
 // const RadioButton = styled.input`

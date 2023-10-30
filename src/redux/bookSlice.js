@@ -91,11 +91,23 @@ export const bookSlice = createSlice({
     setPages: (state, action) => {
       state.pages = action.payload;
     },
+    addPage: (state, action) => {
+      state.pages.push({
+        text: "",
+        imgUrl: "null",
+        x: 0,
+        y: 0,
+      });
+      state.length += 1;
+    },
     setLength: (state, action) => {
       state.length = action.payload;
     },
     setText: (state, action) => {
       state.pages[action.payload.index].text = action.payload.text;
+    },
+    setImage: (state, action) => {
+      state.pages[action.payload.index].imgUrl = action.payload.imgUrl;
     },
     setSaved: (state, action) => {
       state.saved = action.payload;

@@ -1,4 +1,3 @@
-import axios from "axios";
 import client from "./client";
 
 //전체 동화책 조회

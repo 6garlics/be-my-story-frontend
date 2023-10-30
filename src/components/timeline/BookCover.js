@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Profile from "../common/Profile";
-import Cover from "./Cover";
-import DiaryModal from "./DiaryModal";
-import { IoIosMore } from "react-icons/io";
+import Cover from "../book/Cover";
+import DiaryModal from "../book/DiaryModal";
 import { getUserInfo } from "../../api/users";
 import { useNavigate } from "react-router-dom";
 
@@ -58,16 +57,6 @@ const Header = styled.div`
   margin: 10px 0px;
   display: flex;
   align-items: center;
-`;
-
-const Button = styled.button`
-  margin-left: auto;
-  margin-top: 12px;
-  background: none;
-  border: none;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 const Wrapper = styled.div`
