@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDrag } from "react-use-gesture";
 import { styled } from "styled-components";
 import { useDispatch } from "react-redux";
-import { bookSlice } from "../../redux/bookSlice";
+import { bookSlice, thunkCreateImage } from "../../redux/bookSlice";
 import { useRef } from "react";
 import { DotLoader } from "react-spinners";
 import { useContext } from "react";
@@ -128,6 +128,19 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
     }
   }, [textPos]);
 
+  //삽화 재생성 핸들러
+  const onCreateImage = () => {
+    dispatch(
+      thunkCreateImage({
+        pageNum: index - 1,
+        body: {
+          text: newText,
+        },
+      })
+    );
+    dispatch(bookSlice.actions.setImage({ index: index - 1, imgUrl: "" }));
+  };
+
   return (
     <Root $show={show}>
       <Container $show={show} ref={container}>
@@ -145,7 +158,7 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
           $x={percentX}
           $y={percentY}
           $isCover={index === 0}
-          $hideShadow={!page.imgUrl}
+          $hideShadow={!page.imgUrl || page.imgUrl === "null"}
         >
           <DragHandle
             src="/icons/move.png"
@@ -166,7 +179,7 @@ const PageEdit = ({ positions, setPositions, page, index, show }) => {
         <PageNum>{index !== 0 && index}</PageNum>
       </Container>
       {
-        <CreateImgButton $background={colors.theme3}>
+        <CreateImgButton onClick={onCreateImage} $background={colors.theme3}>
           삽화 만들기
         </CreateImgButton>
       }
