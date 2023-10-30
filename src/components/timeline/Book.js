@@ -54,9 +54,8 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
     dispatch(bookSlice.actions.setTitleX(titlePos.x));
     dispatch(bookSlice.actions.setTitleY(titlePos.y));
     dispatch(bookSlice.actions.setCover(coverUrl));
-    const newPages = [...pages];
-    newPages.push({ text: "", imgUrl: "" });
-    dispatch(bookSlice.actions.setPages(newPages)); //뒷이야기 생성할 빈페이지 추가
+    dispatch(bookSlice.actions.setPages(pages));
+    dispatch(bookSlice.actions.addPage()); //뒷이야기 생성할 빈페이지 추가
     dispatch(bookSlice.actions.setLength(pages.length + 1));
     dispatch(bookSlice.actions.setSaved(true));
     navigate("/book-edit");
