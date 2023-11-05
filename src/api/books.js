@@ -123,3 +123,20 @@ export const postBook = async (body) => {
     throw err;
   }
 };
+
+//뒷이야기 이어쓰기
+export const postSequel = async (bookId, body) => {
+  console.log("뒷이야기 이어쓰기 body", body);
+  try {
+    const res = await client.post(`/books/${bookId}`, body, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    console.log("뒷이야기 이어쓰기", res.data);
+    return res.data;
+  } catch (err) {
+    console.log("에러 발생");
+    console.log(err);
+    throw err;
+  }
+};

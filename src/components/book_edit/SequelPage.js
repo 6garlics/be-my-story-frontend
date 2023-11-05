@@ -4,12 +4,13 @@ import plusCircle from "../../assets/plusCircle.svg";
 import { useDispatch } from "react-redux";
 import { bookSlice } from "../../redux/bookSlice";
 
-const SequelPage = ({ show }) => {
+const SequelPage = ({ show, setPositions }) => {
   const dispatch = useDispatch();
 
   // 뒷이야기 페이지 추가
   const onAddPage = () => {
     dispatch(bookSlice.actions.addPage());
+    setPositions((prev) => [...prev, { x: 0, y: 0 }]);
   };
 
   return (
