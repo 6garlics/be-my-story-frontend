@@ -38,6 +38,7 @@ export const bookSlice = createSlice({
     coverUrl: "",
     pages: [],
     length: 0,
+    prevLength: 0,
     imageCnt: 0,
     saved: false,
   },
@@ -102,6 +103,9 @@ export const bookSlice = createSlice({
     },
     setLength: (state, action) => {
       state.length = action.payload;
+    },
+    setPrevLength: (state, action) => {
+      state.prevLength = action.payload;
     },
     setText: (state, action) => {
       state.pages[action.payload.index].text = action.payload.text;

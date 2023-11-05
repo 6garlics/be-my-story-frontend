@@ -55,8 +55,9 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
     dispatch(bookSlice.actions.setTitleY(titlePos.y));
     dispatch(bookSlice.actions.setCover(coverUrl));
     dispatch(bookSlice.actions.setPages(pages));
+    dispatch(bookSlice.actions.setPrevLength(pages.length)); //기존 길이 저장
+    dispatch(bookSlice.actions.setLength(pages.length));
     dispatch(bookSlice.actions.addPage()); //뒷이야기 생성할 빈페이지 추가
-    dispatch(bookSlice.actions.setLength(pages.length + 1));
     dispatch(bookSlice.actions.setSaved(true));
     navigate("/book-edit");
   };

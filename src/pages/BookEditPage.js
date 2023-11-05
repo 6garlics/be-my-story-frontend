@@ -3,7 +3,7 @@ import PageEdit from "../components/book_edit/PageEdit";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
-import { editBook } from "../api/books";
+import { editBook, postSequel } from "../api/books";
 import { useSelector } from "react-redux";
 import { useContext } from "react";
 import ColorContext from "../contexts/Color";
@@ -19,6 +19,7 @@ const BookEditPage = () => {
   const coverUrl = useSelector((state) => state.book.coverUrl);
   const pages = useSelector((state) => state.book.pages);
   const length = useSelector((state) => state.book.length);
+  const prevLength = useSelector((state) => state.book.prevLength);
   const saved = useSelector((state) => state.book.saved);
 
   const colors = useContext(ColorContext);
@@ -69,6 +70,20 @@ const BookEditPage = () => {
     };
     console.log("동화책 1개 수정 api 요청 바디", body);
     await editBook(bookId, body);
+
+    //뒷이야기 이어쓰기 api 요청
+    const sequelBody = {
+      nextPages: pages.slice(prevLength, length - 1).map((page, index) => {
+        return {
+          newText: page.text,
+          newImage: page.imgUrl,
+          x: positions[prevLength + index + 1].x,
+          y: positions[prevLength + index + 1].y,
+        };
+      }),
+    };
+    await postSequel(bookId, sequelBody);
+
     navigate(`/book/${bookId}/detail`);
   };
 
@@ -108,7 +123,10 @@ const BookEditPage = () => {
                   <PageWrapper>
                     {/* 왼쪽 페이지 */}
                     {index === length - 1 ? (
-                      <SequelPage show={index + 1 === pageNum} />
+                      <SequelPage
+                        show={index + 1 === pageNum}
+                        setPositions={setPositions}
+                      />
                     ) : (
                       <PageEdit
                         key={index}
@@ -123,7 +141,10 @@ const BookEditPage = () => {
                     {/* 오른쪽 페이지 */}
                     {index < length - 1 &&
                       (index === length - 2 ? (
-                        <SequelPage show={index + 1 === pageNum} />
+                        <SequelPage
+                          show={index + 1 === pageNum}
+                          setPositions={setPositions}
+                        />
                       ) : (
                         <PageEdit
                           key={index + 1}
