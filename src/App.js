@@ -13,6 +13,8 @@ import BookDetail from "./pages/BookDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { postBook } from "./api/books";
 import { bookSlice } from "./redux/bookSlice";
+import MailBoxPage from "./pages/MailBoxPage";
+import PrivateRoutes from "./accessControl/PrivateRoutes";
 
 function App() {
   const dispatch = useDispatch();
@@ -71,18 +73,19 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           {/* 접근제한 페이지 */}
-          {/* <Route element={<PrivateRoutes />}> */}
-          <Route path="/" element={<Timeline />} />
-          <Route path="/diary-form" element={<DiaryForm />} />
-          <Route path="/book-edit" element={<BookEditPage />} />
-          <Route
-            path="/bookshelf/:userName"
-            Component={(props) => (
-              <Bookshelf {...props} key={window.location.pathname} />
-            )}
-          />
-          <Route path="/book/:bookId/detail" element={<BookDetail />} />
-          {/* </Route> */}
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Timeline />} />
+            <Route path="/diary-form" element={<DiaryForm />} />
+            <Route path="/book-edit" element={<BookEditPage />} />
+            <Route
+              path="/bookshelf/:userName"
+              Component={(props) => (
+                <Bookshelf {...props} key={window.location.pathname} />
+              )}
+            />
+            <Route path="/book/:bookId/detail" element={<BookDetail />} />
+            <Route path="/mail-box" element={<MailBoxPage />} />
+          </Route>
         </Routes>
       </Main>
     </Container>
