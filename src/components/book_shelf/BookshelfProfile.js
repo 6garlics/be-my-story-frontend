@@ -34,7 +34,7 @@ const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
 
   //재렌더링
   const onRefresh = () => {
-    dispatch(userSlice.actions.setRefresh(!refresh));
+    dispatch(userSlice.actions.setRefresh());
   };
 
   //팔로우 하기

@@ -188,7 +188,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
       </Wrapper>
       {/* 댓글창 */}
       <CommentListWrapper $showComments={showComments}>
-        <CommentList setShowComments={setShowComments} />
+        <CommentList bookId={bookId} setShowComments={setShowComments} />
       </CommentListWrapper>
     </Root>
   );

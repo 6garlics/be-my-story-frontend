@@ -2,25 +2,45 @@ import React from "react";
 import { styled } from "styled-components";
 import CommentItem from "./CommentItem";
 import { IoClose } from "react-icons/io5";
+import { useEffect } from "react";
+import { getCommentList } from "./../../api/reply";
+import CommentInput from "./CommentInput";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
-const CommentList = ({ setShowComments }) => {
-  //더미데이터
-  const comments = [
-    { userName: "cat", content: "우와 동화책 완전 재밌어요" },
-    { userName: "dog", content: "그림 엄청 예쁘네용" },
-    { userName: "bird", content: "굿굿bb" },
-  ];
+const CommentList = ({ bookId, setShowComments }) => {
+  const [comments, setComments] = useState([]);
+  const refresh = useSelector((state) => state.user.refresh);
+
+  //댓글 리스트 조회
+  useEffect(() => {
+    async function fetchCommentList() {
+      const data = await getCommentList(bookId);
+      setComments(data);
+    }
+    fetchCommentList();
+  }, [bookId, refresh]);
+
   return (
     <Root>
       <Header>
-        댓글 3개
+        댓글 {comments && comments.length}개
         <CloseBtn onClick={() => setShowComments((prev) => !prev)}>
           <IoClose size={23} color="black" />
         </CloseBtn>
       </Header>
-      {comments.map((comment) => (
-        <CommentItem userName={comment.userName} content={comment.content} />
-      ))}
+      {comments &&
+        comments
+          .filter((comment) => comment.grpl === 0)
+          .map((comment, index) => (
+            <CommentItem
+              key={index}
+              userName={comment.rwriter.userName}
+              content={comment.content}
+              replyId={comment.replyId}
+            />
+          ))}
+      <CommentInput bookId={bookId} />
     </Root>
   );
 };
