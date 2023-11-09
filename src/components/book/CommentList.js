@@ -36,6 +36,7 @@ const CommentList = ({ bookId, setShowComments }) => {
             <CommentItem
               key={index}
               userName={comment.rwriter.userName}
+              profileImg={comment.rwriter.profileImg}
               content={comment.content}
               replyId={comment.replyId}
             />

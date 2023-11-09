@@ -5,10 +5,12 @@ import { styled } from "styled-components";
 import { deleteComment } from "../../api/reply";
 import smallTrash from "../../assets/smallTrash.svg";
 import { userSlice } from "../../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 
-const CommentItem = ({ userName, content, replyId }) => {
+const CommentItem = ({ userName, profileImg, content, replyId }) => {
   const [isHovering, setIsHovering] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //댓글 삭제
   const onDeleteComment = () => {
@@ -31,11 +33,13 @@ const CommentItem = ({ userName, content, replyId }) => {
 
   return (
     <Root onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
-      <ProfileImg>
-        <Img src="/images/logo.png" />
+      <ProfileImg onClick={() => navigate(`/bookshelf/${userName}`)}>
+        <Img src={profileImg} />
       </ProfileImg>
       <Wrapper>
-        <UserName>{userName}</UserName>
+        <UserName onClick={() => navigate(`/bookshelf/${userName}`)}>
+          {userName}
+        </UserName>
         <Content>{content}</Content>
       </Wrapper>
       <Button onClick={onDeleteComment} $show={isHovering}>
@@ -58,6 +62,9 @@ const ProfileImg = styled.div`
   border-radius: 20px;
   overflow: hidden;
   margin-top: 4px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Img = styled.img`
@@ -70,8 +77,12 @@ const Wrapper = styled.div`
 `;
 
 const UserName = styled.div`
+  display: inline-block;
   font-size: 18px;
   font-weight: bold;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Content = styled.div`
