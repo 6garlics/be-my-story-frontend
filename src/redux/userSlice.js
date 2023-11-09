@@ -11,7 +11,7 @@ export const userSlice = createSlice({
       state.profileImg = action.payload.profileImg;
     },
     setRefresh: (state, action) => {
-      state.refresh = action.payload;
+      state.refresh = !state.refresh;
     },
   },
 });

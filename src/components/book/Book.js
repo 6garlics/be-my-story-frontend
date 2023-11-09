@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Page from "../common/Page";
+import Page from "./Page";
 import Profile from "../common/Profile";
 import Cover from "./Cover";
 import DiaryModal from "./DiaryModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
-import CommentList from "../common/CommentList";
+import CommentList from "./CommentList";
 import { deleteBook, getDiary } from "../../api/books";
 import { bookSlice } from "../../redux/bookSlice";
 import chat from "../../assets/chat.svg";
@@ -16,14 +16,14 @@ import trash from "../../assets/trash.svg";
 import diaryIcon from "../../assets/diary.svg";
 import ArrowButton from "../common/ArrowButton";
 import mail from "../../assets/mail.svg";
-import LetterForm from "./LetterForm";
+import MailForm from "./MailForm";
 
 function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
   const [isModal, setIsModal] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [pageNum, setPageNum] = useState(0); //현재 열람하고 있는 페이지 번호 (0번째는 표지)
   const [diary, setDiary] = useState();
-  const [showLetterForm, setShowLetterForm] = useState(false);
+  const [showMailForm, setShowMailForm] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -89,10 +89,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
       <hr />
       <div id="complementary"></div> */}
       {isModal && <DiaryModal diary={diary} setIsModal={setIsModal} />}
-      <LetterForm
-        showLetterForm={showLetterForm}
-        setShowLetterForm={setShowLetterForm}
-      />
+      <MailForm showMailForm={showMailForm} setShowMailForm={setShowMailForm} />
       <CloseBtn onClick={() => navigate(-1)}>
         <IoIosArrowBack size={30} color="white" />
       </CloseBtn>
@@ -112,7 +109,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
                 <Button>
                   <Icon
                     src={mail}
-                    onClick={() => setShowLetterForm((prev) => !prev)}
+                    onClick={() => setShowMailForm((prev) => !prev)}
                   />
                 </Button>
               )}
@@ -191,7 +188,7 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
       </Wrapper>
       {/* 댓글창 */}
       <CommentListWrapper $showComments={showComments}>
-        <CommentList setShowComments={setShowComments} />
+        <CommentList bookId={bookId} setShowComments={setShowComments} />
       </CommentListWrapper>
     </Root>
   );
