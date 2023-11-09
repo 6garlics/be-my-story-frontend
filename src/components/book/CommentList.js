@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
-import Comment from "./Comment";
+import CommentItem from "./CommentItem";
 import { IoClose } from "react-icons/io5";
 
 const CommentList = ({ setShowComments }) => {
@@ -19,7 +19,7 @@ const CommentList = ({ setShowComments }) => {
         </CloseBtn>
       </Header>
       {comments.map((comment) => (
-        <Comment userName={comment.userName} content={comment.content} />
+        <CommentItem userName={comment.userName} content={comment.content} />
       ))}
     </Root>
   );

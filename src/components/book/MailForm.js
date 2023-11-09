@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { styled } from "styled-components";
 import ColorContext from "../../contexts/Color";
 
-const LetterForm = ({ showLetterForm, setShowLetterForm }) => {
+const MailForm = ({ showLetterForm, setShowLetterForm }) => {
   const colors = useContext(ColorContext);
 
   return (
@@ -118,4 +118,4 @@ const Button = styled.div`
   }
 `;
 
-export default LetterForm;
+export default MailForm;

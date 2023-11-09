@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 
-const Comment = ({ userName, content }) => {
+const CommentItem = ({ userName, content }) => {
   return (
     <Root>
       <ProfileImg>
@@ -46,4 +46,4 @@ const Content = styled.div`
   font-size: 18px;
 `;
 
-export default Comment;
+export default CommentItem;
