@@ -3,14 +3,14 @@ import { useContext } from "react";
 import { styled } from "styled-components";
 import ColorContext from "../../contexts/Color";
 
-const MailForm = ({ showLetterForm, setShowLetterForm }) => {
+const MailForm = ({ showMailForm, setShowMailForm }) => {
   const colors = useContext(ColorContext);
 
   return (
-    <Root $hide={!showLetterForm}>
+    <Root $hide={!showMailForm}>
       <Text>등장인물에게 편지 쓰기</Text>
       <ContentWrapper>
-        <CloseButton onClick={() => setShowLetterForm(false)}>X</CloseButton>
+        <CloseButton onClick={() => setShowMailForm(false)}>X</CloseButton>
         <Content placeholder="예) 주인공에게" />
         <Button $background={colors.theme3}>보내기</Button>
       </ContentWrapper>
