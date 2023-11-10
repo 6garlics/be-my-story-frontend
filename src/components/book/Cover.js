@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { DotLoader } from "react-spinners";
+import "../../fonts/font.css";
 
 const Cover = ({ title, titlePos, coverUrl, onclick }) => {
   return (
@@ -66,11 +67,12 @@ const Title = styled.div.attrs(
   position: absolute;
   width: 90%;
   padding: 0.5vw;
-  font-size: 2.5vw;
+  font-size: 3vw;
   font-weight: bold;
   word-break: keep-all;
   text-align: center;
-  font-family: "Gaegu";
+  font-family: "SKYBORI";
+  letter-spacing: 0.1vw;
   background: rgba(0, 0, 0, 0.2);
   box-shadow: 0px 0px 30px 25px rgba(0, 0, 0, 0.2);
   border-radius: 5em;

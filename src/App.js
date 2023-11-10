@@ -15,6 +15,7 @@ import { postBook } from "./api/books";
 import { bookSlice } from "./redux/bookSlice";
 import MailBoxPage from "./pages/MailBoxPage";
 import PrivateRoutes from "./accessControl/PrivateRoutes";
+import "./fonts/font.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -99,7 +100,7 @@ const Container = styled.div`
   flex-direction: column;
   color: white;
   background: ${(props) => props.$background};
-  font-family: "Gaegu" !important;
+  font-family: "SKYBORI" !important;
   font-size: 18px;
   background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)),
     url(/images/star.png) no-repeat center fixed;

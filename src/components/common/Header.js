@@ -48,16 +48,16 @@ const Logo = styled.img`
 const LargeText = styled.div`
   color: white;
   font-size: 42px;
-  font-family: "Gaegu";
-  padding-top: 10px;
+  font-family: inherit;
+  padding-top: 4px;
   white-space: nowrap;
 `;
 
 const SmallText = styled.div`
   font-size: 16px;
-  font-family: "Gaegu";
+  font-family: inherit;
   color: white;
-  margin-top: 18px;
+  margin-top: 20px;
   margin-left: 4px;
 `;
 
