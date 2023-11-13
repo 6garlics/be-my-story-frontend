@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import endingPage from "../../assets/endingPage.svg";
+import "../../fonts/font.css";
 
 const Page = ({ page, index, show }) => {
   return (
@@ -47,8 +48,10 @@ const Text = styled.div.attrs((props) => ({
   max-height: 100%;
   width: 50%;
   padding: 1vw;
-  font-size: 1.3vw;
-  font-family: "Gaegu";
+  font-size: 1.2vw;
+  font-family: "SKYBORI";
+  line-height: 1.8vw;
+  letter-spacing: 0.05vw;
   word-break: keep-all;
   z-index: 1;
   /* 배경 그림자 */

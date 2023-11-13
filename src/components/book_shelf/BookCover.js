@@ -59,7 +59,7 @@ const Title = styled.div`
   word-break: keep-all; // 문단으로 끊어져서 줄바꿈 됨
   /* transform: translate(-50%, -50%); */
   /* border: 1px solid white; */
-  font-family: "Gaegu";
+  font-family: inherit;
 `;
 
 export default BookCover;

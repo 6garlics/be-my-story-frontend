@@ -312,20 +312,24 @@ const TextArea = styled.textarea`
   color: white;
   width: 100%;
   padding: 1vw;
-  font-size: 1.3vw;
-  font-family: "Gaegu";
+  font-size: 1.2vw;
+  font-family: "SKYBORI";
+  line-height: 1.8vw;
+  letter-spacing: 0.05vw;
   word-break: keep-all;
   border-radius: 2.5vw;
   overflow: hidden;
   ${(props) =>
     props.$isCover &&
     `padding: 0.5vw;
-    font-size: 2.5vw;
+    font-size: 3vw;
     font-weight: bold;
     word-break: keep-all;
     text-align: center;
-    font-family: Gaegu;
-    border-radius: 5em;`};
+    font-family: "SKYBORI";
+    letter-spacing: -0.3vw;
+    border-radius: 5em;
+    line-height: 4vw;`};
 
   &:focus {
     /* outline: 1px solid white; */
