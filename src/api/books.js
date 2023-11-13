@@ -1,10 +1,10 @@
 import client from "./client";
 
 //전체 동화책 조회
-export const getBooks = async () => {
+export const getBooks = async (page) => {
   try {
     const res = await client.get(
-      `/timeline?category=ALL&page=1&size=10&sort=DESC`,
+      `/timeline?category=ALL&page=${page}&size=10&sort=DESC`,
       {
         headers: { "Content-Type": "application/json" },
       }
