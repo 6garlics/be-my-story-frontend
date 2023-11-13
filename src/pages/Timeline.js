@@ -1,23 +1,71 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import { settings } from "../components/common/carousel";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import BookCover from "../components/timeline/BookCover";
 import { getBooks } from "../api/books";
+import ArrowButton from "../components/common/ArrowButton";
 
 function Timeline() {
   const [books, setBooks] = useState([]);
+  const [oldSlide, setOldSlide] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [activeSlide2, setActiveSlide2] = useState(0);
+  const [page, setPage] = useState(0);
+
+  console.log(page);
 
   //전체 동화책 조회
   useEffect(() => {
     async function fetchBooks() {
-      const data = await getBooks();
-      setBooks(data.content);
+      const data = await getBooks(page);
+      setBooks((prev) => [...prev, ...data.content]);
     }
     fetchBooks();
-  }, []);
+  }, [page]);
+
+  const Wrapper = styled.div`
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    z-index: 2;
+    border-radius: 25px;
+  `;
+
+  const settings = {
+    adaptiveHeight: true,
+    slidesToShow: 3,
+    swipeToSlide: true,
+    speed: 300,
+    beforeChange: (current, next) => {
+      if (next >= 10 * (page + 1) - 5) {
+        setPage((prev) => prev + 1);
+        setOldSlide(current);
+        setActiveSlide(current + 1);
+      } else {
+        setOldSlide(current);
+        setActiveSlide(next);
+      }
+    },
+    afterChange: (current) => {
+      if (current === 0) {
+        setActiveSlide2(activeSlide);
+      } else {
+        setActiveSlide2(current);
+      }
+    },
+    nextArrow: (
+      <Wrapper>
+        <ArrowButton side="right" />
+      </Wrapper>
+    ),
+    prevArrow: (
+      <Wrapper>
+        <ArrowButton side="left" />
+      </Wrapper>
+    ),
+  };
 
   return (
     <Root>

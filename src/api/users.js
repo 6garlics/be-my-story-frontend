@@ -91,7 +91,7 @@ export const getUserInfo = async (userName) => {
   try {
     const res = await client.get(`/users?userName=${userName}`);
 
-    console.log("다른 유저 정보 조회", res.data);
+    // console.log("다른 유저 정보 조회", res.data);
     return res.data;
   } catch (err) {
     console.log("에러 발생");
