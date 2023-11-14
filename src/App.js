@@ -27,6 +27,7 @@ function App() {
   const coverUrl = useSelector((state) => state.book.coverUrl);
   const pages = useSelector((state) => state.book.pages);
   const length = useSelector((state) => state.book.length);
+  const prevLength = useSelector((state) => state.book.prevLength);
   const imageCnt = useSelector((state) => state.book.imageCnt);
   const saved = useSelector((state) => state.book.saved);
 
@@ -34,7 +35,13 @@ function App() {
   useEffect(() => {
     async function saveBook() {
       //동화책이 완성됐지만 아직 저장되지 않았다면
-      if (title && length !== 0 && coverUrl && imageCnt === length && !saved) {
+      if (
+        title &&
+        length !== 0 &&
+        coverUrl &&
+        imageCnt === prevLength &&
+        !saved
+      ) {
         //바디 가공
         const body = {
           diaryId: diaryId,
@@ -42,7 +49,7 @@ function App() {
           genre: genre,
           coverUrl: coverUrl,
           date: date,
-          pages: pages.slice(0, length),
+          pages: pages.slice(0, prevLength),
         };
         console.log(body);
         const bookData = await postBook(body); //최초 동화책 저장

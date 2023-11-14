@@ -66,7 +66,7 @@ const BookEditPage = () => {
           x: positions[index + 1].x,
           y: positions[index + 1].y,
         }))
-        .slice(0, length),
+        .slice(0, prevLength),
     };
     console.log("동화책 1개 수정 api 요청 바디", body);
     await editBook(bookId, body);
@@ -165,13 +165,14 @@ const BookEditPage = () => {
         <ArrowButton
           onClick={onRightClick}
           side="right"
-          hide={pageNum !== 0 && pageNum >= pages.length - 1}
+          hide={pageNum !== 0 && pageNum >= length - 1}
         />
       </Container>
       <Submit
         type="submit"
         onClick={handleEditBook}
         disabled={!saved}
+        $disabled={!saved}
         $background={colors.theme1}
       >
         완성하기
@@ -225,9 +226,10 @@ const Submit = styled.button`
   border: none;
   border-radius: 30px;
   color: white;
-  background: ${({ $background }) => $background};
+  background: ${({ $background, $disabled }) =>
+    $disabled ? "grey" : $background};
   &:hover {
-    cursor: pointer;
+    cursor: ${({ $disabled }) => ($disabled ? "default" : "pointer")};
   }
   position: fixed;
   bottom: 20px;

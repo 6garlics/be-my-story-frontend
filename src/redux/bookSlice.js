@@ -54,7 +54,7 @@ export const bookSlice = createSlice({
       state.coverUrl = "";
       state.pages = Array.from({ length: 15 }, () => ({
         text: "",
-        imgUrl: "",
+        imgUrl: "null",
         x: 0,
         y: 0,
       }));
@@ -122,6 +122,7 @@ export const bookSlice = createSlice({
       state.title = action.payload.title;
       action.payload.texts.forEach((text, index) => {
         state.pages[index].text = text;
+        state.pages[index].imgUrl = "";
       });
       state.length = action.payload.texts.length;
     });

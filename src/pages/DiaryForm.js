@@ -109,12 +109,14 @@ const DiaryForm = () => {
           );
         }
 
-        //수정페이지로 리다이렉션
-        navigate(`/book-edit`);
+        dispatch(bookSlice.actions.setPrevLength(length)); //기존 길이 저장
+        dispatch(bookSlice.actions.addPage()); //뒷이야기 생성할 빈페이지 추가
+
+        navigate(`/book-edit`); //수정페이지로 리다이렉션
       }
     }
     createBook();
-  }, [title, pages, length, coverUrl, imageCnt, dispatch, navigate]);
+  }, [title]);
 
   //날짜 포맷팅 함수
   const dateToString = (date) => {

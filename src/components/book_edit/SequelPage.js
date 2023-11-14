@@ -29,6 +29,7 @@ const Root = styled.div`
   position: relative;
   width: 100%;
   height: ${(props) => !props.$show && "0px"};
+  margin-bottom: ${(props) => (!props.$show ? "0px" : "46px")};
   overflow: hidden;
 `;
 
