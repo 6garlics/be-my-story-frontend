@@ -1,10 +1,5 @@
 # 토리 (Tori)
 
-<p align="center">
-<img src="https://github.com/6garlics/be-my-story/assets/97157930/cb75faeb-03b3-498d-b772-fe88aa610313"/>
-</p>
-<br/><br/>
-
 ## 📗 세상에 없던 나만의 동화책, 토리
 토리는 아동이 일기를 작성하면 생성형 AI가 e-동화책으로 만들어주어 친구들과 함께 공유해 볼 수 있는 플랫폼입니다.
 <br/><br/>
