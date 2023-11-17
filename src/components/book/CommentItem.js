@@ -42,9 +42,12 @@ const CommentItem = ({ userName, profileImg, content, replyId }) => {
         </UserName>
         <Content>{content}</Content>
       </Wrapper>
-      <Button onClick={onDeleteComment} $show={isHovering}>
-        <img src={smallTrash} alt="" />
-      </Button>
+      <Button
+        src={smallTrash}
+        alt=""
+        $show={isHovering}
+        onClick={onDeleteComment}
+      />
     </Root>
   );
 };
@@ -72,7 +75,7 @@ const Img = styled.img`
 `;
 
 const Wrapper = styled.div`
-  width: 100px;
+  flex: 1;
   margin-left: 10px;
 `;
 
@@ -89,9 +92,10 @@ const Content = styled.div`
   font-size: 18px;
 `;
 
-const Button = styled.div`
-  margin-left: auto;
-  margin-top: 14px;
+const Button = styled.img`
+  margin-top: 22px;
+  margin-left: 6px;
+  height: 20px;
   visibility: ${({ $show }) => !$show && "hidden"};
   &:hover {
     cursor: pointer;

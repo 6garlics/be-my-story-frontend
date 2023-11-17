@@ -29,24 +29,28 @@ const CommentList = ({ bookId, setShowComments }) => {
           <IoClose size={23} color="black" />
         </CloseBtn>
       </Header>
-      {comments &&
-        comments
-          .filter((comment) => comment.grpl === 0)
-          .map((comment, index) => (
-            <CommentItem
-              key={index}
-              userName={comment.rwriter.userName}
-              profileImg={comment.rwriter.profileImg}
-              content={comment.content}
-              replyId={comment.replyId}
-            />
-          ))}
+      <List>
+        {comments &&
+          comments
+            .filter((comment) => comment.grpl === 0)
+            .map((comment, index) => (
+              <CommentItem
+                key={index}
+                userName={comment.rwriter.userName}
+                profileImg={comment.rwriter.profileImg}
+                content={comment.content}
+                replyId={comment.replyId}
+              />
+            ))}
+      </List>
       <CommentInput bookId={bookId} />
     </Root>
   );
 };
 
 const Root = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: calc(100vh - 60px);
   margin-left: auto;
@@ -60,7 +64,16 @@ const Root = styled.div`
 const Header = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+`;
+
+const List = styled.div`
+  overflow: scroll;
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 
 const CloseBtn = styled.button`

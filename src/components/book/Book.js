@@ -173,14 +173,6 @@ function Book({
                       </PageWrapper>
                     )
                 )}
-                {/* 왼쪽 버튼 */}
-                {/* <PageButton onClick={onLeftClick} $side="left" /> */}
-                {/* 왼쪽 페이지 */}
-                {/* <Page page={pages[pageNum - 1]} pageNum={pageNum} /> */}
-                {/* 오른쪽 페이지 */}
-                {/* <Page page={pages[pageNum]} pageNum={pageNum + 1} /> */}
-                {/* 오른쪽 버튼 */}
-                {/* <PageButton onClick={onRightClick} $side="right" /> */}
               </>
             )}
           </Main>
@@ -275,7 +267,8 @@ const Icon = styled.img`
 `;
 
 const CommentListWrapper = styled.div`
-  width: ${(props) => (props.$showComments ? "400px" : "0px")};
+  flex: none;
+  width: ${(props) => (props.$showComments ? "300px" : "0px")};
   overflow: hidden;
   transition: all 0.2s ease-in-out;
   height: 100%;
