@@ -7,14 +7,20 @@ import BookCover from "../components/timeline/BookCover";
 import { getBooks } from "../api/books";
 import ArrowButton from "../components/common/ArrowButton";
 
+const Wrapper = styled.div`
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  z-index: 2;
+  border-radius: 25px;
+`;
+
 function Timeline() {
   const [books, setBooks] = useState([]);
   const [oldSlide, setOldSlide] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeSlide2, setActiveSlide2] = useState(0);
   const [page, setPage] = useState(0);
-
-  console.log(page);
 
   //전체 동화책 조회
   useEffect(() => {
@@ -24,14 +30,6 @@ function Timeline() {
     }
     fetchBooks();
   }, [page]);
-
-  const Wrapper = styled.div`
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    z-index: 2;
-    border-radius: 25px;
-  `;
 
   const settings = {
     adaptiveHeight: true,
