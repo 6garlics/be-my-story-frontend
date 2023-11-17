@@ -35,7 +35,7 @@ function Timeline() {
     adaptiveHeight: true,
     slidesToShow: 3,
     swipeToSlide: true,
-    speed: 300,
+    speed: 400,
     beforeChange: (current, next) => {
       if (next >= 10 * (page + 1) - 5) {
         setPage((prev) => prev + 1);
