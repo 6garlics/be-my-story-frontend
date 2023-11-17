@@ -103,7 +103,7 @@ const Container = styled.div`
 
 const SliderWrapper = styled.div`
 /* border: 1px solid white; */
-  width: 1000px;
+  width: 1200px;
   padding: 30px;
   box-sizing: border-box;
   position: relative;
@@ -127,12 +127,12 @@ const SliderWrapper = styled.div`
     justify-content: center;
     align-items: center;
     .book-cover{
-      width: 230px;
+      width: 300px;
     }
   }
   .slick-current + .slick-active{
     .book-cover{
-      width: 300px;
+      width: 370px;
     }
   }
   /* .center .slick-slide{
