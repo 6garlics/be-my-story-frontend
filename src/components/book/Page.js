@@ -1,14 +1,34 @@
 import React from "react";
+import { useRef } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { styled } from "styled-components";
 import endingPage from "../../assets/endingPage.svg";
 import "../../fonts/font.css";
 
 const Page = ({ page, index, show }) => {
+  const container = useRef();
+  const [fontSize, setFontSize] = useState();
+
+  // 삽화 크기에 따라 폰트 크기 변경
+  useEffect(() => {
+    const observer = new ResizeObserver((entries, observer) => {
+      for (const entry of entries) {
+        const { width } = entry.contentRect;
+        setFontSize(Math.floor(width * 0.04));
+      }
+    });
+    observer.observe(container.current);
+  }, []);
+
   return (
-    <Container $show={show}>
+    <Container $show={show} ref={container}>
       <Image src={page ? page.imgUrl : endingPage} loading="lazy" />
       {page && (
-        <Text $textPos={page.x ? { x: page.x, y: page.y } : { x: 0, y: 0 }}>
+        <Text
+          $textPos={page.x ? { x: page.x, y: page.y } : { x: 0, y: 0 }}
+          $fontSize={fontSize}
+        >
           {page.text}
         </Text>
       )}
@@ -41,6 +61,7 @@ const Text = styled.div.attrs((props) => ({
   style: {
     top: props.$textPos.y + "%",
     left: props.$textPos.x + "%",
+    fontSize: props.$fontSize + "px",
   },
 }))`
   position: absolute;
@@ -48,9 +69,8 @@ const Text = styled.div.attrs((props) => ({
   max-height: 100%;
   width: 50%;
   padding: 1vw;
-  font-size: 1.2vw;
   font-family: "SKYBORI";
-  line-height: 1.8vw;
+  /* line-height: 1.8vw; */
   letter-spacing: 0.05vw;
   word-break: keep-all;
   z-index: 1;
