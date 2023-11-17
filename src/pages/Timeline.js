@@ -76,6 +76,7 @@ function Timeline() {
                 bookId={book.bookId}
                 userName={book.userName}
                 title={book.title}
+                titlePos={{ x: book.titleX, y: book.titleY }}
                 coverUrl={book.coverUrl}
               />
             ))}

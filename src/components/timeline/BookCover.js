@@ -6,7 +6,7 @@ import DiaryModal from "../book/DiaryModal";
 import { getUserInfo } from "../../api/users";
 import { useNavigate } from "react-router-dom";
 
-function BookCover({ bookId, userName, title, coverUrl }) {
+function BookCover({ bookId, userName, title, titlePos, coverUrl }) {
   const [isModal, setIsModal] = useState(false);
   const [profileImg, setProfileImg] = useState();
 
@@ -36,7 +36,7 @@ function BookCover({ bookId, userName, title, coverUrl }) {
         <Cover
           coverUrl={coverUrl && coverUrl}
           title={title}
-          onclick={() => navigate(`/book/${bookId}/detail`)}
+          titlePos={titlePos}
         />
       </Wrapper>
     </Container>

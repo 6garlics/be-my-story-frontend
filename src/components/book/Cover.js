@@ -2,10 +2,27 @@ import React from "react";
 import styled from "styled-components";
 import { DotLoader } from "react-spinners";
 import "../../fonts/font.css";
+import { useRef } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 
-const Cover = ({ title, titlePos, coverUrl, onclick }) => {
+const Cover = ({ title, titlePos, coverUrl }) => {
+  const container = useRef();
+  const [fontSize, setFontSize] = useState();
+
+  // 삽화 크기에 따라 폰트 크기 변경
+  useEffect(() => {
+    const observer = new ResizeObserver((entries, observer) => {
+      for (const entry of entries) {
+        const { width } = entry.contentRect;
+        setFontSize(Math.floor(width * 0.1));
+      }
+    });
+    observer.observe(container.current);
+  }, []);
+
   return (
-    <Container>
+    <Container ref={container}>
       <ImageBox>
         {coverUrl ? (
           <Image src={coverUrl} alt="" loading="lazy" />
@@ -14,8 +31,9 @@ const Cover = ({ title, titlePos, coverUrl, onclick }) => {
             <DotLoader color="#78B9FF" size={100} />
           </Loader>
         )}
-        <Title $titlePos={titlePos}>{title}</Title>
-        {/* <Button onClick={onclick}></Button> */}
+        <Title $titlePos={titlePos} $fontSize={fontSize}>
+          {title}
+        </Title>
       </ImageBox>
     </Container>
   );
@@ -61,13 +79,13 @@ const Title = styled.div.attrs(
       style: {
         top: props.$titlePos.y + "%",
         left: props.$titlePos.x + "%",
+        fontSize: props.$fontSize + "px",
       },
     }
 )`
   position: absolute;
   width: 90%;
   padding: 0.5vw;
-  font-size: 3vw;
   font-weight: bold;
   word-break: keep-all;
   text-align: center;

@@ -12,6 +12,16 @@ import { DotLoader } from "react-spinners";
 import { useContext } from "react";
 import ColorContext from "../../contexts/Color";
 
+//요소 가로길이 구하는 함수
+export const getWidth = (component) =>
+  component.current &&
+  Number(
+    window
+      .getComputedStyle(component.current)
+      .getPropertyValue("width")
+      .replace("px", "")
+  );
+
 const PageEdit = ({
   positions,
   setPositions,
@@ -94,16 +104,6 @@ const PageEdit = ({
     fitHeight();
   };
 
-  //일러스트 가로길이 구하는 함수
-  const getWidth = () =>
-    container.current &&
-    Number(
-      window
-        .getComputedStyle(container.current)
-        .getPropertyValue("width")
-        .replace("px", "")
-    );
-
   //퍼센트 좌표 업데이트
   useEffect(() => {
     const newPositions = positions;
@@ -119,7 +119,7 @@ const PageEdit = ({
 
   //초기 픽셀 좌표 계산
   useEffect(() => {
-    const width = getWidth();
+    const width = getWidth(container);
     if (!isNaN(width)) {
       setTextPos({
         x: (page.x * width) / 100,
@@ -130,7 +130,7 @@ const PageEdit = ({
 
   //퍼센트 좌표 계산
   useEffect(() => {
-    const width = getWidth();
+    const width = getWidth(container);
 
     if (container.current && !isNaN(width)) {
       const x = (textPos.x / width) * 100;
