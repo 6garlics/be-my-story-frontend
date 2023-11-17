@@ -16,6 +16,22 @@ export const createTexts = async (body) => {
   }
 };
 
+//배경음악 생성
+export const createMusic = async (body) => {
+  try {
+    const res = await AIclient.post(`/music`, body, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    console.log("생성된 배경음악 url", res.data);
+    return res.data;
+  } catch (err) {
+    console.log("배경음악 에러 발생");
+    console.log(err);
+    throw err;
+  }
+};
+
 //표지 생성
 export const createCover = async (body) => {
   try {

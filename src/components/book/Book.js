@@ -18,7 +18,15 @@ import ArrowButton from "../common/ArrowButton";
 import mail from "../../assets/mail.svg";
 import MailForm from "./MailForm";
 
-function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
+function Book({
+  userName,
+  bookId,
+  title,
+  titlePos,
+  coverUrl,
+  musicUrl,
+  pages,
+}) {
   const [isModal, setIsModal] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [pageNum, setPageNum] = useState(0); //현재 열람하고 있는 페이지 번호 (0번째는 표지)
@@ -186,6 +194,8 @@ function Book({ userName, bookId, title, titlePos, coverUrl, pages }) {
           />
         </ArrowButtonWrapper>
       </Wrapper>
+      {/* 배경음악 재생바 */}
+      {musicUrl && <Audio controls loop preload src={musicUrl}></Audio>}
       {/* 댓글창 */}
       <CommentListWrapper $showComments={showComments}>
         <CommentList bookId={bookId} setShowComments={setShowComments} />
@@ -280,6 +290,11 @@ const PageWrapper = styled.div`
 
 const ArrowButtonWrapper = styled.div`
   margin-top: 60px;
+`;
+
+const Audio = styled.audio`
+  position: absolute;
+  bottom: 20px;
 `;
 
 export default Book;

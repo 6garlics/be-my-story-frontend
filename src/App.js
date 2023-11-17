@@ -25,6 +25,7 @@ function App() {
   const date = useSelector((state) => state.book.date);
   const title = useSelector((state) => state.book.title);
   const coverUrl = useSelector((state) => state.book.coverUrl);
+  const musicUrl = useSelector((state) => state.book.musicUrl);
   const pages = useSelector((state) => state.book.pages);
   const length = useSelector((state) => state.book.length);
   const prevLength = useSelector((state) => state.book.prevLength);
@@ -39,6 +40,7 @@ function App() {
         title &&
         length !== 0 &&
         coverUrl &&
+        musicUrl &&
         imageCnt === prevLength &&
         !saved
       ) {
@@ -48,6 +50,7 @@ function App() {
           title: title,
           genre: genre,
           coverUrl: coverUrl,
+          musicUrl: musicUrl,
           date: date,
           pages: pages.slice(0, prevLength),
         };
@@ -61,6 +64,7 @@ function App() {
   }, [
     imageCnt,
     coverUrl,
+    musicUrl,
     date,
     diaryId,
     genre,
