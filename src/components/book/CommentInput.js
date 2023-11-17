@@ -31,7 +31,6 @@ const CommentInput = ({ bookId }) => {
           }
         }}
       />
-      {/* <AddButton onClick={addComment}>+</AddButton> */}
     </Wrapper>
   );
 };
@@ -39,7 +38,6 @@ const CommentInput = ({ bookId }) => {
 export default CommentInput;
 
 const Wrapper = styled.div`
-  margin-top: 10px;
   display: flex;
 `;
 
@@ -59,8 +57,4 @@ const Input = styled.input`
   &::placeholder {
     color: #999999;
   }
-`;
-
-const AddButton = styled.button`
-  margin-left: 10px;
 `;

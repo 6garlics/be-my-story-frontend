@@ -1,10 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createCover, createImage, createTexts } from "../api/AIbooks";
+import {
+  createCover,
+  createImage,
+  createMusic,
+  createTexts,
+} from "../api/AIbooks";
 
 export const thunkCreateTexts = createAsyncThunk(
   "bookSlice/fetchBookTexts",
   async (body) => {
     const data = await createTexts(body);
+    return data;
+  }
+);
+
+export const thunkCreateMusic = createAsyncThunk(
+  "bookSlice/fetchBookMusic",
+  async (body) => {
+    const data = await createMusic(body);
     return data;
   }
 );
@@ -37,6 +50,7 @@ export const bookSlice = createSlice({
     titleY: 0,
     coverUrl: "",
     pages: [],
+    musicUrl: "",
     length: 0,
     prevLength: 0,
     imageCnt: 0,
@@ -58,6 +72,7 @@ export const bookSlice = createSlice({
         x: 0,
         y: 0,
       }));
+      state.musicUrl = "";
       state.length = 0;
       state.imageCnt = 0;
       state.saved = false;
@@ -101,6 +116,9 @@ export const bookSlice = createSlice({
       });
       state.length += 1;
     },
+    setMusic: (state, action) => {
+      state.musicUrl = action.payload;
+    },
     setLength: (state, action) => {
       state.length = action.payload;
     },
@@ -125,6 +143,9 @@ export const bookSlice = createSlice({
         state.pages[index].imgUrl = "";
       });
       state.length = action.payload.texts.length;
+    });
+    builder.addCase(thunkCreateMusic.fulfilled, (state, action) => {
+      state.musicUrl = action.payload.musicUrl;
     });
     builder.addCase(thunkCreateCover.fulfilled, (state, action) => {
       state.coverUrl = action.payload.coverUrl;

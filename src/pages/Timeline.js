@@ -7,14 +7,20 @@ import BookCover from "../components/timeline/BookCover";
 import { getBooks } from "../api/books";
 import ArrowButton from "../components/common/ArrowButton";
 
+const Wrapper = styled.div`
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  z-index: 2;
+  border-radius: 25px;
+`;
+
 function Timeline() {
   const [books, setBooks] = useState([]);
   const [oldSlide, setOldSlide] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeSlide2, setActiveSlide2] = useState(0);
   const [page, setPage] = useState(0);
-
-  console.log(page);
 
   //전체 동화책 조회
   useEffect(() => {
@@ -25,19 +31,11 @@ function Timeline() {
     fetchBooks();
   }, [page]);
 
-  const Wrapper = styled.div`
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    z-index: 2;
-    border-radius: 25px;
-  `;
-
   const settings = {
     adaptiveHeight: true,
     slidesToShow: 3,
     swipeToSlide: true,
-    speed: 300,
+    speed: 400,
     beforeChange: (current, next) => {
       if (next >= 10 * (page + 1) - 5) {
         setPage((prev) => prev + 1);
@@ -78,6 +76,7 @@ function Timeline() {
                 bookId={book.bookId}
                 userName={book.userName}
                 title={book.title}
+                titlePos={{ x: book.titleX, y: book.titleY }}
                 coverUrl={book.coverUrl}
               />
             ))}
@@ -104,7 +103,7 @@ const Container = styled.div`
 
 const SliderWrapper = styled.div`
 /* border: 1px solid white; */
-  width: 1000px;
+  width: 1200px;
   padding: 30px;
   box-sizing: border-box;
   position: relative;
@@ -128,12 +127,12 @@ const SliderWrapper = styled.div`
     justify-content: center;
     align-items: center;
     .book-cover{
-      width: 230px;
+      width: 300px;
     }
   }
   .slick-current + .slick-active{
     .book-cover{
-      width: 300px;
+      width: 370px;
     }
   }
   /* .center .slick-slide{

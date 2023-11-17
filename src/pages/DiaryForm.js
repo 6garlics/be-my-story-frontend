@@ -15,6 +15,7 @@ import {
   bookSlice,
   thunkCreateCover,
   thunkCreateImage,
+  thunkCreateMusic,
   thunkCreateTexts,
 } from "../redux/bookSlice";
 
@@ -37,6 +38,7 @@ const DiaryForm = () => {
   const title = useSelector((state) => state.book.title);
   const pages = useSelector((state) => state.book.pages);
   const length = useSelector((state) => state.book.length);
+  const musicUrl = useSelector((state) => state.book.musicUrl);
   const coverUrl = useSelector((state) => state.book.coverUrl);
   const imageCnt = useSelector((state) => state.book.imageCnt);
   const colors = useContext(ColorContext);
@@ -87,8 +89,21 @@ const DiaryForm = () => {
   //표지와 일러스트 생성, book-edit으로 리다이렉션
   useEffect(() => {
     async function createBook() {
-      //제목과 텍스트는 생성되고, 커버와 일러스트는 생성 안된 상태라면
-      if (title && length !== 0 && coverUrl === "" && imageCnt === 0) {
+      //제목과 텍스트는 생성되고, 배경음악, 커버, 일러스트는 생성 안된 상태라면
+      if (
+        title &&
+        length !== 0 &&
+        musicUrl === "" &&
+        coverUrl === "" &&
+        imageCnt === 0
+      ) {
+        //배경음악 생성
+        dispatch(
+          thunkCreateMusic({
+            texts: pages.map((page) => page.text).slice(0, length),
+          })
+        );
+
         //표지 생성
         dispatch(
           thunkCreateCover({

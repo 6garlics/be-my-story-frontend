@@ -30,6 +30,7 @@ const BookDetail = () => {
           title={book.title}
           titlePos={{ x: book.titleX, y: book.titleY }}
           coverUrl={book.coverUrl}
+          musicUrl={book.musicUrl && book.musicUrl}
           pages={book.pages}
         />
       )}
