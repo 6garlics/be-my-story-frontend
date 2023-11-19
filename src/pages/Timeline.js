@@ -8,6 +8,8 @@ import { getBooks } from "../api/books";
 import ArrowButton from "../components/common/ArrowButton";
 import { useDispatch, useSelector } from "react-redux";
 import { userSlice } from "../redux/userSlice";
+import { timelineSlice } from "./../redux/timelineSlice";
+import { useRef } from "react";
 
 const Wrapper = styled.div`
   width: 50px;
@@ -18,20 +20,39 @@ const Wrapper = styled.div`
 `;
 
 function Timeline() {
-  const [books, setBooks] = useState([]);
+  const [hide, setHide] = useState(true);
   const [oldSlide, setOldSlide] = useState(0);
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeSlide2, setActiveSlide2] = useState(0);
-  const [page, setPage] = useState(0);
+
+  const page = useSelector((state) => state.timeline.page);
+  const savedPage = useSelector((state) => state.timeline.savedPage);
+  const index = useSelector((state) => state.timeline.index);
+  const bookList = useSelector((state) => state.timeline.bookList);
   const refresh = useSelector((state) => state.user.refresh);
 
+  const sliderRef = useRef();
   const dispatch = useDispatch();
+
+  //원래 보고있던 동화책으로 이동
+  useEffect(() => {
+    setOldSlide(index - 1);
+    setActiveSlide(index);
+    sliderRef.current.slickGoTo(index);
+    setHide(false);
+  }, []);
 
   //전체 동화책 조회
   useEffect(() => {
     async function fetchBooks() {
-      const data = await getBooks(page);
-      setBooks((prev) => [...prev, ...data.content]);
+      //아직 리덕스에 저장되지 않은 페이지라면
+      if (page !== savedPage) {
+        const data = await getBooks(page);
+        dispatch(
+          timelineSlice.actions.setBookList([...bookList, ...data.content])
+        );
+        dispatch(timelineSlice.actions.setSavedPage(page));
+      }
     }
     fetchBooks();
   }, [page]);
@@ -48,16 +69,17 @@ function Timeline() {
     adaptiveHeight: true,
     slidesToShow: 3,
     swipeToSlide: true,
-    speed: 400,
+    speed: 200,
     beforeChange: (current, next) => {
       if (next >= 10 * (page + 1) - 5) {
-        setPage((prev) => prev + 1);
+        dispatch(timelineSlice.actions.setPage(page + 1));
         setOldSlide(current);
         setActiveSlide(current + 1);
       } else {
         setOldSlide(current);
         setActiveSlide(next);
       }
+      dispatch(timelineSlice.actions.setIndex(next));
     },
     afterChange: (current) => {
       if (current === 0) {
@@ -81,9 +103,9 @@ function Timeline() {
   return (
     <Root>
       <Container>
-        <SliderWrapper>
-          <Slider {...settings}>
-            {books.map((book, index) => (
+        <SliderWrapper $hide={hide}>
+          <Slider {...settings} ref={sliderRef}>
+            {bookList.map((book, index) => (
               <BookCover
                 key={index}
                 bookId={book.bookId}
@@ -115,7 +137,7 @@ const Container = styled.div`
 `;
 
 const SliderWrapper = styled.div`
-/* border: 1px solid white; */
+  visibility: ${({ $hide }) => $hide && "hidden"};
   width: 1200px;
   padding: 30px;
   box-sizing: border-box;
@@ -128,13 +150,11 @@ const SliderWrapper = styled.div`
   }
   .slick-initialized{
     width: 100%;
-    /* border: 1px solid grey; */
   }
   .slick-track{
     height: 500px;
   }
   .slick-slide{
-    /* transition: all 0.5s ease-in-out; */
     position: relative;
     display: flex;
     justify-content: center;
@@ -148,35 +168,6 @@ const SliderWrapper = styled.div`
       width: 370px;
     }
   }
-  /* .center .slick-slide{
-    pointer-events: none;
-    z-index: 0;
-    filter : brightness(60%);
-    .book-cover {
-      width: 300px;
-      .header{
-        visibility: hidden;
-      }
-    }
-  }
-  .center .slick-active {
-    z-index: 1;
-    filter : brightness(80%);
-    .book-cover {
-      width: 400px;
-    }
-  }
-  .center .slick-center {
-    pointer-events: auto;
-    z-index: 2;
-    filter : brightness(100%);
-    .book-cover {
-      width: 500px;
-      .header{
-        visibility: visible;
-      }
-    }
-  } */
   .slick-dots {
     .slick-active {
       button::before {
