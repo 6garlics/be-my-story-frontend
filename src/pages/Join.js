@@ -32,13 +32,7 @@ const Join = () => {
   const onJoin = async (event) => {
     event.preventDefault();
 
-    if (
-      isName &&
-      isEmail &&
-      isPassword &&
-      isPasswordConfirm &&
-      setIsUniqueName
-    ) {
+    if (isName && isUniqueName && isEmail && isPassword && isPasswordConfirm) {
       const formData = new FormData(event.target);
       console.log(Object.fromEntries(formData));
 
@@ -126,10 +120,10 @@ const Join = () => {
   };
 
   //사용자명 중복확인
-  const onCheckDuplicate = () => {
+  const onCheckDuplicate = async () => {
     if (isName) {
       try {
-        checkDuplicate(userName);
+        await checkDuplicate(userName);
         setNameMessage("올바른 이름이에요.");
         setIsUniqueName(true);
       } catch (err) {
@@ -162,7 +156,7 @@ const Join = () => {
               중복확인
             </CheckDuplicate>
           </InputWrapper>
-          <Message $color={isName ? "lightgreen" : "red"}>
+          <Message $color={isName && isUniqueName ? "lightgreen" : "red"}>
             {userName.length > 0 && nameMessage}
           </Message>
 
@@ -204,7 +198,15 @@ const Join = () => {
           </Message>
           <SignUpBtn
             type="submit"
-            disabled={!(isName && isEmail && isPassword && isPasswordConfirm)}
+            disabled={
+              !(
+                isName &&
+                isUniqueName &&
+                isEmail &&
+                isPassword &&
+                isPasswordConfirm
+              )
+            }
             $background={colors.theme3}
           >
             가입하기
