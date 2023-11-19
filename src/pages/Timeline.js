@@ -6,6 +6,8 @@ import "slick-carousel/slick/slick-theme.css";
 import BookCover from "../components/timeline/BookCover";
 import { getBooks } from "../api/books";
 import ArrowButton from "../components/common/ArrowButton";
+import { useDispatch, useSelector } from "react-redux";
+import { userSlice } from "../redux/userSlice";
 
 const Wrapper = styled.div`
   width: 50px;
@@ -21,6 +23,9 @@ function Timeline() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeSlide2, setActiveSlide2] = useState(0);
   const [page, setPage] = useState(0);
+  const refresh = useSelector((state) => state.user.refresh);
+
+  const dispatch = useDispatch();
 
   //전체 동화책 조회
   useEffect(() => {
@@ -30,6 +35,14 @@ function Timeline() {
     }
     fetchBooks();
   }, [page]);
+
+  //로그인 직후 새로고침
+  useEffect(() => {
+    if (refresh) {
+      dispatch(userSlice.actions.setRefresh(false));
+      window.location.reload();
+    }
+  }, []);
 
   const settings = {
     adaptiveHeight: true,
