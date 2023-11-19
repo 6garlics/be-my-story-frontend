@@ -25,6 +25,7 @@ const Login = () => {
       try {
         await login(formData);
         dispatch(userSlice.actions.setUserName({ userName: userName }));
+        dispatch(userSlice.actions.setRefresh(true));
         navigate("/");
       } catch (err) {
         if (err.response.status === 401) setMessage("비밀번호가 틀렸어요.");

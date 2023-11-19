@@ -4,19 +4,28 @@ import { styled } from "styled-components";
 import ColorContext from "../../contexts/Color";
 import { logout } from "../../api/users";
 import { isLogin } from "../../accessControl/isLogin";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import home from "../../assets/home.svg";
 import write from "../../assets/write.svg";
 import bookshelf from "../../assets/bookshelf.svg";
+import { bookSlice } from "../../redux/bookSlice";
+import { userSlice } from "../../redux/userSlice";
+import { timelineSlice } from "../../redux/timelineSlice";
 
 const Nav = () => {
   const userName = useSelector((state) => state.user.userName);
   const colors = useContext(ColorContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onLogout = async () => {
     try {
       await logout({});
+      localStorage.removeItem("beMyStoryToken");
+      localStorage.removeItem("userName");
+      dispatch(bookSlice.actions.reset());
+      dispatch(userSlice.actions.reset());
+      dispatch(timelineSlice.actions.reset());
       navigate("/login");
     } catch (err) {}
   };

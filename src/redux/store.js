@@ -7,6 +7,7 @@ import { bookSlice } from "./bookSlice";
 import { userSlice } from "./userSlice";
 import storage from "redux-persist/lib/storage";
 import persistReducer from "redux-persist/es/persistReducer";
+import { timelineSlice } from "./timelineSlice";
 
 const persistConfig = {
   key: "root",
@@ -17,6 +18,7 @@ const persistConfig = {
 const reducers = combineReducers({
   book: bookSlice.reducer,
   user: userSlice.reducer,
+  timeline: timelineSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

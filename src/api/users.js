@@ -61,8 +61,6 @@ export const logout = async (body) => {
     });
 
     console.log("로그아웃", res.data);
-    localStorage.removeItem("beMyStoryToken");
-    localStorage.removeItem("userName");
 
     return res.data;
   } catch (err) {
