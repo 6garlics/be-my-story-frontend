@@ -192,8 +192,8 @@ const RefreshButton = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
-  right: 80px;
-  bottom: 90px;
+  right: 50px;
+  top: 40px;
   &:hover {
     cursor: pointer;
   }
