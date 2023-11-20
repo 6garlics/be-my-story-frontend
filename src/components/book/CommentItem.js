@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
 import { deleteComment } from "../../api/reply";
 import smallTrash from "../../assets/smallTrash.svg";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const CommentItem = ({ userName, profileImg, content, replyId }) => {
   const [isHovering, setIsHovering] = useState(false);
+  const myName = useSelector((state) => state.user.userName);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,12 +43,14 @@ const CommentItem = ({ userName, profileImg, content, replyId }) => {
         </UserName>
         <Content>{content}</Content>
       </Wrapper>
-      <Button
-        src={smallTrash}
-        alt=""
-        $show={isHovering}
-        onClick={onDeleteComment}
-      />
+      {myName && myName === userName && (
+        <Button
+          src={smallTrash}
+          alt=""
+          $show={isHovering}
+          onClick={onDeleteComment}
+        />
+      )}
     </Root>
   );
 };

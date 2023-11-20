@@ -13,7 +13,7 @@ import BookDetail from "./pages/BookDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { postBook } from "./api/books";
 import { bookSlice } from "./redux/bookSlice";
-import MailBoxPage from "./pages/MailBoxPage";
+import LetterBoxPage from "./pages/LetterBoxPage";
 import PrivateRoutes from "./accessControl/PrivateRoutes";
 import "./fonts/font.css";
 
@@ -96,7 +96,7 @@ function App() {
               )}
             />
             <Route path="/book/:bookId/detail" element={<BookDetail />} />
-            <Route path="/mail-box" element={<MailBoxPage />} />
+            <Route path="/letter-box" element={<LetterBoxPage />} />
           </Route>
         </Routes>
       </Main>

@@ -46,7 +46,7 @@ function BookCover({ bookId, userName, title, titlePos, coverUrl }) {
 const Container = styled.div`
   /* width: ${(props) => (props.$pageNum === 0 ? "100%" : "200%")}; */
   width: 100%;
-  padding: 30px 0;
+  padding-bottom: 60px;
   box-sizing: border-box;
   transition: all 0.5s ease-in-out;
   display: flex;

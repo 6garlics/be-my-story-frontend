@@ -7,6 +7,8 @@ import { follow, getFollower, getFollowing, unfollow } from "../../api/users";
 import FriendList from "./FriendList";
 import ColorContext from "../../contexts/Color";
 import { userSlice } from "../../redux/userSlice";
+import { useNavigate } from "react-router-dom";
+import letter from "../../assets/letter.svg";
 
 const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
   //0: 리스트 숨기기, 1: 팔로워 리스트, 2: 팔로잉 리스트
@@ -16,6 +18,7 @@ const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
   const myName = useSelector((state) => state.user.userName);
   const refresh = useSelector((state) => state.user.refresh);
   const colors = useContext(ColorContext);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -74,9 +77,8 @@ const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
           <div>{following.length}</div>
         </Following>
       </ProfileInfo>
-      {myName &&
-        userName !== myName &&
-        (friendStatus === "following" ? (
+      {myName && userName !== myName ? (
+        friendStatus === "following" ? (
           <FollowButton
             $background="white"
             $color="black"
@@ -92,7 +94,18 @@ const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
           >
             친구맺기
           </FollowButton>
-        ))}
+        )
+      ) : (
+        // 편지함 버튼
+        <LetterButton
+          onClick={() => navigate("/letter-box")}
+          $background={colors.theme3}
+          $color="white"
+        >
+          {/* <Icon src={letter} />
+          편지함 */}
+        </LetterButton>
+      )}
       {/*{showFriendList !== 0 && (*/}
       <FriendListWrapper $showFriendList={showFriendList !== 0}>
         <FriendList
@@ -163,6 +176,9 @@ const ProfileInfo = styled.div`
 
 const Books = styled.div`
   text-align: center;
+  &:hover {
+    cursor: default;
+  }
 `;
 
 const Follower = styled.div`
@@ -193,6 +209,23 @@ const FollowButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const LetterButton = styled.div`
+  position: absolute;
+  bottom: 30px;
+  /* left: 30px; */
+  /* margin-top: 20px; */
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Icon = styled.img`
+  margin-right: 4px;
 `;
 
 const FriendListWrapper = styled.div`

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import home from "../../assets/home.svg";
 import write from "../../assets/write.svg";
 import bookshelf from "../../assets/bookshelf.svg";
+import letter from "../../assets/letter.svg";
 import { bookSlice } from "../../redux/bookSlice";
 import { userSlice } from "../../redux/userSlice";
 import { timelineSlice } from "../../redux/timelineSlice";
@@ -23,6 +24,7 @@ const Nav = () => {
       await logout({});
       localStorage.removeItem("beMyStoryToken");
       localStorage.removeItem("userName");
+      localStorage.removeItem("bookshelfScroll");
       dispatch(bookSlice.actions.reset());
       dispatch(userSlice.actions.reset());
       dispatch(timelineSlice.actions.reset());
@@ -54,6 +56,9 @@ const Nav = () => {
           </NLink>
           <NLink to={`/bookshelf/${userName}`} $activeColor={colors.theme3}>
             <Icon src={bookshelf} />
+          </NLink>
+          <NLink to={`/letter-box`} $activeColor={colors.theme3}>
+            <Icon src={letter} />
           </NLink>
         </>
       )}

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userSlice } from "../redux/userSlice";
 import { timelineSlice } from "./../redux/timelineSlice";
 import { useRef } from "react";
+import refreshIcon from "../assets/refresh.svg";
 
 const Wrapper = styled.div`
   width: 50px;
@@ -34,12 +35,18 @@ function Timeline() {
   const sliderRef = useRef();
   const dispatch = useDispatch();
 
+  //로그인 직후 새로고침
+  useEffect(() => {
+    if (refresh) {
+      dispatch(userSlice.actions.setRefresh(false));
+      window.location.reload();
+    }
+  }, []);
+
   //원래 보고있던 동화책으로 이동
   useEffect(() => {
-    setOldSlide(index - 1);
-    setActiveSlide(index);
+    setInterval(() => setHide(false), 100);
     sliderRef.current.slickGoTo(index);
-    setHide(false);
   }, []);
 
   //전체 동화책 조회
@@ -57,13 +64,10 @@ function Timeline() {
     fetchBooks();
   }, [page]);
 
-  //로그인 직후 새로고침
-  useEffect(() => {
-    if (refresh) {
-      dispatch(userSlice.actions.setRefresh(false));
-      window.location.reload();
-    }
-  }, []);
+  //처음으로 클릭 시
+  const onClickRefresh = () => {
+    sliderRef.current.slickGoTo(0);
+  };
 
   const settings = {
     adaptiveHeight: true,
@@ -116,6 +120,10 @@ function Timeline() {
               />
             ))}
           </Slider>
+          <RefreshButton onClick={onClickRefresh}>
+            처음으로
+            <Image src={refreshIcon} />
+          </RefreshButton>
         </SliderWrapper>
       </Container>
     </Root>
@@ -178,6 +186,21 @@ const SliderWrapper = styled.div`
       color: #e9e9e9;
     }
   }s
+`;
+
+const RefreshButton = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  right: 50px;
+  top: 40px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Image = styled.img`
+  margin-left: 6px;
 `;
 
 export default Timeline;
