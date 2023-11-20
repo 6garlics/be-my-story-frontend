@@ -1,17 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import Profile from "../common/Profile";
 
-const MailItem = ({ bookId, senderName, content }) => {
+const MailItem = ({ bookId, coverUrl, senderName, content, onClick }) => {
+  const navigate = useNavigate();
+
   return (
-    <Wrapper>
+    <Wrapper onClick={onClick}>
       {/* <Content>{content}</Content> */}
       <ProfileWrapper>
-        <Profile userName={senderName} />
+        <Profile userName={senderName} preventClick={true} />
       </ProfileWrapper>
       님이 보낸 편지
       <BookCoverWrapper>
-        <Cover src="/images/dummy1.png" alt="" />
+        <Cover
+          src={coverUrl}
+          onClick={() => navigate(`/book/${bookId}/detail`)}
+          alt=""
+        />
       </BookCoverWrapper>
     </Wrapper>
   );

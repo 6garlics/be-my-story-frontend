@@ -15,8 +15,8 @@ import edit from "../../assets/edit.svg";
 import trash from "../../assets/trash.svg";
 import diaryIcon from "../../assets/diary.svg";
 import ArrowButton from "../common/ArrowButton";
-import mail from "../../assets/mail.svg";
-import MailForm from "./MailForm";
+import letter from "../../assets/letter.svg";
+import MailForm from "./LetterForm";
 
 function Book({
   userName,
@@ -36,11 +36,6 @@ function Book({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const myName = useSelector((state) => state.user.userName);
-
-  //팔레트
-  // useEffect(() => {
-  //   main();
-  // }, []);
 
   //일기 조회
   useEffect(() => {
@@ -91,13 +86,14 @@ function Book({
 
   return (
     <Root>
-      {/* <img id="img" src="/images/dummy1.png" />
-      <canvas id="canvas"></canvas>
-      <div id="palette"></div>
-      <hr />
-      <div id="complementary"></div> */}
       {isModal && <DiaryModal diary={diary} setIsModal={setIsModal} />}
-      <MailForm showMailForm={showMailForm} setShowMailForm={setShowMailForm} />
+      {/* 편지쓰기 */}
+      <MailForm
+        bookId={bookId}
+        userName={userName}
+        showMailForm={showMailForm}
+        setShowMailForm={setShowMailForm}
+      />
       <CloseBtn onClick={() => navigate(-1)}>
         <IoIosArrowBack size={30} color="white" />
       </CloseBtn>
@@ -116,7 +112,7 @@ function Book({
                 // 편지 쓰기 버튼
                 <Button>
                   <Icon
-                    src={mail}
+                    src={letter}
                     onClick={() => setShowMailForm((prev) => !prev)}
                   />
                 </Button>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { getUserInfo } from "../../api/users";
 
-const Profile = ({ userName }) => {
+const Profile = ({ userName, preventClick = false }) => {
   const [profileImg, setProfileImg] = useState();
 
   const navigate = useNavigate();
@@ -20,10 +20,14 @@ const Profile = ({ userName }) => {
 
   return (
     <Container>
-      <Wrapper onClick={() => navigate(`/bookshelf/${userName}`)}>
+      <Wrapper
+        onClick={() => !preventClick && navigate(`/bookshelf/${userName}`)}
+      >
         <ProfileIcon src={profileImg} />
       </Wrapper>
-      <Wrapper onClick={() => navigate(`/bookshelf/${userName}`)}>
+      <Wrapper
+        onClick={() => !preventClick && navigate(`/bookshelf/${userName}`)}
+      >
         <ProfileName>{userName}</ProfileName>
       </Wrapper>
     </Container>

@@ -1,19 +1,43 @@
 import React from "react";
+import { useState } from "react";
 import { useContext } from "react";
 import { styled } from "styled-components";
+import { sendLetter } from "../../api/letter";
 import ColorContext from "../../contexts/Color";
 
-const MailForm = ({ showMailForm, setShowMailForm }) => {
+const MailForm = ({ bookId, userName, showMailForm, setShowMailForm }) => {
+  const [content, setContent] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
   const colors = useContext(ColorContext);
+
+  const onClickSend = async () => {
+    if (content) {
+      console.log("편지보내기 body", { bookId, content });
+      await sendLetter(userName, { bookId, content });
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 2500);
+      setContent("");
+      setShowMailForm(false);
+    }
+  };
 
   return (
     <Root $hide={!showMailForm}>
       <Text>등장인물에게 편지 쓰기</Text>
       <ContentWrapper>
         <CloseButton onClick={() => setShowMailForm(false)}>X</CloseButton>
-        <Content placeholder="예) 주인공에게" />
-        <Button $background={colors.theme3}>보내기</Button>
+        <Content
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="예) 주인공에게"
+        />
+        <Button onClick={onClickSend} $background={colors.theme3}>
+          보내기
+        </Button>
       </ContentWrapper>
+      <Message $showMessage={showMessage}>편지가 전송되었어요!</Message>
     </Root>
   );
 };
@@ -116,6 +140,15 @@ const Button = styled.div`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const Message = styled.div`
+  position: fixed;
+  bottom: 30px;
+  left: -140px;
+  left: ${({ $showMessage }) => $showMessage && "20px"};
+  opacity: ${({ $showMessage }) => !$showMessage && "0"};
+  transition: all 0.3s ease-in-out;
 `;
 
 export default MailForm;
