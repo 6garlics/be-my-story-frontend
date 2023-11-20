@@ -23,6 +23,7 @@ const Nav = () => {
       await logout({});
       localStorage.removeItem("beMyStoryToken");
       localStorage.removeItem("userName");
+      localStorage.removeItem("bookshelfScroll");
       dispatch(bookSlice.actions.reset());
       dispatch(userSlice.actions.reset());
       dispatch(timelineSlice.actions.reset());
