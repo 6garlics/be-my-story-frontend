@@ -229,6 +229,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0px 20px;
+  margin-bottom: 120px;
 `;
 
 const Header = styled.div`
@@ -289,6 +290,8 @@ const ArrowButtonWrapper = styled.div`
 const Audio = styled.audio`
   position: absolute;
   bottom: 10px;
+  width: 250px;
+  height: 40px;
 `;
 
 export default Book;
