@@ -102,8 +102,8 @@ const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
           $background={colors.theme3}
           $color="white"
         >
-          {/* <Icon src={letter} />
-          편지함 */}
+          <Icon src={letter} />
+          편지함
         </LetterButton>
       )}
       {/*{showFriendList !== 0 && (*/}
