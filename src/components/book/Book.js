@@ -183,7 +183,12 @@ function Book({
         </ArrowButtonWrapper>
       </Wrapper>
       {/* 배경음악 재생바 */}
-      {musicUrl && <Audio controls loop preload src={musicUrl}></Audio>}
+      <Audio
+        controls
+        loop
+        preload
+        src="https://bemystory-s3-data.s3.ap-northeast-2.amazonaws.com/5956e444-881d-11ee-a705-7b2ff80a7a30.wav"
+      ></Audio>
       {/* 댓글창 */}
       <CommentListWrapper $showComments={showComments}>
         <CommentList bookId={bookId} setShowComments={setShowComments} />
@@ -283,7 +288,7 @@ const ArrowButtonWrapper = styled.div`
 
 const Audio = styled.audio`
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
 `;
 
 export default Book;

@@ -57,9 +57,9 @@ const Nav = () => {
           <NLink to={`/bookshelf/${userName}`} $activeColor={colors.theme3}>
             <Icon src={bookshelf} />
           </NLink>
-          <NLink to={`/letter-box`} $activeColor={colors.theme3}>
+          {/* <NLink to={`/letter-box`} $activeColor={colors.theme3}>
             <Icon src={letter} />
-          </NLink>
+          </NLink> */}
         </>
       )}
     </Container>
