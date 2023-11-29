@@ -18,6 +18,7 @@ import {
   thunkCreateMusic,
   thunkCreateTexts,
 } from "../redux/bookSlice";
+import { useRef } from "react";
 
 const genres = ["모험", "우주", "바다", "공룡", "마법", "히어로"];
 
@@ -33,6 +34,7 @@ const DiaryForm = () => {
   const [topic, setTopic] = useState("");
   const [page, setPage] = useState(0); //현재 작성 중인 폼
 
+  const contentRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const title = useSelector((state) => state.book.title);
@@ -42,6 +44,14 @@ const DiaryForm = () => {
   const coverUrl = useSelector((state) => state.book.coverUrl);
   const imageCnt = useSelector((state) => state.book.imageCnt);
   const colors = useContext(ColorContext);
+
+  // 엔터 제출 방지
+  const preventSubmit = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      contentRef.current.focus();
+    }
+  };
 
   //랜덤 토픽 생성
   const getTopic = () => {
@@ -177,9 +187,11 @@ const DiaryForm = () => {
               name="title"
               value={diaryTitle}
               onChange={(e) => setTitle(e.target.value)}
+              onKeyDown={preventSubmit}
             />
 
             <S.Contents
+              ref={contentRef}
               placeholder="일기를 써보아요."
               name="contents"
               value={contents}
