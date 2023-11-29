@@ -19,7 +19,7 @@ export const sendLetter = async (receiverName, body) => {
 //편지리스트by유저
 export const getLetterListByUser = async (userName) => {
   try {
-    const res = await client.get(`/letter/${userName}`, {
+    const res = await client.get(`/letter/user/${userName}`, {
       headers: { "Content-Type": "application/json" },
     });
 
