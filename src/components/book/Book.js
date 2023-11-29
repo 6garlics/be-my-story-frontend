@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Page from "./Page";
 import Profile from "../common/Profile";
@@ -10,6 +10,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import CommentList from "./CommentList";
 import { deleteBook, getDiary } from "../../api/books";
 import { bookSlice } from "../../redux/bookSlice";
+import play from "../../assets/play.svg";
+import pause from "../../assets/pause.svg";
 import chat from "../../assets/chat.svg";
 import edit from "../../assets/edit.svg";
 import trash from "../../assets/trash.svg";
@@ -32,10 +34,26 @@ function Book({
   const [pageNum, setPageNum] = useState(0); //현재 열람하고 있는 페이지 번호 (0번째는 표지)
   const [diary, setDiary] = useState();
   const [showMailForm, setShowMailForm] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const myName = useSelector((state) => state.user.userName);
+
+  const audioRef = useRef();
+
+  // 음악 재생
+  const onPlayMusic = () => {
+    // audioRef.src =
+    //   "https://bemystory-s3-data.s3.ap-northeast-2.amazonaws.com/5956e444-881d-11ee-a705-7b2ff80a7a30.wav";
+    if (!isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+      // audioRef.current.currentTime = 0;
+    }
+    setIsPlaying((prev) => !prev);
+  };
 
   //일기 조회
   useEffect(() => {
@@ -117,6 +135,16 @@ function Book({
                   />
                 </Button>
               )}
+              {/* 음악 재생 버튼 */}
+              <Button onClick={onPlayMusic}>
+                <Icon src={isPlaying ? pause : play} />
+              </Button>
+              <audio
+                ref={audioRef}
+                loop
+                preload
+                src="https://bemystory-s3-data.s3.ap-northeast-2.amazonaws.com/5956e444-881d-11ee-a705-7b2ff80a7a30.wav"
+              ></audio>
               {/* 댓글 보기 버튼 */}
               <Button onClick={() => setShowComments((prev) => !prev)}>
                 <Icon src={chat} />
@@ -182,13 +210,6 @@ function Book({
           />
         </ArrowButtonWrapper>
       </Wrapper>
-      {/* 배경음악 재생바 */}
-      <Audio
-        controls
-        loop
-        preload
-        src="https://bemystory-s3-data.s3.ap-northeast-2.amazonaws.com/5956e444-881d-11ee-a705-7b2ff80a7a30.wav"
-      ></Audio>
       {/* 댓글창 */}
       <CommentListWrapper $showComments={showComments}>
         <CommentList bookId={bookId} setShowComments={setShowComments} />
@@ -229,7 +250,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0px 20px;
-  margin-bottom: 120px;
 `;
 
 const Header = styled.div`
@@ -285,13 +305,6 @@ const PageWrapper = styled.div`
 
 const ArrowButtonWrapper = styled.div`
   margin-top: 60px;
-`;
-
-const Audio = styled.audio`
-  position: absolute;
-  bottom: 10px;
-  width: 250px;
-  height: 40px;
 `;
 
 export default Book;

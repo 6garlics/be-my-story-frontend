@@ -151,7 +151,11 @@ const DiaryForm = () => {
       <S.Wrapper>
         {/* 일기 토픽 */}
         <S.TopicWrapper>
-          <S.Topic>{topic}</S.Topic>
+          <S.Topic>
+            가족과 함께한 좋았던 기억이 있나요?
+            <br />
+            어디에서 무엇을 했나요?
+          </S.Topic>
           <S.RefreshIcon src={refresh} onClick={getTopic} />
         </S.TopicWrapper>
         <S.Form onSubmit={submitDiary}>
