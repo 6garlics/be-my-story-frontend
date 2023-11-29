@@ -107,6 +107,8 @@ const DiaryForm = () => {
         coverUrl === "" &&
         imageCnt === 0
       ) {
+        dispatch(bookSlice.actions.setPages(pages.slice(0, length))); //뒤에 쓸모없는 페이지들 삭제
+
         //배경음악 생성
         dispatch(
           thunkCreateMusic({
@@ -117,8 +119,10 @@ const DiaryForm = () => {
         //표지 생성
         dispatch(
           thunkCreateCover({
-            title: title,
-            texts: pages.map((page) => page.text).slice(0, length),
+            body: {
+              title: title,
+              texts: pages.map((page) => page.text).slice(0, length),
+            },
           })
         );
 

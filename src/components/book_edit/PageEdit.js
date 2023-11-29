@@ -37,6 +37,7 @@ const PageEdit = ({
   const [percentX, setPercentX] = useState(0);
   const [percentY, setPercentY] = useState(0);
   const [textPos, setTextPos] = useState({ x: 0, y: 0 });
+  const [imageStatus, setImageStatus] = useState("show"); //show: 이미지, loading: 로딩 아이콘, blank: 뒷이야기 이어쓰기
 
   //레퍼런스
   const container = useRef(); //Container 참조
@@ -140,48 +141,77 @@ const PageEdit = ({
     }
   }, [textPos]);
 
-  //표지 생성 핸들러
-  const onCreateCover = () => {
-    dispatch(
-      thunkCreateCover({
-        title: title,
-        texts: texts,
-      })
-    );
-    dispatch(bookSlice.actions.setCover(""));
+  // 이미지 요청 취소 컨트롤러
+  let abortController = useRef();
+  useEffect(() => {
+    abortController.current = new AbortController();
+  }, []);
+
+  //이미지 생성/취소 핸들러
+  const onCreateImage = () => {
+    // 이미 생성 중이라면 요청 취소
+    if (imageStatus === "loading") {
+      abortController.current.abort();
+      abortController.current = new AbortController();
+      page.imgUrl !== "blank"
+        ? setImageStatus("show")
+        : setImageStatus("blank");
+    } else {
+      if (index === 0) {
+        // 표지 생성 요청
+        console.log("표지 생성 요청");
+        dispatch(
+          thunkCreateCover({
+            body: { title: title, texts: texts },
+            signal: abortController.current.signal,
+          })
+        );
+      } else {
+        // 삽화 생성 요청
+        console.log("삽화 생성 요청");
+        dispatch(
+          thunkCreateImage({
+            pageNum: index - 1,
+            body: {
+              text: newText,
+            },
+            signal: abortController.current.signal,
+          })
+        );
+      }
+      setImageStatus("loading");
+    }
   };
 
-  //삽화 생성 핸들러
-  const onCreateImage = () => {
-    dispatch(
-      thunkCreateImage({
-        pageNum: index - 1,
-        body: {
-          text: newText,
-        },
-      })
-    );
-    dispatch(bookSlice.actions.setImage({ index: index - 1, imgUrl: "" }));
-  };
+  // 삽화 생성되면 로딩 해제
+  useEffect(() => {
+    if (page.imgUrl === "blank") {
+      setImageStatus("blank");
+    } else if (page.imgUrl !== "") {
+      setImageStatus("show");
+    } else {
+      setImageStatus("loading");
+    }
+  }, [page.imgUrl]);
 
   return (
     <Root $show={show}>
       <Container $show={show} ref={container}>
-        {page.imgUrl && page.imgUrl !== "" && page.imgUrl !== "null" ? (
+        {imageStatus === "show" ? (
           <Image src={page.imgUrl} loading="lazy" />
         ) : (
-          <Loader>
-            {page.imgUrl !== "null" && (
+          <Blank>
+            {imageStatus === "loading" && (
               <DotLoader color={colors.theme3} size={"10vw"} />
             )}
-          </Loader>
+          </Blank>
         )}
         <TextWrapper
           ref={textWrapper}
           $x={percentX}
           $y={percentY}
           $isCover={index === 0}
-          $hideShadow={!page.imgUrl || page.imgUrl === "null"}
+          $hideShadow={imageStatus !== "show"}
         >
           <DragHandle
             src="/icons/move.png"
@@ -203,11 +233,12 @@ const PageEdit = ({
         <PageNum>{index !== 0 && index}</PageNum>
       </Container>
       {
-        <CreateImgButton
-          onClick={index === 0 ? onCreateCover : onCreateImage}
-          $background={colors.theme3}
-        >
-          {index === 0 ? "표지 만들기" : "삽화 만들기"}
+        <CreateImgButton onClick={onCreateImage} $background={colors.theme3}>
+          {imageStatus === "loading"
+            ? "취소"
+            : index === 0
+            ? "표지 만들기"
+            : "삽화 만들기"}
         </CreateImgButton>
       }
     </Root>
@@ -249,7 +280,7 @@ const Image = styled.img`
   user-drag: none;
 `;
 
-const Loader = styled.div`
+const Blank = styled.div`
   width: 100%;
   position: absolute;
   aspect-ratio: 1 / 1;

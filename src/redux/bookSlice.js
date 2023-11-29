@@ -24,16 +24,16 @@ export const thunkCreateMusic = createAsyncThunk(
 
 export const thunkCreateCover = createAsyncThunk(
   "bookSlice/fetchBookCover",
-  async (body) => {
-    const data = await createCover(body);
-    return data;
+  async ({ body, signal }) => {
+    const data = await createCover(body, signal);
+    return { coverUrl: data.coverUrl };
   }
 );
 
 export const thunkCreateImage = createAsyncThunk(
   "bookSlice/thunkCreateImage",
-  async ({ pageNum, body }) => {
-    const data = await createImage(pageNum, body);
+  async ({ pageNum, body, signal }) => {
+    const data = await createImage(pageNum, body, signal);
     return { imgUrl: data.imgUrl, pageNum: pageNum };
   }
 );
@@ -68,7 +68,7 @@ export const bookSlice = createSlice({
       state.coverUrl = "";
       state.pages = Array.from({ length: 15 }, () => ({
         text: "",
-        imgUrl: "null",
+        imgUrl: "",
         x: 0,
         y: 0,
       }));
@@ -110,7 +110,7 @@ export const bookSlice = createSlice({
     addPage: (state, action) => {
       state.pages.push({
         text: "",
-        imgUrl: "null",
+        imgUrl: "blank",
         x: 0,
         y: 0,
       });

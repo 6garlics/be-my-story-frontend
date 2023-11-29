@@ -1,3 +1,4 @@
+import axios from "axios";
 import AIclient from "./AIclient";
 
 //동화 텍스트 생성
@@ -33,33 +34,43 @@ export const createMusic = async (body) => {
 };
 
 //표지 생성
-export const createCover = async (body) => {
+export const createCover = async (body, signal) => {
   try {
     const res = await AIclient.post(`/cover`, body, {
       headers: { "Content-Type": "application/json" },
+      signal: signal,
     });
 
     console.log("생성된 커버", res.data);
     return res.data;
   } catch (err) {
-    console.log("커버 에러 발생");
-    console.log(err);
-    throw err;
+    if (axios.isCancel(err)) {
+      console.log("표지 생성 취소");
+    } else {
+      console.log("커버 에러 발생");
+      console.log(err);
+      throw err;
+    }
   }
 };
 
 //일러스트 1개 생성
-export const createImage = async (pageNum, body) => {
+export const createImage = async (pageNum, body, signal) => {
   try {
     const res = await AIclient.post(`/textToImage/${pageNum}`, body, {
       headers: { "Content-Type": "application/json" },
+      signal: signal,
     });
 
     console.log("생성된 일러스트", res.data);
     return res.data;
   } catch (err) {
-    console.log("일러스트 에러 발생");
-    console.log(err);
-    throw err;
+    if (axios.isCancel(err)) {
+      console.log("일러스트 생성 취소");
+    } else {
+      console.log("일러스트 에러 발생");
+      console.log(err);
+      throw err;
+    }
   }
 };
