@@ -44,13 +44,10 @@ function Book({
 
   // 음악 재생
   const onPlayMusic = () => {
-    // audioRef.src =
-    //   "https://bemystory-s3-data.s3.ap-northeast-2.amazonaws.com/5956e444-881d-11ee-a705-7b2ff80a7a30.wav";
     if (!isPlaying) {
       audioRef.current.play();
     } else {
       audioRef.current.pause();
-      // audioRef.current.currentTime = 0;
     }
     setIsPlaying((prev) => !prev);
   };
@@ -136,15 +133,12 @@ function Book({
                 </Button>
               )}
               {/* 음악 재생 버튼 */}
-              <Button onClick={onPlayMusic}>
-                <Icon src={isPlaying ? pause : play} />
-              </Button>
-              <audio
-                ref={audioRef}
-                loop
-                preload
-                src="https://bemystory-s3-data.s3.ap-northeast-2.amazonaws.com/5956e444-881d-11ee-a705-7b2ff80a7a30.wav"
-              ></audio>
+              {musicUrl && (
+                <Button onClick={onPlayMusic}>
+                  <Icon src={isPlaying ? pause : play} />
+                </Button>
+              )}
+              <audio ref={audioRef} loop preload src={musicUrl}></audio>
               {/* 댓글 보기 버튼 */}
               <Button onClick={() => setShowComments((prev) => !prev)}>
                 <Icon src={chat} />

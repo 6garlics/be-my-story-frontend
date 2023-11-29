@@ -96,7 +96,7 @@ const DiaryForm = () => {
     dispatch(bookSlice.actions.setDate(dateToString(date)));
   };
 
-  //표지와 일러스트 생성, book-edit으로 리다이렉션
+  //표지, 일러스트 배경음악 생성, book-edit으로 리다이렉션
   useEffect(() => {
     async function createBook() {
       //제목과 텍스트는 생성되고, 배경음악, 커버, 일러스트는 생성 안된 상태라면
@@ -161,11 +161,7 @@ const DiaryForm = () => {
       <S.Wrapper>
         {/* 일기 토픽 */}
         <S.TopicWrapper>
-          <S.Topic>
-            가족과 함께한 좋았던 기억이 있나요?
-            <br />
-            어디에서 무엇을 했나요?
-          </S.Topic>
+          <S.Topic>{topic}</S.Topic>
           <S.RefreshIcon src={refresh} onClick={getTopic} />
         </S.TopicWrapper>
         <S.Form onSubmit={submitDiary}>
