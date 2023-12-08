@@ -1,5 +1,7 @@
 # 토리 (Tori)
 
+<img width="300" src="https://github.com/6garlics/tori/assets/97157930/cb60a498-f9d3-42ae-8a96-88199c9358d4">
+
 ## 📗 세상에 없던 나만의 동화책, 토리
 토리는 아동이 일기를 작성하면 생성형 AI가 e-동화책으로 만들어주어 친구들과 함께 공유해 볼 수 있는 플랫폼입니다.
 <br/><br/>
