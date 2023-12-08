@@ -8,7 +8,7 @@
 
 
 ## 🧄 팀 육쪽마늘
-이화여자대학교 캡스톤디자인과창업프로젝트B 스타트 6조
+이화여자대학교 캡스톤디자인과창업프로젝트 6조
 <br/><br/>
 
 ## 📌 배포 주소
@@ -25,8 +25,8 @@ For building and running the application you need:
 
 ### Installation
 ```
-git clone https://github.com/6garlics/be-my-story.git
-cd be-my-story
+git clone https://github.com/6garlics/tori.git
+cd tori
 npm install
 npm start
 ```
