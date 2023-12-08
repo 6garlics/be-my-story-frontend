@@ -12,14 +12,14 @@
 <br/><br/>
 
 ## 📌 배포 주소
-[be-my-story.vercel.app](be-my-story.vercel.app)
+https://tori-fairytale.vercel.app/
 <br/><br/>
 
 ## 시작 가이드
 ### Requirements
 
 For building and running the application you need: 
-- node `v16.14.0`
+- node `v20.9.0`
 - npm `7.24.2`
 
 
