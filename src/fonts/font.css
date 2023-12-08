@@ -1,40 +1,4 @@
 @font-face {
-  font-family: "Dongwha";
-  font-style: normal;
-  src: url("./Dongwha.ttf");
-}
-
-@font-face {
-  font-family: "Jalnan";
-  font-style: normal;
-  src: url("./JalnanOTF.otf");
-}
-
-@font-face {
-  font-family: "FlowerScent";
-  font-style: normal;
-  src: url("./FlowerScent.ttf");
-}
-
-@font-face {
-  font-family: "Beomsom";
-  font-style: normal;
-  src: url("./Beomsom.ttf");
-}
-
-@font-face {
-  font-family: "SOYO Maple Bold";
-  font-style: normal;
-  src: url("./SOYO Maple Bold.ttf");
-}
-
-@font-face {
-  font-family: "SOYO Maple Regular";
-  font-style: normal;
-  src: url("./SOYO Maple Regular.ttf");
-}
-
-@font-face {
   font-family: "SKYBORI";
   font-style: normal;
   src: url("./SKYBORI.ttf");
