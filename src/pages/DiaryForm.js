@@ -20,7 +20,7 @@ import {
 } from "../redux/bookSlice";
 import { useRef } from "react";
 
-const genres = ["모험", "우주", "바다", "공룡", "마법", "히어로"];
+const genres = ["모험", "우주", "바다", "공룡", "마법", "영웅"];
 
 // const days = ["일", "월", "화", "수", "목", "금", "토"];
 

@@ -16,11 +16,11 @@ const FriendListItem = ({ userName, onFollow, onUnfollow, friendStatus }) => {
             onClick={() => onFollow(userName)}
             $background={colors.theme2}
           >
-            친구맺기
+            팔로우
           </FollowBtn>
         ) : (
           <FollowBtn onClick={() => onUnfollow(userName)} $background="#aaaaaa">
-            친구끊기
+            언팔로우
           </FollowBtn>
         ))}
     </Root>

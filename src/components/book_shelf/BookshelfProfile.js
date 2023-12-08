@@ -84,7 +84,7 @@ const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
             $color="black"
             onClick={() => onUnfollow(userName)}
           >
-            친구끊기
+            언팔로우
           </FollowButton>
         ) : (
           <FollowButton
@@ -92,7 +92,7 @@ const BookshelfProfile = ({ userName, profileImg, friendStatus, bookCnt }) => {
             $color="white"
             onClick={() => onFollow(userName)}
           >
-            친구맺기
+            팔로우
           </FollowButton>
         )
       ) : (
