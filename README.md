@@ -1,11 +1,12 @@
 # 토리 (Tori)
 
-<img width="300" src="https://github.com/6garlics/tori/assets/97157930/cb60a498-f9d3-42ae-8a96-88199c9358d4">
+<img width="100" src="https://github.com/6garlics/tori/assets/97157930/cb60a498-f9d3-42ae-8a96-88199c9358d4">
+<img src="https://github.com/6garlics/tori/assets/97157930/6691d4ec-44a4-4b06-946c-fdd816fbd286">
 
 ## 📗 세상에 없던 나만의 동화책, 토리
-토리는 아동이 일기를 작성하면 생성형 AI가 e-동화책으로 만들어주어 친구들과 함께 공유해 볼 수 있는 플랫폼입니다.
+토리는 아동이 일기를 작성하면 생성형 AI가 그림 동화책으로 만들어주어 친구들과 SNS처럼 공유해 볼 수 있는 플랫폼입니다.
 <br/><br/>
-개발기간: 2023.05.08 ~ now
+개발기간: 2023.05 ~ 2023.12
 <br/><br/>
 
 
@@ -34,6 +35,15 @@ npm start
 ```
 
 ## Stacks
+
+### Development
+<div>
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=visualstudiocode&logoColor=white"> 
+<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
+</div>
+
 ### Environment
 <div>
 <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white"/>
@@ -46,12 +56,10 @@ npm start
 <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
 </div>
 
-### Development
+### Communication
 <div>
-<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=visualstudiocode&logoColor=white"> 
-<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
-<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
+<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+<img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white"> 
 </div>
 
 ## 폴더 구조
@@ -141,8 +149,3 @@ src
 ```
 
 
-### Communication
-<div>
-<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
-<img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white"> 
-</div>
